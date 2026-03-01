@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,6 +28,30 @@
     .nav-links .cta { background: var(--black); color: var(--white) !important; padding: 0.875rem 2rem; border-radius: 50px; }
     .nav-links .cta:hover { background: var(--gold); }
 
+    .nav-logo-img {
+    width: 200px;                /* adjust size */
+    height: 80px;
+    border-radius: 50%;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.nav-logo-img img {
+    width: 100%;                 /* fill the container */
+    height: 100%;
+    object-fit: contain;
+    transition: all 0.4s ease;
+}
+.nav-logo-text {
+        font-family: 'Italiana', serif;
+        font-size: 1.5rem;
+        color: var(--black);
+        letter-spacing: 4px;
+    }
     /* HERO */
     .hero {
         height: 100vh; min-height: 600px; margin-top: 80px;
@@ -173,11 +198,15 @@
 <body>
 
 <nav>
-    <a href="index.html" class="logo">🌿 RWANDA</a>
+    <div class="nav-logo-img">
+            <div class="logo-wrapper">
+                <img src="{% static 'logo.png' %}" alt="Logo" class="logo-img">
+            </div>
+            {% comment %} <div class="nav-logo-text">DISCOVER RWANDA</div> {% endcomment %}
+        </div>
     <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="travel-your-way.html">Travel Types</a></li>
-        <li><a href="contact.html" class="cta">Plan Your Trip</a></li>
+        <li><a href="{% url 'index' %}">Home</a></li>
+        <li><a href="{% url 'contact' %}" class="cta">Plan Your Trip</a></li>
     </ul>
 </nav>
 
@@ -227,7 +256,7 @@
             <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Coffee Experiences</div><div class="xp-desc">Award-winning single-origin Arabica. Plantation visits and professional cupping sessions.</div></div></div>
             <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Traditional Cuisine</div><div class="xp-desc">Ubugali, isombe, slow-cooked bean stews. Authentic meals at Iwacu or Heaven Restaurant.</div></div></div>
             <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Cooking Classes</div><div class="xp-desc">Hands-on sessions with local chefs. Recipes to take home.</div></div></div>
-            <a href="contact.html" class="book-link">Book an Experience →</a>
+            <a href="{% url 'contact' %}" class="book-link">Book an Experience →</a>
         </div>
     </div>
 </div>
@@ -261,7 +290,7 @@
             <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Big Five Safaris</div><div class="xp-desc">Akagera National Park. Lions, rhinos, elephants, leopards, buffalo — all reintroduced and thriving.</div></div></div>
             <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Chimpanzee Tracking</div><div class="xp-desc">Nyungwe Forest. Ancient montane rainforest. Canopy walkway 70m above the treetops.</div></div></div>
             <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Golden Monkeys</div><div class="xp-desc">Endemic to the Virunga mountains. Colourful, fast-moving troops in bamboo forest.</div></div></div>
-            <a href="contact.html" class="book-link">Reserve Permits →</a>
+            <a href="{% url 'contact' %}" class="book-link">Reserve Permits →</a>
         </div>
     </div>
 </div>
@@ -289,7 +318,7 @@
             <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Sunset Cruises</div><div class="xp-desc">Private motorboat hire at golden hour with the Congolese mountains as backdrop.</div></div></div>
             <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Akagera Boat Safari</div><div class="xp-desc">Lake Ihema. 2,000+ hippos. Nile crocodiles. African fish eagles at close range.</div></div></div>
             <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Fishing at Dawn</div><div class="xp-desc">Traditional dugout canoes with local fishermen. Fresh tilapia breakfast on the shore.</div></div></div>
-            <a href="contact.html" class="book-link">Book on the Water →</a>
+            <a href="{% url 'contact' %}" class="book-link">Book on the Water →</a>
         </div>
     </div>
 </div>
@@ -317,7 +346,7 @@
             <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Arts & Galleries</div><div class="xp-desc">Inema Arts Center — rotating exhibitions, sculpture garden, live performances. Artists often present.</div></div></div>
             <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Yoga Retreats</div><div class="xp-desc">Lakeside morning classes, multi-day retreats combining yoga, hiking, and cultural visits.</div></div></div>
             <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Kigali City Walk</div><div class="xp-desc">Nyamirambo quarter, Caplaki Craft Village, Kigali Memorial Centre.</div></div></div>
-            <a href="contact.html" class="book-link">Plan a Leisure Day →</a>
+            <a href="{% url 'contact' %}" class="book-link">Plan a Leisure Day →</a>
         </div>
     </div>
 </div>
@@ -345,7 +374,7 @@
             <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Congo Nile Trail</div><div class="xp-desc">227km cycling route along Lake Kivu. Tea plantations, fishing villages, volcanic views. 6–8 days.</div></div></div>
             <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Trail Running</div><div class="xp-desc">Escarpment trails above Gisenyi. Kigali International Marathon runs annually in January.</div></div></div>
             <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Zip Lining</div><div class="xp-desc">Forest canopy runs near Bugesera outside Kigali. Suitable for ages 10+.</div></div></div>
-            <a href="contact.html" class="book-link">Plan an Expedition →</a>
+            <a href="{% url 'contact' %}" class="book-link">Plan an Expedition →</a>
         </div>
     </div>
 </div>
@@ -373,7 +402,7 @@
             <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Intore Dance</div><div class="xp-desc">Traditional royal court dance. Nightly performances at Iwacu Cultural Village near Kinigi.</div></div></div>
             <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Kigali Up Festival — July</div><div class="xp-desc">East Africa's leading music festival. Afrobeats, jazz, hip-hop, and traditional fusion.</div></div></div>
             <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Kigali Marathon — January</div><div class="xp-desc">International road race through the city's rolling hills. Open to all abilities.</div></div></div>
-            <a href="contact.html" class="book-link">Plan Around Events →</a>
+            <a href="{% url 'contact' %}" class="book-link">Plan Around Events →</a>
         </div>
     </div>
 </div>
@@ -401,7 +430,7 @@
             <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">One&Only Nyungwe House</div><div class="xp-desc">Tea estate lodge at 2,000m. Forest spa, estate-garden restaurant, direct forest access.</div></div></div>
             <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Helicopter Transfers</div><div class="xp-desc">Kigali to Volcanoes in 45 minutes. Scenic circuits over the Virunga chain for photographers.</div></div></div>
             <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Private Chef Dining</div><div class="xp-desc">In-villa tasting menus, lakeside dinners, champagne forest breakfasts after gorilla treks.</div></div></div>
-            <a href="contact.html" class="book-link">Enquire for Luxury →</a>
+            <a href="{% url 'contact' %}" class="book-link">Enquire for Luxury →</a>
         </div>
     </div>
 </div>
@@ -412,7 +441,7 @@
 <section class="cta">
     <h2>Ready to Go?</h2>
     <p>Tell us what excites you. We handle everything else.</p>
-    <a href="contact.html" class="cta-btn">Start Planning →</a>
+    <a href="{% url 'contact' %}" class="cta-btn">Start Planning →</a>
 </section>
 
 <!-- FOOTER -->

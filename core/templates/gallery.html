@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +14,24 @@
         .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1.25rem 6%; background: #fff; box-shadow: 0 2px 15px rgba(0,0,0,0.06); }
         .nav-container { max-width: 1600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         .nav-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
-        .nav-logo-img { font-size: 1.75rem; }
+        .nav-logo-img {
+    width: 200px;                /* adjust size */
+    height: 100px;
+    border-radius: 50%;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.nav-logo-img img {
+    width: 100%;                 /* fill the container */
+    height: 100%;
+    object-fit: contain;
+    transition: all 0.4s ease;
+}
         .nav-logo-text { font-family: 'Italiana', serif; font-size: 1.35rem; color: #000; letter-spacing: 3px; }
         .nav-menu { display: flex; list-style: none; gap: 3.5rem; align-items: center; }
         .nav-item a { font-size: 0.8125rem; font-weight: 600; color: #333; text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; transition: all 0.3s ease; }
@@ -107,12 +125,15 @@
 <nav class="nav">
     <div class="nav-container">
         <a href="index.html" class="nav-brand">
-            <div class="nav-logo-img">🌿</div>
-            <div class="nav-logo-text">RWANDA</div>
+            <div class="nav-logo-img">
+            <div class="logo-wrapper">
+                <img src="{% static 'logo.png' %}" alt="Logo" class="logo-img">
+            </div>
+        </div>
+            <div class="nav-logo-text">DISCOVER RWANDA</div>
         </a>
         <ul class="nav-menu">
             <li class="nav-item"><a href="{% url 'index' %}">Home</a></li>
-            <li class="nav-item"><a href="{% url 'things_to_do' %}">Things to Do</a></li>
             <li class="nav-item"><a href="{% url 'gallery' %}">Gallery</a></li>
             <li class="nav-item"><a href="{% url 'contact' %}" class="nav-cta">Plan Your Trip</a></li>
         </ul>

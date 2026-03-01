@@ -2367,51 +2367,51 @@
                     </div>
                     <div class="nav-dropdown-item">
                         <a href="{% url 'volcanic_mountains' %}">Volcanic Mountains</a>
-                        <div class="nav-sub-dropdown">
+                        {% comment %} <div class="nav-sub-dropdown">
                             <a href="mount-karisimbi.html">MOUNT KARISIMBI</a>
                             <a href="mount-muhabura.html">MOUNT MUHABURA</a>
                             <a href="mount-sabyinyo.html">MOUNT SABYINYO</a>
                             <a href="mount-bisoke.html">MOUNT BISOKE</a>
                             <a href="mount-gahinga.html">MOUNT GAHINGA</a>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                     <div class="nav-dropdown-item">
                         <a href="{% url 'museums_heritage' %}">Museums & Heritage Sites</a>
-                        <div class="nav-sub-dropdown">
+                        {% comment %} <div class="nav-sub-dropdown">
                             <a href="ethnographic-museum.html">ETHNOGRAPHIC MUSEUM</a>
                             <a href="campaign-against-genocide-museum.html">CAMPAIGN AGAINST GENOCIDE MUSEUM</a>
                             <a href="nyanza-royal-palace.html">NYANZA ROYAL PALACE MUSEUM</a>
                             <a href="kandt-house-museum.html">KANDT HOUSE MUSEUM</a>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                     <div class="nav-dropdown-item">
                         <a href="{% url 'memorial_sites' %}">Memorial Sites</a>
-                        <div class="nav-sub-dropdown">
+                        {% comment %} <div class="nav-sub-dropdown">
                             <a href="kigali-genocide-memorial.html">KIGALI GENOCIDE MEMORIAL</a>
                             <a href="bisesero-genocide-memorial.html">BISESERO GENOCIDE MEMORIAL</a>
                             <a href="nyamata-genocide-memorial.html">NYAMATA GENOCIDE MEMORIAL</a>
                             <a href="ntarama-genocide-memorial.html">NTARAMA GENOCIDE MEMORIAL</a>
                             <a href="murambi-genocide-memorial.html">MURAMBI GENOCIDE MEMORIAL</a>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                     <div class="nav-dropdown-item">
                         <a href="{% url 'cultural_villages' %}">Cultural & Art Villages</a>
-                        <div class="nav-sub-dropdown">
+                        {% comment %} <div class="nav-sub-dropdown">
                             <a href="ibyiwacu-cultural-village.html">IBY'IWACU CULTURAL VILLAGE</a>
                             <a href="rwesero-arts-museum.html">RWESERO ARTS MUSEUM</a>
                             <a href="banda-cultural-village.html">BANDA CULTURAL VILLAGE</a>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                     <div class="nav-dropdown-item">
                         <a href="{% url 'top_attractions' %}">Top Tourist Attractions</a>
-                        <div class="nav-sub-dropdown">
+                        {% comment %} <div class="nav-sub-dropdown">
                             <a href="lake-kivu.html">LAKE KIVU</a>
                             <a href="akagera-national-park.html">AKAGERA NATIONAL PARK</a>
                             <a href="volcanoes-national-park.html">VOLCANOES NATIONAL PARK</a>
                             <a href="nyungwe-forest.html">NYUNGWE FOREST NATIONAL PARK</a>
                             <a href="musanze-caves.html">MUSANZE CAVES</a>
                             <a href="gishwati-mukura.html">GISHWATI MUKURA NATIONAL PARK</a>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                 </div>
             </li>
@@ -2420,7 +2420,7 @@
                 <div class="nav-dropdown">
                     <div class="nav-dropdown-item">
                         <a href="{% url 'unique_experiences' %}">Unique Experiences</a>
-                        <div class="nav-sub-dropdown">
+                        {% comment %} <div class="nav-sub-dropdown">
                             <a href="unique-experiences.html#food-tours">FOOD TOURS</a>
                             <a href="unique-experiences.html#women-retreats">WOMEN-ONLY RETREATS</a>
                             <a href="unique-experiences.html#luxury-rwanda">LUXURY RWANDA</a>
@@ -2429,11 +2429,11 @@
                             <a href="unique-experiences.html#coffee-experiences">COFFEE EXPERIENCES</a>
                             <a href="unique-experiences.html#adventure-nature">ADVENTURE & NATURE</a>
                             <a href="unique-experiences.html#night-safari">AKAGERA NIGHT SAFARI EXPERIENCE</a>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                     <div class="nav-dropdown-item">
                         <a href="{% url 'things_to_do' %}">Things To Do In Rwanda</a>
-                        <div class="nav-sub-dropdown">
+                        {% comment %} <div class="nav-sub-dropdown">
                             <a href="eats-drinks.html">EATS & DRINKS</a>
                             <a href="nature-wildlife.html">NATURE & WILDLIFE</a>
                             <a href="nautical-tourism.html">NAUTICAL TOURISM (WATER-BASED ACTIVITIES)</a>
@@ -2441,16 +2441,16 @@
                             <a href="sports-adventure.html">SPORTS & ADVENTURE</a>
                             <a href="events-festivals.html">EVENTS & FESTIVALS</a>
                             <a href="luxury-experiences.html">LUXURY EXPERIENCES</a>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                     <div class="nav-dropdown-item">
                         <a href="{% url 'travel_types' %}">Travel Rwanda Your Way</a>
-                        <div class="nav-sub-dropdown">
+                        {% comment %} <div class="nav-sub-dropdown">
                             <a href="solo-travel.html">SOLO TRAVEL</a>
                             <a href="family-travel.html">FAMILY TRAVEL</a>
                             <a href="couple-getaways.html">COUPLE GETAWAYS</a>
                             <a href="group-adventures.html">GROUP ADVENTURES</a>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                 </div>
             </li>
@@ -3202,7 +3202,7 @@
             <h2 class="cta-headline">Your Rwanda Journey Awaits</h2>
             <p class="cta-subtext">Let our expert team craft your bespoke adventure. From securing gorilla permits to arranging luxury accommodations, we orchestrate every detail of your transformative journey.</p>
             <div class="cta-action-buttons">
-                <a href="contact.html" class="cta-btn cta-btn-light">
+                <a href="{% url 'contact' %}" class="cta-btn cta-btn-light">
                     Start Planning
                     <span>→</span>
                 </a>

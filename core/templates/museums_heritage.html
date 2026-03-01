@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,8 +63,23 @@
     }
     
     .nav-logo-img {
-        font-size: 2rem;
-    }
+    width: 200px;                /* adjust size */
+    height: 100px;
+    border-radius: 50%;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.nav-logo-img img {
+    width: 100%;                 /* fill the container */
+    height: 100%;
+    object-fit: contain;
+    transition: all 0.4s ease;
+}
     
     .nav-logo-text {
         font-family: 'Italiana', serif;
@@ -654,15 +670,18 @@
 <nav class="nav">
     <div class="nav-container">
         <a href="index.html" class="nav-brand">
-            <div class="nav-logo-img">🌿</div>
-            <div class="nav-logo-text">RWANDA</div>
+            <div class="nav-logo-img">
+            <div class="logo-wrapper">
+                <img src="{% static 'logo.png' %}" alt="Logo" class="logo-img">
+            </div>
+        </div>
+            <div class="nav-logo-text">Discover Rwanda</div>
         </a>
         
         <ul class="nav-menu">
             <li class="nav-item"><a href="{% url 'index' %}">Home</a></li>
-            <li class="nav-item"><a href="towns.html">Towns</a></li>
             <li class="nav-item"><a href="#museums">Museums</a></li>
-            <li class="nav-item"><a href="contact.html" class="nav-cta">Plan Visit</a></li>
+            <li class="nav-item"><a href="{% url 'contact' %}" class="nav-cta">Plan Visit</a></li>
         </ul>
     </div>
 </nav>

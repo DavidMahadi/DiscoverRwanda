@@ -253,11 +253,11 @@ def send_customer_confirmation(booking):
                     <!-- Header -->
                     <tr>
                         <td style="background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%); padding: 50px 40px; text-align: center;">
-                            <div style="color: #ffffff; font-size: 28px; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px;">
-                                🌿 DISCOVER RWANDA
-                            </div>
+                            <img src="https://github.com/DavidMahadi/DiscoverRwanda/blob/main/core/static/logo.png" 
+                                alt="Discover Rwanda Logo" 
+                                style="width: 180px; max-width: 70%; margin-bottom: 10px;">
                             <div style="color: rgba(255, 255, 255, 0.8); font-size: 14px; letter-spacing: 1px;">
-                                LAND OF A THOUSAND HILLS
+                                DISCOVER RWANDA || LAND OF A THOUSAND HILLS
                             </div>
                         </td>
                     </tr>
@@ -506,7 +506,6 @@ Dear {booking.first_name},
 
 Thank you for your interest in visiting Rwanda!
 
-BOOKING REFERENCE: #{booking.get_booking_id()}
 Submitted: {booking.created_at.strftime('%B %d, %Y at %I:%M %p')}
 
 PERSONAL INFORMATION

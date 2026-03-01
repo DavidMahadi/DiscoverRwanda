@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,9 +62,24 @@
         text-decoration: none;
     }
     
-    .nav-logo-img {
-        font-size: 2rem;
-    }
+   .nav-logo-img {
+    width: 200px;                /* adjust size */
+    height: 100px;
+    border-radius: 50%;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.nav-logo-img img {
+    width: 100%;                 /* fill the container */
+    height: 100%;
+    object-fit: contain;
+    transition: all 0.4s ease;
+}
     
     .nav-logo-text {
         font-family: 'Italiana', serif;
@@ -618,8 +634,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <nav class="nav">
     <div class="nav-container">
         <a href="index.html" class="nav-brand">
-            <div class="nav-logo-img">🌿</div>
-            <div class="nav-logo-text">RWANDA</div>
+           <div class="nav-logo-img">
+            <div class="logo-wrapper">
+                <img src="{% static 'logo.png' %}" alt="Logo" class="logo-img">
+            </div>
+        </div>
+            <div class="nav-logo-text">DISCOVER RWANDA</div>
         </a>
         
         <ul class="nav-menu">
@@ -633,7 +653,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <a href="#group-adventures">Group Adventures</a>
                 </div>
             </li>
-            <li class="nav-item"><a href="contact.html" class="nav-cta">Plan Your Trip</a></li>
+            <li class="nav-item"><a href="{% url 'contact' %}" class="nav-cta">Plan Your Trip</a></li>
         </ul>
     </div>
 </nav>
@@ -663,31 +683,31 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <div class="photo-grid-5">
             <div class="photo-item">
-                <img src="https://cdn.shopify.com/s/files/1/0537/1177/files/Becker_Solo_Hiking-Hike.jpg?v=1640211905" alt="Solo hiking">
+                <img src="https://i.pinimg.com/736x/9c/a3/9c/9ca39c58f800ba4d19c81df625e784df.jpg" alt="Solo hiking">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Solo Hiking</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&q=80" alt="Solo gorilla trek">
+                <img src="https://i.pinimg.com/736x/1b/b0/93/1bb093429a44a95a21befac22cb424ad.jpg" alt="Solo gorilla trek">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Gorilla Trekking</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80" alt="Solo lake">
+                <img src="https://i.pinimg.com/736x/cb/9f/70/cb9f7077da58139b1e619081f6764108.jpg" alt="Solo lake">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Lake Kivu</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&q=80" alt="Cultural immersion">
+                <img src="https://i.pinimg.com/1200x/e8/2f/f1/e82ff197b1f70c7c8b76527f28eb3b38.jpg" alt="Cultural immersion">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Cultural Immersion</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80" alt="Coffee tours">
+                <img src="https://i.pinimg.com/1200x/46/e7/ff/46e7ff4ab817484bd1b0c7d61448336e.jpg" alt="Coffee tours">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Coffee Tours</div>
                 </div>
@@ -696,25 +716,25 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <div class="photo-grid-4">
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80" alt="Solo kayaking">
+                <img src="https://i.pinimg.com/1200x/97/df/ec/97dfec945e185db47212ad40ac74d5dc.jpg" alt="Solo kayaking">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Kayaking</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=600&q=80" alt="Sunset views">
+                <img src="https://i.pinimg.com/736x/fb/ef/b3/fbefb3e9a65eb8d1c96c07666fa44f93.jpg" alt="Sunset views">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Sunset Moments</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600&q=80" alt="Wildlife">
+                <img src="https://i.pinimg.com/1200x/6e/40/02/6e4002f05f50a20538ce0d5e2576f157.jpg" alt="Wildlife">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Safari Adventures</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80" alt="Local food">
+                <img src="https://i.pinimg.com/736x/0b/7e/c1/0b7ec151792ce6feee3ae7bdf9c920f1.jpg" alt="Local food">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Food Experiences</div>
                 </div>
@@ -796,31 +816,31 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <div class="photo-grid-5">
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=600&q=80" alt="Family safari">
+                <img src="https://i.pinimg.com/1200x/a2/9b/8d/a29b8dfac15e6d5593883adb3cba570b.jpg" alt="Family safari">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Family Safaris</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600&q=80" alt="Wildlife viewing">
+                <img src="https://i.pinimg.com/1200x/ce/de/ed/cedeeda48c3c3de752d32428ec5d31f0.jpg" alt="Wildlife viewing">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Wildlife Encounters</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=600&q=80" alt="Lake activities">
+                <img src="https://i.pinimg.com/736x/48/64/85/486485f6dbbacba020a12580a032a495.jpg" alt="Lake activities">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Lake Activities</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80" alt="Family lodges">
+                <img src="https://i.pinimg.com/736x/25/e6/40/25e640149bec64075422ba85c4017750.jpg" alt="Family lodges">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Family Lodges</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1583225173988-3d9a1c5d90e5?w=600&q=80" alt="Cultural experiences">
+                <img src="https://i.pinimg.com/1200x/5f/67/44/5f6744113862a6ae6c9d4ecedbc1be8b.jpg" alt="Cultural experiences">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Cultural Activities</div>
                 </div>
@@ -829,19 +849,19 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <div class="photo-grid-3">
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=700&q=80" alt="Beach time">
+                <img src="https://i.pinimg.com/736x/b1/52/e4/b152e45ff0e47a68a068c3d84c6084e1.jpg" alt="Beach time">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Beach Relaxation</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1551982700-3bba29a5b89a?w=700&q=80" alt="Gorilla experience">
+                <img src="https://i.pinimg.com/1200x/d1/c3/7b/d1c37b53f5ae90f66de90309d34e7b6f.jpg" alt="Gorilla experience">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Gorilla Education</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=700&q=80" alt="Boat tours">
+                <img src="https://i.pinimg.com/736x/51/ba/92/51ba9287d5b71ffd5030c74447d798e3.jpg" alt="Boat tours">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Boat Adventures</div>
                 </div>
@@ -924,58 +944,59 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <div class="photo-grid-4">
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=600&q=80" alt="Romantic dinner">
+                <img src="https://i.pinimg.com/1200x/92/5e/e2/925ee2eda15dd64ae3b28dd2a26d0f4b.jpg" alt="Romantic dinner">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Private Dining</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=600&q=80" alt="Lake sunset">
+                <img src="https://i.pinimg.com/736x/04/c6/b3/04c6b35a13e762e42dc69f05ca953475.jpg" alt="Lake sunset">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Sunset Views</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80" alt="Luxury lodge">
+                <img src="https://i.pinimg.com/736x/df/2a/54/df2a5459e130a4faa98a697221565d2b.jpg" alt="Luxury lodge">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Luxury Lodges</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80" alt="Spa treatments">
+                <img src="https://i.pinimg.com/736x/3d/90/ba/3d90badbe67abdaa6245d8e4a0d9eada.jpg" alt="Spa treatments">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Couple's Spa</div>
                 </div>
             </div>
         </div>
-        
+
         <div class="photo-grid-5">
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Boat cruise">
+                <img src="https://i.pinimg.com/736x/02/db/47/02db4726b148a1a94476c6243fbe3403.jpg" alt="Boat cruise">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Private Cruises</div>
                 </div>
             </div>
+        
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&q=80" alt="Beach romance">
+                <img src="https://i.pinimg.com/736x/52/c4/71/52c471cf1049300736f6998d880c6b70.jpg" alt="Beach romance">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Beach Escapes</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80" alt="Mountain views">
+                <img src="https://i.pinimg.com/1200x/ee/85/e7/ee85e75f23eeb2eb1363087b538e1b09.jpg" alt="Mountain views">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Mountain Retreats</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1551982700-3bba29a5b89a?w=600&q=80" alt="Gorilla trek together">
+                <img src="https://i.pinimg.com/1200x/6a/a9/f7/6aa9f77d9ae1e521202f8e60aa43beed.jpg" alt="Gorilla trek together">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Shared Adventures</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80" alt="Fine dining">
+                <img src="https://i.pinimg.com/736x/66/f0/eb/66f0ebda583488d38db0e5ba43b84938.jpg" alt="Fine dining">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Gourmet Experiences</div>
                 </div>
@@ -1058,31 +1079,31 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <div class="photo-grid-5">
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=600&q=80" alt="Group safari">
+                <img src="https://i.pinimg.com/1200x/e9/a3/e1/e9a3e12caa678ca41b0f8c27f75378a8.jpg" alt="Group safari">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Group Safaris</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80" alt="Team hiking">
+                <img src="https://i.pinimg.com/736x/e7/a3/6a/e7a36ae3b1f85d18033d7f84c46b35e2.jpg" alt="Team hiking">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Team Treks</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=600&q=80" alt="Group dining">
+                <img src="https://i.pinimg.com/736x/fe/24/b5/fe24b5b843a21f5254bb01d1e6568797.jpg" alt="Group dining">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Group Dining</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1583225173988-3d9a1c5d90e5?w=600&q=80" alt="Cultural activities">
+                <img src="https://i.pinimg.com/1200x/46/98/e2/4698e26ff665ff48de4665207c2491f2.jpg" alt="Cultural activities">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Cultural Programs</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80" alt="Water activities">
+                <img src="https://i.pinimg.com/1200x/9d/4d/81/9d4d81180301c539eb8e59853fb37aee.jpg" alt="Water activities">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Water Sports</div>
                 </div>
@@ -1091,19 +1112,19 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <div class="photo-grid-3">
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=700&q=80" alt="Group accommodations">
+                <img src="https://i.pinimg.com/1200x/fc/5f/91/fc5f910cfe45a30c3754018380e3b9a4.jpg" alt="Group accommodations">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Group Lodging</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=700&q=80" alt="Wildlife together">
+                <img src="https://i.pinimg.com/1200x/41/c7/13/41c7131d6a94860855464f363767523f.jpg" alt="Wildlife together">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Shared Wildlife</div>
                 </div>
             </div>
             <div class="photo-item">
-                <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=700&q=80" alt="Team building">
+                <img src="https://i.pinimg.com/1200x/86/d1/d5/86d1d510d095f3ceb945967269d1b7e1.jpg" alt="Team building">
                 <div class="photo-caption">
                     <div class="photo-caption-title">Team Building</div>
                 </div>
@@ -1179,7 +1200,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <p class="cta-text">
         No matter your travel style, we'll craft the perfect Rwanda experience just for you. Share your vision and let us handle the details.
     </p>
-    <a href="contact.html" class="cta-button">
+    <a href="{% url 'contact' %}" class="cta-button">
         Start Planning
         <span>→</span>
     </a>
@@ -1206,9 +1227,9 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="footer-column">
             <h4>Quick Links</h4>
             <ul class="footer-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="things-to-do.html">Things to Do</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'things_to_do' %}">Things to Do</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
             </ul>
         </div>
         
