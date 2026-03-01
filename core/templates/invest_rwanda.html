@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invest in Rwanda Tourism | Discover Rwanda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Italiana&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; color: #1a1a1a; line-height: 1.6; background: #fff; }
+        
+        .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1.5rem 6%; background: #fff; box-shadow: 0 2px 20px rgba(0,0,0,0.08); border-bottom: 1px solid #e5e5e5; }
+        .nav-container { max-width: 1900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .nav-brand { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
+        .nav-logo-img { font-size: 2rem; }
+        .nav-logo-text { font-family: 'Italiana', serif; font-size: 1.5rem; color: #000; letter-spacing: 4px; }
+        .nav-menu { display: flex; list-style: none; gap: 4rem; align-items: center; }
+        .nav-item a { font-size: 0.8125rem; font-weight: 600; color: #1a1a1a; text-decoration: none; letter-spacing: 1.8px; text-transform: uppercase; transition: all 0.3s ease; }
+        .nav-item a:hover { color: #666; }
+        .nav-cta { background: #000 !important; color: #fff !important; padding: 1rem 2.5rem !important; border-radius: 50px !important; }
+        
+        .hero { height: 75vh; min-height: 650px; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1800&q=80') center/cover; display: flex; align-items: center; margin-top: 88px; }
+        .hero-content { max-width: 1200px; margin: 0 auto; padding: 0 6%; text-align: center; color: #fff; }
+        .hero-eyebrow { display: inline-block; font-size: 0.875rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; padding: 0.75rem 2rem; border: 2px solid #fff; border-radius: 50px; margin-bottom: 2rem; background: rgba(255,255,255,0.1); }
+        .hero-title { font-family: 'Italiana', serif; font-size: clamp(3.5rem, 8vw, 6rem); margin-bottom: 1.5rem; letter-spacing: 8px; line-height: 1.1; }
+        .hero-subtitle { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.25rem, 2.2vw, 1.75rem); line-height: 1.8; max-width: 900px; margin: 0 auto; opacity: 0.95; }
+        
+        .intro-section { padding: 8rem 6%; background: #f8f8f8; text-align: center; }
+        .intro-content { max-width: 1000px; margin: 0 auto; }
+        .intro-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; margin-bottom: 2rem; color: #000; }
+        .intro-text { font-size: 1.25rem; line-height: 1.9; color: #6a6a6a; margin-bottom: 1.5rem; }
+        
+        .stats-banner { background: #000; color: #fff; padding: 5rem 6%; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4rem; max-width: 1400px; margin: 0 auto; text-align: center; }
+        .stat-item h3 { font-family: 'Italiana', serif; font-size: 3.5rem; margin-bottom: 0.75rem; }
+        .stat-item p { font-size: 0.9375rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.85; line-height: 1.5; }
+        
+        .section { padding: 10rem 6%; }
+        .section:nth-child(even) { background: #fff; }
+        .section:nth-child(odd) { background: #f8f8f8; }
+        .section-container { max-width: 1400px; margin: 0 auto; }
+        .section-title { font-family: 'Italiana', serif; font-size: clamp(2.5rem, 5vw, 4rem); color: #000; margin-bottom: 1.5rem; letter-spacing: 4px; text-align: center; }
+        .section-subtitle { font-size: 1.25rem; color: #6a6a6a; text-align: center; max-width: 900px; margin: 0 auto 5rem; line-height: 1.8; }
+        
+        .opportunity-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; margin: 4rem 0; }
+        .opportunity-card { background: #fff; padding: 3rem; border: 2px solid #e5e5e5; border-radius: 8px; transition: all 0.3s ease; }
+        .section:nth-child(odd) .opportunity-card { box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .opportunity-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(0,0,0,0.12); border-color: #000; }
+        .opportunity-icon { font-size: 3rem; margin-bottom: 1.5rem; }
+        .opportunity-card h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 1.25rem; color: #000; }
+        .opportunity-card p { font-size: 1.0625rem; line-height: 1.8; color: #6a6a6a; margin-bottom: 1.25rem; }
+        .opportunity-card ul { list-style: none; margin-top: 1.5rem; }
+        .opportunity-card li { font-size: 0.9375rem; padding-left: 1.75rem; position: relative; margin-bottom: 0.75rem; color: #1a1a1a; line-height: 1.6; }
+        .opportunity-card li::before { content: '▸'; position: absolute; left: 0; color: #000; font-weight: 700; }
+        
+        .benefits-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem; margin: 4rem 0; }
+        .benefit-card { background: #fff; padding: 3rem; border-left: 4px solid #000; border-radius: 4px; }
+        .section:nth-child(odd) .benefit-card { box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .benefit-card h3 { font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 700; margin-bottom: 1.5rem; color: #000; }
+        .benefit-card p { font-size: 1.0625rem; line-height: 1.9; color: #6a6a6a; margin-bottom: 1.25rem; }
+        .benefit-card ul { list-style: none; margin-top: 1.5rem; }
+        .benefit-card li { font-size: 1.0625rem; padding-left: 2rem; position: relative; margin-bottom: 1rem; color: #1a1a1a; line-height: 1.7; }
+        .benefit-card li::before { content: '✓'; position: absolute; left: 0; color: #000; font-weight: 700; font-size: 1.125rem; }
+        
+        .highlight-box { background: #000; color: #fff; padding: 4rem; border-radius: 8px; margin: 5rem 0; text-align: center; }
+        .highlight-box h3 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 1.5rem; }
+        .highlight-box p { font-size: 1.125rem; line-height: 1.8; opacity: 0.9; max-width: 800px; margin: 0 auto; }
+        
+        .cta { background: #000; padding: 8rem 6%; text-align: center; }
+        .cta-title { font-family: 'Italiana', serif; font-size: clamp(2.5rem, 5vw, 4rem); color: #fff; margin-bottom: 1.5rem; letter-spacing: 4px; }
+        .cta-text { font-size: 1.25rem; color: rgba(255,255,255,0.85); margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.8; }
+        .cta-buttons { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
+        .cta-button { display: inline-flex; align-items: center; gap: 0.75rem; padding: 1.25rem 3rem; background: #fff; color: #000; text-decoration: none; font-weight: 700; font-size: 0.9375rem; letter-spacing: 2px; text-transform: uppercase; border-radius: 50px; transition: all 0.3s ease; border: 2px solid #fff; }
+        .cta-button:hover { background: transparent; color: #fff; transform: translateY(-2px); }
+        .cta-button.secondary { background: transparent; color: #fff; }
+        .cta-button.secondary:hover { background: #fff; color: #000; }
+        
+        footer { background: #000; color: #fff; padding: 6rem 6% 3rem; border-top: 1px solid #333; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; max-width: 1800px; margin: 0 auto 4rem; }
+        .footer-brand h3 { font-family: 'Italiana', serif; font-size: 2rem; margin-bottom: 1.5rem; letter-spacing: 3px; }
+        .footer-description { font-size: 0.9375rem; line-height: 1.8; color: rgba(255,255,255,0.7); }
+        .footer-column h4 { font-size: 0.875rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 1.5rem; color: #fff; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 0.75rem; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9375rem; transition: all 0.3s ease; }
+        .footer-links a:hover { color: #fff; padding-left: 5px; }
+        .footer-bottom { text-align: center; padding-top: 3rem; border-top: 1px solid #333; color: rgba(255,255,255,0.5); font-size: 0.875rem; }
+        
+        @media (max-width: 1200px) {
+            .stats-grid, .opportunity-cards { grid-template-columns: repeat(2, 1fr); }
+            .benefits-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            .stats-grid, .opportunity-cards, .footer-grid { grid-template-columns: 1fr; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav">
+    <div class="nav-container">
+        <a href="index.html" class="nav-brand">
+            <div class="nav-logo-img">🌿</div>
+            <div class="nav-logo-text">RWANDA</div>
+        </a>
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="{% url 'index' %}">Home</a></li>
+            <li class="nav-item"><a href="things-to-do.html">Things to Do</a></li>
+            <li class="nav-item"><a href="contact.html" class="nav-cta">Plan Your Trip</a></li>
+        </ul>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="hero-content">
+        <span class="hero-eyebrow">Investment Opportunities</span>
+        <h1 class="hero-title">INVEST IN AFRICA'S RISING STAR</h1>
+        <p class="hero-subtitle">
+            Discover why forward-thinking investors are choosing Rwanda—where political stability meets rapid economic growth, and tourism presents exceptional ROI opportunities in one of the world's most dynamic markets.
+        </p>
+    </div>
+</section>
+
+<section class="intro-section">
+    <div class="intro-content">
+        <h2 class="intro-title">Why Smart Investors Choose Rwanda</h2>
+        <p class="intro-text">
+            In just three decades, Rwanda has transformed from post-conflict recovery to become one of Africa's most investor-friendly destinations. The World Bank ranks it as the 2nd easiest place to do business in Africa—and tourism is leading the charge.
+        </p>
+        <p class="intro-text">
+            With gorilla tourism driving high-value visitors and infrastructure development opening new destinations, Rwanda's tourism sector offers compelling returns backed by stable governance, transparent regulations, and active government support.
+        </p>
+    </div>
+</section>
+
+<section class="stats-banner">
+    <div class="stats-grid">
+        <div class="stat-item">
+            <h3>2nd</h3>
+            <p>Easiest Business<br>Environment in Africa</p>
+        </div>
+        <div class="stat-item">
+            <h3>6 hrs</h3>
+            <p>Company<br>Registration Time</p>
+        </div>
+        <div class="stat-item">
+            <h3>7.5%</h3>
+            <p>GDP Growth<br>Rate (2024)</p>
+        </div>
+        <div class="stat-item">
+            <h3>$1.2B</h3>
+            <p>Tourism Revenue<br>Annually</p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-container">
+        <h2 class="section-title">Investment Advantages</h2>
+        <p class="section-subtitle">
+            Rwanda has systematically built an environment where businesses thrive. Here's what makes it exceptional for tourism investment.
+        </p>
+        
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <h3>🏛️ Political Stability & Good Governance</h3>
+                <p>Rwanda's stable political environment and zero-tolerance corruption policy create predictable business conditions. Contracts are enforced, regulations are clear, and government support is genuine.</p>
+                <ul>
+                    <li>Ranked #1 in Africa for transparency and low corruption</li>
+                    <li>Strong rule of law with efficient contract enforcement</li>
+                    <li>Long-term political stability and clear development vision</li>
+                    <li>Investor protection laws matching international standards</li>
+                </ul>
+            </div>
+            
+            <div class="benefit-card">
+                <h3>📋 Streamlined Business Registration</h3>
+                <p>Starting a business in Rwanda takes just 6 hours online through the Rwanda Development Board's one-stop portal. No bureaucratic red tape, no hidden requirements—just straightforward, transparent processes.</p>
+                <ul>
+                    <li>100% foreign ownership permitted in tourism sector</li>
+                    <li>Online company registration in under one day</li>
+                    <li>Single-window clearance for business licenses</li>
+                    <li>Fast-track services for priority investments</li>
+                </ul>
+            </div>
+            
+            <div class="benefit-card">
+                <h3>💰 Tax Incentives & Fiscal Benefits</h3>
+                <p>The government actively incentivizes tourism investment with attractive tax breaks, duty waivers, and financial support designed to accelerate project timelines and improve ROI.</p>
+                <ul>
+                    <li>7-year corporate tax exemption for qualifying hotels</li>
+                    <li>Import duty waivers on construction materials and equipment</li>
+                    <li>VAT exemptions on tourism-related imports</li>
+                    <li>Access to Development Bank low-interest financing</li>
+                </ul>
+            </div>
+            
+            <div class="benefit-card">
+                <h3>🌍 Strategic Market Access</h3>
+                <p>Rwanda's membership in the East African Community provides access to a combined market of 300+ million consumers, with free movement of goods, services, and capital across member states.</p>
+                <ul>
+                    <li>Duty-free access to EAC market of 300M+ people</li>
+                    <li>Strategic location in heart of Africa</li>
+                    <li>Excellent connectivity through Kigali International Airport</li>
+                    <li>English and French business-friendly environment</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="highlight-box">
+            <h3>🚀 Modern Infrastructure That Works</h3>
+            <p>
+                Rwanda boasts Africa's best digital infrastructure: nationwide 4G coverage, fiber optic internet reaching rural areas, and reliable power supply. Add excellent roads, modern banking, and efficient logistics—your business operations will run smoothly from day one.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-container">
+        <h2 class="section-title">Tourism Investment Opportunities</h2>
+        <p class="section-subtitle">
+            Rwanda's tourism sector is booming, driven by gorilla permits commanding $1,500 per person and luxury lodges achieving 70%+ year-round occupancy. Here's where the opportunities lie.
+        </p>
+        
+        <div class="opportunity-cards">
+            <div class="opportunity-card">
+                <div class="opportunity-icon">🏨</div>
+                <h3>Eco-Lodge Development</h3>
+                <p>High-end eco-lodges near national parks deliver exceptional returns with strong environmental credentials that attract discerning travelers.</p>
+                <ul>
+                    <li>Guaranteed gorilla permit allocations for lodge operators</li>
+                    <li>Average daily rates $300-800+</li>
+                    <li>Year-round demand with 70-85% occupancy</li>
+                    <li>Government land allocation in strategic zones</li>
+                    <li>Sustainable tourism certification support</li>
+                </ul>
+            </div>
+            
+            <div class="opportunity-card">
+                <div class="opportunity-icon">🚐</div>
+                <h3>Tour Operations & DMC</h3>
+                <p>Destination management companies and specialized tour operators capture growing demand from international travelers seeking authentic Rwanda experiences.</p>
+                <ul>
+                    <li>Gorilla trekking coordination and logistics</li>
+                    <li>Specialized safari and adventure tourism</li>
+                    <li>MICE (meetings, incentives, conferences, events)</li>
+                    <li>Cultural and community-based tourism</li>
+                    <li>Luxury travel and honeymoon packages</li>
+                </ul>
+            </div>
+            
+            <div class="opportunity-card">
+                <div class="opportunity-icon">🍽️</div>
+                <h3>Hospitality & F&B</h3>
+                <p>Kigali's growing expat community and business travel create demand for quality restaurants, cafes, and specialty dining experiences.</p>
+                <ul>
+                    <li>Fine dining establishments in Kigali</li>
+                    <li>Specialty coffee shops and roasteries</li>
+                    <li>International cuisine restaurants</li>
+                    <li>Hotel restaurant management contracts</li>
+                    <li>Catering services for tourism industry</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <h3>📊 Our Investment Support Services</h3>
+                <p>We connect serious investors with vetted opportunities and provide end-to-end support throughout the investment process.</p>
+                <ul>
+                    <li>Market analysis and feasibility studies</li>
+                    <li>Site identification and land acquisition support</li>
+                    <li>Partnership facilitation with local operators</li>
+                    <li>Regulatory compliance and licensing assistance</li>
+                    <li>Connection to Rwanda Development Board</li>
+                    <li>Financial modeling and investment structuring</li>
+                </ul>
+            </div>
+            
+            <div class="benefit-card">
+                <h3>🤝 Partnership Opportunities</h3>
+                <p>Joint ventures with experienced local partners provide market knowledge, operational expertise, and established networks critical for success.</p>
+                <ul>
+                    <li>Introductions to vetted local partners</li>
+                    <li>Joint venture structuring advice</li>
+                    <li>Management contract opportunities</li>
+                    <li>Technical assistance partnerships</li>
+                    <li>Franchise and brand licensing options</li>
+                    <li>Skills transfer and training programs</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta">
+    <h2 class="cta-title">Explore Investment Opportunities</h2>
+    <p class="cta-text">
+        Ready to explore Rwanda's dynamic tourism investment landscape? We connect qualified investors with opportunities, provide market intelligence, and facilitate successful market entry.
+    </p>
+    <div class="cta-buttons">
+        <a href="contact.html" class="cta-button">
+            Investment Inquiry
+            <span>→</span>
+        </a>
+        <a href="contact.html" class="cta-button secondary">
+            Request Information
+            <span>→</span>
+        </a>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <h3>Discover Rwanda</h3>
+            <p class="footer-description">Your gateway to extraordinary journeys and investment opportunities in the Land of a Thousand Hills.</p>
+        </div>
+        <div class="footer-column">
+            <h4>Travel Smart</h4>
+            <ul class="footer-links">
+                <li><a href="traveling-with-pets.html">Traveling with Pets</a></li>
+                <li><a href="senior-friendly.html">Senior-Friendly Rwanda</a></li>
+                <li><a href="invest-rwanda.html">Invest in Rwanda</a></li>
+                <li><a href="accessible-travel.html">Accessible Travel</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Quick Links</h4>
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="things-to-do.html">Things to Do</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Contact</h4>
+            <ul class="footer-links">
+                <li><a href="tel:+250788123456">+250 788 123 456</a></li>
+                <li><a href="mailto:info@discoverrwanda.com">info@discoverrwanda.com</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 Discover Rwanda. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>

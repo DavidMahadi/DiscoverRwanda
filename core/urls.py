@@ -1,0 +1,56 @@
+from django.urls import path
+from .views import (
+    index,
+    towns,
+    lakes,
+    volcanic_mountains,
+    museums_heritage,
+    memorial_sites,
+    cultural_villages,
+    top_attractions,
+    unique_experiences,
+    things_to_do,
+    travel_types,
+    traveling_with_pets,
+    senior_friendly,
+    invest_rwanda,
+    accessible_travel,
+    gallery,
+    contact_form_view,
+    success,
+    dashboard,
+    booking_view,
+    booking_edit,
+    booking_delete,
+    booking_pdf,
+)
+
+
+
+
+urlpatterns = [
+    path("", index, name="index"),
+    path("towns", towns, name="towns"),
+    path("lakes", lakes, name="lakes"),
+    path("volcanic_mountains", volcanic_mountains, name="volcanic_mountains"),
+    path("museums_heritage", museums_heritage, name="museums_heritage"),
+    path("memorial_sites", memorial_sites, name="memorial_sites"),
+    path("cultural_villages", cultural_villages, name="cultural_villages"),
+    path("top_attractions", top_attractions, name="top_attractions"),
+    path("unique_experiences", unique_experiences, name="unique_experiences"),
+    path("things_to_do", things_to_do, name="things_to_do"),
+    path("travel_types", travel_types, name="travel_types"),
+    path("traveling_with_pets", traveling_with_pets, name="traveling_with_pets"),
+    path("senior_friendly", senior_friendly, name="senior_friendly"),
+    path("invest_rwanda", invest_rwanda, name="invest_rwanda"),
+    path("accessible_travel", accessible_travel, name="accessible_travel"),
+    path("gallery", gallery, name="gallery"),
+    path("contact", contact_form_view, name="contact"),
+    path("success", success, name="success"),
+    path('dashboard/', dashboard, name='dashboard'),
+    path('dashboard/booking/<int:pk>/', booking_view, name='booking_view'),
+    path('dashboard/booking/<int:pk>/edit/', booking_edit, name='booking_edit'),
+    path('dashboard/booking/<int:pk>/delete/', booking_delete, name='booking_delete'),
+    path('dashboard/booking/<int:pk>/download/', booking_pdf, name='booking_pdf'),
+    
+]

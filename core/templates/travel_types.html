@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Your Way | Discover Rwanda</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Italiana&display=swap" rel="stylesheet">
+    
+<style>
+    :root {
+        --black: #000000;
+        --charcoal: #1a1a1a;
+        --dark-gray: #2c2c2c;
+        --mid-gray: #6a6a6a;
+        --light-gray: #e5e5e5;
+        --off-white: #f8f8f8;
+        --white: #ffffff;
+        --gold: #c59959;
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Inter', sans-serif;
+        color: var(--charcoal);
+        line-height: 1.6;
+        overflow-x: hidden;
+        background: var(--white);
+    }
+    
+    /* Navigation */
+    .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 1.5rem 6%;
+        background: var(--white);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .nav-container {
+        max-width: 1900px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-decoration: none;
+    }
+    
+    .nav-logo-img {
+        font-size: 2rem;
+    }
+    
+    .nav-logo-text {
+        font-family: 'Italiana', serif;
+        font-size: 1.5rem;
+        color: var(--black);
+        letter-spacing: 4px;
+    }
+    
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 4rem;
+        align-items: center;
+    }
+    
+    .nav-item {
+        position: relative;
+    }
+    
+    .nav-item a {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--charcoal);
+        text-decoration: none;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-item a:hover {
+        color: var(--gold);
+    }
+    
+    .nav-cta {
+        background: var(--black);
+        color: var(--white) !important;
+        padding: 1rem 2.5rem !important;
+        border-radius: 50px !important;
+    }
+    
+    .nav-cta:hover {
+        background: var(--gold);
+    }
+    
+    /* Dropdown Menu */
+    .dropdown {
+        position: relative;
+    }
+    
+    .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--white);
+        min-width: 250px;
+        padding: 1.5rem 0;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        border-radius: 4px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+        z-index: 1001;
+    }
+    
+    .dropdown:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        margin-top: 1.5rem;
+    }
+    
+    .dropdown-menu a {
+        display: block;
+        padding: 0.75rem 2rem;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--charcoal);
+        text-decoration: none;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        border-left: 3px solid transparent;
+    }
+    
+    .dropdown-menu a:hover {
+        color: var(--gold);
+        background: var(--off-white);
+        border-left-color: var(--gold);
+    }
+    
+    /* Hero */
+    .hero-section {
+        position: relative;
+        height: 90vh;
+        min-height: 750px;
+        background: var(--black);
+        display: flex;
+        align-items: center;
+        margin-top: 88px;
+        overflow: hidden;
+    }
+    
+    .hero-bg-pattern {
+        position: absolute;
+        inset: 0;
+        background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        background-size: 50px 50px;
+        opacity: 0.3;
+    }
+    
+    .hero-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 6%;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .hero-eyebrow {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--white);
+        padding: 0.5rem 1.5rem;
+        border: 2px solid var(--white);
+        border-radius: 50px;
+        margin-bottom: 2.5rem;
+        background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .hero-title {
+        font-family: 'Italiana', serif;
+        font-size: clamp(4rem, 10vw, 8rem);
+        font-weight: 400;
+        color: var(--white);
+        margin-bottom: 2rem;
+        letter-spacing: 12px;
+        line-height: 1.1;
+    }
+    
+    .hero-subtitle {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(1.25rem, 2.5vw, 1.875rem);
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.85);
+        max-width: 1000px;
+        margin: 0 auto;
+        line-height: 1.9;
+    }
+    
+    /* Travel Type Sections */
+    .travel-section {
+        padding: 12rem 6%;
+    }
+    
+    .travel-section:nth-child(even) {
+        background: var(--off-white);
+    }
+    
+    .section-container {
+        max-width: 1800px;
+        margin: 0 auto;
+    }
+    
+    .section-header {
+        text-align: center;
+        margin-bottom: 6rem;
+    }
+    
+    .section-number {
+        font-family: 'Italiana', serif;
+        font-size: 1rem;
+        color: var(--gold);
+        letter-spacing: 3px;
+        margin-bottom: 1.5rem;
+    }
+    
+    .section-title {
+        font-family: 'Italiana', serif;
+        font-size: clamp(3rem, 6vw, 5rem);
+        font-weight: 400;
+        color: var(--black);
+        margin-bottom: 2rem;
+        letter-spacing: 6px;
+    }
+    
+    .section-intro {
+        font-size: 1.25rem;
+        font-weight: 300;
+        line-height: 2;
+        color: var(--mid-gray);
+        max-width: 1000px;
+        margin: 0 auto 4rem;
+    }
+    
+    /* Photo Grids */
+    .photo-grid-5 {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1.5rem;
+        margin-bottom: 4rem;
+    }
+    
+    .photo-grid-4 {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        margin-bottom: 4rem;
+    }
+    
+    .photo-grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+        margin-bottom: 4rem;
+    }
+    
+    .photo-item {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 1;
+        border-radius: 4px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+    
+    .photo-grid-3 .photo-item {
+        aspect-ratio: 4/5;
+    }
+    
+    .photo-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+    
+    .photo-item:hover img {
+        transform: scale(1.1);
+    }
+    
+    .photo-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1.5rem;
+        background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+        color: var(--white);
+    }
+    
+    .photo-caption-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1rem;
+        font-weight: 700;
+    }
+    
+    /* Description Content */
+    .description-content {
+        max-width: 1200px;
+        margin: 0 auto 5rem;
+    }
+    
+    .description-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4rem;
+        margin-bottom: 4rem;
+    }
+    
+    .description-block h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.875rem;
+        font-weight: 700;
+        color: var(--black);
+        margin-bottom: 1.5rem;
+    }
+    
+    .description-block p {
+        font-size: 1.0625rem;
+        line-height: 1.9;
+        color: var(--mid-gray);
+        margin-bottom: 1.5rem;
+    }
+    
+    .description-list {
+        list-style: none;
+        margin-top: 2rem;
+    }
+    
+    .description-list li {
+        font-size: 1.0625rem;
+        padding-left: 2rem;
+        position: relative;
+        margin-bottom: 1rem;
+        color: var(--charcoal);
+        line-height: 1.7;
+    }
+    
+    .description-list li::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: var(--gold);
+        font-weight: 700;
+        font-size: 1.25rem;
+    }
+    
+    /* Feature Cards */
+    .feature-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+        margin-top: 5rem;
+    }
+    
+    .feature-card {
+        background: var(--white);
+        padding: 3rem;
+        border: 1px solid var(--light-gray);
+        transition: all 0.4s ease;
+    }
+    
+    .travel-section:nth-child(even) .feature-card {
+        background: var(--white);
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+    }
+    
+    .feature-card-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--black);
+        margin-bottom: 1.5rem;
+    }
+    
+    .feature-card-text {
+        font-size: 1.0625rem;
+        line-height: 1.8;
+        color: var(--mid-gray);
+        margin-bottom: 2rem;
+    }
+    
+    .feature-card-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--black);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .feature-card-link:hover {
+        color: var(--gold);
+        gap: 1rem;
+    }
+    
+    /* CTA */
+    .cta-section {
+        background: var(--black);
+        padding: 12rem 6%;
+        text-align: center;
+    }
+    
+    .cta-title {
+        font-family: 'Italiana', serif;
+        font-size: clamp(3rem, 6vw, 5rem);
+        color: var(--white);
+        margin-bottom: 2rem;
+        letter-spacing: 6px;
+    }
+    
+    .cta-text {
+        font-size: 1.375rem;
+        color: rgba(255,255,255,0.8);
+        margin-bottom: 3.5rem;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.9;
+    }
+    
+    .cta-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.5rem 4rem;
+        background: var(--white);
+        color: var(--black);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.9375rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border-radius: 50px;
+        transition: all 0.4s ease;
+        box-shadow: 0 10px 40px rgba(255,255,255,0.2);
+    }
+    
+    .cta-button:hover {
+        background: var(--gold);
+        color: var(--white);
+        gap: 1.5rem;
+        transform: translateY(-3px);
+        box-shadow: 0 15px 50px rgba(197,153,89,0.4);
+    }
+    
+    /* Footer */
+    footer {
+        background: var(--charcoal);
+        color: var(--white);
+        padding: 8rem 6% 3rem;
+    }
+    
+    .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 5rem;
+        max-width: 1800px;
+        margin: 0 auto 5rem;
+    }
+    
+    .footer-brand h3 {
+        font-family: 'Italiana', serif;
+        font-size: 2.25rem;
+        margin-bottom: 2rem;
+        letter-spacing: 3px;
+    }
+    
+    .footer-description {
+        font-size: 1rem;
+        line-height: 1.9;
+        color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .footer-column h4 {
+        font-size: 0.9375rem;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+        color: var(--gold);
+    }
+    
+    .footer-links {
+        list-style: none;
+    }
+    
+    .footer-links li {
+        margin-bottom: 1rem;
+    }
+    
+    .footer-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        font-size: 0.9375rem;
+        transition: all 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+        color: var(--gold);
+    }
+    
+    .footer-bottom {
+        text-align: center;
+        padding-top: 3.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.9375rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 1200px) {
+        .photo-grid-5 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        .photo-grid-4 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .feature-cards {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .description-grid {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .nav-menu {
+            display: none;
+        }
+        
+        .photo-grid-3,
+        .photo-grid-4,
+        .photo-grid-5,
+        .feature-cards,
+        .description-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .footer-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+</head>
+<body>
+
+<script>
+// Smooth scrolling for anchor links
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+    
+    // Scroll to section if coming from external link with hash
+    if (window.location.hash) {
+        setTimeout(function() {
+            const target = document.querySelector(window.location.hash);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 100);
+    }
+});
+</script>
+
+<!-- Navigation -->
+<nav class="nav">
+    <div class="nav-container">
+        <a href="index.html" class="nav-brand">
+            <div class="nav-logo-img">🌿</div>
+            <div class="nav-logo-text">RWANDA</div>
+        </a>
+        
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="{% url 'index' %}">Home</a></li>
+            <li class="nav-item dropdown">
+                <a href="#solo-travel">Travel Types</a>
+                <div class="dropdown-menu">
+                    <a href="#solo-travel">Solo Travel</a>
+                    <a href="#family-travel">Family Travel</a>
+                    <a href="#couple-getaways">Couple Getaways</a>
+                    <a href="#group-adventures">Group Adventures</a>
+                </div>
+            </li>
+            <li class="nav-item"><a href="contact.html" class="nav-cta">Plan Your Trip</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero-section">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-content">
+        <span class="hero-eyebrow">Your Journey, Your Style</span>
+        <h1 class="hero-title">TRAVEL YOUR WAY</h1>
+        <p class="hero-subtitle">
+            Whether you seek solo adventure, family bonding, romantic escape, or group exploration—we craft personalized Rwanda experiences that match your travel style and exceed expectations.
+        </p>
+    </div>
+</section>
+
+<!-- Solo Travel -->
+<section class="travel-section" id="solo-travel">
+    <div class="section-container">
+        <div class="section-header">
+            <div class="section-number">01</div>
+            <h2 class="section-title">SOLO TRAVEL</h2>
+            <p class="section-intro">
+                Embark on a transformative solo journey through Rwanda with the perfect balance of independence and connection. Join small groups of like-minded travelers or explore with private guides ensuring safety, meaningful encounters, and unforgettable experiences.
+            </p>
+        </div>
+        
+        <div class="photo-grid-5">
+            <div class="photo-item">
+                <img src="https://cdn.shopify.com/s/files/1/0537/1177/files/Becker_Solo_Hiking-Hike.jpg?v=1640211905" alt="Solo hiking">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Solo Hiking</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&q=80" alt="Solo gorilla trek">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Gorilla Trekking</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80" alt="Solo lake">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Lake Kivu</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&q=80" alt="Cultural immersion">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Cultural Immersion</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80" alt="Coffee tours">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Coffee Tours</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="photo-grid-4">
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80" alt="Solo kayaking">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Kayaking</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=600&q=80" alt="Sunset views">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Sunset Moments</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600&q=80" alt="Wildlife">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Safari Adventures</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80" alt="Local food">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Food Experiences</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="description-content">
+            <div class="description-grid">
+                <div class="description-block">
+                    <h3>Perfect for Independent Explorers</h3>
+                    <p>
+                        Solo travel in Rwanda offers the freedom to set your own pace while never feeling alone. Our carefully curated experiences connect you with fellow travelers and local communities, creating genuine friendships and cultural exchanges that enrich your journey.
+                    </p>
+                    <p>
+                        From guided gorilla treks to community homestays, every experience is designed to provide structure when you need it and flexibility when you don't. Expert local guides ensure your safety while sharing insider knowledge that transforms tourist moments into authentic adventures.
+                    </p>
+                </div>
+                <div class="description-block">
+                    <h3>Safety & Support</h3>
+                    <p>
+                        Rwanda is renowned as one of Africa's safest destinations for solo travelers. Our comprehensive support system includes 24/7 local assistance, vetted accommodations, and reliable transportation, allowing you to explore with confidence.
+                    </p>
+                    <ul class="description-list">
+                        <li>Small group tours (max 8 travelers)</li>
+                        <li>Private guide options available</li>
+                        <li>Single-friendly accommodations</li>
+                        <li>24/7 emergency support</li>
+                        <li>Solo traveler community connections</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="feature-cards">
+            <div class="feature-card">
+                <h3 class="feature-card-title">Flexible Itineraries</h3>
+                <p class="feature-card-text">
+                    Choose from structured group tours or create a personalized journey. Mix independent exploration with guided experiences based on your comfort level and interests.
+                </p>
+                <a href="contact.html" class="feature-card-link">
+                    Explore Options
+                    <span>→</span>
+                </a>
+            </div>
+            <div class="feature-card">
+                <h3 class="feature-card-title">Meet Fellow Travelers</h3>
+                <p class="feature-card-text">
+                    Join small groups of solo adventurers for shared experiences, from gorilla trekking to sunset cruises, creating lasting friendships along the way.
+                </p>
+                <a href="contact.html" class="feature-card-link">
+                    Join Groups
+                    <span>→</span>
+                </a>
+            </div>
+            <div class="feature-card">
+                <h3 class="feature-card-title">Local Connections</h3>
+                <p class="feature-card-text">
+                    Authentic cultural experiences with local families, artisans, and guides who share their Rwanda with warmth and genuine hospitality.
+                </p>
+                <a href="contact.html" class="feature-card-link">
+                    Learn More
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Family Travel -->
+<section class="travel-section" id="family-travel">
+    <div class="section-container">
+        <div class="section-header">
+            <div class="section-number">02</div>
+            <h2 class="section-title">FAMILY TRAVEL</h2>
+            <p class="section-intro">
+                Create unforgettable family memories in Rwanda through multi-generational adventures designed with everyone in mind. From wildlife encounters to cultural activities, we craft experiences that educate, inspire, and bring families closer together.
+            </p>
+        </div>
+        
+        <div class="photo-grid-5">
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=600&q=80" alt="Family safari">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Family Safaris</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600&q=80" alt="Wildlife viewing">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Wildlife Encounters</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=600&q=80" alt="Lake activities">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Lake Activities</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80" alt="Family lodges">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Family Lodges</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1583225173988-3d9a1c5d90e5?w=600&q=80" alt="Cultural experiences">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Cultural Activities</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="photo-grid-3">
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=700&q=80" alt="Beach time">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Beach Relaxation</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1551982700-3bba29a5b89a?w=700&q=80" alt="Gorilla experience">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Gorilla Education</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=700&q=80" alt="Boat tours">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Boat Adventures</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="description-content">
+            <div class="description-grid">
+                <div class="description-block">
+                    <h3>Multi-Generational Adventures</h3>
+                    <p>
+                        Rwanda offers the perfect blend of education and entertainment for families. From grandparents to grandchildren, everyone finds something to love—whether it's spotting wildlife, learning about conservation, or experiencing local culture together.
+                    </p>
+                    <p>
+                        Our family itineraries balance active adventures with downtime, ensuring younger children stay engaged while older family members can relax. Age-appropriate activities mean everyone participates at their comfort level, creating shared memories that last a lifetime.
+                    </p>
+                </div>
+                <div class="description-block">
+                    <h3>Family-Friendly Features</h3>
+                    <p>
+                        Every detail is considered to make your family journey smooth and enjoyable. From spacious accommodations to flexible scheduling, we ensure comfort and convenience for all ages.
+                    </p>
+                    <ul class="description-list">
+                        <li>Family suites and connecting rooms</li>
+                        <li>Child-friendly meal options</li>
+                        <li>Age-appropriate activities (3+ years)</li>
+                        <li>Shorter trek options available</li>
+                        <li>Educational programs for kids</li>
+                        <li>Swimming pools and recreation areas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="feature-cards">
+            <div class="feature-card">
+                <h3 class="feature-card-title">Educational Experiences</h3>
+                <p class="feature-card-text">
+                    Junior ranger programs, conservation talks, and interactive cultural workshops teach children about wildlife, environment, and Rwandan heritage through hands-on learning.
+                </p>
+                <a href="contact.html" class="feature-card-link">
+                    View Programs
+                    <span>→</span>
+                </a>
+            </div>
+            <div class="feature-card">
+                <h3 class="feature-card-title">Safe Adventures</h3>
+                <p class="feature-card-text">
+                    Rwanda's excellent infrastructure, low crime rates, and family-friendly attractions make it ideal for traveling with children of all ages.
+                </p>
+                <a href="contact.html" class="feature-card-link">
+                    Safety Info
+                    <span>→</span>
+                </a>
+            </div>
+            <div class="feature-card">
+                <h3 class="feature-card-title">Flexible Pacing</h3>
+                <p class="feature-card-text">
+                    Itineraries designed with families in mind—shorter drives, regular breaks, and activities that keep everyone happy and engaged throughout your journey.
+                </p>
+                <a href="contact.html" class="feature-card-link">
+                    Plan Journey
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Couple Getaways -->
+<section class="travel-section" id="couple-getaways">
+    <div class="section-container">
+        <div class="section-header">
+            <div class="section-number">03</div>
+            <h2 class="section-title">COUPLE GETAWAYS</h2>
+            <p class="section-intro">
+                Escape to Rwanda's most romantic settings for intimate experiences and unforgettable moments. From luxury lodges overlooking misty volcanoes to private lakeside retreats, create the perfect backdrop for celebrating your love story.
+            </p>
+        </div>
+        
+        <div class="photo-grid-4">
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=600&q=80" alt="Romantic dinner">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Private Dining</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=600&q=80" alt="Lake sunset">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Sunset Views</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80" alt="Luxury lodge">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Luxury Lodges</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80" alt="Spa treatments">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Couple's Spa</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="photo-grid-5">
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Boat cruise">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Private Cruises</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&q=80" alt="Beach romance">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Beach Escapes</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80" alt="Mountain views">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Mountain Retreats</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1551982700-3bba29a5b89a?w=600&q=80" alt="Gorilla trek together">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Shared Adventures</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80" alt="Fine dining">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Gourmet Experiences</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="description-content">
+            <div class="description-grid">
+                <div class="description-block">
+                    <h3>Romance in Every Detail</h3>
+                    <p>
+                        Rwanda's breathtaking landscapes provide the perfect canvas for romance. Imagine sharing a bottle of wine while watching the sun set over Lake Kivu, or waking up to mountain gorillas calling from the mist-covered volcanoes outside your luxury suite.
+                    </p>
+                    <p>
+                        Our romantic itineraries balance adventure with relaxation, offering private experiences that bring you closer together. From couples' spa treatments to intimate dinners under the stars, every moment is crafted to celebrate your relationship.
+                    </p>
+                </div>
+                <div class="description-block">
+                    <h3>Intimate Experiences</h3>
+                    <p>
+                        Whether celebrating an anniversary, honeymoon, or simply escaping together, Rwanda offers countless romantic moments. Our team specializes in creating personalized touches that make your getaway truly special.
+                    </p>
+                    <ul class="description-list">
+                        <li>Private villa accommodations</li>
+                        <li>Candlelit dinners with personal chef</li>
+                        <li>Couples' massage and spa treatments</li>
+                        <li>Sunset boat cruises for two</li>
+                        <li>Private guide services</li>
+                        <li>Special occasion arrangements</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="feature-cards">
+            <div class="feature-card">
+                <h3 class="feature-card-title">Honeymoon Packages</h3>
+                <p class="feature-card-text">
+                    Start your married life with an unforgettable Rwanda honeymoon. Luxury accommodations, private experiences, and complimentary romantic touches create magical memories.
+                </p>
+                <a href="contact.html" class="feature-card-link">
+                    View Packages
+                    <span>→</span>
+                </a>
+            </div>
+            <div class="feature-card">
+                <h3 class="feature-card-title">Anniversary Celebrations</h3>
+                <p class="feature-card-text">
+                    Mark milestone anniversaries with bespoke experiences. We arrange everything from vow renewals overlooking volcanoes to surprise celebrations.
+                </p>
+                <a href="contact.html" class="feature-card-link">
+                    Celebrate Together
+                    <span>→</span>
+                </a>
+            </div>
+            <div class="feature-card">
+                <h3 class="feature-card-title">Romantic Add-Ons</h3>
+                <p class="feature-card-text">
+                    Enhance your getaway with special touches—champagne picnics, photography sessions, helicopter tours, and personalized surprise arrangements.
+                </p>
+                <a href="contact.html" class="feature-card-link">
+                    Add Romance
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Group Adventures -->
+<section class="travel-section" id="group-adventures">
+    <div class="section-container">
+        <div class="section-header">
+            <div class="section-number">04</div>
+            <h2 class="section-title">GROUP ADVENTURES</h2>
+            <p class="section-intro">
+                Gather your friends, colleagues, or club members for an epic Rwanda adventure designed for groups. From corporate retreats to milestone celebrations, we handle all logistics while you focus on creating shared memories with your tribe.
+            </p>
+        </div>
+        
+        <div class="photo-grid-5">
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=600&q=80" alt="Group safari">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Group Safaris</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80" alt="Team hiking">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Team Treks</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=600&q=80" alt="Group dining">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Group Dining</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1583225173988-3d9a1c5d90e5?w=600&q=80" alt="Cultural activities">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Cultural Programs</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80" alt="Water activities">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Water Sports</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="photo-grid-3">
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=700&q=80" alt="Group accommodations">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Group Lodging</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=700&q=80" alt="Wildlife together">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Shared Wildlife</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=700&q=80" alt="Team building">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Team Building</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="description-content">
+            <div class="description-grid">
+                <div class="description-block">
+                    <h3>Seamless Group Coordination</h3>
+                    <p>
+                        Planning group travel can be complex, but we make it effortless. From securing gorilla permits for your entire party to arranging private transportation and exclusive lodge bookings, our team handles every detail with precision and care.
+                    </p>
+                    <p>
+                        Whether you're organizing a corporate retreat, friend reunion, or special celebration, Rwanda offers the perfect setting. Our group specialists work with you to create itineraries that accommodate different interests, fitness levels, and budgets within your party.
+                    </p>
+                </div>
+                <div class="description-block">
+                    <h3>Group Benefits & Features</h3>
+                    <p>
+                        Traveling as a group opens up exclusive opportunities and cost savings. We leverage our partnerships to provide value while ensuring your group receives VIP treatment throughout Rwanda.
+                    </p>
+                    <ul class="description-list">
+                        <li>Groups from 8 to 50+ people</li>
+                        <li>Dedicated group coordinator</li>
+                        <li>Volume discounts on activities</li>
+                        <li>Private vehicles and guides</li>
+                        <li>Exclusive venue bookings</li>
+                        <li>Customized team-building activities</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="feature-cards">
+            <div class="feature-card">
+                <h3 class="feature-card-title">Corporate Retreats</h3>
+                <p class="feature-card-text">
+                    Combine business with adventure. Conference facilities, team-building activities, and inspiring Rwanda experiences that strengthen bonds and spark creativity.
+                </p>
+                <a href="contact.html" class="feature-card-link">
+                    Plan Retreat
+                    <span>→</span>
+                </a>
+            </div>
+            <div class="feature-card">
+                <h3 class="feature-card-title">Friend Groups</h3>
+                <p class="feature-card-text">
+                    Celebrate milestones, reunions, or just life with your closest friends. Shared adventures from gorilla trekking to lakeside celebrations create bonds that last.
+                </p>
+                <a href="contact.html" class="feature-card-link">
+                    Gather Friends
+                    <span>→</span>
+                </a>
+            </div>
+            <div class="feature-card">
+                <h3 class="feature-card-title">Special Interest Groups</h3>
+                <p class="feature-card-text">
+                    Photography clubs, bird watching societies, hiking groups—customized itineraries matching your group's specific interests and expertise level.
+                </p>
+                <a href="contact.html" class="feature-card-link">
+                    Customize Trip
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <h2 class="cta-title">Ready to Travel Your Way?</h2>
+    <p class="cta-text">
+        No matter your travel style, we'll craft the perfect Rwanda experience just for you. Share your vision and let us handle the details.
+    </p>
+    <a href="contact.html" class="cta-button">
+        Start Planning
+        <span>→</span>
+    </a>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <h3>Discover Rwanda</h3>
+            <p class="footer-description">Your gateway to extraordinary journeys through the Land of a Thousand Hills. We curate transformative experiences across Rwanda's pristine wilderness, rare wildlife encounters, and vibrant cultural tapestry.</p>
+        </div>
+        
+        <div class="footer-column">
+            <h4>Travel Types</h4>
+            <ul class="footer-links">
+                <li><a href="#solo-travel">Solo Travel</a></li>
+                <li><a href="#family-travel">Family Travel</a></li>
+                <li><a href="#couple-getaways">Couple Getaways</a></li>
+                <li><a href="#group-adventures">Group Adventures</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h4>Quick Links</h4>
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="things-to-do.html">Things to Do</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h4>Contact</h4>
+            <ul class="footer-links">
+                <li><a href="contact.html">Get In Touch</a></li>
+                <li><a href="tel:+250788123456">+250 788 123 456</a></li>
+                <li><a href="mailto:info@discoverrwanda.com">info@discoverrwanda.com</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>&copy; 2026 Discover Rwanda. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>

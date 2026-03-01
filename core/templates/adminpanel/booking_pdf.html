@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Booking PDF</title>
+
+    <style>
+        body {
+            font-family: "Helvetica", Arial, sans-serif;
+            background: #f7f9fb;
+            padding: 40px;
+            color: #1f2937;
+        }
+
+        .pdf-container {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .brand {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .brand span {
+            color: #16a34a;
+        }
+
+        .booking-id {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        h2 {
+            margin-top: 0;
+            border-left: 6px solid #16a34a;
+            padding-left: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .box {
+            background: #f9fafb;
+            padding: 14px 16px;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .label {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .value {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .activities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .activity {
+            background: #ecfdf5;
+            color: #065f46;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 12px;
+            color: #6b7280;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="pdf-container">
+
+        <div class="header">
+            <div class="brand">DISCOVER <span>RWANDA</span></div>
+            <div class="booking-id">Booking ID: {{ booking.get_booking_id }}</div>
+        </div>
+
+        <h2>Customer Information</h2>
+        <div class="grid">
+            <div class="box">
+                <div class="label">Full Name</div>
+                <div class="value">{{ booking.get_full_name }}</div>
+            </div>
+            <div class="box">
+                <div class="label">Email</div>
+                <div class="value">{{ booking.email }}</div>
+            </div>
+            <div class="box">
+                <div class="label">Phone</div>
+                <div class="value">{{ booking.phone }}</div>
+            </div>
+            <div class="box">
+                <div class="label">Country</div>
+                <div class="value">{{ booking.country }}</div>
+            </div>
+        </div>
+
+        <h2>Travel Details</h2>
+        <div class="grid">
+            <div class="box">
+                <div class="label">Travel Type</div>
+                <div class="value">{{ booking.get_travel_type_display }}</div>
+            </div>
+            <div class="box">
+                <div class="label">Travelers</div>
+                <div class="value">{{ booking.get_travelers_display }}</div>
+            </div>
+            <div class="box">
+                <div class="label">Start Date</div>
+                <div class="value">{{ booking.start_date }}</div>
+            </div>
+            <div class="box">
+                <div class="label">End Date</div>
+                <div class="value">{{ booking.end_date }}</div>
+            </div>
+            <div class="box">
+                <div class="label">Flexibility</div>
+                <div class="value">{{ booking.get_date_flexibility_display }}</div>
+            </div>
+            <div class="box">
+                <div class="label">Duration</div>
+                <div class="value">{{ booking.duration }} days</div>
+            </div>
+        </div>
+
+        <h2>Activities</h2>
+        <div class="box">
+            <div class="activities">
+                {% for activity in booking.get_activities_list %}
+                    <div class="activity">{{ activity }}</div>
+                {% empty %}
+                    <span>No activities selected</span>
+                {% endfor %}
+            </div>
+        </div>
+
+        <h2>Accommodation & Budget</h2>
+        <div class="grid">
+            <div class="box">
+                <div class="label">Accommodation</div>
+                <div class="value">{{ booking.get_accommodation_display }}</div>
+            </div>
+            <div class="box">
+                <div class="label">Budget</div>
+                <div class="value">${{ booking.budget }}</div>
+            </div>
+        </div>
+
+        <h2>Special Requests</h2>
+        <div class="box">
+            <div class="value">{{ booking.special_requests|default:"None" }}</div>
+        </div>
+
+        <div class="footer">
+            DISCOVER RWANDA — Luxury Travel Experiences<br>
+            Generated on {{ booking.created_at }}
+        </div>
+
+    </div>
+</body>
+</html>

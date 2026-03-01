@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers - Rwanda Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Italiana&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #000000;
+            --secondary: #2d8659;
+            --accent: #c9a961;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #e5e5e5;
+            --gray-300: #d4d4d4;
+            --gray-500: #737373;
+            --gray-600: #525252;
+            --gray-700: #404040;
+            --gray-800: #262626;
+            --gray-900: #171717;
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+            --radius-lg: 16px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 280px;
+            background: linear-gradient(180deg, var(--gray-900) 0%, var(--primary) 100%);
+            color: var(--white);
+            padding: 2rem 0;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .sidebar-logo {
+            padding: 0 2rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'Italiana', serif;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-section {
+            padding: 1.5rem 0;
+        }
+
+        .nav-section-title {
+            padding: 0 2rem;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--gray-500);
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.875rem 2rem;
+            color: var(--gray-300);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background: linear-gradient(180deg, var(--secondary), var(--accent));
+            border-radius: 0 3px 3px 0;
+            transition: height 0.3s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--white);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link.active::before {
+            height: 70%;
+        }
+
+        .nav-badge {
+            margin-left: auto;
+            background: var(--danger);
+            color: var(--white);
+            padding: 0.25rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.6875rem;
+            font-weight: 700;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background: var(--white);
+            padding: 1.25rem 2rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--gray-700));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .topbar-right {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            border: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--gray-800);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gray-300);
+            color: var(--gray-700);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Content */
+        .dashboard-content {
+            padding: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            position: relative;
+        }
+
+        .stat-icon::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius);
+            opacity: 0.1;
+        }
+
+        .stat-icon.primary::before { background: var(--primary); }
+        .stat-icon.success::before { background: var(--success); }
+        .stat-icon.info::before { background: var(--info); }
+        .stat-icon.warning::before { background: var(--warning); }
+
+        .stat-icon.primary { color: var(--primary); }
+        .stat-icon.success { color: var(--success); }
+        .stat-icon.info { color: var(--info); }
+        .stat-icon.warning { color: var(--warning); }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+        }
+
+        .stat-change.positive {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        /* Filters */
+        .filters-bar {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-select {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+            min-width: 180px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Table */
+        .content-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table thead {
+            background: var(--gray-50);
+        }
+
+        .data-table th {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-600);
+        }
+
+        .data-table td {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--gray-50);
+        }
+
+        .customer-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .customer-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .customer-name {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        .customer-email {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .badge-info {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--info);
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            margin: 0 0.25rem;
+        }
+
+        .action-btn.view {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--info);
+        }
+
+        .action-btn.view:hover {
+            background: var(--info);
+            color: var(--white);
+        }
+
+        .action-btn.edit {
+            background: rgba(115, 115, 115, 0.1);
+            color: var(--gray-600);
+        }
+
+        .action-btn.edit:hover {
+            background: var(--gray-600);
+            color: var(--white);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                margin-left: 0;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters-bar {
+                flex-direction: column;
+            }
+
+            .filter-select, .search-input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <i class="fas fa-mountain"></i> RWANDA
+        </div>
+        
+        <nav>
+            <div class="nav-section">
+                <a href="premium_admin_dashboard.html" class="nav-link">
+                    <i class="fas fa-th-large"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="premium_booking_detail.html" class="nav-link">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Bookings</span>
+                    <span class="nav-badge">12</span>
+                </a>
+                <a href="customers.html" class="nav-link active">
+                    <i class="fas fa-users"></i>
+                    <span>Customers</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Management</div>
+                <a href="activities.html" class="nav-link">
+                    <i class="fas fa-hiking"></i>
+                    <span>Activities</span>
+                </a>
+                <a href="accommodations.html" class="nav-link">
+                    <i class="fas fa-hotel"></i>
+                    <span>Accommodations</span>
+                </a>
+                <a href="itineraries.html" class="nav-link">
+                    <i class="fas fa-route"></i>
+                    <span>Itineraries</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Analytics</div>
+                <a href="reports.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="analytics.html" class="nav-link">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="exports.html" class="nav-link">
+                    <i class="fas fa-download"></i>
+                    <span>Exports</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Settings</div>
+                <a href="email-templates.html" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email Templates</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="topbar">
+            <h1 class="page-title">Customers</h1>
+            <div class="topbar-right">
+                <button class="btn btn-outline">
+                    <i class="fas fa-download"></i>
+                    Export
+                </button>
+                <button class="btn btn-primary">
+                    <i class="fas fa-plus"></i>
+                    Add Customer
+                </button>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card animate-in">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Total Customers</div>
+                            <div class="stat-value">1,247</div>
+                            <span class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                18% this month
+                            </span>
+                        </div>
+                        <div class="stat-icon primary">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card animate-in" style="animation-delay: 0.1s;">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">New This Month</div>
+                            <div class="stat-value">89</div>
+                            <span class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +12 from last month
+                            </span>
+                        </div>
+                        <div class="stat-icon success">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card animate-in" style="animation-delay: 0.2s;">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Active Bookings</div>
+                            <div class="stat-value">156</div>
+                            <span class="stat-change positive">
+                                <i class="fas fa-check"></i>
+                                75 completed
+                            </span>
+                        </div>
+                        <div class="stat-icon info">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card animate-in" style="animation-delay: 0.3s;">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Avg. Spend</div>
+                            <div class="stat-value">$5.2K</div>
+                            <span class="stat-change positive">
+                                <i class="fas fa-dollar-sign"></i>
+                                Per customer
+                            </span>
+                        </div>
+                        <div class="stat-icon warning">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters-bar">
+                <input type="text" class="search-input" placeholder="Search customers by name, email, country...">
+                <select class="filter-select">
+                    <option>All Customers</option>
+                    <option>Active</option>
+                    <option>Inactive</option>
+                </select>
+                <select class="filter-select">
+                    <option>All Countries</option>
+                    <option>United States</option>
+                    <option>United Kingdom</option>
+                    <option>Canada</option>
+                    <option>Australia</option>
+                </select>
+                <select class="filter-select">
+                    <option>All Time</option>
+                    <option>This Month</option>
+                    <option>Last 3 Months</option>
+                    <option>This Year</option>
+                </select>
+            </div>
+
+            <!-- Customers Table -->
+            <div class="content-card">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Country</th>
+                            <th>Phone</th>
+                            <th>Total Bookings</th>
+                            <th>Total Spent</th>
+                            <th>Last Booking</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="customer-info">
+                                    <div class="customer-avatar">SJ</div>
+                                    <div>
+                                        <div class="customer-name">Sarah Johnson</div>
+                                        <div class="customer-email">sarah.j@email.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>🇺🇸 United States</td>
+                            <td>+1 555 0123</td>
+                            <td><strong>3 bookings</strong></td>
+                            <td><strong>$18,500</strong></td>
+                            <td>Feb 01, 2026</td>
+                            <td><span class="badge badge-success">Active</span></td>
+                            <td>
+                                <button class="action-btn view"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="customer-info">
+                                    <div class="customer-avatar">MC</div>
+                                    <div>
+                                        <div class="customer-name">Michael Chen</div>
+                                        <div class="customer-email">m.chen@email.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>🇨🇦 Canada</td>
+                            <td>+1 416 555 0987</td>
+                            <td><strong>2 bookings</strong></td>
+                            <td><strong>$12,800</strong></td>
+                            <td>Jan 28, 2026</td>
+                            <td><span class="badge badge-success">Active</span></td>
+                            <td>
+                                <button class="action-btn view"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="customer-info">
+                                    <div class="customer-avatar">EW</div>
+                                    <div>
+                                        <div class="customer-name">Emma Williams</div>
+                                        <div class="customer-email">emma.w@email.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>🇬🇧 United Kingdom</td>
+                            <td>+44 20 7946 0958</td>
+                            <td><strong>1 booking</strong></td>
+                            <td><strong>$5,200</strong></td>
+                            <td>Jan 25, 2026</td>
+                            <td><span class="badge badge-info">New</span></td>
+                            <td>
+                                <button class="action-btn view"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="customer-info">
+                                    <div class="customer-avatar">DM</div>
+                                    <div>
+                                        <div class="customer-name">David Martinez</div>
+                                        <div class="customer-email">d.martinez@email.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>🇪🇸 Spain</td>
+                            <td>+34 91 123 4567</td>
+                            <td><strong>4 bookings</strong></td>
+                            <td><strong>$24,200</strong></td>
+                            <td>Jan 20, 2026</td>
+                            <td><span class="badge badge-success">VIP</span></td>
+                            <td>
+                                <button class="action-btn view"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="customer-info">
+                                    <div class="customer-avatar">LA</div>
+                                    <div>
+                                        <div class="customer-name">Lisa Anderson</div>
+                                        <div class="customer-email">lisa.a@email.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>🇦🇺 Australia</td>
+                            <td>+61 2 9876 5432</td>
+                            <td><strong>2 bookings</strong></td>
+                            <td><strong>$15,600</strong></td>
+                            <td>Jan 15, 2026</td>
+                            <td><span class="badge badge-success">Active</span></td>
+                            <td>
+                                <button class="action-btn view"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

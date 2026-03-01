@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Templates - Rwanda Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Italiana&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #000000;
+            --secondary: #2d8659;
+            --accent: #c9a961;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #e5e5e5;
+            --gray-300: #d4d4d4;
+            --gray-500: #737373;
+            --gray-600: #525252;
+            --gray-700: #404040;
+            --gray-800: #262626;
+            --gray-900: #171717;
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+            --radius-lg: 16px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 280px;
+            background: linear-gradient(180deg, var(--gray-900) 0%, var(--primary) 100%);
+            color: var(--white);
+            padding: 2rem 0;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .sidebar-logo {
+            padding: 0 2rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'Italiana', serif;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-section {
+            padding: 1.5rem 0;
+        }
+
+        .nav-section-title {
+            padding: 0 2rem;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--gray-500);
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.875rem 2rem;
+            color: var(--gray-300);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background: linear-gradient(180deg, var(--secondary), var(--accent));
+            border-radius: 0 3px 3px 0;
+            transition: height 0.3s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--white);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link.active::before {
+            height: 70%;
+        }
+
+        .nav-badge {
+            margin-left: auto;
+            background: var(--danger);
+            color: var(--white);
+            padding: 0.25rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.6875rem;
+            font-weight: 700;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background: var(--white);
+            padding: 1.25rem 2rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--gray-700));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .topbar-right {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            border: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--gray-800);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gray-300);
+            color: var(--gray-700);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.8125rem;
+        }
+
+        /* Content */
+        .dashboard-content {
+            padding: 2rem;
+        }
+
+        /* Split Layout */
+        .split-layout {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 2rem;
+            height: calc(100vh - 180px);
+        }
+
+        /* Templates List */
+        .templates-list {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .list-header {
+            padding: 1.5rem;
+            border-bottom: 2px solid var(--gray-100);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .list-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .search-box {
+            padding: 1rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .templates-scroll {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .template-item {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--gray-100);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .template-item:hover {
+            background: var(--gray-50);
+        }
+
+        .template-item.active {
+            background: linear-gradient(90deg, rgba(45, 134, 89, 0.1), transparent);
+            border-left: 3px solid var(--secondary);
+        }
+
+        .template-name {
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.375rem;
+            font-size: 0.9375rem;
+        }
+
+        .template-description {
+            font-size: 0.8125rem;
+            color: var(--gray-600);
+            margin-bottom: 0.5rem;
+        }
+
+        .template-meta {
+            display: flex;
+            gap: 0.75rem;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .template-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* Editor Panel */
+        .editor-panel {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .editor-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 2px solid var(--gray-100);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .editor-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .editor-tabs {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--gray-50);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .editor-tab {
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            background: transparent;
+            border: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .editor-tab:hover {
+            background: var(--gray-200);
+        }
+
+        .editor-tab.active {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .editor-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        /* Form Groups */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
+            font-size: 0.9375rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-textarea {
+            min-height: 300px;
+            resize: vertical;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+        }
+
+        .form-hint {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            margin-top: 0.375rem;
+        }
+
+        /* Variables Panel */
+        .variables-panel {
+            background: var(--gray-50);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin-bottom: 1.5rem;
+        }
+
+        .variables-title {
+            font-weight: 700;
+            font-size: 0.875rem;
+            color: var(--gray-900);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .variables-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .variable-tag {
+            background: var(--white);
+            padding: 0.625rem 1rem;
+            border-radius: var(--radius);
+            border: 2px solid var(--gray-200);
+            font-size: 0.8125rem;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .variable-tag:hover {
+            border-color: var(--secondary);
+            background: rgba(45, 134, 89, 0.05);
+        }
+
+        /* Email Preview */
+        .email-preview {
+            background: var(--gray-100);
+            padding: 2rem;
+            border-radius: var(--radius);
+            border: 2px solid var(--gray-200);
+        }
+
+        .preview-device {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+        }
+
+        .preview-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: var(--white);
+        }
+
+        .preview-body {
+            padding: 2rem;
+            line-height: 1.8;
+        }
+
+        .preview-footer {
+            padding: 1.5rem;
+            background: var(--gray-50);
+            border-top: 2px solid var(--gray-200);
+            font-size: 0.8125rem;
+            color: var(--gray-600);
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                margin-left: 0;
+            }
+
+            .split-layout {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .templates-list {
+                max-height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <i class="fas fa-mountain"></i> RWANDA
+        </div>
+        
+        <nav>
+            <div class="nav-section">
+                <a href="premium_admin_dashboard.html" class="nav-link">
+                    <i class="fas fa-th-large"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="premium_booking_detail.html" class="nav-link">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Bookings</span>
+                    <span class="nav-badge">12</span>
+                </a>
+                <a href="customers.html" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span>Customers</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Management</div>
+                <a href="activities.html" class="nav-link">
+                    <i class="fas fa-hiking"></i>
+                    <span>Activities</span>
+                </a>
+                <a href="accommodations.html" class="nav-link">
+                    <i class="fas fa-hotel"></i>
+                    <span>Accommodations</span>
+                </a>
+                <a href="itineraries.html" class="nav-link">
+                    <i class="fas fa-route"></i>
+                    <span>Itineraries</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Analytics</div>
+                <a href="reports.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="analytics.html" class="nav-link">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="exports.html" class="nav-link">
+                    <i class="fas fa-download"></i>
+                    <span>Exports</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Settings</div>
+                <a href="email-templates.html" class="nav-link active">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email Templates</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="topbar">
+            <h1 class="page-title">Email Templates</h1>
+            <div class="topbar-right">
+                <button class="btn btn-outline">
+                    <i class="fas fa-paper-plane"></i>
+                    Send Test Email
+                </button>
+                <button class="btn btn-primary">
+                    <i class="fas fa-plus"></i>
+                    New Template
+                </button>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <div class="split-layout">
+                
+                <!-- Templates List -->
+                <div class="templates-list animate-in">
+                    <div class="list-header">
+                        <h2 class="list-title">Templates</h2>
+                        <span style="background: var(--gray-200); padding: 0.25rem 0.625rem; border-radius: 12px; font-size: 0.8125rem; font-weight: 600;">8</span>
+                    </div>
+
+                    <div class="search-box">
+                        <input type="text" class="search-input" placeholder="Search templates...">
+                    </div>
+
+                    <div class="templates-scroll">
+                        <div class="template-item active">
+                            <div class="template-name">Booking Confirmation</div>
+                            <div class="template-description">Sent to customers after booking submission</div>
+                            <div class="template-meta">
+                                <span><i class="fas fa-envelope"></i> Customer</span>
+                                <span><i class="fas fa-clock"></i> Auto-send</span>
+                            </div>
+                        </div>
+
+                        <div class="template-item">
+                            <div class="template-name">Admin Notification</div>
+                            <div class="template-description">Alert admin team of new bookings</div>
+                            <div class="template-meta">
+                                <span><i class="fas fa-user-shield"></i> Admin</span>
+                                <span><i class="fas fa-clock"></i> Auto-send</span>
+                            </div>
+                        </div>
+
+                        <div class="template-item">
+                            <div class="template-name">Booking Processed</div>
+                            <div class="template-description">Confirm booking has been reviewed</div>
+                            <div class="template-meta">
+                                <span><i class="fas fa-envelope"></i> Customer</span>
+                                <span><i class="fas fa-hand-pointer"></i> Manual</span>
+                            </div>
+                        </div>
+
+                        <div class="template-item">
+                            <div class="template-name">Itinerary Details</div>
+                            <div class="template-description">Send complete trip itinerary to customer</div>
+                            <div class="template-meta">
+                                <span><i class="fas fa-envelope"></i> Customer</span>
+                                <span><i class="fas fa-hand-pointer"></i> Manual</span>
+                            </div>
+                        </div>
+
+                        <div class="template-item">
+                            <div class="template-name">Payment Reminder</div>
+                            <div class="template-description">Remind customer of pending payment</div>
+                            <div class="template-meta">
+                                <span><i class="fas fa-envelope"></i> Customer</span>
+                                <span><i class="fas fa-hand-pointer"></i> Manual</span>
+                            </div>
+                        </div>
+
+                        <div class="template-item">
+                            <div class="template-name">Trip Preparation</div>
+                            <div class="template-description">Pre-trip checklist and travel tips</div>
+                            <div class="template-meta">
+                                <span><i class="fas fa-envelope"></i> Customer</span>
+                                <span><i class="fas fa-calendar"></i> Scheduled</span>
+                            </div>
+                        </div>
+
+                        <div class="template-item">
+                            <div class="template-name">Post-Trip Follow-up</div>
+                            <div class="template-description">Thank you and review request</div>
+                            <div class="template-meta">
+                                <span><i class="fas fa-envelope"></i> Customer</span>
+                                <span><i class="fas fa-calendar"></i> Scheduled</span>
+                            </div>
+                        </div>
+
+                        <div class="template-item">
+                            <div class="template-name">Newsletter</div>
+                            <div class="template-description">Monthly updates and promotions</div>
+                            <div class="template-meta">
+                                <span><i class="fas fa-users"></i> All</span>
+                                <span><i class="fas fa-calendar"></i> Monthly</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Editor Panel -->
+                <div class="editor-panel animate-in" style="animation-delay: 0.1s;">
+                    <div class="editor-header">
+                        <h2 class="editor-title">Booking Confirmation</h2>
+                        <div style="display: flex; gap: 0.75rem;">
+                            <button class="btn btn-success btn-sm">
+                                <i class="fas fa-save"></i> Save Changes
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="editor-tabs">
+                        <button class="editor-tab active">Edit</button>
+                        <button class="editor-tab">Preview</button>
+                        <button class="editor-tab">Settings</button>
+                    </div>
+
+                    <div class="editor-content">
+                        <!-- Variables Panel -->
+                        <div class="variables-panel">
+                            <div class="variables-title">Available Variables</div>
+                            <div class="variables-grid">
+                                <div class="variable-tag">{{customer_name}}</div>
+                                <div class="variable-tag">{{booking_id}}</div>
+                                <div class="variable-tag">{{start_date}}</div>
+                                <div class="variable-tag">{{end_date}}</div>
+                                <div class="variable-tag">{{travelers}}</div>
+                                <div class="variable-tag">{{activities}}</div>
+                                <div class="variable-tag">{{budget}}</div>
+                                <div class="variable-tag">{{company_name}}</div>
+                            </div>
+                        </div>
+
+                        <!-- Form Fields -->
+                        <div class="form-group">
+                            <label class="form-label">Email Subject</label>
+                            <input type="text" class="form-input" value="Booking Confirmation - {{booking_id}}">
+                            <p class="form-hint">Subject line visible in recipient's inbox</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Email Body (HTML)</label>
+                            <textarea class="form-textarea"><!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #2d8659, #c9a961); 
+                  color: white; padding: 30px; text-align: center; }
+        .content { padding: 30px; background: #ffffff; }
+        .footer { padding: 20px; background: #f5f5f5; text-align: center; 
+                  font-size: 12px; color: #737373; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌿 Discover Rwanda</h1>
+            <p>Your Journey Begins Here</p>
+        </div>
+        <div class="content">
+            <h2>Hello {{customer_name}},</h2>
+            <p>Thank you for choosing Discover Rwanda! We're thrilled to confirm receipt of your booking request.</p>
+            
+            <h3>Booking Details:</h3>
+            <ul>
+                <li><strong>Booking ID:</strong> {{booking_id}}</li>
+                <li><strong>Travel Dates:</strong> {{start_date}} - {{end_date}}</li>
+                <li><strong>Number of Travelers:</strong> {{travelers}}</li>
+                <li><strong>Selected Activities:</strong> {{activities}}</li>
+            </ul>
+
+            <p>Our team is reviewing your request and will contact you within 24 hours with a customized itinerary and pricing details.</p>
+            
+            <p>Best regards,<br>The Discover Rwanda Team</p>
+        </div>
+        <div class="footer">
+            <p>© 2026 Discover Rwanda. All rights reserved.</p>
+            <p>contact@discoverrwanda.com | +250 788 123 456</p>
+        </div>
+    </div>
+</body>
+</html></textarea>
+                            <p class="form-hint">Use HTML for formatting. Click variables above to insert them.</p>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                            <button class="btn btn-outline">
+                                <i class="fas fa-undo"></i> Reset
+                            </button>
+                            <button class="btn btn-outline">
+                                <i class="fas fa-eye"></i> Preview
+                            </button>
+                            <button class="btn btn-success">
+                                <i class="fas fa-save"></i> Save Template
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Template selection
+        document.querySelectorAll('.template-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.template-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+
+        // Tab switching
+        document.querySelectorAll('.editor-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.editor-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+
+        // Variable insertion
+        document.querySelectorAll('.variable-tag').forEach(tag => {
+            tag.addEventListener('click', () => {
+                const textarea = document.querySelector('.form-textarea');
+                const variable = tag.textContent;
+                const cursorPos = textarea.selectionStart;
+                const textBefore = textarea.value.substring(0, cursorPos);
+                const textAfter = textarea.value.substring(cursorPos);
+                textarea.value = textBefore + variable + textAfter;
+                textarea.focus();
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - Rwanda Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Italiana&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #000000;
+            --secondary: #2d8659;
+            --accent: #c9a961;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #e5e5e5;
+            --gray-500: #737373;
+            --gray-600: #525252;
+            --gray-700: #404040;
+            --gray-800: #262626;
+            --gray-900: #171717;
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+            --radius-lg: 16px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 280px;
+            background: linear-gradient(180deg, var(--gray-900) 0%, var(--primary) 100%);
+            color: var(--white);
+            padding: 2rem 0;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .sidebar-logo {
+            padding: 0 2rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'Italiana', serif;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-section {
+            padding: 1.5rem 0;
+        }
+
+        .nav-section-title {
+            padding: 0 2rem;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--gray-500);
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.875rem 2rem;
+            color: var(--gray-300);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background: linear-gradient(180deg, var(--secondary), var(--accent));
+            border-radius: 0 3px 3px 0;
+            transition: height 0.3s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--white);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link.active::before {
+            height: 70%;
+        }
+
+        .nav-badge {
+            margin-left: auto;
+            background: var(--danger);
+            color: var(--white);
+            padding: 0.25rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.6875rem;
+            font-weight: 700;
+        }
+
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background: var(--white);
+            padding: 1.25rem 2rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--gray-700));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .topbar-right {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            border: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--gray-800);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gray-300);
+            color: var(--gray-700);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+        }
+
+        .dashboard-content {
+            padding: 2rem;
+        }
+
+        /* Date Range Selector */
+        .date-range {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .date-input {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+        }
+
+        .date-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+        }
+
+        .stat-icon::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius);
+            opacity: 0.1;
+        }
+
+        .stat-icon.primary::before { background: var(--primary); }
+        .stat-icon.success::before { background: var(--success); }
+        .stat-icon.info::before { background: var(--info); }
+        .stat-icon.warning::before { background: var(--warning); }
+
+        .stat-icon.primary { color: var(--primary); position: relative; }
+        .stat-icon.success { color: var(--success); position: relative; }
+        .stat-icon.info { color: var(--info); position: relative; }
+        .stat-icon.warning { color: var(--warning); position: relative; }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+        }
+
+        .stat-change.positive {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        /* Charts */
+        .chart-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .chart-header {
+            margin-bottom: 2rem;
+        }
+
+        .chart-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .chart-subtitle {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+        }
+
+        /* Top Performers */
+        .performance-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .performance-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            transition: all 0.3s;
+        }
+
+        .performance-item:hover {
+            background: var(--gray-100);
+        }
+
+        .performance-rank {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .performance-details {
+            flex: 1;
+        }
+
+        .performance-name {
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .performance-subtitle {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+        }
+
+        .performance-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                margin-left: 0;
+            }
+
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <i class="fas fa-mountain"></i> RWANDA
+        </div>
+        
+        <nav>
+            <div class="nav-section">
+                <a href="premium_admin_dashboard.html" class="nav-link">
+                    <i class="fas fa-th-large"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="premium_booking_detail.html" class="nav-link">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Bookings</span>
+                    <span class="nav-badge">12</span>
+                </a>
+                <a href="customers.html" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span>Customers</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Management</div>
+                <a href="activities.html" class="nav-link">
+                    <i class="fas fa-hiking"></i>
+                    <span>Activities</span>
+                </a>
+                <a href="accommodations.html" class="nav-link">
+                    <i class="fas fa-hotel"></i>
+                    <span>Accommodations</span>
+                </a>
+                <a href="itineraries.html" class="nav-link">
+                    <i class="fas fa-route"></i>
+                    <span>Itineraries</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Analytics</div>
+                <a href="reports.html" class="nav-link active">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="analytics.html" class="nav-link">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="exports.html" class="nav-link">
+                    <i class="fas fa-download"></i>
+                    <span>Exports</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Settings</div>
+                <a href="email-templates.html" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email Templates</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="topbar">
+            <h1 class="page-title">Reports & Analytics</h1>
+            <div class="topbar-right">
+                <button class="btn btn-outline">
+                    <i class="fas fa-download"></i>
+                    Export PDF
+                </button>
+                <button class="btn btn-primary">
+                    <i class="fas fa-file-excel"></i>
+                    Export Excel
+                </button>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <!-- Date Range -->
+            <div class="date-range">
+                <span style="font-weight: 600; color: var(--gray-700);">Date Range:</span>
+                <input type="date" class="date-input" value="2026-01-01">
+                <span style="color: var(--gray-500);">to</span>
+                <input type="date" class="date-input" value="2026-02-04">
+                <button class="btn btn-primary">Apply</button>
+                <button class="btn btn-outline">Last 30 Days</button>
+                <button class="btn btn-outline">This Year</button>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card animate-in">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Total Revenue</div>
+                            <div class="stat-value">$1.2M</div>
+                            <span class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                18% increase
+                            </span>
+                        </div>
+                        <div class="stat-icon success">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card animate-in" style="animation-delay: 0.1s;">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Avg. Booking Value</div>
+                            <div class="stat-value">$5,247</div>
+                            <span class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                12% higher
+                            </span>
+                        </div>
+                        <div class="stat-icon info">
+                            <i class="fas fa-receipt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card animate-in" style="animation-delay: 0.2s;">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Conversion Rate</div>
+                            <div class="stat-value">68%</div>
+                            <span class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +5% this month
+                            </span>
+                        </div>
+                        <div class="stat-icon warning">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card animate-in" style="animation-delay: 0.3s;">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Customer Satisfaction</div>
+                            <div class="stat-value">4.9</div>
+                            <span class="stat-change positive">
+                                <i class="fas fa-star"></i>
+                                Excellent rating
+                            </span>
+                        </div>
+                        <div class="stat-icon primary">
+                            <i class="fas fa-smile"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="chart-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Revenue Over Time</h3>
+                        <p class="chart-subtitle">Monthly revenue for the past 12 months</p>
+                    </div>
+                    <canvas id="revenueChart"></canvas>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Top Performers</h3>
+                        <p class="chart-subtitle">Best performing activities</p>
+                    </div>
+                    <div class="performance-list">
+                        <div class="performance-item">
+                            <div class="performance-rank">1</div>
+                            <div class="performance-details">
+                                <div class="performance-name">Gorilla Trekking</div>
+                                <div class="performance-subtitle">234 bookings</div>
+                            </div>
+                            <div class="performance-value">$351K</div>
+                        </div>
+                        <div class="performance-item">
+                            <div class="performance-rank">2</div>
+                            <div class="performance-details">
+                                <div class="performance-name">Big Five Safari</div>
+                                <div class="performance-subtitle">192 bookings</div>
+                            </div>
+                            <div class="performance-value">$86K</div>
+                        </div>
+                        <div class="performance-item">
+                            <div class="performance-rank">3</div>
+                            <div class="performance-details">
+                                <div class="performance-name">Volcano Hiking</div>
+                                <div class="performance-subtitle">160 bookings</div>
+                            </div>
+                            <div class="performance-value">$40K</div>
+                        </div>
+                        <div class="performance-item">
+                            <div class="performance-rank">4</div>
+                            <div class="performance-details">
+                                <div class="performance-name">Kigali City Tour</div>
+                                <div class="performance-subtitle">128 bookings</div>
+                            </div>
+                            <div class="performance-value">$11K</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Chart -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">Customer Demographics</h3>
+                    <p class="chart-subtitle">Bookings by country</p>
+                </div>
+                <canvas id="demographicsChart"></canvas>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Revenue Chart
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        new Chart(revenueCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'Revenue',
+                    data: [85000, 92000, 78000, 105000, 118000, 125000, 132000, 115000, 98000, 110000, 105000, 95000],
+                    backgroundColor: '#2d8659',
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                aspectRatio: 2.5,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: value => '$' + (value / 1000) + 'K'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Demographics Chart
+        const demoCtx = document.getElementById('demographicsChart').getContext('2d');
+        new Chart(demoCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['United States', 'United Kingdom', 'Canada', 'Australia', 'Germany', 'France', 'Others'],
+                datasets: [{
+                    data: [32, 18, 15, 12, 8, 6, 9],
+                    backgroundColor: ['#2d8659', '#c9a961', '#000000', '#6a6a6a', '#10b981', '#f59e0b', '#3b82f6']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                aspectRatio: 3,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: { font: { size: 12 } }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

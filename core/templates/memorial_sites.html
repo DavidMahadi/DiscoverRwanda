@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memorial Sites | Discover Rwanda</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Italiana&display=swap" rel="stylesheet">
+    
+<style>
+    :root {
+        --black: #000000;
+        --charcoal: #1a1a1a;
+        --dark-gray: #2c2c2c;
+        --mid-gray: #6a6a6a;
+        --light-gray: #e5e5e5;
+        --off-white: #f8f8f8;
+        --white: #ffffff;
+        --memorial-accent: #8a8a8a;
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Inter', sans-serif;
+        color: var(--charcoal);
+        line-height: 1.6;
+        overflow-x: hidden;
+        background: var(--white);
+    }
+    
+    /* Navigation */
+    .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 1.5rem 6%;
+        background: var(--white);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .nav-container {
+        max-width: 1900px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-decoration: none;
+    }
+    
+    .nav-logo-img {
+        font-size: 2rem;
+    }
+    
+    .nav-logo-text {
+        font-family: 'Italiana', serif;
+        font-size: 1.5rem;
+        color: var(--black);
+        letter-spacing: 4px;
+    }
+    
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 4rem;
+        align-items: center;
+    }
+    
+    .nav-item a {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--charcoal);
+        text-decoration: none;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-item a:hover {
+        color: var(--memorial-accent);
+    }
+    
+    .nav-cta {
+        background: var(--black);
+        color: var(--white) !important;
+        padding: 1rem 2.8rem !important;
+        border-radius: 50px !important;
+    }
+    
+    .nav-cta:hover {
+        background: var(--memorial-accent);
+    }
+    
+    /* Hero Section - Minimalist & Somber */
+    .hero-section {
+        position: relative;
+        height: 70vh;
+        min-height: 600px;
+        background: var(--charcoal);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 88px;
+        overflow: hidden;
+    }
+    
+    .hero-content {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 6%;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .hero-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        font-weight: 300;
+        color: var(--white);
+        margin-bottom: 2rem;
+        letter-spacing: 6px;
+        line-height: 1.3;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.125rem;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.7);
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.9;
+    }
+    
+    .hero-divider {
+        width: 80px;
+        height: 1px;
+        background: var(--white);
+        margin: 3rem auto 0;
+        opacity: 0.3;
+    }
+    
+    /* Introduction Section */
+    .intro-section {
+        background: var(--white);
+        padding: 8rem 6% 6rem;
+    }
+    
+    .intro-container {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    
+    .intro-text {
+        font-size: 1.25rem;
+        font-weight: 300;
+        line-height: 2;
+        color: var(--mid-gray);
+        margin-bottom: 2rem;
+    }
+    
+    .intro-quote {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.5rem;
+        font-style: italic;
+        font-weight: 400;
+        color: var(--charcoal);
+        line-height: 1.8;
+        padding: 2rem 0;
+        border-top: 1px solid var(--light-gray);
+        border-bottom: 1px solid var(--light-gray);
+        margin-top: 3rem;
+    }
+    
+    /* Memorial Cards - Magazine Card Layout */
+    .memorials-section {
+        background: var(--off-white);
+        padding: 8rem 6%;
+    }
+    
+    .memorials-container {
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+    
+    .memorial-card {
+        display: grid;
+        grid-template-columns: 45% 55%;
+        gap: 0;
+        background: var(--white);
+        margin-bottom: 5rem;
+        box-shadow: 0 10px 60px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        transition: all 0.4s ease;
+    }
+    
+    .memorial-card:hover {
+        box-shadow: 0 15px 80px rgba(0, 0, 0, 0.12);
+        transform: translateY(-5px);
+    }
+    
+    .memorial-card:nth-child(even) {
+        grid-template-columns: 55% 45%;
+    }
+    
+    .memorial-image-wrapper {
+        position: relative;
+        overflow: hidden;
+        min-height: 600px;
+    }
+    
+    .memorial-card:nth-child(even) .memorial-image-wrapper {
+        order: 2;
+    }
+    
+    .memorial-image-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+    
+    .memorial-card:hover .memorial-image-wrapper img {
+        transform: scale(1.05);
+    }
+    
+    .memorial-image-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 2rem;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, transparent 100%);
+    }
+    
+    .memorial-name {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+        font-weight: 600;
+        color: var(--white);
+        margin-bottom: 0.5rem;
+        letter-spacing: 2px;
+        line-height: 1.3;
+    }
+    
+    .memorial-location {
+        font-size: 0.8125rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.9);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+    
+    .memorial-body {
+        padding: 4rem 5%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: var(--white);
+    }
+    
+    .memorial-year {
+        display: inline-block;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--white);
+        background: var(--memorial-accent);
+        padding: 0.5rem 1.25rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+        align-self: flex-start;
+    }
+    
+    .memorial-description {
+        font-size: 1rem;
+        font-weight: 300;
+        line-height: 1.9;
+        color: var(--mid-gray);
+        margin-bottom: 2.5rem;
+    }
+    
+    .memorial-details {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        padding-top: 2.5rem;
+        border-top: 2px solid var(--off-white);
+    }
+    
+    .detail-item {
+        text-align: left;
+    }
+    
+    .detail-label {
+        font-size: 0.6875rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--memorial-accent);
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+    
+    .detail-value {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--charcoal);
+        line-height: 1.3;
+    }
+    
+    /* Remembrance Section */
+    .remembrance-section {
+        background: var(--charcoal);
+        padding: 10rem 6%;
+        text-align: center;
+        color: var(--white);
+    }
+    
+    .remembrance-container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    
+    .remembrance-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        font-weight: 300;
+        letter-spacing: 4px;
+        margin-bottom: 3rem;
+        line-height: 1.4;
+    }
+    
+    .remembrance-text {
+        font-size: 1.125rem;
+        font-weight: 300;
+        line-height: 2;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 4rem;
+    }
+    
+    .remembrance-values {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4rem;
+        margin-top: 5rem;
+    }
+    
+    .value-item {
+        padding: 2rem;
+    }
+    
+    .value-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        opacity: 0.7;
+    }
+    
+    .value-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        letter-spacing: 1px;
+    }
+    
+    .value-text {
+        font-size: 0.9375rem;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.7);
+    }
+    
+    /* Visitor Guidelines Section */
+    .guidelines-section {
+        background: var(--white);
+        padding: 8rem 6%;
+    }
+    
+    .guidelines-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .guidelines-header {
+        text-align: center;
+        margin-bottom: 5rem;
+    }
+    
+    .guidelines-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 400;
+        color: var(--charcoal);
+        margin-bottom: 1.5rem;
+        letter-spacing: 3px;
+    }
+    
+    .guidelines-intro {
+        font-size: 1.0625rem;
+        font-weight: 300;
+        line-height: 1.8;
+        color: var(--mid-gray);
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .guidelines-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+    }
+    
+    .guideline-card {
+        background: var(--off-white);
+        padding: 3rem;
+        border-left: 3px solid var(--memorial-accent);
+    }
+    
+    .guideline-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--charcoal);
+        margin-bottom: 1rem;
+    }
+    
+    .guideline-text {
+        font-size: 1rem;
+        line-height: 1.8;
+        color: var(--mid-gray);
+    }
+    
+    /* CTA Section */
+    .cta-final {
+        background: var(--off-white);
+        padding: 8rem 6%;
+        text-align: center;
+    }
+    
+    .cta-content {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .cta-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 400;
+        color: var(--charcoal);
+        margin-bottom: 2rem;
+        letter-spacing: 3px;
+    }
+    
+    .cta-text {
+        font-size: 1.0625rem;
+        font-weight: 300;
+        line-height: 1.9;
+        color: var(--mid-gray);
+        margin-bottom: 3rem;
+    }
+    
+    .cta-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.25rem 3.5rem;
+        background: var(--charcoal);
+        color: var(--white);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.875rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border-radius: 50px;
+        transition: all 0.4s ease;
+    }
+    
+    .cta-button:hover {
+        background: var(--memorial-accent);
+        gap: 1.5rem;
+    }
+    
+    /* Footer */
+    footer {
+        background: var(--charcoal);
+        color: var(--white);
+        padding: 6rem 6% 3rem;
+    }
+    
+    .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 4rem;
+        max-width: 1800px;
+        margin: 0 auto 4rem;
+    }
+    
+    .footer-brand h3 {
+        font-family: 'Italiana', serif;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        letter-spacing: 2px;
+    }
+    
+    .footer-description {
+        font-size: 0.9375rem;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .footer-column h4 {
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        color: var(--memorial-accent);
+    }
+    
+    .footer-links {
+        list-style: none;
+    }
+    
+    .footer-links li {
+        margin-bottom: 0.75rem;
+    }
+    
+    .footer-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+        color: var(--memorial-accent);
+    }
+    
+    .footer-bottom {
+        text-align: center;
+        padding-top: 3rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.875rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+        .memorial-card {
+            grid-template-columns: 1fr !important;
+        }
+        
+        .memorial-card:nth-child(even) .memorial-image-wrapper {
+            order: 1;
+        }
+        
+        .memorial-image-wrapper {
+            min-height: 450px;
+        }
+        
+        .memorial-details {
+            grid-template-columns: 1fr;
+        }
+        
+        .remembrance-values {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .guidelines-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .footer-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .nav-menu {
+            display: none;
+        }
+        
+        .memorial-body {
+            padding: 3rem 6%;
+        }
+        
+        .memorial-details {
+            grid-template-columns: 1fr;
+        }
+        
+        .footer-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+    <div class="nav-container">
+        <a href="index.html" class="nav-brand">
+            <div class="nav-logo-img">🌿</div>
+            <div class="nav-logo-text">RWANDA</div>
+        </a>
+        
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="{% url 'index' %}">Home</a></li>
+            <li class="nav-item"><a href="towns.html">Towns</a></li>
+            <li class="nav-item"><a href="#memorials">Memorials</a></li>
+            <li class="nav-item"><a href="contact.html" class="nav-cta">Plan Visit</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-content">
+        <h1 class="hero-title">Memorial Sites</h1>
+        <p class="hero-subtitle">
+            Sacred spaces of remembrance honoring the victims of the 1994 genocide against the Tutsi—places of reflection, education, and hope for a unified future.
+        </p>
+        <div class="hero-divider"></div>
+    </div>
+</section>
+
+<!-- Introduction -->
+<section class="intro-section">
+    <div class="intro-container">
+        <p class="intro-text">
+            Rwanda's genocide memorial sites stand as powerful testimonies to the resilience of the human spirit. These sacred spaces serve multiple purposes: they honor the memory of those who perished, educate visitors about the causes and consequences of genocide, and inspire commitment to preventing such atrocities from ever happening again.
+        </p>
+        <p class="intro-text">
+            Each memorial tells its own story—of communities torn apart, of unimaginable loss, and ultimately, of a nation's determination to heal and move forward together. Visiting these sites is a profound and moving experience that deepens understanding of Rwanda's journey from tragedy to hope.
+        </p>
+        <div class="intro-quote">
+            "We remember not to perpetuate hatred, but to ensure that such darkness never descends upon humanity again."
+        </div>
+    </div>
+</section>
+
+<!-- Memorial Sites -->
+<section class="memorials-section" id="memorials">
+    <div class="memorials-container">
+        
+        <!-- Kigali Genocide Memorial -->
+        <article class="memorial-card">
+            <div class="memorial-image-wrapper">
+                <img src="https://images.ctfassets.net/159p56s120vn/1EgGroHT0BmSdVmdp07Oe7/8688efbd37ba9f2720c41362dbe9de52/The_Kigali_Genocide_Memorial_located_in_the_Gisozi_district..png" alt="Kigali Genocide Memorial">
+                <div class="memorial-image-caption">
+                    <h2 class="memorial-name">Kigali Genocide Memorial</h2>
+                    <p class="memorial-location">Kigali, Gasabo District</p>
+                </div>
+            </div>
+            <div class="memorial-body">
+                <div class="memorial-year">ESTABLISHED 2004</div>
+                <div class="memorial-description">
+                    The Kigali Genocide Memorial is the final resting place for more than 250,000 victims of the genocide against the Tutsi. Located in Gisozi, the memorial serves as the national center for documentation, education, and remembrance. The site features three permanent exhibitions: one focused on the 1994 genocide, another on the history of genocidal violence around the world, and a children's memorial that particularly honors the youngest victims. The beautifully landscaped memorial gardens provide peaceful spaces for reflection and contemplation.
+                </div>
+                <div class="memorial-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Victims Interred</span>
+                        <div class="detail-value">250,000+</div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Exhibitions</span>
+                        <div class="detail-value">Three Permanent</div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Annual Visitors</span>
+                        <div class="detail-value">100,000+</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        
+        <!-- Murambi Genocide Memorial -->
+        <article class="memorial-card">
+            <div class="memorial-image-wrapper">
+                <img src="https://www.onemoreadventuresafaris.com/wp-content/uploads/2023/09/visit-murambi-genocide-memorial.jpg" alt="Murambi Genocide Memorial">
+                <div class="memorial-image-caption">
+                    <h2 class="memorial-name">Murambi Genocide Memorial</h2>
+                    <p class="memorial-location">Nyamagabe District, Southern Province</p>
+                </div>
+            </div>
+            <div class="memorial-body">
+                <div class="memorial-year">ESTABLISHED 1995</div>
+                <div class="memorial-description">
+                    The Murambi Genocide Memorial, located at a former technical school, is one of the most haunting memorial sites in Rwanda. Over 50,000 people sought refuge at the school, falsely promised safety, only to be massacred over the course of several days. The site preserves classrooms where preserved remains lie as they were found, serving as stark testimony to the brutality of the genocide. The memorial's exhibition hall provides detailed documentation of the events that occurred here, including photographs and personal testimonies.
+                </div>
+                <div class="memorial-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Victims</span>
+                        <div class="detail-value">50,000+</div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Preserved Rooms</span>
+                        <div class="detail-value">Multiple Classrooms</div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Location Type</span>
+                        <div class="detail-value">Former School</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        
+        <!-- Nyamata Genocide Memorial -->
+        <article class="memorial-card">
+            <div class="memorial-image-wrapper">
+                <img src="https://penntoday.upenn.edu/sites/default/files/styles/2880px_wide_with_focal_crop/public/2019-04/mason-randy-rwanda-church.png?h=06ac0d8c&itok=kTF8ievS" alt="Nyamata Church Memorial">
+                <div class="memorial-image-caption">
+                    <h2 class="memorial-name">Nyamata Genocide Memorial</h2>
+                    <p class="memorial-location">Bugesera, Eastern Province</p>
+                </div>
+            </div>
+            <div class="memorial-body">
+                <div class="memorial-year">ESTABLISHED 1997</div>
+                <div class="memorial-description">
+                    The Nyamata Genocide Memorial is housed in a former Catholic church where over 10,000 people were killed after seeking sanctuary. The church stands as it was left after the massacre, with bloodstained walls, bullet holes, and personal belongings of victims still scattered throughout. Below the church, crypts contain the remains of 45,000 victims collected from the surrounding area. The memorial preserves clothing and identification cards of victims, creating a deeply personal connection to those who died.
+                </div>
+                <div class="memorial-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Church Victims</span>
+                        <div class="detail-value">10,000+</div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Total Interred</span>
+                        <div class="detail-value">45,000</div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Memorial Type</span>
+                        <div class="detail-value">Church Site</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        
+        <!-- Ntarama Genocide Memorial -->
+        <article class="memorial-card">
+            <div class="memorial-image-wrapper">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Ntarama_Church_Genocide_Memorial_-_Flickr_-_Dave_Proffer_%2812%29.jpg" alt="Ntarama Church Memorial">
+                <div class="memorial-image-caption">
+                    <h2 class="memorial-name">Ntarama Genocide Memorial</h2>
+                    <p class="memorial-location">Bugesera, Eastern Province</p>
+                </div>
+            </div>
+            <div class="memorial-body">
+                <div class="memorial-year">ESTABLISHED 1995</div>
+                <div class="memorial-description">
+                    The Ntarama Genocide Memorial Center commemorates the 5,000 people killed in and around this Catholic church. Like Nyamata, the church has been preserved as it was found after the massacre, with clothes, identity cards, and personal effects of victims displayed throughout the building. The roof and walls still bear the marks of grenades and bullets used in the attack. Educational programs at the memorial focus on the warning signs of genocide and the importance of standing against hatred and division.
+                </div>
+                <div class="memorial-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Victims</span>
+                        <div class="detail-value">5,000+</div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Evidence</span>
+                        <div class="detail-value">Personal Effects</div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Focus</span>
+                        <div class="detail-value">Prevention</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        
+        <!-- Bisesero Genocide Memorial -->
+        <article class="memorial-card">
+            <div class="memorial-image-wrapper">
+                <img src="https://genocidearchiverwanda.org.rw/api/v1/file/get/b3c76eadcc3d942275145c30c1541eef" alt="Bisesero Memorial">
+                <div class="memorial-image-caption">
+                    <h2 class="memorial-name">Bisesero Genocide Memorial</h2>
+                    <p class="memorial-location">Karongi District, Western Province</p>
+                </div>
+            </div>
+            <div class="memorial-body">
+                <div class="memorial-year">ESTABLISHED 1998</div>
+                <div class="memorial-description">
+                    The Bisesero Genocide Memorial honors the thousands who resisted their attackers on the hills of Bisesero, fighting for nearly two months before being overwhelmed. Located on a hilltop with sweeping views, the memorial tells the story of remarkable courage and resistance. Approximately 50,000 people gathered on these hills to defend themselves, using stones as their only weapons against armed attackers. Despite their bravery, only about 1,000 survived.
+                </div>
+                <div class="memorial-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Initial Defenders</span>
+                        <div class="detail-value">50,000</div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Survivors</span>
+                        <div class="detail-value">~1,000</div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Resistance</span>
+                        <div class="detail-value">Two Months</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</section>
+
+<!-- Remembrance Section -->
+<section class="remembrance-section">
+    <div class="remembrance-container">
+        <h2 class="remembrance-title">We Remember. We Unite. We Renew.</h2>
+        <p class="remembrance-text">
+            Rwanda's memorial sites embody the nation's commitment to never forgetting the past while building a unified future. These spaces teach us about the consequences of hatred and division while inspiring hope through stories of survival, forgiveness, and reconciliation.
+        </p>
+        
+        <div class="remembrance-values">
+            <div class="value-item">
+                <div class="value-icon">🕯️</div>
+                <h3 class="value-title">Remember</h3>
+                <p class="value-text">We honor the memory of every victim and preserve their stories for future generations.</p>
+            </div>
+            <div class="value-item">
+                <div class="value-icon">🤝</div>
+                <h3 class="value-title">Unite</h3>
+                <p class="value-text">We stand together as one nation, rejecting division and embracing our shared humanity.</p>
+            </div>
+            <div class="value-item">
+                <div class="value-icon">🌱</div>
+                <h3 class="value-title">Renew</h3>
+                <p class="value-text">We commit to building a future of peace, dignity, and hope for all Rwandans.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Visitor Guidelines -->
+<section class="guidelines-section">
+    <div class="guidelines-container">
+        <div class="guidelines-header">
+            <h2 class="guidelines-title">Visitor Guidelines</h2>
+            <p class="guidelines-intro">
+                Memorial sites are sacred spaces that require respectful behavior. Please observe these guidelines to honor the memory of victims and support the healing process.
+            </p>
+        </div>
+        
+        <div class="guidelines-grid">
+            <div class="guideline-card">
+                <h3 class="guideline-title">Respectful Conduct</h3>
+                <p class="guideline-text">
+                    Maintain a quiet, contemplative demeanor. Avoid loud conversations, laughter, or behavior that could be perceived as disrespectful. Remember that these are places of mourning and reflection.
+                </p>
+            </div>
+            
+            <div class="guideline-card">
+                <h3 class="guideline-title">Appropriate Dress</h3>
+                <p class="guideline-text">
+                    Wear modest, conservative clothing that covers shoulders and knees. Avoid revealing or casual attire such as shorts, tank tops, or beachwear. Dark or neutral colors are most appropriate.
+                </p>
+            </div>
+            
+            <div class="guideline-card">
+                <h3 class="guideline-title">Photography Restrictions</h3>
+                <p class="guideline-text">
+                    Photography policies vary by site. Many memorials prohibit photos of remains. Always ask permission before photographing and never use flash. Some areas may prohibit photography entirely.
+                </p>
+            </div>
+            
+            <div class="guideline-card">
+                <h3 class="guideline-title">Guided Tours</h3>
+                <p class="guideline-text">
+                    Guided tours are highly recommended for deeper understanding and context. Trained guides provide essential historical background and can answer questions sensitively and accurately.
+                </p>
+            </div>
+            
+            <div class="guideline-card">
+                <h3 class="guideline-title">Emotional Preparation</h3>
+                <p class="guideline-text">
+                    Memorial sites contain graphic displays and preserved remains. Visits can be emotionally challenging. Take your time, allow space for reflection, and don't hesitate to step outside if needed.
+                </p>
+            </div>
+            
+            <div class="guideline-card">
+                <h3 class="guideline-title">Children</h3>
+                <p class="guideline-text">
+                    Consider carefully before bringing young children. The content is disturbing and may not be appropriate for all ages. Older children and teenagers can benefit from age-appropriate discussions beforehand.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-final">
+    <div class="cta-content">
+        <h2 class="cta-title">Visit with Understanding</h2>
+        <p class="cta-text">
+            Let Discover Rwanda arrange your memorial site visits with sensitivity and respect. Our experienced guides provide historical context while honoring the sacred nature of these spaces.
+        </p>
+        <a href="{% url 'contact' %}" class="cta-button">
+            Plan Your Visit
+            <span>→</span>
+        </a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <h3>Discover Rwanda</h3>
+            <p class="footer-description">Your gateway to extraordinary journeys through the Land of a Thousand Hills. We curate transformative experiences across Rwanda's pristine wilderness, rare wildlife encounters, and vibrant cultural tapestry.</p>
+        </div>
+        
+        <div class="footer-column">
+            <h4>Memorial Sites</h4>
+            <ul class="footer-links">
+                <li><a href="#kigali-memorial">Kigali Memorial</a></li>
+                <li><a href="#murambi-memorial">Murambi Memorial</a></li>
+                <li><a href="#nyamata-memorial">Nyamata Memorial</a></li>
+                <li><a href="#ntarama-memorial">Ntarama Memorial</a></li>
+                <li><a href="#bisesero-memorial">Bisesero Memorial</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h4>Destinations</h4>
+            <ul class="footer-links">
+                <li><a href="towns.html">Towns</a></li>
+                <li><a href="lakes.html">Lakes</a></li>
+                <li><a href="volcanic-mountains.html">Mountains</a></li>
+                <li><a href="museums-heritage.html">Museums</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h4>Contact</h4>
+            <ul class="footer-links">
+                <li><a href="contact.html">Get In Touch</a></li>
+                <li><a href="tel:+250788123456">+250 788 123 456</a></li>
+                <li><a href="mailto:info@discoverrwanda.com">info@discoverrwanda.com</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>&copy; 2026 Discover Rwanda. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+// Smooth scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+});
+</script>
+
+</body>
+</html>

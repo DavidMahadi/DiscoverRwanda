@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Things to Do in Rwanda | Discover Rwanda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --black: #000;
+        --charcoal: #1a1a1a;
+        --gray: #6a6a6a;
+        --light: #e5e5e5;
+        --off: #f8f8f8;
+        --white: #fff;
+        --gold: #c59959;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; color: var(--charcoal); background: var(--white); overflow-x: hidden; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--white); box-shadow: 0 2px 20px rgba(0,0,0,0.07); padding: 1.5rem 6%; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: 'Italiana', serif; font-size: 1.4rem; letter-spacing: 4px; color: var(--black); text-decoration: none; }
+    .nav-links { display: flex; gap: 3rem; list-style: none; align-items: center; }
+    .nav-links a { font-size: 0.75rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--charcoal); text-decoration: none; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links .cta { background: var(--black); color: var(--white) !important; padding: 0.875rem 2rem; border-radius: 50px; }
+    .nav-links .cta:hover { background: var(--gold); }
+
+    /* HERO */
+    .hero {
+        height: 100vh; min-height: 600px; margin-top: 80px;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.75) 100%),
+                    url('https://images.unsplash.com/photo-1551982700-3bba29a5b89a?w=1800&q=80') center/cover;
+        display: flex; align-items: flex-end;
+        padding: 0 6% 7rem;
+    }
+    .hero h1 { font-family: 'Italiana', serif; font-size: clamp(5rem, 11vw, 9rem); color: var(--white); letter-spacing: 10px; line-height: 1; }
+    .hero p { font-family: 'Cormorant Garamond', serif; font-size: 1.375rem; font-weight: 300; font-style: italic; color: rgba(255,255,255,0.8); margin-top: 1rem; max-width: 550px; }
+    .hero-split {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 450px;
+    overflow: hidden;
+}
+
+.hero-split img {
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Text on top */
+.hero-split {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 450px;
+    overflow: hidden;
+}
+
+.hero-split img {
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Title centered */
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-family: "Georgia", serif;
+    text-align: center;
+}
+
+.hero-text h1 {
+    font-size: 100px;
+    line-height: 0.9;
+    margin: 0;
+}
+
+/* Side sentence on the LEFT */
+.side-text {
+    position: absolute;
+    right: 90px;
+    bottom: 10%;
+    color: white;
+    font-family: "Georgia", serif;
+    font-style: italic;
+    font-size: 28px;
+    text-align: right;
+}
+
+
+
+
+    /* CATEGORY STRIP */
+    .strip { background: var(--charcoal); padding: 0 17%; display: flex; overflow-x: auto; scrollbar-width: none; gap: 0; position: sticky; top: 80px; z-index: 90; }
+    .strip::-webkit-scrollbar { display: none; }
+    .strip a { padding: 1.1rem 1.75rem; color: rgba(255,255,255,0.45); font-size: 0.65rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.3s; }
+    .strip a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+    /* SECTION */
+    .cat { padding: 7rem 6%; }
+    .cat:nth-child(even) { background: var(--off); }
+    .inner { max-width: 1400px; margin: 0 auto; }
+
+    /* HEADER */
+    .cat-head { display: flex; align-items: baseline; gap: 2rem; margin-bottom: 3rem; border-bottom: 1px solid var(--light); padding-bottom: 2rem; }
+    .cat-num { font-family: 'Italiana', serif; font-size: 5rem; color: var(--light); line-height: 1; flex-shrink: 0; }
+    .cat-text {}
+    .cat-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
+    .cat-title { font-family: 'Italiana', serif; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 5px; color: var(--black); line-height: 1; }
+
+    /* PHOTOS + CONTENT SIDE BY SIDE */
+    .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .layout.flip { direction: rtl; }
+    .layout.flip > * { direction: ltr; }
+
+    .photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+    .photo { aspect-ratio: 3/4; overflow: hidden; border-radius: 2px; position: relative; }
+    .photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .photo:hover img { transform: scale(1.07); }
+    .photo-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 1rem 0.875rem; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color: var(--white); font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; }
+
+    /* EXPERIENCES LIST */
+    .xp-list { display: flex; flex-direction: column; gap: 0; }
+    .xp { padding: 1.75rem 0; border-bottom: 1px solid var(--light); display: flex; gap: 1.5rem; align-items: flex-start; }
+    .xp:first-child { padding-top: 0; }
+    .xp:last-child { border-bottom: none; }
+    .xp-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; margin-top: 0.55rem; flex-shrink: 0; }
+    .xp-body {}
+    .xp-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--black); margin-bottom: 0.35rem; }
+    .xp-desc { font-size: 0.875rem; line-height: 1.75; color: var(--gray); }
+
+    .book-link { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 2rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--black); text-decoration: none; padding-bottom: 0.25rem; border-bottom: 1px solid var(--black); transition: all 0.3s; }
+    .book-link:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+    /* STATS (wildlife only) */
+    .stats { display: flex; gap: 0; background: var(--black); margin-bottom: 3rem; }
+    .stat { flex: 1; padding: 2rem; border-right: 1px solid rgba(255,255,255,0.07); text-align: center; }
+    .stat:last-child { border-right: none; }
+    .stat-val { font-family: 'Italiana', serif; font-size: 2.5rem; color: var(--gold); }
+    .stat-lbl { font-size: 0.6rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 0.25rem; }
+
+    /* CTA */
+    .cta { background: var(--black); padding: 8rem 6%; text-align: center; }
+    .cta h2 { font-family: 'Italiana', serif; font-size: clamp(3rem, 6vw, 5rem); color: var(--white); letter-spacing: 6px; margin-bottom: 1rem; }
+    .cta p { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 300; color: rgba(255,255,255,0.6); margin-bottom: 2.5rem; }
+    .cta-btn { display: inline-flex; align-items: center; gap: 0.75rem; padding: 1.1rem 3rem; background: var(--gold); color: var(--white); text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; border-radius: 50px; transition: all 0.3s; }
+    .cta-btn:hover { background: var(--white); color: var(--black); transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { background: var(--charcoal); color: var(--white); padding: 6rem 6% 2.5rem; }
+    .f-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; max-width: 1800px; margin: 0 auto 4rem; }
+    .f-brand h3 { font-family: 'Italiana', serif; font-size: 1.875rem; letter-spacing: 3px; margin-bottom: 1.25rem; }
+    .f-brand p { font-size: 0.9rem; line-height: 1.8; color: rgba(255,255,255,0.5); }
+    .f-col h4 { font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+    .f-col ul { list-style: none; }
+    .f-col li { margin-bottom: 0.75rem; }
+    .f-col a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+    .f-col a:hover { color: var(--gold); }
+    .f-bottom { text-align: center; padding-top: 2.5rem; border-top: 1px solid rgba(255,255,255,0.07); color: rgba(255,255,255,0.25); font-size: 0.8rem; }
+
+    @media (max-width: 1024px) { .layout { grid-template-columns: 1fr; } .layout.flip { direction: ltr; } .stats { flex-wrap: wrap; } .stat { min-width: 50%; } }
+    @media (max-width: 768px) { .nav-links { display: none; } .strip { display: none; } .f-grid { grid-template-columns: 1fr; } .photos { grid-template-columns: repeat(3, 1fr); } }
+</style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="logo">🌿 RWANDA</a>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="travel-your-way.html">Travel Types</a></li>
+        <li><a href="contact.html" class="cta">Plan Your Trip</a></li>
+    </ul>
+</nav>
+
+<div class="hero-split">
+    <img src="https://i.pinimg.com/736x/c4/85/11/c48511709cc73464f88393a8b815e36f.jpg" alt="Image 1">
+    <img src="https://i.pinimg.com/736x/e4/c8/59/e4c85998637c721f98df4064df929fef.jpg" alt="Image 2">
+
+    <div class="hero-text">
+        <h1>THINGS<br>TO DO</h1>
+    </div>
+
+    <p class="side-text">More Ways To Experience Rwanda.</p>
+</div>
+
+
+
+
+<div class="strip">
+    <a href="#eats">Eats & Drinks</a>
+    <a href="#wildlife">Nature & Wildlife</a>
+    <a href="#nautical">Nautical</a>
+    <a href="#leisure">Leisure</a>
+    <a href="#adventure">Adventure</a>
+    <a href="#events">Events</a>
+    <a href="#luxury">Luxury</a>
+</div>
+
+
+<!-- 01 EATS -->
+<section class="cat" id="eats">
+<div class="inner">
+    <div class="cat-head">
+        <div class="cat-num">01</div>
+        <div class="cat-text">
+            <div class="cat-label">Culinary</div>
+            <div class="cat-title">EATS & DRINKS</div>
+        </div>
+    </div>
+    <div class="layout">
+        <div class="photos">
+            <div class="photo"><img src="https://i.pinimg.com/1200x/74/b7/18/74b7185181340dc75c0e28d407d1a0f2.jpg" alt="Coffee"><div class="photo-label">Specialty Coffee</div></div>
+            <div class="photo"><img src="https://i.pinimg.com/736x/fc/6c/cf/fc6ccf6314f207173840e9e368cc20b0.jpg" alt="Cuisine"><div class="photo-label">Local Cuisine</div></div>
+            <div class="photo"><img src="https://i.pinimg.com/1200x/c4/ec/55/c4ec5509aeb9d41e4a3540ca1ee14d61.jpg" alt="Dining"><div class="photo-label">Fine Dining</div></div>
+        </div>
+        <div class="xp-list">
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Market Tours</div><div class="xp-desc">Kimironko Market — fresh produce, spices, and street food. Brochettes, ibirayi, mandazi.</div></div></div>
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Coffee Experiences</div><div class="xp-desc">Award-winning single-origin Arabica. Plantation visits and professional cupping sessions.</div></div></div>
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Traditional Cuisine</div><div class="xp-desc">Ubugali, isombe, slow-cooked bean stews. Authentic meals at Iwacu or Heaven Restaurant.</div></div></div>
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Cooking Classes</div><div class="xp-desc">Hands-on sessions with local chefs. Recipes to take home.</div></div></div>
+            <a href="contact.html" class="book-link">Book an Experience →</a>
+        </div>
+    </div>
+</div>
+</section>
+
+
+<!-- 02 WILDLIFE -->
+<section class="cat" id="wildlife">
+<div class="inner">
+    <div class="cat-head">
+        <div class="cat-num">02</div>
+        <div class="cat-text">
+            <div class="cat-label">Parks & Encounters</div>
+            <div class="cat-title">NATURE & WILDLIFE</div>
+        </div>
+    </div>
+    <div class="stats">
+        <div class="stat"><div class="stat-val">600</div><div class="stat-lbl">Gorillas on Earth</div></div>
+        <div class="stat"><div class="stat-val">480+</div><div class="stat-lbl">Bird Species</div></div>
+        <div class="stat"><div class="stat-val">20</div><div class="stat-lbl">Primate Species</div></div>
+        <div class="stat"><div class="stat-val">5</div><div class="stat-lbl">National Parks</div></div>
+    </div>
+    <div class="layout flip">
+        <div class="photos">
+            <div class="photo"><img src="https://i.pinimg.com/1200x/40/82/ca/4082cae6c63dbaf5bd8fd52d48e09255.jpg" alt="Gorillas"><div class="photo-label">Gorilla Trek</div></div>
+            <div class="photo"><img src="https://i.pinimg.com/736x/3b/e1/68/3be1688bb8adf7ca5f660aa513993244.jpg" alt="Safari"><div class="photo-label">Akagera Safari</div></div>
+            <div class="photo"><img src="https://i.pinimg.com/1200x/dd/02/c3/dd02c3be78d4e10aef5a57bbe8683124.jpg" alt="Forest"><div class="photo-label">Nyungwe Forest</div></div>
+        </div>
+        <div class="xp-list">
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Gorilla Trekking</div><div class="xp-desc">Volcanoes National Park. 12 habituated families. Max 8 visitors per day. Permits from $1,500.</div></div></div>
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Big Five Safaris</div><div class="xp-desc">Akagera National Park. Lions, rhinos, elephants, leopards, buffalo — all reintroduced and thriving.</div></div></div>
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Chimpanzee Tracking</div><div class="xp-desc">Nyungwe Forest. Ancient montane rainforest. Canopy walkway 70m above the treetops.</div></div></div>
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Golden Monkeys</div><div class="xp-desc">Endemic to the Virunga mountains. Colourful, fast-moving troops in bamboo forest.</div></div></div>
+            <a href="contact.html" class="book-link">Reserve Permits →</a>
+        </div>
+    </div>
+</div>
+</section>
+
+
+<!-- 03 NAUTICAL -->
+<section class="cat" id="nautical">
+<div class="inner">
+    <div class="cat-head">
+        <div class="cat-num">03</div>
+        <div class="cat-text">
+            <div class="cat-label">Lakes & Waterways</div>
+            <div class="cat-title">NAUTICAL TOURISM</div>
+        </div>
+    </div>
+    <div class="layout">
+        <div class="photos">
+            <div class="photo"><img src="https://i.pinimg.com/736x/64/dc/79/64dc79a1d339e708ad81d971b2ab3ef9.jpg" alt="Lake Kivu"><div class="photo-label">Lake Kivu</div></div>
+            <div class="photo"><img src="https://i.pinimg.com/736x/0d/f6/86/0df68648c92a2dcdcafbaf253364bbad.jpg" alt="Kayak"><div class="photo-label">Kayaking</div></div>
+            <div class="photo"><img src="https://i.pinimg.com/1200x/51/31/8f/51318fba754dd10283f8bc3c491114f8.jpg" alt="Cruise"><div class="photo-label">Sunset Cruise</div></div>
+        </div>
+        <div class="xp-list">
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Island Kayaking</div><div class="xp-desc">Paddle Lake Kivu to Napoleon Island, Amahoro, and Nkombo. Half-day or full-day routes.</div></div></div>
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Sunset Cruises</div><div class="xp-desc">Private motorboat hire at golden hour with the Congolese mountains as backdrop.</div></div></div>
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Akagera Boat Safari</div><div class="xp-desc">Lake Ihema. 2,000+ hippos. Nile crocodiles. African fish eagles at close range.</div></div></div>
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Fishing at Dawn</div><div class="xp-desc">Traditional dugout canoes with local fishermen. Fresh tilapia breakfast on the shore.</div></div></div>
+            <a href="contact.html" class="book-link">Book on the Water →</a>
+        </div>
+    </div>
+</div>
+</section>
+
+
+<!-- 04 LEISURE -->
+<section class="cat" id="leisure">
+<div class="inner">
+    <div class="cat-head">
+        <div class="cat-num">04</div>
+        <div class="cat-text">
+            <div class="cat-label">Rest & Culture</div>
+            <div class="cat-title">LEISURE</div>
+        </div>
+    </div>
+    <div class="layout flip">
+        <div class="photos">
+            <div class="photo"><img src="https://i.pinimg.com/1200x/10/a8/30/10a8309d50095e4c7c576dc41fc641c3.jpg" alt="Spa"><div class="photo-label">Luxury Spa</div></div>
+            <div class="photo"><img src="https://i.pinimg.com/736x/21/88/6c/21886cc4bbb4e7b0d856bcc3c1355c9d.jpg" alt="Art"><div class="photo-label">Inema Arts Center</div></div>
+            <div class="photo"><img src="https://i.pinimg.com/736x/d5/87/99/d5879958b4acc98105339442cc2094a6.jpg" alt="Yoga"><div class="photo-label">Lakeside Yoga</div></div>
+        </div>
+        <div class="xp-list">
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Spa & Wellness</div><div class="xp-desc">Forest spa at One&Only Nyungwe House. Volcanic clay, eucalyptus oil, wild honey treatments.</div></div></div>
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Arts & Galleries</div><div class="xp-desc">Inema Arts Center — rotating exhibitions, sculpture garden, live performances. Artists often present.</div></div></div>
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Yoga Retreats</div><div class="xp-desc">Lakeside morning classes, multi-day retreats combining yoga, hiking, and cultural visits.</div></div></div>
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Kigali City Walk</div><div class="xp-desc">Nyamirambo quarter, Caplaki Craft Village, Kigali Memorial Centre.</div></div></div>
+            <a href="contact.html" class="book-link">Plan a Leisure Day →</a>
+        </div>
+    </div>
+</div>
+</section>
+
+
+<!-- 05 ADVENTURE -->
+<section class="cat" id="adventure">
+<div class="inner">
+    <div class="cat-head">
+        <div class="cat-num">05</div>
+        <div class="cat-text">
+            <div class="cat-label">Adrenaline</div>
+            <div class="cat-title">SPORTS & ADVENTURE</div>
+        </div>
+    </div>
+    <div class="layout">
+        <div class="photos">
+            <div class="photo"><img src="https://i.pinimg.com/736x/fb/97/38/fb973825a838b634a9f96eae3ea275e3.jpg" alt="Volcano"><div class="photo-label">Volcano Hike</div></div>
+            <div class="photo"><img src="https://i.pinimg.com/1200x/3c/84/32/3c84329e8f49949a7b0012d43931babb.jpg" alt="Cycling"><div class="photo-label">Congo Nile Trail</div></div>
+            <div class="photo"><img src="https://i.pinimg.com/736x/4d/b1/2c/4db12c9413f3ae2c86707552282b2fb5.jpg" alt="Running"><div class="photo-label">Trail Running</div></div>
+        </div>
+        <div class="xp-list">
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Volcano Hiking</div><div class="xp-desc">Mt. Bisoke (3,711m) day hike to a crater lake. Mt. Karisimbi (4,507m) two-day summit expedition.</div></div></div>
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Congo Nile Trail</div><div class="xp-desc">227km cycling route along Lake Kivu. Tea plantations, fishing villages, volcanic views. 6–8 days.</div></div></div>
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Trail Running</div><div class="xp-desc">Escarpment trails above Gisenyi. Kigali International Marathon runs annually in January.</div></div></div>
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Zip Lining</div><div class="xp-desc">Forest canopy runs near Bugesera outside Kigali. Suitable for ages 10+.</div></div></div>
+            <a href="contact.html" class="book-link">Plan an Expedition →</a>
+        </div>
+    </div>
+</div>
+</section>
+
+
+<!-- 06 EVENTS -->
+<section class="cat" id="events">
+<div class="inner">
+    <div class="cat-head">
+        <div class="cat-num">06</div>
+        <div class="cat-text">
+            <div class="cat-label">Cultural Calendar</div>
+            <div class="cat-title">EVENTS & FESTIVALS</div>
+        </div>
+    </div>
+    <div class="layout flip">
+        <div class="photos">
+            <div class="photo"><img src="https://i.pinimg.com/1200x/0f/c9/21/0fc9218dd9ba6dc44b60a24c6e65dd7c.jpg" alt="Kwita Izina"><div class="photo-label">Kwita Izina</div></div>
+            <div class="photo"><img src="https://i.pinimg.com/736x/04/21/03/042103f0dbc9d435a2cc71b73a52cdf0.jpg" alt="Intore"><div class="photo-label">Intore Dance</div></div>
+            <div class="photo"><img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&q=80" alt="Music"><div class="photo-label">Kigali Up Festival</div></div>
+        </div>
+        <div class="xp-list">
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Kwita Izina — September</div><div class="xp-desc">Annual gorilla naming ceremony at Volcanoes National Park. Traditional performances, conservation celebration.</div></div></div>
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Intore Dance</div><div class="xp-desc">Traditional royal court dance. Nightly performances at Iwacu Cultural Village near Kinigi.</div></div></div>
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Kigali Up Festival — July</div><div class="xp-desc">East Africa's leading music festival. Afrobeats, jazz, hip-hop, and traditional fusion.</div></div></div>
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Kigali Marathon — January</div><div class="xp-desc">International road race through the city's rolling hills. Open to all abilities.</div></div></div>
+            <a href="contact.html" class="book-link">Plan Around Events →</a>
+        </div>
+    </div>
+</div>
+</section>
+
+
+<!-- 07 LUXURY -->
+<section class="cat" id="luxury">
+<div class="inner">
+    <div class="cat-head">
+        <div class="cat-num">07</div>
+        <div class="cat-text">
+            <div class="cat-label">The Finest Rwanda</div>
+            <div class="cat-title">LUXURY EXPERIENCES</div>
+        </div>
+    </div>
+    <div class="layout">
+        <div class="photos">
+            <div class="photo"><img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=500&q=80" alt="Lodge"><div class="photo-label">Bisate Lodge</div></div>
+            <div class="photo"><img src="https://images.unsplash.com/photo-1474302770737-173ee21bab63?w=500&q=80" alt="Helicopter"><div class="photo-label">Helicopter Transfers</div></div>
+            <div class="photo"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&q=80" alt="Dining"><div class="photo-label">Private Dining</div></div>
+        </div>
+        <div class="xp-list">
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Bisate Lodge — &Beyond</div><div class="xp-desc">Six forest villas on a volcanic cone. Edge of Volcanoes National Park. Conservation-integrated design.</div></div></div>
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">One&Only Nyungwe House</div><div class="xp-desc">Tea estate lodge at 2,000m. Forest spa, estate-garden restaurant, direct forest access.</div></div></div>
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Helicopter Transfers</div><div class="xp-desc">Kigali to Volcanoes in 45 minutes. Scenic circuits over the Virunga chain for photographers.</div></div></div>
+            <div class="xp"><div class="xp-dot"></div><div class="xp-body"><div class="xp-name">Private Chef Dining</div><div class="xp-desc">In-villa tasting menus, lakeside dinners, champagne forest breakfasts after gorilla treks.</div></div></div>
+            <a href="contact.html" class="book-link">Enquire for Luxury →</a>
+        </div>
+    </div>
+</div>
+</section>
+
+
+<!-- CTA -->
+<section class="cta">
+    <h2>Ready to Go?</h2>
+    <p>Tell us what excites you. We handle everything else.</p>
+    <a href="contact.html" class="cta-btn">Start Planning →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="f-grid">
+        <div class="f-brand">
+            <h3>Discover Rwanda</h3>
+            <p>Premium Rwanda travel experiences since 2015. Wildlife, culture, adventure, and luxury — crafted for you.</p>
+        </div>
+        <div class="f-col">
+            <h4>Activities</h4>
+            <ul>
+                <li><a href="#eats">Eats & Drinks</a></li>
+                <li><a href="#wildlife">Nature & Wildlife</a></li>
+                <li><a href="#nautical">Nautical</a></li>
+                <li><a href="#leisure">Leisure</a></li>
+            </ul>
+        </div>
+        <div class="f-col">
+            <h4>More</h4>
+            <ul>
+                <li><a href="#adventure">Adventure</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#luxury">Luxury</a></li>
+            </ul>
+        </div>
+        <div class="f-col">
+            <h4>Contact</h4>
+            <ul>
+                <li><a href="contact.html">Get In Touch</a></li>
+                <li><a href="tel:+250788123456">+250 788 123 456</a></li>
+                <li><a href="mailto:info@discoverrwanda.com">info@discoverrwanda.com</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="f-bottom">&copy; 2026 Discover Rwanda. All rights reserved.</div>
+</footer>
+
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itineraries - Rwanda Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Italiana&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #000000;
+            --secondary: #2d8659;
+            --accent: #c9a961;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #e5e5e5;
+            --gray-300: #d4d4d4;
+            --gray-500: #737373;
+            --gray-600: #525252;
+            --gray-700: #404040;
+            --gray-800: #262626;
+            --gray-900: #171717;
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+            --radius-lg: 16px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 280px;
+            background: linear-gradient(180deg, var(--gray-900) 0%, var(--primary) 100%);
+            color: var(--white);
+            padding: 2rem 0;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .sidebar-logo {
+            padding: 0 2rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'Italiana', serif;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-section {
+            padding: 1.5rem 0;
+        }
+
+        .nav-section-title {
+            padding: 0 2rem;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--gray-500);
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.875rem 2rem;
+            color: var(--gray-300);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background: linear-gradient(180deg, var(--secondary), var(--accent));
+            border-radius: 0 3px 3px 0;
+            transition: height 0.3s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--white);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link.active::before {
+            height: 70%;
+        }
+
+        .nav-badge {
+            margin-left: auto;
+            background: var(--danger);
+            color: var(--white);
+            padding: 0.25rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.6875rem;
+            font-weight: 700;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background: var(--white);
+            padding: 1.25rem 2rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--gray-700));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            border: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--gray-800);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Content */
+        .dashboard-content {
+            padding: 2rem;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            position: relative;
+        }
+
+        .stat-icon::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius);
+            opacity: 0.1;
+        }
+
+        .stat-icon.primary::before { background: var(--primary); }
+        .stat-icon.success::before { background: var(--success); }
+        .stat-icon.info::before { background: var(--info); }
+        .stat-icon.warning::before { background: var(--warning); }
+
+        .stat-icon.primary { color: var(--primary); }
+        .stat-icon.success { color: var(--success); }
+        .stat-icon.info { color: var(--info); }
+        .stat-icon.warning { color: var(--warning); }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+        }
+
+        .stat-change.positive {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        /* Itinerary Cards */
+        .itinerary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 2rem;
+        }
+
+        .itinerary-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .itinerary-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .itinerary-header {
+            height: 200px;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .itinerary-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+        }
+
+        .itinerary-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .itinerary-duration {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .itinerary-body {
+            padding: 2rem;
+        }
+
+        .itinerary-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.75rem;
+        }
+
+        .itinerary-description {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .itinerary-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            margin-bottom: 1.5rem;
+        }
+
+        .meta-item {
+            text-align: center;
+        }
+
+        .meta-label {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .meta-value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .itinerary-highlights {
+            margin-bottom: 1.5rem;
+        }
+
+        .highlights-title {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .highlights-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.875rem;
+            color: var(--gray-700);
+        }
+
+        .highlight-item i {
+            color: var(--secondary);
+            font-size: 0.75rem;
+        }
+
+        .itinerary-footer {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn-sm {
+            padding: 0.625rem 1.25rem;
+            font-size: 0.875rem;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gray-300);
+            color: var(--gray-700);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.375rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .badge-popular {
+            background: rgba(201, 169, 97, 0.1);
+            color: var(--accent);
+        }
+
+        .badge-new {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--info);
+        }
+
+        /* Day by Day Accordion */
+        .days-accordion {
+            margin-top: 1rem;
+        }
+
+        .day-item {
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .day-item:hover {
+            border-color: var(--secondary);
+        }
+
+        .day-header {
+            padding: 1rem 1.25rem;
+            background: var(--gray-50);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .day-header:hover {
+            background: var(--gray-100);
+        }
+
+        .day-title {
+            font-weight: 700;
+            color: var(--gray-900);
+            font-size: 0.9375rem;
+        }
+
+        .day-content {
+            padding: 1.25rem;
+            font-size: 0.875rem;
+            color: var(--gray-700);
+            line-height: 1.7;
+            display: none;
+        }
+
+        .day-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                margin-left: 0;
+            }
+
+            .itinerary-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .itinerary-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <i class="fas fa-mountain"></i> RWANDA
+        </div>
+        
+        <nav>
+            <div class="nav-section">
+                <a href="premium_admin_dashboard.html" class="nav-link">
+                    <i class="fas fa-th-large"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="premium_booking_detail.html" class="nav-link">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Bookings</span>
+                    <span class="nav-badge">12</span>
+                </a>
+                <a href="customers.html" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span>Customers</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Management</div>
+                <a href="activities.html" class="nav-link">
+                    <i class="fas fa-hiking"></i>
+                    <span>Activities</span>
+                </a>
+                <a href="accommodations.html" class="nav-link">
+                    <i class="fas fa-hotel"></i>
+                    <span>Accommodations</span>
+                </a>
+                <a href="itineraries.html" class="nav-link active">
+                    <i class="fas fa-route"></i>
+                    <span>Itineraries</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Analytics</div>
+                <a href="reports.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="analytics.html" class="nav-link">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="exports.html" class="nav-link">
+                    <i class="fas fa-download"></i>
+                    <span>Exports</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Settings</div>
+                <a href="email-templates.html" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email Templates</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="topbar">
+            <h1 class="page-title">Itineraries</h1>
+            <button class="btn btn-primary">
+                <i class="fas fa-plus"></i>
+                Create New Itinerary
+            </button>
+        </div>
+
+        <div class="dashboard-content">
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card animate-in">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Total Itineraries</div>
+                            <div class="stat-value">24</div>
+                            <span class="stat-change positive">
+                                <i class="fas fa-plus"></i>
+                                3 new this month
+                            </span>
+                        </div>
+                        <div class="stat-icon primary">
+                            <i class="fas fa-route"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card animate-in" style="animation-delay: 0.1s;">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Most Popular</div>
+                            <div class="stat-value">7-Day</div>
+                            <span class="stat-change positive">
+                                <i class="fas fa-star"></i>
+                                145 bookings
+                            </span>
+                        </div>
+                        <div class="stat-icon success">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card animate-in" style="animation-delay: 0.2s;">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Avg. Duration</div>
+                            <div class="stat-value">6.5</div>
+                            <span class="stat-change positive">
+                                <i class="fas fa-calendar"></i>
+                                Days per trip
+                            </span>
+                        </div>
+                        <div class="stat-icon info">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card animate-in" style="animation-delay: 0.3s;">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Avg. Price</div>
+                            <div class="stat-value">$4.2K</div>
+                            <span class="stat-change positive">
+                                <i class="fas fa-dollar-sign"></i>
+                                Per person
+                            </span>
+                        </div>
+                        <div class="stat-icon warning">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Itineraries Grid -->
+            <div class="itinerary-grid">
+                
+                <!-- Classic Rwanda Discovery -->
+                <div class="itinerary-card animate-in">
+                    <div class="itinerary-header">
+                        <div class="itinerary-icon">🦍</div>
+                        <div class="itinerary-duration">7 Days / 6 Nights</div>
+                    </div>
+                    <div class="itinerary-body">
+                        <span class="badge badge-popular">Most Popular</span>
+                        <h3 class="itinerary-title">Classic Rwanda Discovery</h3>
+                        <p class="itinerary-description">
+                            Experience the best of Rwanda with gorilla trekking, wildlife safaris, and cultural immersion in this comprehensive week-long adventure.
+                        </p>
+                        
+                        <div class="itinerary-meta">
+                            <div class="meta-item">
+                                <div class="meta-label">Price</div>
+                                <div class="meta-value">$5,200</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Group Size</div>
+                                <div class="meta-value">2-8</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Bookings</div>
+                                <div class="meta-value">145</div>
+                            </div>
+                        </div>
+
+                        <div class="itinerary-highlights">
+                            <div class="highlights-title">Highlights</div>
+                            <div class="highlights-list">
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Gorilla trekking in Volcanoes NP</span>
+                                </div>
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Big Five safari in Akagera</span>
+                                </div>
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Lake Kivu relaxation</span>
+                                </div>
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Kigali city tour & museums</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="itinerary-footer">
+                            <button class="btn btn-outline btn-sm">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-eye"></i> View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Primate Adventure -->
+                <div class="itinerary-card animate-in" style="animation-delay: 0.1s;">
+                    <div class="itinerary-header">
+                        <div class="itinerary-icon">🐵</div>
+                        <div class="itinerary-duration">5 Days / 4 Nights</div>
+                    </div>
+                    <div class="itinerary-body">
+                        <span class="badge badge-success">Best Seller</span>
+                        <h3 class="itinerary-title">Primate Adventure</h3>
+                        <p class="itinerary-description">
+                            Focus on Rwanda's incredible primates with gorilla and chimpanzee trekking in lush rainforest environments.
+                        </p>
+                        
+                        <div class="itinerary-meta">
+                            <div class="meta-item">
+                                <div class="meta-label">Price</div>
+                                <div class="meta-value">$3,800</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Group Size</div>
+                                <div class="meta-value">2-6</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Bookings</div>
+                                <div class="meta-value">98</div>
+                            </div>
+                        </div>
+
+                        <div class="itinerary-highlights">
+                            <div class="highlights-title">Highlights</div>
+                            <div class="highlights-list">
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Mountain gorilla encounter</span>
+                                </div>
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Chimpanzee tracking</span>
+                                </div>
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Golden monkey trekking</span>
+                                </div>
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Canopy walk in Nyungwe</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="itinerary-footer">
+                            <button class="btn btn-outline btn-sm">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-eye"></i> View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Safari Explorer -->
+                <div class="itinerary-card animate-in" style="animation-delay: 0.2s;">
+                    <div class="itinerary-header">
+                        <div class="itinerary-icon">🦁</div>
+                        <div class="itinerary-duration">4 Days / 3 Nights</div>
+                    </div>
+                    <div class="itinerary-body">
+                        <span class="badge badge-new">New</span>
+                        <h3 class="itinerary-title">Safari Explorer</h3>
+                        <p class="itinerary-description">
+                            Experience Rwanda's savannah wildlife on game drives through Akagera National Park, home to the Big Five.
+                        </p>
+                        
+                        <div class="itinerary-meta">
+                            <div class="meta-item">
+                                <div class="meta-label">Price</div>
+                                <div class="meta-value">$2,400</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Group Size</div>
+                                <div class="meta-value">2-12</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Bookings</div>
+                                <div class="meta-value">67</div>
+                            </div>
+                        </div>
+
+                        <div class="itinerary-highlights">
+                            <div class="highlights-title">Highlights</div>
+                            <div class="highlights-list">
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Big Five game drives</span>
+                                </div>
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Boat safari on Lake Ihema</span>
+                                </div>
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Night game drive</span>
+                                </div>
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Bird watching (500+ species)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="itinerary-footer">
+                            <button class="btn btn-outline btn-sm">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-eye"></i> View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cultural Immersion -->
+                <div class="itinerary-card animate-in" style="animation-delay: 0.3s;">
+                    <div class="itinerary-header">
+                        <div class="itinerary-icon">🏘️</div>
+                        <div class="itinerary-duration">6 Days / 5 Nights</div>
+                    </div>
+                    <div class="itinerary-body">
+                        <span class="badge badge-success">Unique Experience</span>
+                        <h3 class="itinerary-title">Cultural Immersion</h3>
+                        <p class="itinerary-description">
+                            Dive deep into Rwandan culture with village visits, traditional ceremonies, and hands-on cultural experiences.
+                        </p>
+                        
+                        <div class="itinerary-meta">
+                            <div class="meta-item">
+                                <div class="meta-label">Price</div>
+                                <div class="meta-value">$2,800</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Group Size</div>
+                                <div class="meta-value">2-10</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Bookings</div>
+                                <div class="meta-value">52</div>
+                            </div>
+                        </div>
+
+                        <div class="itinerary-highlights">
+                            <div class="highlights-title">Highlights</div>
+                            <div class="highlights-list">
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Traditional village homestay</span>
+                                </div>
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Intore dance performance</span>
+                                </div>
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Cooking class & food tours</span>
+                                </div>
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Art & craft workshops</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="itinerary-footer">
+                            <button class="btn btn-outline btn-sm">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-eye"></i> View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Luxury Escape -->
+                <div class="itinerary-card animate-in" style="animation-delay: 0.4s;">
+                    <div class="itinerary-header">
+                        <div class="itinerary-icon">✨</div>
+                        <div class="itinerary-duration">10 Days / 9 Nights</div>
+                    </div>
+                    <div class="itinerary-body">
+                        <span class="badge badge-popular">Premium</span>
+                        <h3 class="itinerary-title">Luxury Rwanda Escape</h3>
+                        <p class="itinerary-description">
+                            The ultimate Rwanda experience with 5-star accommodations, private guides, and exclusive access to top attractions.
+                        </p>
+                        
+                        <div class="itinerary-meta">
+                            <div class="meta-item">
+                                <div class="meta-label">Price</div>
+                                <div class="meta-value">$9,500</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Group Size</div>
+                                <div class="meta-value">2-4</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Bookings</div>
+                                <div class="meta-value">34</div>
+                            </div>
+                        </div>
+
+                        <div class="itinerary-highlights">
+                            <div class="highlights-title">Highlights</div>
+                            <div class="highlights-list">
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Luxury lodges & resorts</span>
+                                </div>
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Private gorilla permits</span>
+                                </div>
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Helicopter transfers</span>
+                                </div>
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Spa & wellness experiences</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="itinerary-footer">
+                            <button class="btn btn-outline btn-sm">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-eye"></i> View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Family Adventure -->
+                <div class="itinerary-card animate-in" style="animation-delay: 0.5s;">
+                    <div class="itinerary-header">
+                        <div class="itinerary-icon">👨‍👩‍👧‍👦</div>
+                        <div class="itinerary-duration">8 Days / 7 Nights</div>
+                    </div>
+                    <div class="itinerary-body">
+                        <span class="badge badge-new">Family Friendly</span>
+                        <h3 class="itinerary-title">Family Adventure</h3>
+                        <p class="itinerary-description">
+                            Perfect for families with children, combining wildlife, culture, and relaxation with age-appropriate activities.
+                        </p>
+                        
+                        <div class="itinerary-meta">
+                            <div class="meta-item">
+                                <div class="meta-label">Price</div>
+                                <div class="meta-value">$4,500</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Group Size</div>
+                                <div class="meta-value">4-8</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Bookings</div>
+                                <div class="meta-value">78</div>
+                            </div>
+                        </div>
+
+                        <div class="itinerary-highlights">
+                            <div class="highlights-title">Highlights</div>
+                            <div class="highlights-list">
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Wildlife safari (kid-friendly)</span>
+                                </div>
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Lake Kivu water activities</span>
+                                </div>
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Cultural village visits</span>
+                                </div>
+                                <div class="highlight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Educational experiences</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="itinerary-footer">
+                            <button class="btn btn-outline btn-sm">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fas fa-eye"></i> View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Day accordion functionality (for future detailed view)
+        document.querySelectorAll('.day-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                content.classList.toggle('active');
+            });
+        });
+    </script>
+
+</body>
+</html>

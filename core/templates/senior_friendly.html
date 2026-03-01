@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senior-Friendly Rwanda Travel | Discover Rwanda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Italiana&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; color: #1a1a1a; line-height: 1.7; background: #fff; }
+        
+        .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1.25rem 6%; background: #fff; box-shadow: 0 2px 15px rgba(0,0,0,0.06); }
+        .nav-container { max-width: 1600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .nav-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+        .nav-logo-img { font-size: 1.75rem; }
+        .nav-logo-text { font-family: 'Italiana', serif; font-size: 1.35rem; color: #000; letter-spacing: 3px; }
+        .nav-menu { display: flex; list-style: none; gap: 3.5rem; align-items: center; }
+        .nav-item a { font-size: 0.8125rem; font-weight: 600; color: #333; text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; transition: all 0.3s ease; }
+        .nav-item a:hover { color: #000; }
+        .nav-cta { background: #000 !important; color: #fff !important; padding: 0.875rem 2rem !important; border-radius: 50px !important; }
+        
+        .hero { height: 70vh; min-height: 600px; background: linear-gradient(135deg, #1a1a1a 0%, #000 100%); display: flex; align-items: center; margin-top: 75px; }
+        .hero-content { max-width: 1000px; margin: 0 auto; padding: 0 6%; text-align: center; }
+        .hero-eyebrow { display: inline-block; font-size: 0.6875rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #fff; padding: 0.4rem 1.25rem; border: 1.5px solid rgba(255,255,255,0.4); border-radius: 50px; margin-bottom: 2rem; background: rgba(255,255,255,0.05); }
+        .hero-title { font-family: 'Italiana', serif; font-size: clamp(3rem, 7vw, 5.5rem); color: #fff; margin-bottom: 1.75rem; letter-spacing: 6px; line-height: 1.15; font-weight: 400; }
+        .hero-subtitle { font-size: clamp(1.0625rem, 1.8vw, 1.25rem); color: rgba(255,255,255,0.88); max-width: 750px; margin: 0 auto; line-height: 1.75; font-weight: 300; }
+        
+        .section { padding: 7rem 6%; }
+        .section:nth-child(even) { background: #fafafa; }
+        .section-container { max-width: 1300px; margin: 0 auto; }
+        
+        .intro-box { background: #fff; border: 2px solid #e5e5e5; padding: 3.5rem; border-radius: 8px; margin-bottom: 4rem; text-align: center; }
+        .intro-box h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.875rem, 3.5vw, 2.5rem); color: #000; margin-bottom: 1.5rem; font-weight: 700; line-height: 1.3; }
+        .intro-box p { font-size: 1.0625rem; line-height: 1.85; color: #555; max-width: 850px; margin: 0 auto 1.25rem; }
+        .intro-box p:last-child { margin-bottom: 0; }
+        
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin: 4rem 0; align-items: start; }
+        .column { background: #fff; padding: 2.5rem; border: 2px solid #e5e5e5; border-radius: 8px; }
+        .section:nth-child(even) .column { background: #fff; }
+        .column h3 { font-family: 'Playfair Display', serif; font-size: 1.625rem; color: #000; margin-bottom: 1.25rem; font-weight: 700; }
+        .column p { font-size: 1rem; line-height: 1.8; color: #555; margin-bottom: 1.25rem; }
+        .column ul { list-style: none; margin-top: 1.5rem; }
+        .column li { font-size: 0.9375rem; padding-left: 1.75rem; position: relative; margin-bottom: 0.875rem; color: #333; line-height: 1.65; }
+        .column li::before { content: '•'; position: absolute; left: 0; color: #000; font-weight: 700; font-size: 1.25rem; }
+        
+        .highlight-box { background: #f5f5f5; border-left: 4px solid #000; padding: 2.25rem; margin: 3.5rem 0; border-radius: 4px; }
+        .highlight-box h4 { font-size: 1.1875rem; font-weight: 700; color: #000; margin-bottom: 1rem; }
+        .highlight-box p { font-size: 1rem; line-height: 1.8; color: #555; }
+        
+        .experience-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 4rem 0; }
+        .experience-card { background: #fff; padding: 2.25rem; border: 2px solid #e5e5e5; border-radius: 8px; text-align: center; transition: all 0.35s ease; }
+        .section:nth-child(even) .experience-card { background: #fff; }
+        .experience-card:hover { transform: translateY(-5px); box-shadow: 0 10px 35px rgba(0,0,0,0.1); border-color: #000; }
+        .experience-icon { font-size: 2.5rem; margin-bottom: 1.25rem; }
+        .experience-card h4 { font-family: 'Playfair Display', serif; font-size: 1.1875rem; font-weight: 700; color: #000; margin-bottom: 0.875rem; }
+        .experience-card p { font-size: 0.9375rem; line-height: 1.65; color: #666; }
+        
+        .quick-facts { background: #000; color: #fff; padding: 3.5rem; border-radius: 8px; margin: 4rem 0; }
+        .quick-facts h3 { font-family: 'Italiana', serif; font-size: 2rem; text-align: center; margin-bottom: 2.75rem; letter-spacing: 3px; font-weight: 400; }
+        .facts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+        .fact-item { text-align: center; }
+        .fact-number { font-family: 'Italiana', serif; font-size: 2.75rem; color: #fff; margin-bottom: 0.5rem; font-weight: 400; }
+        .fact-label { font-size: 0.875rem; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 1.5px; line-height: 1.4; }
+        
+        .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; margin: 3.5rem 0; }
+        .photo-item { position: relative; overflow: hidden; aspect-ratio: 4/3; border-radius: 8px; box-shadow: 0 6px 25px rgba(0,0,0,0.08); }
+        .photo-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.45s ease; }
+        .photo-item:hover img { transform: scale(1.06); }
+        
+        .cta { background: #000; padding: 6rem 6%; text-align: center; }
+        .cta-title { font-family: 'Italiana', serif; font-size: clamp(2.25rem, 4.5vw, 3.5rem); color: #fff; margin-bottom: 1.5rem; letter-spacing: 4px; font-weight: 400; }
+        .cta-text { font-size: 1.125rem; color: rgba(255,255,255,0.85); margin-bottom: 2.5rem; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.75; }
+        .cta-button { display: inline-flex; align-items: center; gap: 0.875rem; padding: 1.125rem 3rem; background: #fff; color: #000; text-decoration: none; font-weight: 700; font-size: 0.8125rem; letter-spacing: 2px; text-transform: uppercase; border-radius: 50px; transition: all 0.3s ease; }
+        .cta-button:hover { background: #f0f0f0; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,255,255,0.2); }
+        
+        footer { background: #1a1a1a; color: #fff; padding: 5rem 6% 2.5rem; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3.5rem; max-width: 1600px; margin: 0 auto 3.5rem; }
+        .footer-brand h3 { font-family: 'Italiana', serif; font-size: 1.875rem; margin-bottom: 1.25rem; letter-spacing: 2px; font-weight: 400; }
+        .footer-description { font-size: 0.9375rem; line-height: 1.75; color: rgba(255,255,255,0.7); }
+        .footer-column h4 { font-size: 0.8125rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1.5rem; color: #fff; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 0.75rem; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.875rem; transition: all 0.3s ease; }
+        .footer-links a:hover { color: #fff; padding-left: 5px; }
+        .footer-bottom { text-align: center; padding-top: 2.5rem; border-top: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.5); font-size: 0.8125rem; }
+        
+        @media (max-width: 1200px) {
+            .two-column, .experience-cards, .facts-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            .photo-grid, .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav">
+    <div class="nav-container">
+        <a href="index.html" class="nav-brand">
+            <div class="nav-logo-img">🌿</div>
+            <div class="nav-logo-text">RWANDA</div>
+        </a>
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="{% url 'index' %}">Home</a></li>
+            <li class="nav-item"><a href="things-to-do.html">Things to Do</a></li>
+            <li class="nav-item"><a href="contact.html" class="nav-cta">Plan Your Trip</a></li>
+        </ul>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="hero-content">
+        <span class="hero-eyebrow">Travel Smart</span>
+        <h1 class="hero-title">RWANDA AT YOUR PACE</h1>
+        <p class="hero-subtitle">
+            Age is just a number—what matters is experiencing the world comfortably. We design Rwanda journeys for mature travelers who value comfort, meaningful experiences, and thoughtful pacing.
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-container">
+        <div class="intro-box">
+            <h2>Travel Shouldn't Mean Compromise</h2>
+            <p>
+                You've spent a lifetime exploring, and you know what you like: comfortable accommodations, interesting experiences without exhaustion, and the freedom to enjoy each moment without rushing. Rwanda delivers exactly that.
+            </p>
+            <p>
+                With excellent infrastructure, mild climate, and growing awareness of mature travelers' needs, Rwanda has become one of Africa's best destinations for comfortable, enriching exploration at any age.
+            </p>
+        </div>
+
+        <h2 style="font-family: 'Italiana', serif; font-size: clamp(2rem, 4vw, 3rem); text-align: center; margin-bottom: 3rem; letter-spacing: 3px; font-weight: 400;">How We Make Travel Comfortable</h2>
+
+        <div class="two-column">
+            <div class="column">
+                <h3>🏨 Carefully Selected Accommodations</h3>
+                <p>Not all lodges are created equal. We personally inspect properties to verify accessibility features and comfort standards.</p>
+                <ul>
+                    <li>Ground-floor or elevator-accessible rooms</li>
+                    <li>Walk-in showers or bathtubs with safety bars</li>
+                    <li>Quality mattresses and comfortable bedding</li>
+                    <li>Well-lit rooms with easy-to-use amenities</li>
+                    <li>On-site restaurants (no need to leave for meals)</li>
+                    <li>24-hour front desk and room service</li>
+                </ul>
+            </div>
+            
+            <div class="column">
+                <h3>⏰ Flexible, Relaxed Scheduling</h3>
+                <p>Early morning wake-up calls? Not on our watch. Your day starts when you're ready, with breaks built in whenever you need them.</p>
+                <ul>
+                    <li>Maximum 3-4 hours of activities per day</li>
+                    <li>No early morning departures (9am earliest)</li>
+                    <li>Afternoon rest periods at your lodge</li>
+                    <li>Flexible itinerary—skip or modify any activity</li>
+                    <li>Regular comfort stops during drives</li>
+                    <li>Evening downtime for relaxation</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="highlight-box">
+            <h4>🌡️ Perfect Climate Year-Round</h4>
+            <p>
+                Rwanda's "eternal spring" climate means comfortable temperatures (15-27°C) throughout the year. No extreme heat to drain your energy, no harsh cold to navigate. It's one of Africa's most comfortable climates for travelers of any age.
+            </p>
+        </div>
+
+        <div class="two-column">
+            <div class="column">
+                <h3>🚗 Comfortable Transportation</h3>
+                <p>Modern vehicles with cushioned seats, air conditioning, and easy entry. Our drivers know when to drive smoothly and when to stop.</p>
+                <ul>
+                    <li>Private vehicles (no group buses)</li>
+                    <li>Cushioned seats with lumbar support</li>
+                    <li>Climate control and smooth suspension</li>
+                    <li>Stop anytime for restrooms or stretching</li>
+                    <li>Drivers assist with boarding and luggage</li>
+                    <li>Maximum 2-3 hours between major stops</li>
+                </ul>
+            </div>
+            
+            <div class="column">
+                <h3>🏥 Healthcare Peace of Mind</h3>
+                <p>Kigali has excellent private medical facilities with English-speaking doctors. We provide all necessary contacts and coordinate care if needed.</p>
+                <ul>
+                    <li>Modern hospitals with international standards</li>
+                    <li>English-speaking doctors and specialists</li>
+                    <li>Pharmacies stocking common medications</li>
+                    <li>Travel insurance guidance provided</li>
+                    <li>Prescription refill assistance available</li>
+                    <li>24/7 medical emergency contacts</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-container">
+        <h2 style="font-family: 'Italiana', serif; font-size: clamp(2rem, 4vw, 3rem); text-align: center; margin-bottom: 3rem; letter-spacing: 3px; font-weight: 400;">Experiences Designed for You</h2>
+
+        <div class="experience-cards">
+            <div class="experience-card">
+                <div class="experience-icon">🚢</div>
+                <h4>Lake Kivu Cruises</h4>
+                <p>Relax on comfortable boats while enjoying Rwanda's most beautiful lake. Sunset cruises include refreshments—no walking required.</p>
+            </div>
+            <div class="experience-card">
+                <div class="experience-icon">🚗</div>
+                <h4>Scenic Drives</h4>
+                <p>Rwanda is called the "Land of a Thousand Hills" for good reason. Scenic routes offer breathtaking views from your vehicle.</p>
+            </div>
+            <div class="experience-card">
+                <div class="experience-icon">☕</div>
+                <h4>Coffee & Tea Tours</h4>
+                <p>Visit plantations via vehicle, then enjoy tastings at comfortable venues. Learn Rwanda's coffee story without extensive walking.</p>
+            </div>
+            <div class="experience-card">
+                <div class="experience-icon">🎭</div>
+                <h4>Cultural Performances</h4>
+                <p>Traditional Intore dancers perform at lodges and cultural centers. Enjoy Rwanda's vibrant culture from comfortable seating.</p>
+            </div>
+            <div class="experience-card">
+                <div class="experience-icon">🍽️</div>
+                <h4>Culinary Experiences</h4>
+                <p>Cooking demonstrations and tastings let you explore Rwandan cuisine. Most experiences are seated with optional participation.</p>
+            </div>
+            <div class="experience-card">
+                <div class="experience-icon">🦁</div>
+                <h4>Vehicle-Based Safaris</h4>
+                <p>Akagera National Park offers game drives where wildlife viewing happens from your comfortable vehicle—no hiking required.</p>
+            </div>
+        </div>
+
+        <div class="quick-facts">
+            <h3>Rwanda's Advantages</h3>
+            <div class="facts-grid">
+                <div class="fact-item">
+                    <div class="fact-number">15-27°C</div>
+                    <div class="fact-label">Perfect Climate<br>Year-Round</div>
+                </div>
+                <div class="fact-item">
+                    <div class="fact-number">3-4 hrs</div>
+                    <div class="fact-label">Maximum Daily<br>Activity Time</div>
+                </div>
+                <div class="fact-item">
+                    <div class="fact-number">1,500m</div>
+                    <div class="fact-label">Kigali Elevation<br>(Comfortable)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="photo-grid">
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=600&q=80" alt="Scenic Rwanda views">
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Lake Kivu boat cruise">
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80" alt="Comfortable lodge">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta">
+    <h2 class="cta-title">Experience Rwanda Your Way</h2>
+    <p class="cta-text">
+        You deserve to travel comfortably while experiencing all the wonder Rwanda offers. Share your preferences, pace, and any special needs—we'll design the perfect journey.
+    </p>
+    <a href="contact.html" class="cta-button">
+        Plan Your Journey
+        <span>→</span>
+    </a>
+</section>
+
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <h3>Discover Rwanda</h3>
+            <p class="footer-description">Your gateway to extraordinary journeys through the Land of a Thousand Hills. We curate transformative experiences for travelers of all ages.</p>
+        </div>
+        <div class="footer-column">
+            <h4>Travel Smart</h4>
+            <ul class="footer-links">
+                <li><a href="traveling-with-pets.html">Traveling with Pets</a></li>
+                <li><a href="senior-friendly.html">Senior-Friendly Rwanda</a></li>
+                <li><a href="invest-rwanda.html">Invest in Rwanda</a></li>
+                <li><a href="accessible-travel.html">Accessible Travel</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Quick Links</h4>
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="things-to-do.html">Things to Do</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Contact</h4>
+            <ul class="footer-links">
+                <li><a href="tel:+250788123456">+250 788 123 456</a></li>
+                <li><a href="mailto:info@discoverrwanda.com">info@discoverrwanda.com</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 Discover Rwanda. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>

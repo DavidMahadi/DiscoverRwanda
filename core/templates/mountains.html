@@ -1,0 +1,1549 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mountains & Volcanoes | Discover Rwanda</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+    /* ============================================
+       NAVBAR AND HERO - EXACT REFERENCE STYLE
+    ============================================ */
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    /* SHARED BACKGROUND FOR NAV AND HERO */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                    url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80');
+        background-size: cover;
+        background-position: center center;
+        background-attachment: fixed;
+        z-index: -1;
+    }
+    
+    /* NAVIGATION - TRANSPARENT WITH CLEAR TEXT */
+    nav {
+        position: absolute !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: transparent !important;
+        padding: 1.5rem 0;
+    }
+    
+    nav .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    nav .logo-area {
+        flex-shrink: 0;
+    }
+    
+    nav .site-logo {
+        height: 50px;
+        width: auto;
+    }
+    
+    nav ul {
+        display: flex;
+        list-style: none;
+        align-items: center;
+        gap: 2.5rem;
+        margin: 0;
+        padding: 0;
+    }
+    
+    nav ul li {
+        position: relative;
+    }
+    
+    nav ul li a {
+        color: white !important;
+        text-decoration: none;
+        font-size: 1.05rem;
+        font-weight: 500;
+        transition: color 0.3s;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+    
+    nav ul li a:hover {
+        color: #c9a961 !important;
+    }
+    
+    /* Dropdown styling */
+    nav .dropdown {
+        position: relative;
+    }
+    
+    nav .dropdown > a::after {
+        content: ' ▼';
+        font-size: 0.7rem;
+        margin-left: 0.3rem;
+    }
+    
+    nav .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: rgba(26, 95, 58, 0.95);
+        backdrop-filter: blur(10px);
+        min-width: 220px;
+        padding: 1rem 0;
+        border-radius: 10px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s;
+        list-style: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    nav .dropdown:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    
+    nav .dropdown-menu li {
+        margin: 0;
+    }
+    
+    nav .dropdown-menu li a {
+        display: block;
+        padding: 0.7rem 1.5rem;
+        color: white !important;
+        font-size: 0.95rem;
+        text-shadow: none;
+    }
+    
+    nav .dropdown-menu li a:hover {
+        background: rgba(201, 169, 97, 0.2);
+        color: #c9a961 !important;
+    }
+    
+    /* CTA BUTTON */
+    nav .nav-cta {
+        background: #c9a961 !important;
+        color: #1a5f3a !important;
+        padding: 0.7rem 2rem !important;
+        border-radius: 50px !important;
+        font-weight: 700 !important;
+        text-shadow: none !important;
+        transition: all 0.3s !important;
+    }
+    
+    nav .nav-cta:hover {
+        background: #d4af37 !important;
+        color: #1a5f3a !important;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(201, 169, 97, 0.4);
+    }
+    
+    /* HERO SECTION - TRANSPARENT WITH CLEAR TEXT */
+    .hero-section,
+    .page-header {
+        position: relative;
+        min-height: 100vh;
+        background: transparent !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 2rem;
+    }
+    
+    .hero-content,
+    .page-header-content {
+        position: relative;
+        z-index: 2;
+        max-width: 1000px;
+    }
+    
+    /* BADGE STYLE - LIKE "5 DESTINATIONS" */
+    .hero-badge,
+    .section-title-small {
+        display: inline-block;
+        padding: 0.5rem 2rem;
+        background: transparent;
+        color: white;
+        border: 2px solid white;
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin-bottom: 2rem;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* HERO TITLE - LARGE AND CLEAR */
+    .hero-title,
+    .page-header h1,
+    .page-header-content h1 {
+        font-size: 5.5rem;
+        font-weight: 800;
+        color: white !important;
+        text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8);
+        margin-bottom: 1.5rem;
+        line-height: 1.1;
+    }
+    
+    /* HERO SUBTITLE - CLEAR AND READABLE */
+    .hero-subtitle,
+    .hero-description,
+    .page-header p,
+    .page-header-content p {
+        font-size: 1.4rem;
+        color: white !important;
+        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+        line-height: 1.7;
+        font-weight: 400;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+        nav .nav-container {
+            padding: 0 1.5rem;
+        }
+        
+        nav ul {
+            gap: 1.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .hero-title,
+        .page-header h1 {
+            font-size: 3rem !important;
+        }
+        
+        .hero-subtitle,
+        .page-header p {
+            font-size: 1.1rem !important;
+        }
+    }
+
+    /* ============================================
+       MAIN CONTENT SECTIONS - BLACK & WHITE THEME
+    ============================================ */
+    
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    /* STATS SHOWCASE */
+    .stats-showcase {
+        background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+        padding: 6rem 0;
+        color: white;
+        text-align: center;
+    }
+
+    .stats-showcase .section-header {
+        margin-bottom: 4rem;
+    }
+
+    .stats-showcase .section-label {
+        display: inline-block;
+        padding: 0.5rem 2rem;
+        background: transparent;
+        color: white;
+        border: 2px solid white;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin-bottom: 1.5rem;
+    }
+
+    .stats-showcase h2 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        color: white;
+    }
+
+    .stats-showcase p {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.8);
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-top: 4rem;
+    }
+
+    .stat-box {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 3rem 2rem;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    .stat-box.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .stat-box:hover {
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .stat-number {
+        font-size: 4rem;
+        font-weight: 800;
+        color: #c9a961;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    /* MOUNTAINS GRID SECTION */
+    .mountains-grid-section {
+        background: white;
+        padding: 6rem 0;
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+
+    .section-label {
+        display: inline-block;
+        padding: 0.5rem 2rem;
+        background: transparent;
+        color: #000;
+        border: 2px solid #000;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin-bottom: 1.5rem;
+    }
+
+    .section-header h2 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        color: #000;
+    }
+
+    .section-header p {
+        font-size: 1.2rem;
+        color: #666;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    /* FLIP CARDS */
+    .mountains-flip-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 3rem;
+        margin-top: 4rem;
+    }
+
+    .mountain-flip-card {
+        height: 500px;
+        perspective: 1000px;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.5s;
+    }
+
+    .mountain-flip-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .mountain-flip-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+    }
+
+    .mountain-flip-card:hover .mountain-flip-inner {
+        transform: rotateY(180deg);
+    }
+
+    .mountain-flip-front,
+    .mountain-flip-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .mountain-flip-front {
+        background: #000;
+    }
+
+    .mountain-flip-front img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.85;
+    }
+
+    .mountain-flip-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 2rem;
+        background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+        color: white;
+    }
+
+    .mountain-flip-overlay h3 {
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+    }
+
+    .mountain-flip-overlay .mountain-meta {
+        display: flex;
+        gap: 1.5rem;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .mountain-flip-back {
+        background: linear-gradient(135deg, #1a1a1a, #000);
+        color: white;
+        padding: 3rem;
+        transform: rotateY(180deg);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .mountain-flip-back h3 {
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        color: #c9a961;
+    }
+
+    .mountain-flip-back p {
+        font-size: 1rem;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 2rem;
+    }
+
+    .mountain-features {
+        list-style: none;
+        padding: 0;
+    }
+
+    .mountain-features li {
+        padding: 0.7rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.95rem;
+    }
+
+    .mountain-features li:last-child {
+        border-bottom: none;
+    }
+
+    .feature-label {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .feature-value {
+        color: white;
+        font-weight: 600;
+    }
+
+    /* TIMELINE SECTION */
+    .timeline-section {
+        background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+        padding: 6rem 0;
+        color: white;
+    }
+
+    .timeline-section .section-header {
+        text-align: center;
+        margin-bottom: 5rem;
+    }
+
+    .timeline-section .section-label {
+        color: white;
+        border-color: white;
+    }
+
+    .timeline-section h2 {
+        color: white;
+    }
+
+    .timeline-section p {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .timeline-container {
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+        padding-left: 80px;
+    }
+
+    .timeline-container::before {
+        content: '';
+        position: absolute;
+        left: 30px;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(to bottom, #c9a961, rgba(201, 169, 97, 0.3));
+    }
+
+    .timeline-item {
+        position: relative;
+        margin-bottom: 3rem;
+        opacity: 0;
+        transform: translateX(-30px);
+        transition: all 0.5s;
+    }
+
+    .timeline-item.visible {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .timeline-icon {
+        position: absolute;
+        left: -50px;
+        top: 0;
+        width: 60px;
+        height: 60px;
+        background: #c9a961;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        box-shadow: 0 0 0 4px #000, 0 0 0 8px rgba(201, 169, 97, 0.2);
+    }
+
+    .timeline-content {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 2rem;
+        border-radius: 15px;
+        border-left: 4px solid #c9a961;
+    }
+
+    .timeline-content h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.8rem;
+        color: #c9a961;
+    }
+
+    .timeline-content p {
+        font-size: 1rem;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* ACTIVITIES SECTION */
+    .activities-immersive {
+        background: white;
+        padding: 6rem 0;
+    }
+
+    .activities-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 3rem;
+        margin-top: 4rem;
+    }
+
+    .activity-hex {
+        background: linear-gradient(135deg, #f8f8f8, #ffffff);
+        padding: 3rem 2rem;
+        text-align: center;
+        border-radius: 20px;
+        border: 2px solid #e0e0e0;
+        transition: all 0.3s;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    .activity-hex.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .activity-hex:hover {
+        background: linear-gradient(135deg, #000, #1a1a1a);
+        border-color: #c9a961;
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .activity-hex:hover h3,
+    .activity-hex:hover p {
+        color: white;
+    }
+
+    .activity-hex-icon {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .activity-hex h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: #000;
+        transition: color 0.3s;
+    }
+
+    .activity-hex p {
+        font-size: 1rem;
+        color: #666;
+        line-height: 1.6;
+        transition: color 0.3s;
+    }
+
+    /* SEASONS SECTION */
+    .seasons-showcase {
+        background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+        padding: 6rem 0;
+        color: white;
+    }
+
+    .seasons-showcase .section-label {
+        color: white;
+        border-color: white;
+    }
+
+    .seasons-showcase h2 {
+        color: white;
+    }
+
+    .seasons-showcase p {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .seasons-slider {
+        max-width: 1200px;
+        margin: 3rem auto 0;
+    }
+
+    .season-slide {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 3rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .season-visual {
+        position: relative;
+        border-radius: 15px;
+        overflow: hidden;
+        height: 400px;
+    }
+
+    .season-visual img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .season-icon-large {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 4rem;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 1rem;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .season-info h3 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+        color: #c9a961;
+    }
+
+    .season-months {
+        display: inline-block;
+        padding: 0.5rem 1.5rem;
+        background: rgba(201, 169, 97, 0.2);
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        color: #c9a961;
+    }
+
+    .season-info p {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin-bottom: 2rem;
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    .season-highlights {
+        list-style: none;
+        padding: 0;
+    }
+
+    .season-highlights li {
+        padding: 0.8rem 0;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .highlight-check {
+        color: #c9a961;
+        font-weight: 700;
+        font-size: 1.2rem;
+    }
+
+    /* MEGA CTA */
+    .mega-cta {
+        background: linear-gradient(135deg, #c9a961, #d4af37);
+        padding: 6rem 2rem;
+        text-align: center;
+        color: #000;
+    }
+
+    .mega-cta-content {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .mega-cta-icon {
+        font-size: 5rem;
+        margin-bottom: 2rem;
+    }
+
+    .mega-cta h2 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        color: #000;
+    }
+
+    .mega-cta p {
+        font-size: 1.3rem;
+        line-height: 1.7;
+        margin-bottom: 3rem;
+        color: rgba(0, 0, 0, 0.8);
+    }
+
+    .mega-cta-button {
+        display: inline-block;
+        padding: 1.2rem 3rem;
+        background: #000;
+        color: white;
+        text-decoration: none;
+        font-size: 1.2rem;
+        font-weight: 700;
+        border-radius: 50px;
+        transition: all 0.3s;
+    }
+
+    .mega-cta-button:hover {
+        background: #1a1a1a;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    /* FOOTER */
+    footer {
+        background: #000;
+        color: white;
+        padding: 4rem 2rem 2rem;
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .footer-section h4 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: #c9a961;
+    }
+
+    .footer-section p {
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .footer-section ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .footer-section ul li {
+        margin-bottom: 0.8rem;
+    }
+
+    .footer-section ul li a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .footer-section ul li a:hover {
+        color: #c9a961;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .social-links a {
+        transition: transform 0.3s;
+    }
+
+    .social-links a:hover {
+        transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .footer-bottom a {
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+    }
+
+    .footer-bottom a:hover {
+        color: #c9a961;
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 1024px) {
+        .mountains-flip-grid {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .season-slide {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .season-visual {
+            height: 300px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero-title,
+        .section-header h2 {
+            font-size: 2.5rem !important;
+        }
+
+        .hero-subtitle,
+        .section-header p {
+            font-size: 1rem !important;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+        }
+
+        .timeline-container {
+            padding-left: 60px;
+        }
+
+        .timeline-icon {
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+        }
+
+        .mountains-flip-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .activities-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .mega-cta h2 {
+            font-size: 2rem;
+        }
+
+        .mega-cta p {
+            font-size: 1.1rem;
+        }
+    }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+    <div class="nav-container">
+        <div class="logo-wrapper">
+                <img src="{% static 'logo.png' %}" alt="Logo" class="logo-img">
+            </div>
+        <ul>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li class="dropdown">
+                <a href="#">About</a>
+                <ul class="dropdown-menu">
+                    <li><a href="about.html">About Rwanda</a></li>
+                    <li><a href="history.html">Our History</a></li>
+                    <li><a href="team.html">Our Team</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Experiences</a>
+                <ul class="dropdown-menu">
+                    <li><a href="wildlife.html">Wildlife</a></li>
+                    <li><a href="culture.html">Culture</a></li>
+                    <li><a href="adventure.html">Adventure</a></li>
+                    <li><a href="relaxation.html">Relaxation</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Tours</a>
+                <ul class="dropdown-menu">
+                    <li><a href="group-tours.html">Group Tours</a></li>
+                    <li><a href="private-tours.html">Private Tours</a></li>
+                    <li><a href="day-trips.html">Day Trips</a></li>
+                    <li><a href="multi-day.html">Multi-Day Tours</a></li>
+                </ul>
+            </li>
+            <li><a href="destinations.html">Destinations</a></li>
+            <li><a href="contact.html" class="nav-cta">Plan Your Trip</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="page-header">
+    <div class="page-header-content">
+        <span class="hero-badge">5 VOLCANIC PEAKS</span>
+        <h1 class="hero-title">Mountains & Volcanoes</h1>
+        <p class="hero-description">Conquer Rwanda's legendary volcanic peaks, where mountain gorillas roam and adventure reaches new heights</p>
+    </div>
+</section>
+
+<!-- STATS SHOWCASE -->
+<section class="stats-showcase">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">BY THE NUMBERS</span>
+            <h2>Rwanda's Mountain Legacy</h2>
+            <p>Discover the impressive facts that make Rwanda's volcanic landscape truly extraordinary</p>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-box">
+                <span class="stat-number" data-count="4507">0</span>
+                <span class="stat-label">Mt. Karisimbi Height (meters)</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number" data-count="5">0</span>
+                <span class="stat-label">Volcanoes to Explore</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number" data-count="340">0</span>
+                <span class="stat-label">Mountain Gorillas Protected</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number" data-count="160">0</span>
+                <span class="stat-label">Square Km of Protected Forest</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MOUNTAINS GRID WITH FLIP CARDS -->
+<section class="mountains-grid-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">THE VIRUNGA CHAIN</span>
+            <h2>Five Majestic Volcanic Peaks</h2>
+            <p>Each volcano offers unique challenges and rewards for adventurous spirits seeking unforgettable experiences</p>
+        </div>
+
+        <div class="mountains-flip-grid">
+            <!-- Mount Karisimbi -->
+            <div class="mountain-flip-card">
+                <div class="mountain-flip-inner">
+                    <div class="mountain-flip-front">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80" alt="Mount Karisimbi">
+                        <div class="mountain-flip-overlay">
+                            <h3>Mount Karisimbi</h3>
+                            <div class="mountain-meta">
+                                <span>🏔️ 4,507m</span>
+                                <span>⏱️ 2 Days</span>
+                                <span>💪 Challenging</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mountain-flip-back">
+                        <h3>Mount Karisimbi</h3>
+                        <p>Rwanda's highest peak and the crown jewel of the Virunga Mountains. This challenging two-day expedition rewards climbers with breathtaking alpine landscapes, unique vegetation zones, and spectacular crater views.</p>
+                        <ul class="mountain-features">
+                            <li>
+                                <span class="feature-label">Elevation</span>
+                                <span class="feature-value">4,507 meters</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Duration</span>
+                                <span class="feature-value">2 Days</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Difficulty</span>
+                                <span class="feature-value">Challenging</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Best Season</span>
+                                <span class="feature-value">June - September</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Permit Required</span>
+                                <span class="feature-value">Yes</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mount Bisoke -->
+            <div class="mountain-flip-card">
+                <div class="mountain-flip-inner">
+                    <div class="mountain-flip-front">
+                        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80" alt="Mount Bisoke">
+                        <div class="mountain-flip-overlay">
+                            <h3>Mount Bisoke</h3>
+                            <div class="mountain-meta">
+                                <span>🏔️ 3,711m</span>
+                                <span>⏱️ 1 Day</span>
+                                <span>💪 Moderate</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mountain-flip-back">
+                        <h3>Mount Bisoke</h3>
+                        <p>Home to a stunning crater lake at its summit, Mount Bisoke offers one of Rwanda's most rewarding day hikes. The diverse ecosystem includes bamboo forests, tropical vegetation, and occasional golden monkey sightings.</p>
+                        <ul class="mountain-features">
+                            <li>
+                                <span class="feature-label">Elevation</span>
+                                <span class="feature-value">3,711 meters</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Duration</span>
+                                <span class="feature-value">6-8 Hours</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Difficulty</span>
+                                <span class="feature-value">Moderate</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Highlight</span>
+                                <span class="feature-value">Crater Lake</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Wildlife</span>
+                                <span class="feature-value">Golden Monkeys</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mount Muhabura -->
+            <div class="mountain-flip-card">
+                <div class="mountain-flip-inner">
+                    <div class="mountain-flip-front">
+                        <img src="https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=800&q=80" alt="Mount Muhabura">
+                        <div class="mountain-flip-overlay">
+                            <h3>Mount Muhabura</h3>
+                            <div class="mountain-meta">
+                                <span>🏔️ 4,127m</span>
+                                <span>⏱️ 1 Day</span>
+                                <span>💪 Challenging</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mountain-flip-back">
+                        <h3>Mount Muhabura</h3>
+                        <p>Known as "The Guide," this conical volcano offers panoramic views of Rwanda, Uganda, and the Democratic Republic of Congo. Its steep slopes and small summit crater make for an exhilarating climb.</p>
+                        <ul class="mountain-features">
+                            <li>
+                                <span class="feature-label">Elevation</span>
+                                <span class="feature-value">4,127 meters</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Duration</span>
+                                <span class="feature-value">7-9 Hours</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Difficulty</span>
+                                <span class="feature-value">Challenging</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Views</span>
+                                <span class="feature-value">3 Countries</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Terrain</span>
+                                <span class="feature-value">Steep & Rocky</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mount Gahinga -->
+            <div class="mountain-flip-card">
+                <div class="mountain-flip-inner">
+                    <div class="mountain-flip-front">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80" alt="Mount Gahinga">
+                        <div class="mountain-flip-overlay">
+                            <h3>Mount Gahinga</h3>
+                            <div class="mountain-meta">
+                                <span>🏔️ 3,474m</span>
+                                <span>⏱️ 1 Day</span>
+                                <span>💪 Moderate</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mountain-flip-back">
+                        <h3>Mount Gahinga</h3>
+                        <p>The smallest of the Virunga volcanoes, Mount Gahinga is characterized by its gentle slopes and swampy summit crater. Perfect for those seeking a less strenuous climb with equally impressive views.</p>
+                        <ul class="mountain-features">
+                            <li>
+                                <span class="feature-label">Elevation</span>
+                                <span class="feature-value">3,474 meters</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Duration</span>
+                                <span class="feature-value">5-6 Hours</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Difficulty</span>
+                                <span class="feature-value">Moderate</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Feature</span>
+                                <span class="feature-value">Swamp Crater</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Flora</span>
+                                <span class="feature-value">Giant Lobelias</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mount Sabyinyo -->
+            <div class="mountain-flip-card">
+                <div class="mountain-flip-inner">
+                    <div class="mountain-flip-front">
+                        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80" alt="Mount Sabyinyo">
+                        <div class="mountain-flip-overlay">
+                            <h3>Mount Sabyinyo</h3>
+                            <div class="mountain-meta">
+                                <span>🏔️ 3,669m</span>
+                                <span>⏱️ 1 Day</span>
+                                <span>💪 Very Challenging</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mountain-flip-back">
+                        <h3>Mount Sabyinyo</h3>
+                        <p>Meaning "Old Man's Teeth," this jagged mountain marks the convergence of Rwanda, Uganda, and the DRC. The technical climb includes ladders and ropes, culminating in a unique tri-border summit experience.</p>
+                        <ul class="mountain-features">
+                            <li>
+                                <span class="feature-label">Elevation</span>
+                                <span class="feature-value">3,669 meters</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Duration</span>
+                                <span class="feature-value">8 Hours</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Difficulty</span>
+                                <span class="feature-value">Very Challenging</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Special</span>
+                                <span class="feature-value">3-Country Border</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Equipment</span>
+                                <span class="feature-value">Ladders Required</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TYPICAL CLIMB TIMELINE -->
+<section class="timeline-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">YOUR JOURNEY</span>
+            <h2>A Day in the Life of a Mountain Climber</h2>
+            <p>Follow the typical timeline of a summit attempt on Mount Bisoke, Rwanda's most popular one-day climb</p>
+        </div>
+
+        <div class="timeline-container">
+            <div class="timeline-item">
+                <div class="timeline-icon">🌅</div>
+                <div class="timeline-content">
+                    <h3>Early Start (6:00 AM)</h3>
+                    <p>Gather at the park headquarters for registration and briefing. Your experienced guide will outline the day's route, safety protocols, and what to expect on the trail ahead.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon">🥾</div>
+                <div class="timeline-content">
+                    <h3>Begin Ascent (7:00 AM)</h3>
+                    <p>Start your climb through bamboo forests and dense vegetation. The trail gradually steepens as you gain elevation, passing through multiple ecological zones.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon">🌿</div>
+                <div class="timeline-content">
+                    <h3>Mid-Trail Rest (9:30 AM)</h3>
+                    <p>Pause at designated rest points to catch your breath, hydrate, and enjoy the changing landscapes. Your guide shares insights about the unique flora and fauna.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon">🏔️</div>
+                <div class="timeline-content">
+                    <h3>Reach Summit (11:30 AM)</h3>
+                    <p>Arrive at the crater rim and witness the spectacular volcanic crater lake. Take in panoramic views of the surrounding Virunga volcanoes and celebrate your achievement.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon">🍱</div>
+                <div class="timeline-content">
+                    <h3>Summit Lunch (12:30 PM)</h3>
+                    <p>Enjoy a well-deserved meal at the top. Refuel while soaking in the incredible vistas, photographing the moment, and sharing the experience with fellow climbers.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon">⬇️</div>
+                <div class="timeline-content">
+                    <h3>Descent Begins (1:30 PM)</h3>
+                    <p>Carefully make your way down through the volcanic terrain. The descent offers different perspectives and reveals new beauty in the landscape you climbed earlier.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon">🏆</div>
+                <div class="timeline-content">
+                    <h3>Return & Celebration (4:00 PM)</h3>
+                    <p>Arrive back at base and receive your summit certificate. Share stories with fellow climbers, rest your legs, and relive the day's incredible adventure.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MOUNTAIN ACTIVITIES -->
+<section class="activities-immersive">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">MOUNTAIN ADVENTURES</span>
+            <h2>Unforgettable Experiences Await</h2>
+            <p>Beyond the summit—discover diverse activities that make Rwanda's volcanic highlands truly extraordinary</p>
+        </div>
+
+        <div class="activities-grid">
+            <div class="activity-hex">
+                <div class="activity-hex-icon">🦍</div>
+                <h3>Gorilla Trekking</h3>
+                <p>Track endangered mountain gorillas through misty volcanic slopes. Witness these gentle giants in their natural habitat for an unforgettable wildlife encounter.</p>
+            </div>
+
+            <div class="activity-hex">
+                <div class="activity-hex-icon">🐒</div>
+                <h3>Golden Monkey Tracking</h3>
+                <p>Discover playful golden monkeys in bamboo forests. These rare primates leap through the canopy, creating magical photography opportunities.</p>
+            </div>
+
+            <div class="activity-hex">
+                <div class="activity-hex-icon">📸</div>
+                <h3>Landscape Photography</h3>
+                <p>Capture stunning volcanic landscapes, crater lakes, and dramatic mountain vistas. Every angle reveals new beauty worth preserving forever.</p>
+            </div>
+
+            <div class="activity-hex">
+                <div class="activity-hex-icon">🦅</div>
+                <h3>Bird Watching</h3>
+                <p>Spot rare Albertine Rift endemic species in their mountain habitat. Over 180 bird species call these volcanic slopes home.</p>
+            </div>
+
+            <div class="activity-hex">
+                <div class="activity-hex-icon">🏕️</div>
+                <h3>Mountain Camping</h3>
+                <p>Sleep under stars at high-altitude campsites during multi-day expeditions. Experience the serenity of Rwanda's volcanic wilderness after dark.</p>
+            </div>
+
+            <div class="activity-hex">
+                <div class="activity-hex-icon">🌿</div>
+                <h3>Guided Nature Walks</h3>
+                <p>Explore unique ecosystems with expert naturalist guides. Learn about medicinal plants, volcanic geology, and forest conservation efforts.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SEASONS SHOWCASE -->
+<section class="seasons-showcase">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">PLAN YOUR VISIT</span>
+            <h2>Best Times to Climb</h2>
+            <p>Rwanda's mountains welcome adventurers year-round, with each season offering unique rewards and considerations</p>
+        </div>
+
+        <!-- Dry Season -->
+        <div class="seasons-slider">
+            <div class="season-slide">
+                <div class="season-visual">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80" alt="Dry Season">
+                    <div class="season-icon-large">☀️</div>
+                </div>
+                <div class="season-info">
+                    <h3>Dry Season</h3>
+                    <span class="season-months">June - September & December - February</span>
+                    <p>Ideal conditions with clear skies, dry trails, and excellent visibility. Perfect for summit attempts, photography, and gorilla trekking. This is the most popular season, so advance booking is essential.</p>
+                    <ul class="season-highlights">
+                        <li><span class="highlight-check">✓</span> Optimal weather conditions and clear skies</li>
+                        <li><span class="highlight-check">✓</span> Best visibility for mountain views</li>
+                        <li><span class="highlight-check">✓</span> Easier trail navigation with dry paths</li>
+                        <li><span class="highlight-check">✓</span> Peak wildlife activity and sightings</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wet Season -->
+        <div class="seasons-slider" style="margin-top: 3rem;">
+            <div class="season-slide">
+                <div class="season-info">
+                    <h3>Wet Season</h3>
+                    <span class="season-months">March - May & October - November</span>
+                    <p>Lush green landscapes and fewer crowds create a more intimate experience. While trails can be muddy and challenging, the rewards include lower rates, abundant wildlife, and spectacular scenery.</p>
+                    <ul class="season-highlights">
+                        <li><span class="highlight-check">✓</span> Vibrant green scenery and blooming flora</li>
+                        <li><span class="highlight-check">✓</span> Significantly fewer tourists on trails</li>
+                        <li><span class="highlight-check">✓</span> Better accommodation and permit prices</li>
+                        <li><span class="highlight-check">✓</span> Excellent conditions for gorilla tracking</li>
+                    </ul>
+                </div>
+                <div class="season-visual">
+                    <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80" alt="Wet Season">
+                    <div class="season-icon-large">🌧️</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MEGA CTA -->
+<section class="mega-cta">
+    <div class="mega-cta-content">
+        <div class="mega-cta-icon">🏔️</div>
+        <h2>Your Mountain Adventure Awaits</h2>
+        <p>From gentle day hikes to challenging multi-day expeditions, Rwanda's volcanic peaks offer transformative experiences that will stay with you forever. Let us help you plan the perfect mountain adventure.</p>
+        <a href="contact.html" class="mega-cta-button">Start Your Journey Now</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Discover Rwanda</h4>
+                <p>Your gateway to experiencing the natural beauty and rich culture of Rwanda, the Land of a Thousand Hills.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="destinations.html">All Destinations</a></li>
+                    <li><a href="wildlife.html">Wildlife</a></li>
+                    <li><a href="culture.html">Culture</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="investment.html">Investment Opportunities</a></li>
+                    <li><a href="itineraries.html">Sample Itineraries</a></li>
+                    <li><a href="about.html">About Rwanda</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect With Us</h4>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">📘</a>
+                    <a href="#" aria-label="Instagram">📸</a>
+                    <a href="#" aria-label="Twitter">🐦</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Discover Rwanda. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+// Intersection Observer for scroll animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, observerOptions);
+
+// Observe all animated elements
+document.querySelectorAll('.stat-box, .section-header, .mountain-flip-card, .activity-hex, .timeline-item').forEach(el => {
+    observer.observe(el);
+});
+
+// Animated counter for stats
+function animateCounter(element) {
+    const target = parseInt(element.getAttribute('data-count'));
+    const duration = 2000;
+    const increment = target / (duration / 16);
+    let current = 0;
+    
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            element.textContent = target.toLocaleString();
+            clearInterval(timer);
+        } else {
+            element.textContent = Math.floor(current).toLocaleString();
+        }
+    }, 16);
+}
+
+// Trigger counter animation when stats become visible
+const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const numbers = entry.target.querySelectorAll('.stat-number');
+            numbers.forEach(num => animateCounter(num));
+            statsObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 });
+
+const statsSection = document.querySelector('.stats-showcase');
+if (statsSection) {
+    statsObserver.observe(statsSection);
+}
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+});
+</script>
+</body>
+</html>

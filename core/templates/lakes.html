@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lakes & Water Bodies | Discover Rwanda</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Italiana&display=swap" rel="stylesheet">
+    
+<style>
+    :root {
+        --black: #000000;
+        --charcoal: #1a1a1a;
+        --dark-gray: #2c2c2c;
+        --mid-gray: #6a6a6a;
+        --light-gray: #e5e5e5;
+        --off-white: #f8f8f8;
+        --white: #ffffff;
+        --gold: #c59959;
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Inter', sans-serif;
+        color: var(--charcoal);
+        line-height: 1.6;
+        overflow-x: hidden;
+        background: var(--white);
+    }
+    
+    /* Navigation */
+    .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 1.5rem 6%;
+        background: var(--white);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .nav-container {
+        max-width: 2000px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-decoration: none;
+    }
+    
+    .nav-logo-img {
+        font-size: 2rem;
+    }
+    
+    .nav-logo-text {
+        font-family: 'Italiana', serif;
+        font-size: 1.5rem;
+        color: var(--black);
+        letter-spacing: 4px;
+    }
+    
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 4rem;
+        align-items: center;
+    }
+    
+    .nav-item a {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--charcoal);
+        text-decoration: none;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-item a:hover {
+        color: var(--gold);
+    }
+    
+    .nav-cta {
+        background: var(--black);
+        color: var(--white) !important;
+        padding: 1rem 2.8rem !important;
+        border-radius: 50px !important;
+    }
+    
+    .nav-cta:hover {
+        background: var(--gold);
+    }
+    
+    /* Hero Section */
+    .hero-section {
+        position: relative;
+        height: 85vh;
+        min-height: 700px;
+        background: var(--black);
+        display: flex;
+        align-items: center;
+        margin-top: 88px;
+        overflow: hidden;
+    }
+    
+    .hero-bg-pattern {
+        position: absolute;
+        inset: 0;
+        background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        background-size: 50px 50px;
+        opacity: 0.3;
+    }
+    
+    .hero-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 6%;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .hero-eyebrow {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--white);
+        padding: 0.5rem 1.5rem;
+        border: 2px solid var(--white);
+        border-radius: 50px;
+        margin-bottom: 2.5rem;
+        background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .hero-title {
+        font-family: 'Italiana', serif;
+        font-size: clamp(4rem, 10vw, 7rem);
+        font-weight: 400;
+        color: var(--white);
+        margin-bottom: 2rem;
+        letter-spacing: 12px;
+        line-height: 1.1;
+    }
+    
+    .hero-subtitle {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.85);
+        max-width: 900px;
+        margin: 0 auto 3rem;
+        line-height: 1.8;
+    }
+    
+    .hero-stats {
+        display: flex;
+        justify-content: center;
+        gap: 5rem;
+        margin-top: 5rem;
+    }
+    
+    .stat-item {
+        text-align: center;
+    }
+    
+    .stat-number {
+        font-family: 'Italiana', serif;
+        font-size: 4rem;
+        color: var(--white);
+        display: block;
+    }
+    
+    .stat-label {
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.7);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+    
+    /* Introduction Section */
+    .intro-section {
+        background: var(--white);
+        padding: 10rem 6%;
+    }
+    
+    .intro-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    
+    .section-eyebrow {
+        display: inline-block;
+        font-size: 0.6875rem;
+        font-weight: 800;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--black);
+        padding: 0.4rem 1.25rem;
+        border: 2px solid var(--black);
+        border-radius: 50px;
+        margin-bottom: 2.5rem;
+    }
+    
+    .section-title {
+        font-family: 'Italiana', serif;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 400;
+        color: var(--black);
+        margin-bottom: 2rem;
+        letter-spacing: 4px;
+        line-height: 1.2;
+    }
+    
+    .section-description {
+        font-size: 1.125rem;
+        font-weight: 300;
+        line-height: 1.9;
+        color: var(--mid-gray);
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    
+    /* Lakes Grid - Alternating Full-Width Sections */
+    .lakes-grid-section {
+        background: var(--off-white);
+        padding: 0;
+    }
+    
+    .lake-feature {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 700px;
+    }
+    
+    .lake-feature:nth-child(even) {
+        direction: rtl;
+    }
+    
+    .lake-feature:nth-child(even) > * {
+        direction: ltr;
+    }
+    
+    .lake-image-container {
+        position: relative;
+        overflow: hidden;
+        background: var(--dark-gray);
+    }
+    
+    .lake-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        filter: grayscale(20%);
+    }
+    
+    .lake-feature:hover .lake-image-container img {
+        transform: scale(1.05);
+        filter: grayscale(0%);
+    }
+    
+    .lake-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 8% 10%;
+        background: var(--white);
+    }
+    
+    .lake-feature:nth-child(even) .lake-content {
+        background: var(--black);
+        color: var(--white);
+    }
+    
+    .lake-number {
+        font-family: 'Italiana', serif;
+        font-size: 1rem;
+        color: var(--gold);
+        letter-spacing: 3px;
+        margin-bottom: 1.5rem;
+    }
+    
+    .lake-name {
+        font-family: 'Italiana', serif;
+        font-size: clamp(2.5rem, 4vw, 3.5rem);
+        font-weight: 400;
+        color: var(--black);
+        margin-bottom: 1rem;
+        letter-spacing: 4px;
+        line-height: 1.2;
+    }
+    
+    .lake-feature:nth-child(even) .lake-name {
+        color: var(--white);
+    }
+    
+    .lake-location {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.125rem;
+        font-style: italic;
+        color: var(--mid-gray);
+        margin-bottom: 2.5rem;
+    }
+    
+    .lake-feature:nth-child(even) .lake-location {
+        color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .lake-description {
+        font-size: 1.0625rem;
+        font-weight: 300;
+        line-height: 1.8;
+        color: var(--mid-gray);
+        margin-bottom: 2rem;
+    }
+    
+    .lake-feature:nth-child(even) .lake-description {
+        color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .lake-highlights {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+    }
+    
+    .highlight-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .highlight-icon {
+        font-size: 1.5rem;
+        flex-shrink: 0;
+    }
+    
+    .highlight-text {
+        flex: 1;
+    }
+    
+    .highlight-title {
+        font-weight: 600;
+        font-size: 0.9375rem;
+        color: var(--black);
+        margin-bottom: 0.25rem;
+    }
+    
+    .lake-feature:nth-child(even) .highlight-title {
+        color: var(--white);
+    }
+    
+    .highlight-desc {
+        font-size: 0.875rem;
+        color: var(--mid-gray);
+    }
+    
+    .lake-feature:nth-child(even) .highlight-desc {
+        color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .lake-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--black);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .lake-link:hover {
+        gap: 1.25rem;
+        color: var(--gold);
+    }
+    
+    .lake-feature:nth-child(even) .lake-link {
+        color: var(--white);
+    }
+    
+    /* CTA Section */
+    .cta-final {
+        background: var(--black);
+        padding: 10rem 6%;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .cta-final::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        background-size: 50px 50px;
+        opacity: 0.3;
+    }
+    
+    .cta-content {
+        max-width: 1000px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .cta-title {
+        font-family: 'Italiana', serif;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 400;
+        color: var(--white);
+        margin-bottom: 2rem;
+        letter-spacing: 4px;
+    }
+    
+    .cta-text {
+        font-size: 1.25rem;
+        font-weight: 300;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 3.5rem;
+    }
+    
+    .cta-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.25rem 3.5rem;
+        background: var(--white);
+        color: var(--black);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.875rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border-radius: 50px;
+        transition: all 0.4s ease;
+    }
+    
+    .cta-button:hover {
+        background: var(--gold);
+        color: var(--white);
+        transform: translateY(-3px);
+        gap: 1.5rem;
+    }
+    
+    /* Footer */
+    footer {
+        background: var(--charcoal);
+        color: var(--white);
+        padding: 6rem 6% 3rem;
+    }
+    
+    .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 4rem;
+        max-width: 1800px;
+        margin: 0 auto 4rem;
+    }
+    
+    .footer-brand h3 {
+        font-family: 'Italiana', serif;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        letter-spacing: 2px;
+    }
+    
+    .footer-description {
+        font-size: 0.9375rem;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .footer-column h4 {
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        color: var(--gold);
+    }
+    
+    .footer-links {
+        list-style: none;
+    }
+    
+    .footer-links li {
+        margin-bottom: 0.75rem;
+    }
+    
+    .footer-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+        color: var(--gold);
+    }
+    
+    .footer-bottom {
+        text-align: center;
+        padding-top: 3rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.875rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+        .lake-feature {
+            grid-template-columns: 1fr;
+        }
+        
+        .lake-feature:nth-child(even) {
+            direction: ltr;
+        }
+        
+        .lake-highlights {
+            grid-template-columns: 1fr;
+        }
+        
+        .hero-stats {
+            gap: 3rem;
+        }
+        
+        .footer-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .nav-menu {
+            display: none;
+        }
+        
+        .hero-stats {
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .lake-content {
+            padding: 4rem 6%;
+        }
+        
+        .footer-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+    <div class="nav-container">
+        <a href="index.html" class="nav-brand">
+            <div class="nav-logo-img">🌿</div>
+            <div class="nav-logo-text">RWANDA</div>
+        </a>
+        
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="{% url 'index' %}">Home</a></li>
+            <li class="nav-item"><a href="towns.html">Towns</a></li>
+            <li class="nav-item"><a href="#lakes">Lakes</a></li>
+            <li class="nav-item"><a href="contact.html" class="nav-cta">Plan Visit</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-content">
+        <span class="hero-eyebrow">Rwanda's Water Treasures</span>
+        <h1 class="hero-title">LAKES & WATERS</h1>
+        <p class="hero-subtitle">
+            Discover pristine waters nestled among volcanic peaks and rolling hills—where tranquil shores meet adventure, and every lake tells a story of natural beauty and cultural heritage.
+        </p>
+        
+        <div class="hero-stats">
+            <div class="stat-item">
+                <span class="stat-number">4</span>
+                <span class="stat-label">Major Lakes</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">23</span>
+                <span class="stat-label">Water Bodies</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">∞</span>
+                <span class="stat-label">Experiences</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Introduction -->
+<section class="intro-section">
+    <div class="intro-container">
+        <span class="section-eyebrow">Aquatic Wonders</span>
+        <h2 class="section-title">Where Water Meets Wonder</h2>
+        <p class="section-description">
+            Rwanda's lakes are more than just bodies of water—they're sanctuaries of serenity, playgrounds for adventure, and windows into the country's rich biodiversity. From the vast expanse of Lake Kivu to the intimate charm of the Twin Lakes, each waterway offers its own unique character and unforgettable experiences.
+        </p>
+    </div>
+</section>
+
+<!-- Lakes Grid -->
+<section class="lakes-grid-section" id="lakes">
+    <!-- Lake Kivu -->
+    <div class="lake-feature">
+        <div class="lake-image-container">
+            <img src="https://images.unsplash.com/photo-1594175268654-e60bea6c037c?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Lake Kivu">
+        </div>
+        <div class="lake-content">
+            <div class="lake-number">01</div>
+            <h2 class="lake-name">LAKE KIVU</h2>
+            <p class="lake-location">Western Rwanda • One of Africa's Great Lakes</p>
+            <p class="lake-description">
+                Rwanda's largest and most spectacular lake stretches along the western border with the Democratic Republic of Congo. With its crystal-clear waters, sandy beaches, and stunning mountain backdrop, Lake Kivu is a paradise for relaxation and water sports. The lake's unique methane reserves make it one of the world's three exploding lakes, while its peaceful shores host charming resort towns.
+            </p>
+            <div class="lake-highlights">
+                <div class="highlight-item">
+                    <div class="highlight-icon">🏖️</div>
+                    <div class="highlight-text">
+                        <div class="highlight-title">Sandy Beaches</div>
+                        <div class="highlight-desc">Pristine shores perfect for swimming and sunbathing</div>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">🚣</div>
+                    <div class="highlight-text">
+                        <div class="highlight-title">Water Sports</div>
+                        <div class="highlight-desc">Kayaking, paddleboarding, and boat tours</div>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">🏝️</div>
+                    <div class="highlight-text">
+                        <div class="highlight-title">Island Exploration</div>
+                        <div class="highlight-desc">Visit Napoleon Island and other islets</div>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">🌅</div>
+                    <div class="highlight-text">
+                        <div class="highlight-title">Sunset Views</div>
+                        <div class="highlight-desc">Spectacular evening colors over the mountains</div>
+                    </div>
+                </div>
+            </div>
+            <a href="lake-kivu.html" class="lake-link">
+                Explore Lake Kivu
+                <span>→</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Twin Lakes -->
+    <div class="lake-feature">
+        <div class="lake-image-container">
+            <img src="https://i.pinimg.com/1200x/2b/aa/0f/2baa0f0b1c59deec862d2a8a6b300ae8.jpg" alt="Twin Lakes">
+        </div>
+        <div class="lake-content">
+            <div class="lake-number">02</div>
+            <h2 class="lake-name">TWIN LAKES</h2>
+            <p class="lake-location">Northern Rwanda • Burera & Ruhondo</p>
+            <p class="lake-description">
+                Nestled at the foot of the Virunga volcanoes, the Twin Lakes of Burera and Ruhondo are connected waterways surrounded by terraced hillsides and mountain peaks. These serene lakes offer a peaceful escape with stunning panoramic views. The area is perfect for canoeing, fishing, and birdwatching, with the dramatic backdrop of Rwanda's volcanic mountains creating unforgettable scenery.
+            </p>
+            <div class="lake-highlights">
+                <div class="highlight-item">
+                    <div class="highlight-icon">🛶</div>
+                    <div class="highlight-text">
+                        <div class="highlight-title">Canoeing Adventures</div>
+                        <div class="highlight-desc">Paddle through peaceful waters</div>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">🦅</div>
+                    <div class="highlight-text">
+                        <div class="highlight-title">Bird Watching</div>
+                        <div class="highlight-desc">Spot diverse aquatic bird species</div>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">🏔️</div>
+                    <div class="highlight-text">
+                        <div class="highlight-title">Volcano Views</div>
+                        <div class="highlight-desc">Stunning vistas of the Virunga peaks</div>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">🎣</div>
+                    <div class="highlight-text">
+                        <div class="highlight-title">Fishing Villages</div>
+                        <div class="highlight-desc">Experience local lakeside communities</div>
+                    </div>
+                </div>
+            </div>
+            <a href="twin-lakes.html" class="lake-link">
+                Explore Twin Lakes
+                <span>→</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Lake Muhazi -->
+    <div class="lake-feature">
+        <div class="lake-image-container">
+            <img src="https://i.pinimg.com/1200x/11/71/99/117199d85fb6a014d2a1de1bc8283149.jpg" alt="Lake Muhazi">
+        </div>
+        <div class="lake-content">
+            <div class="lake-number">03</div>
+            <h2 class="lake-name">LAKE MUHAZI</h2>
+            <p class="lake-location">Eastern Province • 60km Long</p>
+            <p class="lake-description">
+                This long, winding lake stretches through eastern Rwanda like a natural serpent, creating countless coves and peninsulas perfect for exploration. Lake Muhazi is a popular weekend destination for Kigali residents, offering excellent fishing, water sports, and lakeside resorts. The lake's irregular shape and numerous inlets create a maze-like waterway ideal for boating adventures and peaceful relaxation.
+            </p>
+            <div class="lake-highlights">
+                <div class="highlight-item">
+                    <div class="highlight-icon">⛵</div>
+                    <div class="highlight-text">
+                        <div class="highlight-title">Boat Cruises</div>
+                        <div class="highlight-desc">Navigate the winding waterways</div>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">🏊</div>
+                    <div class="highlight-text">
+                        <div class="highlight-title">Swimming Spots</div>
+                        <div class="highlight-desc">Safe, clean waters for families</div>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">🍽️</div>
+                    <div class="highlight-text">
+                        <div class="highlight-title">Lakeside Dining</div>
+                        <div class="highlight-desc">Fresh fish restaurants with views</div>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">🎯</div>
+                    <div class="highlight-text">
+                        <div class="highlight-title">Day Trips</div>
+                        <div class="highlight-desc">Close to Kigali for quick escapes</div>
+                    </div>
+                </div>
+            </div>
+            <a href="lake-muhazi.html" class="lake-link">
+                Explore Lake Muhazi
+                <span>→</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Lake Ihema -->
+    <div class="lake-feature">
+        <div class="lake-image-container">
+            <img src="https://i.pinimg.com/1200x/59/57/6a/59576a88e5f379afa6125d703ad30eb5.jpg" alt="Lake Ihema">
+        </div>
+        <div class="lake-content">
+            <div class="lake-number">04</div>
+            <h2 class="lake-name">LAKE IHEMA</h2>
+            <p class="lake-location">Akagera National Park • Wildlife Paradise</p>
+            <p class="lake-description">
+                The largest lake in Akagera National Park, Lake Ihema is a wildlife haven where hippos wallow, crocodiles bask, and countless bird species congregate. Surrounded by papyrus swamps and acacia woodlands, the lake offers exceptional boat safaris where you can spot elephants, buffaloes, and giraffes drinking at the shore. It's a photographer's dream and a crucial ecosystem supporting the park's biodiversity.
+            </p>
+            <div class="lake-highlights">
+                <div class="highlight-item">
+                    <div class="highlight-icon">🦛</div>
+                    <div class="highlight-text">
+                        <div class="highlight-title">Hippo Pods</div>
+                        <div class="highlight-desc">Large populations of hippos</div>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">🐊</div>
+                    <div class="highlight-text">
+                        <div class="highlight-title">Crocodile Sightings</div>
+                        <div class="highlight-desc">Nile crocodiles sunbathing</div>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">📸</div>
+                    <div class="highlight-text">
+                        <div class="highlight-title">Boat Safaris</div>
+                        <div class="highlight-desc">Up-close wildlife photography</div>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">🦜</div>
+                    <div class="highlight-text">
+                        <div class="highlight-title">Bird Paradise</div>
+                        <div class="highlight-desc">Over 480 recorded species</div>
+                    </div>
+                </div>
+            </div>
+            <a href="lake-ihema.html" class="lake-link">
+                Explore Lake Ihema
+                <span>→</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-final">
+    <div class="cta-content">
+        <h2 class="cta-title">Experience Rwanda's Waters</h2>
+        <p class="cta-text">
+            Let Discover Rwanda craft your perfect lakeside adventure. From peaceful boat cruises to thrilling water sports, we'll create unforgettable experiences on Rwanda's most beautiful waters.
+        </p>
+        <a href="{% url 'contact' %}" class="cta-button">
+            Plan Your Lake Adventure
+            <span>→</span>
+        </a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <h3>Discover Rwanda</h3>
+            <p class="footer-description">Your gateway to extraordinary journeys through the Land of a Thousand Hills. We curate transformative experiences across Rwanda's pristine wilderness, rare wildlife encounters, and vibrant cultural tapestry.</p>
+        </div>
+        
+        <div class="footer-column">
+            <h4>Lakes</h4>
+            <ul class="footer-links">
+                <li><a href="lake-kivu.html">Lake Kivu</a></li>
+                <li><a href="twin-lakes.html">Twin Lakes</a></li>
+                <li><a href="lake-muhazi.html">Lake Muhazi</a></li>
+                <li><a href="lake-ihema.html">Lake Ihema</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h4>Destinations</h4>
+            <ul class="footer-links">
+                <li><a href="towns.html">Towns</a></li>
+                <li><a href="volcanic-mountains.html">Mountains</a></li>
+                <li><a href="museums-heritage.html">Museums</a></li>
+                <li><a href="attractions.html">Attractions</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h4>Contact</h4>
+            <ul class="footer-links">
+                <li><a href="contact.html">Get In Touch</a></li>
+                <li><a href="tel:+250788123456">+250 788 123 456</a></li>
+                <li><a href="mailto:info@discoverrwanda.com">info@discoverrwanda.com</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>&copy; 2026 Discover Rwanda. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+// Smooth scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+});
+</script>
+
+</body>
+</html>

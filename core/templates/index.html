@@ -1,0 +1,3489 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discover Rwanda — Land of a Thousand Hills | Ultra-Luxury African Safaris</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+    /* ============================================
+       REVOLUTIONARY ULTRA-PREMIUM DESIGN
+       Next-Generation Web Experience
+    ============================================ */
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    :root {
+        --forest-darkest: #051810;
+        --forest-deep: #0a2f1a;
+        --emerald-rich: #145c35;
+        --emerald: #1a7043;
+        --sage: #2d6e4a;
+        --gold-deep: #a67c52;
+        --gold: #c5995b;
+        --gold-light: #d4a870;
+        --gold-shimmer: #e8d4b8;
+        --obsidian: #0a0a0a;
+        --charcoal: #1a1a1a;
+        --graphite: #2a2a2a;
+        --pearl: #fdfcfa;
+        --cream: #f9f7f4;
+        --ivory: #f2efe9;
+        --text-ink: #0f0f0f;
+        --text-primary: #2a2a2a;
+        --text-secondary: #4a4a4a;
+        --text-muted: #6a6a6a;
+    }
+    
+    html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+    }
+    
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--text-primary);
+        background: var(--pearl);
+        overflow-x: hidden;
+        font-weight: 400;
+    }
+    
+    /* ============================================
+       REVOLUTIONARY NAVIGATION WITH LOGO
+    ============================================ */
+    
+    .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10000;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), transparent);
+        backdrop-filter: blur(10px);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        padding: 1.5rem 0;
+    }
+    
+    .nav.scrolled {
+        background: rgba(253, 252, 250, 0.98);
+        backdrop-filter: blur(60px) saturate(200%);
+        box-shadow: 0 1px 0 rgba(197, 153, 91, 0.1),
+                    0 10px 40px rgba(0, 0, 0, 0.03);
+        padding: 1rem 0;
+    }
+    
+    .nav-container {
+        max-width: 1900px;
+        margin: 0 auto;
+        padding: 0 6%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-decoration: none;
+    }
+    
+.navbar {
+    display: flex;               /* horizontal layout */
+    align-items: center;         /* vertically center items */
+    justify-content: flex-start; /* start from left */
+    padding: 10px 20px;
+    gap: 20px;                   /* space between logo and links */
+}
+
+.nav-logo-img {
+    width: 300px;                /* adjust size */
+    height: 120px;
+    border-radius: 50%;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.nav-logo-img img {
+    width: 100%;                 /* fill the container */
+    height: 100%;
+    object-fit: contain;
+    transition: all 0.4s ease;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+    flex-grow: 1;                /* take remaining space */
+}
+
+    
+    .nav-logo-text {
+        font-family: 'Italiana', serif;
+        font-size: 1.5rem;
+        color: white;
+        letter-spacing: 3px;
+        font-weight: 400;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+    }
+    
+    .nav.scrolled .nav-logo-text {
+        color: var(--text-ink);
+        text-shadow: none;
+    }
+    
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 4rem;
+        align-items: center;
+    }
+    
+    .nav-item {
+        position: relative;
+    }
+    
+    .nav-item a {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: white;
+        text-decoration: none;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        position: relative;
+        padding: 0.5rem 0;
+        transition: all 0.3s ease;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        display: block;
+    }
+    
+    .nav.scrolled .nav-item a {
+        color: var(--text-primary);
+        text-shadow: none;
+    }
+    
+    /* Dropdown Menu Styles */
+    .nav-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        margin-top: 1.5rem;
+        min-width: 280px;
+        padding: 1rem 0;
+        z-index: 1000;
+    }
+    
+    .nav-item:hover .nav-dropdown {
+        opacity: 1;
+        visibility: visible;
+        margin-top: 1rem;
+    }
+    
+    .nav-dropdown::before {
+        content: '';
+        position: absolute;
+        top: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 8px solid white;
+    }
+    
+    .nav-dropdown a {
+        display: block;
+        padding: 0.875rem 1.75rem;
+        color: var(--text-primary);
+        text-decoration: none;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        text-shadow: none;
+    }
+    
+    .nav-dropdown a:hover {
+        background: var(--ivory);
+        color: var(--emerald-rich);
+        padding-left: 2rem;
+    }
+    
+    .nav-dropdown a::after {
+        display: none;
+    }
+    
+    /* Sub-dropdown / Nested Menu Styles */
+    .nav-dropdown-item {
+        position: relative;
+    }
+    
+    .nav-sub-dropdown {
+        position: absolute;
+        top: 0;
+        left: 100%;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        margin-left: 0.5rem;
+        min-width: 200px;
+        padding: 1rem 0;
+        z-index: 1001;
+    }
+    
+    .nav-dropdown-item:hover .nav-sub-dropdown {
+        opacity: 1;
+        visibility: visible;
+        margin-left: 0.25rem;
+    }
+    
+    .nav-sub-dropdown a {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.6875rem;
+        letter-spacing: 1.2px;
+    }
+    
+    .nav-dropdown-item > a::before {
+        content: '→';
+        float: right;
+        margin-left: 1rem;
+        opacity: 0.5;
+    }
+    
+    .nav-item a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        transform: translateX(-50%);
+        transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .nav-item a:hover {
+        color: var(--gold-light);
+    }
+    
+    .nav.scrolled .nav-item a:hover {
+        color: var(--gold);
+    }
+    
+    .nav-item a:hover::after {
+        width: 100%;
+    }
+    
+    .nav-cta {
+        background: linear-gradient(135deg, var(--gold-deep) 0%, var(--gold) 50%, var(--gold-light) 100%);
+        color: white !important;
+        padding: 1rem 2.8rem !important;
+        border-radius: 50px !important;
+        font-weight: 700 !important;
+        box-shadow: 0 8px 30px rgba(197, 153, 91, 0.35),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .nav-cta::after {
+        display: none !important;
+    }
+    
+    .nav-cta::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transform: translateX(-100%);
+        transition: transform 0.6s ease;
+    }
+    
+    .nav-cta:hover::before {
+        transform: translateX(100%);
+    }
+    
+    .nav-cta:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 12px 40px rgba(197, 153, 91, 0.5),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    /* ============================================
+       NEXT-GEN CINEMATIC HERO
+    ============================================ */
+    
+    .hero {
+        position: relative;
+        height: 100vh;
+        min-height: 950px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--obsidian);
+        overflow: hidden;
+    }
+    
+    .hero-slideshow {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+    }
+    
+    .hero-slide {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        transition: opacity 3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .hero-slide.active {
+        opacity: 1;
+        animation: epicZoom 16s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    
+    @keyframes epicZoom {
+        0% { transform: scale(1) rotate(0deg); }
+        100% { transform: scale(1.15) rotate(2deg); }
+    }
+    
+    .hero-gradient-overlay {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            ellipse 80% 70% at 50% 50%,
+            rgba(5, 24, 16, 0.3) 0%,
+            rgba(10, 10, 10, 0.7) 60%,
+            rgba(10, 10, 10, 0.9) 100%
+        );
+        z-index: 2;
+    }
+    
+    .hero-vignette-deep {
+        position: absolute;
+        inset: 0;
+        background: 
+            radial-gradient(circle at 30% 40%, transparent 0%, rgba(0, 0, 0, 0.4) 100%),
+            radial-gradient(circle at 70% 60%, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+        z-index: 3;
+    }
+    
+    .hero-content-wrapper {
+        position: relative;
+        z-index: 5;
+        max-width: 1700px;
+        padding: 0 6%;
+        text-align: center;
+    }
+    
+    .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 2rem;
+        font-size: 0.625rem;
+        font-weight: 800;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        color: var(--gold-light);
+        margin-bottom: 3.5rem;
+        opacity: 0;
+        animation: luxuryFadeUp 1.4s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+    }
+    
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+        content: '';
+        width: 50px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+    }
+    
+    .hero-headline {
+        font-family: 'Italiana', serif;
+        font-size: clamp(4rem, 9vw, 8rem);
+        font-weight: 400;
+        line-height: 0.95;
+        color: #ffffff;
+        letter-spacing: 6px;
+        margin-bottom: 3rem;
+        text-shadow: 
+            0 2px 20px rgba(0, 0, 0, 0.5),
+            0 10px 60px rgba(0, 0, 0, 0.4),
+            0 0 120px rgba(197, 153, 91, 0.15);
+        opacity: 0;
+        animation: luxuryFadeUp 1.4s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards;
+    }
+    
+    .hero-description {
+        font-size: clamp(1.125rem, 2vw, 1.75rem);
+        font-weight: 300;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.95);
+        max-width: 950px;
+        margin: 0 auto 5rem;
+        text-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        animation: luxuryFadeUp 1.4s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards;
+        letter-spacing: 0.5px;
+    }
+    
+    .hero-cta-group {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        opacity: 0;
+        animation: luxuryFadeUp 1.4s cubic-bezier(0.4, 0, 0.2, 1) 1s forwards;
+    }
+    
+    .cta-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 1.25rem;
+        padding: 1.5rem 4rem;
+        font-size: 0.8125rem;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        text-decoration: none;
+        border-radius: 50px;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .cta-primary {
+        background: linear-gradient(135deg, var(--gold-deep), var(--gold), var(--gold-light));
+        color: white;
+        box-shadow: 0 10px 40px rgba(197, 153, 91, 0.4),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+    
+    .cta-primary::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, var(--gold-light), var(--gold-shimmer));
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+    
+    .cta-primary:hover::before {
+        opacity: 1;
+    }
+    
+    .cta-primary:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 60px rgba(197, 153, 91, 0.6),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+    
+    .cta-secondary {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(30px);
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .cta-secondary:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.6);
+        transform: translateY(-4px);
+    }
+    
+    @keyframes luxuryFadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .hero-scroll-indicator {
+        position: absolute;
+        bottom: 5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 5;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        opacity: 0;
+        animation: luxuryFadeUp 1.4s cubic-bezier(0.4, 0, 0.2, 1) 1.5s forwards,
+                   floatAnimation 3s ease-in-out 2s infinite;
+    }
+    
+    .scroll-line {
+        width: 1px;
+        height: 70px;
+        background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+    
+    .scroll-text {
+        font-size: 0.625rem;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.6);
+    }
+    
+    @keyframes floatAnimation {
+        0%, 100% { transform: translate(-50%, 0); }
+        50% { transform: translate(-50%, 15px); }
+    }
+    
+    /* ============================================
+       COMPACT INTRO (Preview to About)
+    ============================================ */
+    
+    /* ============================================
+       INTRO SECTION - ENHANCED DESIGN
+    ============================================ */
+    
+    .intro-compact {
+        background: linear-gradient(to bottom, var(--pearl), white);
+        padding: 5rem 6%;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .intro-compact::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    
+    .intro-compact::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    
+    .intro-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    
+    .intro-eyebrow {
+        display: inline-block;
+        font-size: 0.6875rem;
+        font-weight: 800;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gold);
+        padding: 0.4rem 1.25rem;
+        border: 2px solid var(--gold);
+        border-radius: 50px;
+        margin-bottom: 2rem;
+    }
+    
+    .intro-statement {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(1.125rem, 2vw, 1.5rem);
+        font-weight: 400;
+        line-height: 1.7;
+        color: var(--text-ink);
+        letter-spacing: 0.3px;
+        margin-bottom: 3rem;
+        max-width: 1100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .intro-highlights {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 2.5rem;
+        max-width: 1000px;
+        margin: 3.5rem auto 2.5rem;
+    }
+    
+    .intro-highlight-item {
+        text-align: center;
+    }
+    
+    .intro-highlight-icon {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 1.25rem;
+        background: linear-gradient(135deg, var(--gold-deep), var(--gold-light));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.75rem;
+        box-shadow: 0 8px 25px rgba(197, 153, 91, 0.3);
+        transition: all 0.4s ease;
+    }
+    
+    .intro-highlight-item:hover .intro-highlight-icon {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 12px 35px rgba(197, 153, 91, 0.4);
+    }
+    
+    .intro-highlight-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--text-ink);
+        margin-bottom: 0.5rem;
+    }
+    
+    .intro-highlight-text {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+    }
+    
+    .intro-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem 2.25rem;
+        background: linear-gradient(135deg, var(--emerald-rich), var(--sage));
+        color: white;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.8125rem;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        border-radius: 50px;
+        transition: all 0.4s ease;
+        box-shadow: 0 8px 25px rgba(20, 92, 53, 0.3);
+    }
+    
+    .intro-link:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(20, 92, 53, 0.4);
+        gap: 1rem;
+    }
+    
+    /* ============================================
+       LUXURY ABOUT SECTION WITH STATS
+    ============================================ */
+    
+    .about-luxury {
+        background: linear-gradient(180deg, var(--pearl) 0%, var(--cream) 100%);
+        padding: 10rem 6%;
+        position: relative;
+    }
+    
+    .about-luxury::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    
+    .about-container {
+        max-width: 1800px;
+        margin: 0 auto;
+    }
+    
+    .about-header-center {
+        text-align: center;
+        max-width: 1100px;
+        margin: 0 auto 7rem;
+    }
+    
+    .section-label {
+        display: inline-block;
+        font-size: 0.625rem;
+        font-weight: 800;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 2.5rem;
+        padding: 0.75rem 2rem;
+        border: 1px solid var(--gold);
+        border-radius: 50px;
+    }
+    
+    .section-heading {
+        font-family: 'Italiana', serif;
+        font-size: clamp(2.75rem, 5.5vw, 4.5rem);
+        font-weight: 400;
+        line-height: 1.05;
+        color: var(--emerald-rich);
+        letter-spacing: 2px;
+        margin-bottom: 3rem;
+    }
+    
+    .section-intro {
+        font-size: 1.125rem;
+        font-weight: 300;
+        line-height: 1.8;
+        color: var(--text-secondary);
+        max-width: 900px;
+        margin: 0 auto;
+        letter-spacing: 0.3px;
+    }
+    
+    .stats-grid-luxury {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 5rem;
+        margin-top: 5rem;
+    }
+    
+    .stat-card-luxury {
+        text-align: center;
+        padding: 3rem;
+        background: rgba(255, 255, 255, 0.7);
+        border: 1px solid rgba(197, 153, 91, 0.15);
+        border-radius: 20px;
+        backdrop-filter: blur(20px);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .stat-card-luxury:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.08);
+        border-color: var(--gold);
+    }
+    
+    .stat-number-luxury {
+        font-family: 'Italiana', serif;
+        font-size: 3.5rem;
+        font-weight: 400;
+        color: var(--gold);
+        line-height: 1;
+        margin-bottom: 1.5rem;
+        letter-spacing: 1px;
+    }
+    
+    .stat-label-luxury {
+        font-size: 0.875rem;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--text-primary);
+    }
+    
+    /* ============================================
+       PREMIUM EXPERIENCES WITH NUMBERS
+    ============================================ */
+    
+    .experiences-premium {
+        background: var(--obsidian);
+        padding: 10rem 6%;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .experiences-premium::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: 
+            radial-gradient(circle at 20% 30%, rgba(20, 92, 53, 0.15), transparent 50%),
+            radial-gradient(circle at 80% 70%, rgba(197, 153, 91, 0.08), transparent 50%);
+        z-index: 1;
+    }
+    
+    .experiences-container {
+        max-width: 1900px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .section-header-dark {
+        text-align: center;
+        margin-bottom: 7rem;
+    }
+    
+    .section-header-dark .section-label {
+        color: var(--gold-light);
+        border-color: var(--gold-light);
+    }
+    
+    .section-header-dark .section-heading {
+        color: white;
+    }
+    
+    .section-header-dark .section-intro {
+        color: rgba(255, 255, 255, 0.75);
+    }
+    
+    .experiences-showcase {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3.5rem;
+    }
+    
+    .experience-luxury-card {
+        position: relative;
+        height: 700px;
+        border-radius: 24px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+    }
+    
+    .experience-luxury-card:hover {
+        transform: translateY(-25px) scale(1.02);
+        box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+    }
+    
+    .experience-bg-img {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        filter: brightness(0.9) contrast(1.1) saturate(1.15);
+    }
+    
+    .experience-luxury-card:hover .experience-bg-img {
+        transform: scale(1.12);
+    }
+    
+    .experience-dark-gradient {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(5, 24, 16, 0.6) 50%,
+            rgba(10, 10, 10, 0.95) 100%
+        );
+        z-index: 1;
+    }
+    
+    .experience-number-badge {
+        position: absolute;
+        top: 3rem;
+        right: 3rem;
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, var(--gold), var(--gold-light));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Italiana', serif;
+        font-size: 2rem;
+        color: white;
+        z-index: 3;
+        box-shadow: 0 8px 30px rgba(197, 153, 91, 0.5);
+        transition: all 0.5s ease;
+    }
+    
+    .experience-luxury-card:hover .experience-number-badge {
+        transform: rotate(360deg) scale(1.15);
+    }
+    
+    .experience-info-box {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 3.5rem;
+        z-index: 2;
+    }
+    
+    .experience-title-luxury {
+        font-family: 'Italiana', serif;
+        font-size: 2.25rem;
+        font-weight: 400;
+        color: white;
+        letter-spacing: 1.5px;
+        margin-bottom: 1.25rem;
+        text-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
+        transition: all 0.4s ease;
+    }
+    
+    .experience-luxury-card:hover .experience-title-luxury {
+        color: var(--gold-shimmer);
+        transform: translateY(-8px);
+    }
+    
+    .experience-description-luxury {
+        font-size: 1.0625rem;
+        font-weight: 300;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.9);
+        letter-spacing: 0.3px;
+    }
+    
+    /* ============================================
+       SIGNATURE TOURS - EDITORIAL CARDS
+    ============================================ */
+    
+    .tours-signature {
+        background: var(--ivory);
+        padding: 10rem 6%;
+    }
+    
+    .tours-collection {
+        max-width: 1800px;
+        margin: 0 auto;
+        position: relative;
+    }
+    
+    .tours-carousel-container {
+        position: relative;
+        margin-top: 7rem;
+        padding-bottom: 5rem;
+    }
+    
+    .tours-grid-luxury {
+        display: flex;
+        gap: 2.5rem;
+        overflow: hidden;
+        scroll-behavior: smooth;
+        padding: 2rem 0 3rem;
+    }
+    
+    .carousel-nav-btn {
+        position: absolute;
+        top: 45%;
+        transform: translateY(-50%);
+        width: 70px;
+        height: 70px;
+        background: white;
+        border: 2px solid var(--gold);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        font-size: 1.5rem;
+        color: var(--gold);
+    }
+    
+    .carousel-nav-btn:hover {
+        background: linear-gradient(135deg, var(--gold-deep), var(--gold-light));
+        color: white;
+        transform: translateY(-50%) scale(1.1);
+        box-shadow: 0 15px 50px rgba(197, 153, 91, 0.4);
+    }
+    
+    .carousel-nav-btn.prev {
+        left: -35px;
+    }
+    
+    .carousel-nav-btn.next {
+        right: -35px;
+    }
+    
+    .carousel-dots {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 3rem;
+    }
+    
+    .carousel-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(197, 153, 91, 0.3);
+        border: 2px solid rgba(197, 153, 91, 0.5);
+        cursor: pointer;
+        transition: all 0.4s ease;
+    }
+    
+    .carousel-dot.active {
+        background: var(--gold);
+        border-color: var(--gold);
+        transform: scale(1.3);
+    }
+    
+    .carousel-dot:hover {
+        background: var(--gold-light);
+        border-color: var(--gold-light);
+        transform: scale(1.2);
+    }
+    
+    .tour-editorial-card {
+        background: white;
+        border-radius: 24px;
+        overflow: hidden;
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 25px 70px rgba(0, 0, 0, 0.08);
+        text-decoration: none;
+        display: block;
+        flex: 0 0 calc(33.333% - 1.667rem);
+        min-width: 0;
+    }
+    
+    .tour-editorial-card:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 35px 100px rgba(0, 0, 0, 0.15);
+    }
+    
+    .tour-hero-image {
+        position: relative;
+        height: 500px;
+        overflow: hidden;
+    }
+    
+    .tour-hero-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        filter: brightness(0.95) contrast(1.05);
+    }
+    
+    .tour-editorial-card:hover .tour-hero-image img {
+        transform: scale(1.1);
+    }
+    
+    .tour-featured-badge {
+        position: absolute;
+        top: 2.5rem;
+        left: 2.5rem;
+        background: linear-gradient(135deg, var(--gold-deep), var(--gold));
+        color: white;
+        padding: 0.75rem 2rem;
+        font-size: 0.6875rem;
+        font-weight: 800;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        border-radius: 50px;
+        z-index: 2;
+        box-shadow: 0 8px 25px rgba(197, 153, 91, 0.4);
+    }
+    
+    .tour-content-box {
+        padding: 4rem;
+    }
+    
+    .tour-metadata {
+        display: flex;
+        gap: 2.5rem;
+        margin-bottom: 2.5rem;
+        font-size: 0.875rem;
+        color: var(--text-muted);
+    }
+    
+    .tour-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-weight: 500;
+    }
+    
+    .tour-name-editorial {
+        font-family: 'Italiana', serif;
+        font-size: 2.25rem;
+        font-weight: 400;
+        color: var(--emerald-rich);
+        margin-bottom: 1.75rem;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+    }
+    
+    .tour-editorial-card:hover .tour-name-editorial {
+        color: var(--gold);
+    }
+    
+    .tour-narrative {
+        font-size: 1.0625rem;
+        font-weight: 300;
+        line-height: 1.9;
+        color: var(--text-secondary);
+        margin-bottom: 3rem;
+        letter-spacing: 0.2px;
+    }
+    
+    .tour-bottom-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 2.5rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    
+    .tour-pricing-box {
+        display: flex;
+        align-items: baseline;
+        gap: 0.75rem;
+    }
+    
+    .tour-price-amount {
+        font-family: 'Italiana', serif;
+        font-size: 2.5rem;
+        font-weight: 400;
+        color: var(--gold);
+        letter-spacing: 1px;
+    }
+    
+    .tour-price-note {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        font-weight: 400;
+    }
+    
+    .tour-explore-link {
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--emerald-rich);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        transition: all 0.3s ease;
+    }
+    
+    .tour-explore-link:hover {
+        color: var(--gold);
+        gap: 1.25rem;
+    }
+    
+    /* ============================================
+       IMMERSIVE GALLERY - BENTO GRID
+    ============================================ */
+    
+    .gallery-immersive {
+        background: var(--charcoal);
+        padding: 10rem 6%;
+        position: relative;
+    }
+    
+    .gallery-immersive::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(20, 92, 53, 0.2), transparent 60%);
+        z-index: 1;
+    }
+    
+    .gallery-bento-grid {
+        display: grid;
+        grid-template-columns: repeat(24, 1fr);
+        grid-auto-rows: 80px;
+        gap: 2rem;
+        max-width: 2000px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .gallery-piece {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .gallery-piece:nth-child(1) {
+        grid-column: span 10;
+        grid-row: span 7;
+    }
+    
+    .gallery-piece:nth-child(2) {
+        grid-column: span 14;
+        grid-row: span 7;
+    }
+    
+    .gallery-piece:nth-child(3) {
+        grid-column: span 14;
+        grid-row: span 6;
+    }
+    
+    .gallery-piece:nth-child(4) {
+        grid-column: span 10;
+        grid-row: span 6;
+    }
+    
+    .gallery-piece:nth-child(5) {
+        grid-column: span 8;
+        grid-row: span 5;
+    }
+    
+    .gallery-piece:nth-child(6) {
+        grid-column: span 16;
+        grid-row: span 5;
+    }
+    
+    .gallery-piece:hover {
+        transform: translateY(-25px) scale(1.03);
+        z-index: 10;
+        box-shadow: 0 50px 150px rgba(0, 0, 0, 0.7);
+    }
+    
+    .gallery-piece img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 1.3s cubic-bezier(0.4, 0, 0.2, 1);
+        filter: brightness(0.95) contrast(1.08) saturate(1.2);
+    }
+    
+    .gallery-piece:hover img {
+        transform: scale(1.15);
+    }
+    
+    .gallery-piece::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            to bottom,
+            transparent 20%,
+            rgba(0, 0, 0, 0.4) 60%,
+            rgba(0, 0, 0, 0.9) 100%
+        );
+        z-index: 1;
+        transition: all 0.5s ease;
+    }
+    
+    .gallery-piece:hover::before {
+        background: linear-gradient(
+            to bottom,
+            transparent 10%,
+            rgba(0, 0, 0, 0.3) 50%,
+            rgba(0, 0, 0, 0.85) 100%
+        );
+    }
+    
+    .gallery-label-luxury {
+        position: absolute;
+        bottom: 3rem;
+        left: 3rem;
+        right: 3rem;
+        z-index: 2;
+        font-family: 'Italiana', serif;
+        font-size: 2rem;
+        font-weight: 400;
+        color: white;
+        letter-spacing: 1.5px;
+        text-shadow: 0 6px 35px rgba(0, 0, 0, 0.8);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .gallery-piece:hover .gallery-label-luxury {
+        transform: translateY(-10px);
+        color: var(--gold-shimmer);
+    }
+    
+    /* ============================================
+       GALLERY PREVIEW (Link to Full Gallery)
+    ============================================ */
+    
+    .gallery-preview {
+        background: var(--charcoal);
+        padding: 8rem 6%;
+        position: relative;
+    }
+    
+    .gallery-preview-container {
+        max-width: 1600px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .gallery-preview-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        margin: 5rem 0;
+    }
+    
+    .gallery-preview-item {
+        height: 350px;
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.5s ease;
+    }
+    
+    .gallery-preview-item:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+    
+    .gallery-preview-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.8s ease;
+    }
+    
+    .gallery-preview-item:hover img {
+        transform: scale(1.1);
+    }
+    
+    .gallery-preview-cta {
+        text-align: center;
+        margin-top: 4rem;
+    }
+    
+    /* ============================================
+       WHY CHOOSE US - LUXURY BENEFITS
+    ============================================ */
+    
+    .why-luxury {
+        background: var(--pearl);
+        padding: 10rem 6%;
+    }
+    
+    .why-benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 4rem;
+        max-width: 1900px;
+        margin: 7rem auto 0;
+    }
+    
+    .benefit-luxury-card {
+        text-align: center;
+        padding: 4rem 2.5rem;
+        background: white;
+        border: 1px solid rgba(197, 153, 91, 0.12);
+        border-radius: 24px;
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .benefit-luxury-card:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 30px 90px rgba(0, 0, 0, 0.1);
+        border-color: var(--gold);
+    }
+    
+    .benefit-icon-luxury {
+        width: 110px;
+        height: 110px;
+        margin: 0 auto 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        background: linear-gradient(135deg, rgba(20, 92, 53, 0.06), rgba(197, 153, 91, 0.06));
+        border-radius: 50%;
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .benefit-luxury-card:hover .benefit-icon-luxury {
+        transform: scale(1.15) rotate(360deg);
+        background: linear-gradient(135deg, var(--emerald-rich), var(--sage));
+    }
+    
+    .benefit-title-luxury {
+        font-family: 'Italiana', serif;
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: var(--emerald-rich);
+        margin-bottom: 1.5rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .benefit-text-luxury {
+        font-size: 1rem;
+        font-weight: 300;
+        line-height: 1.9;
+        color: var(--text-secondary);
+        letter-spacing: 0.2px;
+    }
+    
+    /* ============================================
+       TESTIMONIALS - COMPACT HORIZONTAL GRID
+    ============================================ */
+    
+    .testimonials-luxury {
+        background: linear-gradient(135deg, var(--forest-darkest), var(--obsidian));
+        padding: 8rem 6%;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .testimonials-luxury::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg"><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="1.5" numOctaves="4"/></filter><rect width="100%" height="100%" filter="url(%23grain)" opacity="0.03"/></svg>');
+        opacity: 0.5;
+    }
+    
+    .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+        max-width: 1600px;
+        margin: 5rem auto 0;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .testimonial-card-compact {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 3rem 2.5rem;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        text-align: center;
+    }
+    
+    .testimonial-card-compact:hover {
+        transform: translateY(-8px);
+        background: rgba(255, 255, 255, 0.08);
+        border-color: var(--gold-light);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+    
+    .quote-mark-small {
+        font-family: 'Italiana', serif;
+        font-size: 4rem;
+        color: var(--gold);
+        opacity: 0.3;
+        line-height: 1;
+        margin-bottom: 1rem;
+    }
+    
+    .testimonial-text-compact {
+        font-size: 1rem;
+        font-weight: 300;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.95);
+        margin-bottom: 2rem;
+        min-height: 140px;
+    }
+    
+    .testimonial-author-compact {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        justify-content: center;
+    }
+    
+    .author-image-compact {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: 2px solid var(--gold);
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+    
+    .author-image-compact img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .author-info-compact {
+        text-align: left;
+    }
+    
+    .author-name-compact {
+        font-size: 1rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 0.25rem;
+    }
+    
+    .author-title-compact {
+        font-size: 0.8125rem;
+        color: var(--gold-light);
+    }
+    
+    .testimonial-rating {
+        font-size: 1.125rem;
+        color: var(--gold);
+    }
+    
+    /* ============================================
+       TRAVEL ESSENTIALS - INFO GRID
+    ============================================ */
+    
+    .travel-essentials {
+        background: var(--cream);
+        padding: 10rem 6%;
+    }
+    
+    .essentials-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4rem;
+        max-width: 1800px;
+        margin: 7rem auto 0;
+    }
+    
+    .essential-card {
+        background: white;
+        padding: 4.5rem 3.5rem;
+        border-radius: 24px;
+        border: 1px solid rgba(197, 153, 91, 0.12);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .essential-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 30px 85px rgba(0, 0, 0, 0.1);
+        border-color: var(--gold);
+    }
+    
+    .essential-icon {
+        font-size: 4rem;
+        margin-bottom: 2.5rem;
+        display: block;
+    }
+    
+    .essential-title {
+        font-family: 'Italiana', serif;
+        font-size: 1.75rem;
+        font-weight: 400;
+        color: var(--emerald-rich);
+        margin-bottom: 2rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .essential-list {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .essential-list li {
+        font-size: 1.0625rem;
+        font-weight: 300;
+        line-height: 2.2;
+        color: var(--text-secondary);
+        padding-left: 2rem;
+        position: relative;
+        letter-spacing: 0.2px;
+    }
+    
+    .essential-list li::before {
+        content: '→';
+        position: absolute;
+        left: 0;
+        color: var(--gold);
+        font-weight: 600;
+    }
+    
+    /* ============================================
+       TRAVEL RWANDA YOUR WAY SECTION
+    ============================================ */
+    
+    .travel-your-way {
+        position: relative;
+        padding: 12rem 6%;
+        background-image: url('https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=1920&q=80');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        overflow: hidden;
+    }
+    
+    .travel-your-way::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, 
+            rgba(0, 0, 0, 0.65) 0%,
+            rgba(0, 0, 0, 0.55) 100%);
+    }
+    
+    .travel-your-way-content {
+        position: relative;
+        z-index: 2;
+        max-width: 1400px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    
+    .travel-your-way-label {
+        display: inline-block;
+        font-size: 0.8125rem;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gold-light);
+        padding: 0.75rem 2rem;
+        border: 2px solid var(--gold-light);
+        border-radius: 50px;
+        margin-bottom: 3rem;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(10px);
+    }
+    
+    .travel-your-way-title {
+        font-family: 'Italiana', serif;
+        font-size: clamp(3rem, 7vw, 5.5rem);
+        font-weight: 400;
+        color: var(--pearl);
+        margin-bottom: 2.5rem;
+        letter-spacing: 2px;
+        line-height: 1.15;
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8),
+                     0 2px 8px rgba(0, 0, 0, 0.6);
+    }
+    
+    .travel-your-way-description {
+        font-size: 1.375rem;
+        font-weight: 300;
+        line-height: 1.9;
+        color: rgba(255, 255, 255, 0.95);
+        max-width: 900px;
+        margin: 0 auto 5rem;
+        letter-spacing: 0.3px;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7),
+                     0 1px 4px rgba(0, 0, 0, 0.5);
+    }
+    
+    .travel-ways-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        margin-bottom: 5rem;
+    }
+    
+    .travel-way-card {
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(15px);
+        padding: 3.5rem 3rem;
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        position: relative;
+    }
+    
+    .travel-way-card:last-child {
+        border-right: none;
+    }
+    
+    .travel-way-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: var(--gold);
+        transition: width 0.6s ease;
+    }
+    
+    .travel-way-number {
+        font-family: 'Italiana', serif;
+        font-size: 3.5rem;
+        font-weight: 400;
+        color: rgba(197, 153, 91, 0.4);
+        margin-bottom: 2rem;
+        display: block;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+    
+    .travel-way-title {
+        font-family: 'Italiana', serif;
+        font-size: 1.75rem;
+        font-weight: 400;
+        color: var(--pearl);
+        margin-bottom: 1.5rem;
+        letter-spacing: 1px;
+        line-height: 1.3;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    }
+    
+    .travel-way-text {
+        font-size: 1rem;
+        font-weight: 300;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.9);
+        letter-spacing: 0.2px;
+        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+    }
+    
+    .travel-your-way-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.5rem 3.5rem;
+        background: var(--gold);
+        color: var(--forest-darkest);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.9375rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border-radius: 50px;
+        transition: all 0.4s ease;
+        box-shadow: 0 10px 40px rgba(197, 153, 91, 0.3);
+    }
+    
+    .travel-your-way-cta:hover {
+        background: var(--gold-light);
+        transform: translateY(-3px);
+        box-shadow: 0 15px 50px rgba(197, 153, 91, 0.4);
+        gap: 1.5rem;
+    }
+    
+    @media (max-width: 1024px) {
+        .travel-ways-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .travel-way-card:nth-child(2n) {
+            border-right: none;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .travel-ways-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .travel-way-card {
+            border-right: none;
+        }
+        
+        .travel-your-way {
+            padding: 8rem 6%;
+        }
+    }
+    
+    /* ============================================
+       POWERFUL CTA SECTION - SPLIT LAYOUT
+    ============================================ */
+    
+    .cta-immersive {
+        background: white;
+        padding: 0;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .cta-split-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        max-width: 1900px;
+        margin: 0 auto;
+        min-height: 600px;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .cta-images-carousel {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .cta-carousel-wrapper {
+        position: relative;
+        height: 100%;
+    }
+    
+    .cta-carousel-track {
+        display: flex;
+        height: 100%;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .cta-carousel-slide {
+        min-width: 100%;
+        height: 100%;
+        position: relative;
+    }
+    
+    .cta-carousel-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .cta-carousel-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to right, transparent 0%, rgba(10, 47, 26, 0.4) 100%);
+    }
+    
+    .cta-carousel-label {
+        position: absolute;
+        bottom: 3rem;
+        left: 3rem;
+        right: 3rem;
+        z-index: 2;
+    }
+    
+    .cta-carousel-category {
+        display: inline-block;
+        background: rgba(197, 153, 91, 0.9);
+        backdrop-filter: blur(10px);
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+    }
+    
+    .cta-carousel-title {
+        font-family: 'Italiana', serif;
+        font-size: 2rem;
+        color: white;
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        letter-spacing: 1px;
+    }
+    
+    .cta-carousel-nav {
+        position: absolute;
+        left: 50%;
+        bottom: 2rem;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 1rem;
+        z-index: 10;
+    }
+    
+    .cta-carousel-arrow {
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+        font-size: 1.25rem;
+        transition: all 0.3s ease;
+    }
+    
+    .cta-carousel-arrow:hover {
+        background: var(--gold);
+        border-color: var(--gold);
+        transform: scale(1.1);
+    }
+    
+    .cta-content-right {
+        padding: 6rem 6% 6rem 8%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: linear-gradient(135deg, var(--forest-deep), var(--emerald-rich));
+    }
+    
+    .cta-headline {
+        font-family: 'Italiana', serif;
+        font-size: clamp(2.5rem, 4vw, 3.5rem);
+        font-weight: 400;
+        color: white;
+        margin-bottom: 2rem;
+        letter-spacing: 2px;
+        line-height: 1.2;
+    }
+    
+    .cta-subtext {
+        font-size: 1.125rem;
+        font-weight: 300;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.95);
+        margin-bottom: 3.5rem;
+        letter-spacing: 0.3px;
+    }
+    
+    .cta-action-buttons {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+    }
+    
+    .cta-btn-light {
+        background: white;
+        color: var(--emerald-rich);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .cta-btn-light:hover {
+        background: var(--gold);
+        color: white;
+        transform: translateY(-4px);
+    }
+    
+    /* ============================================
+       PARTNERS SHOWCASE
+    ============================================ */
+    
+    .partners-showcase {
+        background: var(--ivory);
+        padding: 7rem 6%;
+        border-top: 1px solid rgba(197, 153, 91, 0.15);
+        border-bottom: 1px solid rgba(197, 153, 91, 0.15);
+    }
+    
+    .partners-container {
+        max-width: 1700px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    
+    .partners-heading {
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 5rem;
+    }
+    
+    .partners-logos {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 5rem;
+        align-items: center;
+    }
+    
+    .partner-item {
+        opacity: 0.35;
+        transition: all 0.4s ease;
+        filter: grayscale(100%);
+    }
+    
+    .partner-item:hover {
+        opacity: 1;
+        filter: grayscale(0%);
+        transform: scale(1.08);
+    }
+    
+    .partner-item-text {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        letter-spacing: 1px;
+    }
+    
+    /* ============================================
+       BLOG / STORIES
+    ============================================ */
+    
+    .blog-luxury {
+        background: var(--pearl);
+        padding: 10rem 6%;
+    }
+    
+    .blog-articles-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4rem;
+        max-width: 1900px;
+        margin: 7rem auto 0;
+    }
+    
+    .article-card {
+        text-decoration: none;
+        display: block;
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .article-card:hover {
+        transform: translateY(-12px);
+    }
+    
+    .article-featured-image {
+        height: 420px;
+        border-radius: 20px;
+        overflow: hidden;
+        margin-bottom: 2.5rem;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+    }
+    
+    .article-featured-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        filter: brightness(0.98) contrast(1.05);
+    }
+    
+    .article-card:hover .article-featured-image img {
+        transform: scale(1.1);
+    }
+    
+    .article-publish-date {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1.25rem;
+    }
+    
+    .article-headline {
+        font-family: 'Italiana', serif;
+        font-size: 1.75rem;
+        font-weight: 400;
+        color: var(--emerald-rich);
+        margin-bottom: 1.25rem;
+        letter-spacing: 0.5px;
+        line-height: 1.3;
+        transition: all 0.3s ease;
+    }
+    
+    .article-card:hover .article-headline {
+        color: var(--gold);
+    }
+    
+    .article-preview {
+        font-size: 1.0625rem;
+        font-weight: 300;
+        line-height: 1.8;
+        color: var(--text-secondary);
+        letter-spacing: 0.2px;
+    }
+    
+    /* ============================================
+       LUXURY FOOTER
+    ============================================ */
+    
+    footer {
+        background: linear-gradient(135deg, var(--charcoal), var(--obsidian));
+        color: white;
+        padding: 10rem 6% 5rem;
+        position: relative;
+    }
+    
+    .footer-grid-luxury {
+        display: grid;
+        grid-template-columns: 2.5fr 1fr 1fr 1fr;
+        gap: 7rem;
+        max-width: 1900px;
+        margin: 0 auto 8rem;
+    }
+    
+    .footer-brand-section h3 {
+        font-family: 'Italiana', serif;
+        font-size: 2rem;
+        font-weight: 400;
+        margin-bottom: 2.5rem;
+        letter-spacing: 1.5px;
+    }
+    
+    .footer-description {
+        font-size: 1.0625rem;
+        font-weight: 300;
+        line-height: 2;
+        color: rgba(255, 255, 255, 0.75);
+        margin-bottom: 3.5rem;
+        letter-spacing: 0.2px;
+    }
+    
+    .footer-contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .footer-contact-item {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 1rem;
+        transition: all 0.4s ease;
+    }
+    
+    .footer-contact-item:hover {
+        color: var(--gold-light);
+        transform: translateX(8px);
+    }
+    
+    .footer-contact-item a {
+        color: inherit;
+        text-decoration: none;
+    }
+    
+    .footer-social-links {
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 3rem;
+    }
+    
+    .social-icon-link {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        color: white;
+        text-decoration: none;
+        font-size: 1.375rem;
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .social-icon-link:hover {
+        background: var(--gold);
+        border-color: var(--gold);
+        transform: translateY(-12px) rotate(360deg);
+        box-shadow: 0 15px 40px rgba(197, 153, 91, 0.4);
+    }
+    
+    .footer-column h4 {
+        font-size: 0.8125rem;
+        font-weight: 800;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gold-light);
+        margin-bottom: 3rem;
+    }
+    
+    .footer-nav-links {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .footer-nav-links a {
+        color: rgba(255, 255, 255, 0.75);
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 300;
+        transition: all 0.4s ease;
+        letter-spacing: 0.3px;
+    }
+    
+    .footer-nav-links a:hover {
+        color: white;
+        transform: translateX(8px);
+    }
+    
+    .newsletter-signup {
+        display: flex;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50px;
+        overflow: hidden;
+        transition: all 0.4s ease;
+        margin-top: 2rem;
+    }
+    
+    .newsletter-signup:focus-within {
+        border-color: var(--gold);
+        box-shadow: 0 0 0 4px rgba(197, 153, 91, 0.15);
+    }
+    
+    .newsletter-input {
+        flex: 1;
+        padding: 1.375rem 2rem;
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 1rem;
+        outline: none;
+    }
+    
+    .newsletter-input::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+    }
+    
+    .newsletter-submit {
+        padding: 1.375rem 3rem;
+        background: linear-gradient(135deg, var(--gold), var(--gold-light));
+        border: none;
+        color: white;
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 0.8125rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        transition: all 0.4s ease;
+    }
+    
+    .newsletter-submit:hover {
+        background: linear-gradient(135deg, var(--gold-light), var(--gold-shimmer));
+    }
+    
+    .footer-bottom-bar {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1900px;
+        margin: 0 auto;
+    }
+    
+    .footer-legal-links {
+        display: flex;
+        gap: 3rem;
+    }
+    
+    .footer-legal-links a {
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        font-size: 0.875rem;
+        transition: all 0.3s ease;
+        letter-spacing: 0.5px;
+    }
+    
+    .footer-legal-links a:hover {
+        color: var(--gold-light);
+    }
+    
+    .footer-copyright {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.875rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .footer-partners {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .footer-partner {
+        font-size: 0.8125rem;
+        color: rgba(255, 255, 255, 0.6);
+        letter-spacing: 0.5px;
+    }
+    
+    /* ============================================
+       RESPONSIVE EXCELLENCE
+    ============================================ */
+    
+    @media (max-width: 1400px) {
+        .experiences-showcase,
+        .tours-grid-luxury {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .gallery-preview-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @media (max-width: 1024px) {
+        .why-benefits-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .footer-grid-luxury {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .nav-menu {
+            display: none;
+        }
+        
+        .experiences-showcase,
+        .tours-grid-luxury,
+        .why-benefits-grid,
+        .gallery-preview-grid,
+        .footer-grid-luxury {
+            grid-template-columns: 1fr;
+        }
+        
+        .footer-bottom-bar {
+            flex-direction: column;
+            gap: 3rem;
+        }
+    }
+</style>
+</head>
+<body>
+
+<!-- REVOLUTIONARY NAVIGATION -->
+<nav class="nav">
+    <div class="nav-container">
+        <a href="{% url 'index' %}" class="nav-brand">
+            <div class="nav-logo-img">
+            <div class="logo-wrapper">
+                <img src="{% static 'logo.png' %}" alt="Logo" class="logo-img">
+            </div>
+        </div>
+        </a>
+        
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#about">Destinations</a>
+                <div class="nav-dropdown">
+                    <div class="nav-dropdown-item">
+                        <a href="{% url 'towns' %}">Towns</a>
+                    </div>
+                    <div class="nav-dropdown-item">
+                        <a href="{% url 'lakes' %}">Lakes</a>
+                    </div>
+                    <div class="nav-dropdown-item">
+                        <a href="{% url 'volcanic_mountains' %}">Volcanic Mountains</a>
+                        <div class="nav-sub-dropdown">
+                            <a href="mount-karisimbi.html">MOUNT KARISIMBI</a>
+                            <a href="mount-muhabura.html">MOUNT MUHABURA</a>
+                            <a href="mount-sabyinyo.html">MOUNT SABYINYO</a>
+                            <a href="mount-bisoke.html">MOUNT BISOKE</a>
+                            <a href="mount-gahinga.html">MOUNT GAHINGA</a>
+                        </div>
+                    </div>
+                    <div class="nav-dropdown-item">
+                        <a href="{% url 'museums_heritage' %}">Museums & Heritage Sites</a>
+                        <div class="nav-sub-dropdown">
+                            <a href="ethnographic-museum.html">ETHNOGRAPHIC MUSEUM</a>
+                            <a href="campaign-against-genocide-museum.html">CAMPAIGN AGAINST GENOCIDE MUSEUM</a>
+                            <a href="nyanza-royal-palace.html">NYANZA ROYAL PALACE MUSEUM</a>
+                            <a href="kandt-house-museum.html">KANDT HOUSE MUSEUM</a>
+                        </div>
+                    </div>
+                    <div class="nav-dropdown-item">
+                        <a href="{% url 'memorial_sites' %}">Memorial Sites</a>
+                        <div class="nav-sub-dropdown">
+                            <a href="kigali-genocide-memorial.html">KIGALI GENOCIDE MEMORIAL</a>
+                            <a href="bisesero-genocide-memorial.html">BISESERO GENOCIDE MEMORIAL</a>
+                            <a href="nyamata-genocide-memorial.html">NYAMATA GENOCIDE MEMORIAL</a>
+                            <a href="ntarama-genocide-memorial.html">NTARAMA GENOCIDE MEMORIAL</a>
+                            <a href="murambi-genocide-memorial.html">MURAMBI GENOCIDE MEMORIAL</a>
+                        </div>
+                    </div>
+                    <div class="nav-dropdown-item">
+                        <a href="{% url 'cultural_villages' %}">Cultural & Art Villages</a>
+                        <div class="nav-sub-dropdown">
+                            <a href="ibyiwacu-cultural-village.html">IBY'IWACU CULTURAL VILLAGE</a>
+                            <a href="rwesero-arts-museum.html">RWESERO ARTS MUSEUM</a>
+                            <a href="banda-cultural-village.html">BANDA CULTURAL VILLAGE</a>
+                        </div>
+                    </div>
+                    <div class="nav-dropdown-item">
+                        <a href="{% url 'top_attractions' %}">Top Tourist Attractions</a>
+                        <div class="nav-sub-dropdown">
+                            <a href="lake-kivu.html">LAKE KIVU</a>
+                            <a href="akagera-national-park.html">AKAGERA NATIONAL PARK</a>
+                            <a href="volcanoes-national-park.html">VOLCANOES NATIONAL PARK</a>
+                            <a href="nyungwe-forest.html">NYUNGWE FOREST NATIONAL PARK</a>
+                            <a href="musanze-caves.html">MUSANZE CAVES</a>
+                            <a href="gishwati-mukura.html">GISHWATI MUKURA NATIONAL PARK</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="#experiences">Experiences</a>
+                <div class="nav-dropdown">
+                    <div class="nav-dropdown-item">
+                        <a href="{% url 'unique_experiences' %}">Unique Experiences</a>
+                        <div class="nav-sub-dropdown">
+                            <a href="unique-experiences.html#food-tours">FOOD TOURS</a>
+                            <a href="unique-experiences.html#women-retreats">WOMEN-ONLY RETREATS</a>
+                            <a href="unique-experiences.html#luxury-rwanda">LUXURY RWANDA</a>
+                            <a href="unique-experiences.html#living-culture">LIVING THE CULTURE</a>
+                            <a href="unique-experiences.html#city-biking">CITY BIKING & NIGHT WALKS</a>
+                            <a href="unique-experiences.html#coffee-experiences">COFFEE EXPERIENCES</a>
+                            <a href="unique-experiences.html#adventure-nature">ADVENTURE & NATURE</a>
+                            <a href="unique-experiences.html#night-safari">AKAGERA NIGHT SAFARI EXPERIENCE</a>
+                        </div>
+                    </div>
+                    <div class="nav-dropdown-item">
+                        <a href="{% url 'things_to_do' %}">Things To Do In Rwanda</a>
+                        <div class="nav-sub-dropdown">
+                            <a href="eats-drinks.html">EATS & DRINKS</a>
+                            <a href="nature-wildlife.html">NATURE & WILDLIFE</a>
+                            <a href="nautical-tourism.html">NAUTICAL TOURISM (WATER-BASED ACTIVITIES)</a>
+                            <a href="leisure.html">LEISURE</a>
+                            <a href="sports-adventure.html">SPORTS & ADVENTURE</a>
+                            <a href="events-festivals.html">EVENTS & FESTIVALS</a>
+                            <a href="luxury-experiences.html">LUXURY EXPERIENCES</a>
+                        </div>
+                    </div>
+                    <div class="nav-dropdown-item">
+                        <a href="{% url 'travel_types' %}">Travel Rwanda Your Way</a>
+                        <div class="nav-sub-dropdown">
+                            <a href="solo-travel.html">SOLO TRAVEL</a>
+                            <a href="family-travel.html">FAMILY TRAVEL</a>
+                            <a href="couple-getaways.html">COUPLE GETAWAYS</a>
+                            <a href="group-adventures.html">GROUP ADVENTURES</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="#tours">Tours</a>
+                <div class="nav-dropdown">
+                    {% comment %} <a href="travel-smart.html">Travel Smart</a> {% endcomment %}
+                    <a href="{% url 'traveling_with_pets' %}">Traveling with Pets</a>
+                    <a href="{% url 'senior_friendly' %}">Senior-Friendly Rwanda</a>
+                    <a href="{% url 'invest_rwanda' %}">Invest in Rwanda</a>
+                    <a href="{% url 'accessible_travel' %}">Accessible Travel Support</a>
+                </div>
+            </li>
+            <li class="nav-item"><a href="{% url 'gallery' %}">Gallery</a></li>
+            <li class="nav-item"><a href="{% url 'contact' %}" class="nav-cta">Begin Your Journey</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- NEXT-GEN HERO -->
+<section class="hero">
+    <div class="hero-slideshow">
+        <div class="hero-slide active" style="background-image: url('https://cdn1.parksmedia.wdprapps.disney.com/resize/mwImage/1/1600/900/75/vision-dam/digital/parks-platform/parks-global-assets/disney-world/attractions/animals/gorillas/Gorilla-Looking-into-Distance-16x9.jpg?2022-07-11T15:13:59+00:00');"></div>
+       <div class="hero-slide" style="background-image: url('https://media.istockphoto.com/id/1156515281/photo/huge-silverback-mountain-gorilla-in-wildlive.jpg?s=2048x2048&w=is&k=20&c=416Zo1J_5_qe8RHJR0d6uF1ztopJ4aVK8c_dUpJ7bow=');"></div>
+        {% comment %} <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1920&q=80');"></div> {% endcomment %}
+    </div>
+    <div class="hero-gradient-overlay"></div>
+    <div class="hero-vignette-deep"></div>
+    
+    <div class="hero-content-wrapper">
+        <div class="hero-eyebrow">East Africa's Crown Jewel</div>
+        <h1 class="hero-headline">RWANDA</h1>
+        <p class="hero-description">Where ancient volcanic landscapes meet visionary conservation—discover the extraordinary transformation that made Rwanda Africa's most inspiring destination</p>
+        
+        <div class="hero-cta-group">
+            <a href="#tours" class="cta-btn cta-primary">
+                Explore Journeys
+                <span>→</span>
+            </a>
+            <a href="#experiences" class="cta-btn cta-secondary">
+                Signature Experiences
+            </a>
+        </div>
+    </div>
+    
+    <div class="hero-scroll-indicator">
+        <div class="scroll-line"></div>
+        <div class="scroll-text">Scroll</div>
+    </div>
+</section>
+
+<!-- COMPACT INTRO (Preview to About page) -->
+<section class="intro-compact">
+    <div class="intro-container">
+        <span class="intro-eyebrow">Welcome to Rwanda</span>
+        <p class="intro-statement">Africa's most remarkable transformation story—where pristine wilderness, rare wildlife, and visionary conservation create the continent's most inspiring destination.</p>
+        
+        <div class="intro-highlights">
+            <div class="intro-highlight-item">
+                <div class="intro-highlight-icon">🦍</div>
+                <h3 class="intro-highlight-title">Rare Wildlife</h3>
+                <p class="intro-highlight-text">Home to mountain gorillas and the Big Five</p>
+            </div>
+            
+            <div class="intro-highlight-item">
+                <div class="intro-highlight-icon">🌿</div>
+                <h3 class="intro-highlight-title">Conservation</h3>
+                <p class="intro-highlight-text">Leading Africa's eco-tourism revolution</p>
+            </div>
+            
+            <div class="intro-highlight-item">
+                <div class="intro-highlight-icon">🏔️</div>
+                <h3 class="intro-highlight-title">Stunning Landscapes</h3>
+                <p class="intro-highlight-text">From volcanic peaks to pristine lakes</p>
+            </div>
+            
+            <div class="intro-highlight-item">
+                <div class="intro-highlight-icon">🎭</div>
+                <h3 class="intro-highlight-title">Rich Culture</h3>
+                <p class="intro-highlight-text">Vibrant traditions and warm hospitality</p>
+            </div>
+        </div>
+        
+        <a href="about.html" class="intro-link">
+            Discover Rwanda's Story
+            <span>→</span>
+        </a>
+    </div>
+</section>
+
+<!-- PREMIUM EXPERIENCES -->
+<section class="experiences-premium" id="experiences">
+    <div class="experiences-container">
+        <div class="section-header-dark">
+            <div class="section-label">Unforgettable Encounters</div>
+            <h2 class="section-heading">Signature Experiences</h2>
+            <p class="section-intro">Curated adventures that transcend typical tourism—these are transformative journeys that connect you with Rwanda's soul</p>
+        </div>
+        
+        <div class="experiences-showcase">
+            <div class="experience-luxury-card">
+                <div class="experience-bg-img" style="background-image: url('https://assets.worldwildlife.org/www-prd/images/shutterstock_355160669.width-800.format-webp.webp');"></div>
+                <div class="experience-dark-gradient"></div>
+                <div class="experience-number-badge">01</div>
+                <div class="experience-info-box">
+                    <h3 class="experience-title-luxury">Gorilla Trekking</h3>
+                    <p class="experience-description-luxury">Trek through ancient bamboo forests for profound encounters with endangered mountain gorillas—life-changing moments in their natural sanctuary.</p>
+                </div>
+            </div>
+            
+            <div class="experience-luxury-card">
+                <div class="experience-bg-img" style="background-image: url('https://images.unsplash.com/photo-1580552309834-9a9b1de80492?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+                <div class="experience-dark-gradient"></div>
+                <div class="experience-number-badge">02</div>
+                <div class="experience-info-box">
+                    <h3 class="experience-title-luxury">Big Five Safari</h3>
+                    <p class="experience-description-luxury">Experience classic African wildlife encounters in Akagera—lions, elephants, rhinos, leopards, and buffalo roam restored ecosystems.</p>
+                </div>
+            </div>
+            
+            <div class="experience-luxury-card">
+                <div class="experience-bg-img" style="background-image: url('https://plus.unsplash.com/premium_photo-1700955139809-95060da0fcab?q=80&w=715&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+                <div class="experience-dark-gradient"></div>
+                <div class="experience-number-badge">03</div>
+                <div class="experience-info-box">
+                    <h3 class="experience-title-luxury">Lake Kivu Serenity</h3>
+                    <p class="experience-description-luxury">Discover pristine beaches along one of Africa's Great Lakes—crystal waters, colonial charm, and spectacular sunsets await.</p>
+                </div>
+            </div>
+            
+            <div class="experience-luxury-card">
+                <div class="experience-bg-img" style="background-image: url('https://plus.unsplash.com/premium_photo-1730078557042-4d01d75a5ef5?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+                <div class="experience-dark-gradient"></div>
+                <div class="experience-number-badge">04</div>
+                <div class="experience-info-box">
+                    <h3 class="experience-title-luxury">Canopy Walkway</h3>
+                    <p class="experience-description-luxury">Suspended above Nyungwe's ancient rainforest on East Africa's only canopy walk—experience the forest from a bird's perspective.</p>
+                </div>
+            </div>
+            
+            <div class="experience-luxury-card">
+                <div class="experience-bg-img" style="background-image: url('https://i.pinimg.com/736x/8c/28/11/8c281124032816de60c3badc3c015296.jpg');"></div>
+                <div class="experience-dark-gradient"></div>
+                <div class="experience-number-badge">05</div>
+                <div class="experience-info-box">
+                    <h3 class="experience-title-luxury">Cultural Immersion</h3>
+                    <p class="experience-description-luxury">Experience vibrant Intore dances, traditional crafts, and contemporary Kigali arts—connect with Rwanda's living heritage.</p>
+                </div>
+            </div>
+            
+            <div class="experience-luxury-card">
+                <div class="experience-bg-img" style="background-image: url('https://images.unsplash.com/photo-1731229526616-cfc08ccc5545?q=80&w=686&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+                <div class="experience-dark-gradient"></div>
+                <div class="experience-number-badge">06</div>
+                <div class="experience-info-box">
+                    <h3 class="experience-title-luxury">Volcano Hiking</h3>
+                    <p class="experience-description-luxury">Summit dormant volcanic peaks for panoramic views across the Virunga Range—challenging ascents with unparalleled rewards.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SIGNATURE TOURS -->
+<section class="tours-signature" id="tours">
+    <div class="tours-collection">
+        <div class="about-header-center">
+            <div class="section-label">Curated Journeys</div>
+            <h2 class="section-heading">Featured Expeditions</h2>
+            <p class="section-intro">Meticulously designed itineraries combining Rwanda's greatest treasures with luxury accommodations and expert guidance</p>
+        </div>
+        
+        <div class="tours-carousel-container">
+            <button class="carousel-nav-btn prev" onclick="scrollTours('left')">←</button>
+            <button class="carousel-nav-btn next" onclick="scrollTours('right')">→</button>
+            
+            <div class="tours-grid-luxury" id="toursCarousel">
+                <a href="tour-ultimate.html" class="tour-editorial-card">
+                    <div class="tour-hero-image">
+                        <img src="https://images.unsplash.com/photo-1551918120-9739cb430c6d?w=1200&q=80" alt="Ultimate Rwanda">
+                        <div class="tour-featured-badge">Signature Collection</div>
+                    </div>
+                    <div class="tour-content-box">
+                        <div class="tour-metadata">
+                            <div class="tour-meta-item">
+                                <span>📅</span>
+                                <span>10 Days / 9 Nights</span>
+                            </div>
+                            <div class="tour-meta-item">
+                                <span>👥</span>
+                                <span>Max 10 Guests</span>
+                            </div>
+                            <div class="tour-meta-item">
+                                <span>⭐</span>
+                                <span>Ultra-Luxury</span>
+                            </div>
+                        </div>
+                        <h3 class="tour-name-editorial">The Ultimate Rwanda</h3>
+                        <p class="tour-narrative">Our flagship journey combines gorilla trekking in Volcanoes National Park, Big Five safaris in Akagera, Lake Kivu relaxation, and cultural immersion in Kigali—the complete Rwanda experience in supreme comfort.</p>
+                        <div class="tour-bottom-bar">
+                            <div class="tour-pricing-box">
+                                <div class="tour-price-amount">$9,850</div>
+                                <div class="tour-price-note">per person</div>
+                            </div>
+                            <span class="tour-explore-link">View Itinerary →</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="tour-exclusive.html" class="tour-editorial-card">
+                    <div class="tour-hero-image">
+                        <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1200&q=80" alt="Exclusive Gorillas">
+                        <div class="tour-featured-badge">Exclusive Access</div>
+                    </div>
+                    <div class="tour-content-box">
+                        <div class="tour-metadata">
+                            <div class="tour-meta-item">
+                                <span>📅</span>
+                                <span>6 Days / 5 Nights</span>
+                            </div>
+                            <div class="tour-meta-item">
+                                <span>👥</span>
+                                <span>Private Tour</span>
+                            </div>
+                            <div class="tour-meta-item">
+                                <span>⭐</span>
+                                <span>Bespoke</span>
+                            </div>
+                        </div>
+                        <h3 class="tour-name-editorial">Exclusive Gorilla Experience</h3>
+                        <p class="tour-narrative">Intimate encounters with mountain gorillas through private trekking permits, helicopter transfers, butler service, and luxury lodges perched above volcanic peaks. Limited to four departures annually.</p>
+                        <div class="tour-bottom-bar">
+                            <div class="tour-pricing-box">
+                                <div class="tour-price-amount">$14,500</div>
+                                <div class="tour-price-note">per person</div>
+                            </div>
+                            <span class="tour-explore-link">View Itinerary →</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="tour-wildlife.html" class="tour-editorial-card">
+                    <div class="tour-hero-image">
+                        <img src="https://images.unsplash.com/photo-1589553416260-f586c8f1514f?w=1200&q=80" alt="Wildlife Safari">
+                        <div class="tour-featured-badge">Big Five Adventure</div>
+                    </div>
+                    <div class="tour-content-box">
+                        <div class="tour-metadata">
+                            <div class="tour-meta-item">
+                                <span>📅</span>
+                                <span>7 Days / 6 Nights</span>
+                            </div>
+                            <div class="tour-meta-item">
+                                <span>👥</span>
+                                <span>Small Groups</span>
+                            </div>
+                            <div class="tour-meta-item">
+                                <span>⭐</span>
+                                <span>Safari Focus</span>
+                            </div>
+                        </div>
+                        <h3 class="tour-name-editorial">Complete Wildlife Safari</h3>
+                        <p class="tour-narrative">Experience the full spectrum of Rwanda's wildlife—from mountain gorillas in Volcanoes to lions, elephants, and rhinos in Akagera, with boat safaris and night game drives included.</p>
+                        <div class="tour-bottom-bar">
+                            <div class="tour-pricing-box">
+                                <div class="tour-price-amount">$7,200</div>
+                                <div class="tour-price-note">per person</div>
+                            </div>
+                            <span class="tour-explore-link">View Itinerary →</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="tour-primates.html" class="tour-editorial-card">
+                    <div class="tour-hero-image">
+                        <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1200&q=80" alt="Primate Trek">
+                        <div class="tour-featured-badge">Conservation Focus</div>
+                    </div>
+                    <div class="tour-content-box">
+                        <div class="tour-metadata">
+                            <div class="tour-meta-item">
+                                <span>📅</span>
+                                <span>8 Days / 7 Nights</span>
+                            </div>
+                            <div class="tour-meta-item">
+                                <span>👥</span>
+                                <span>Max 8 Guests</span>
+                            </div>
+                            <div class="tour-meta-item">
+                                <span>⭐</span>
+                                <span>Active Adventure</span>
+                            </div>
+                        </div>
+                        <h3 class="tour-name-editorial">Primate Trekking Expedition</h3>
+                        <p class="tour-narrative">Track mountain gorillas, chimpanzees, and golden monkeys across Rwanda's pristine forests. Includes canopy walks, conservation talks with researchers, and stays at eco-luxury lodges.</p>
+                        <div class="tour-bottom-bar">
+                            <div class="tour-pricing-box">
+                                <div class="tour-price-amount">$8,400</div>
+                                <div class="tour-price-note">per person</div>
+                            </div>
+                            <span class="tour-explore-link">View Itinerary →</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="tour-lakes.html" class="tour-editorial-card">
+                    <div class="tour-hero-image">
+                        <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=1200&q=80" alt="Lakes Retreat">
+                        <div class="tour-featured-badge">Relaxation</div>
+                    </div>
+                    <div class="tour-content-box">
+                        <div class="tour-metadata">
+                            <div class="tour-meta-item">
+                                <span>📅</span>
+                                <span>5 Days / 4 Nights</span>
+                            </div>
+                            <div class="tour-meta-item">
+                                <span>👥</span>
+                                <span>Couples</span>
+                            </div>
+                            <div class="tour-meta-item">
+                                <span>⭐</span>
+                                <span>Beach & Wellness</span>
+                            </div>
+                        </div>
+                        <h3 class="tour-name-editorial">Lake Kivu Luxury Retreat</h3>
+                        <p class="tour-narrative">Unwind on pristine beaches, explore coffee plantations, kayak to Napoleon Island, and indulge in spa treatments at Rwanda's most exclusive lakeside resorts. Perfect post-safari relaxation.</p>
+                        <div class="tour-bottom-bar">
+                            <div class="tour-pricing-box">
+                                <div class="tour-price-amount">$4,800</div>
+                                <div class="tour-price-note">per person</div>
+                            </div>
+                            <span class="tour-explore-link">View Itinerary →</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="tour-culture.html" class="tour-editorial-card">
+                    <div class="tour-hero-image">
+                        <img src="https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=1200&q=80" alt="Cultural Journey">
+                        <div class="tour-featured-badge">Cultural Immersion</div>
+                    </div>
+                    <div class="tour-content-box">
+                        <div class="tour-metadata">
+                            <div class="tour-meta-item">
+                                <span>📅</span>
+                                <span>6 Days / 5 Nights</span>
+                            </div>
+                            <div class="tour-meta-item">
+                                <span>👥</span>
+                                <span>Small Groups</span>
+                            </div>
+                            <div class="tour-meta-item">
+                                <span>⭐</span>
+                                <span>Heritage & Arts</span>
+                            </div>
+                        </div>
+                        <h3 class="tour-name-editorial">Cultural Heritage Journey</h3>
+                        <p class="tour-narrative">Discover Rwanda's transformation through visits to memorials, museums, art galleries, traditional villages, and contemporary Kigali. Meet artisans, attend Intore dance performances, and understand resilience.</p>
+                        <div class="tour-bottom-bar">
+                            <div class="tour-pricing-box">
+                                <div class="tour-price-amount">$5,500</div>
+                                <div class="tour-price-note">per person</div>
+                            </div>
+                            <span class="tour-explore-link">View Itinerary →</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="tour-family.html" class="tour-editorial-card">
+                    <div class="tour-hero-image">
+                        <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=1200&q=80" alt="Family Safari">
+                        <div class="tour-featured-badge">Family Adventure</div>
+                    </div>
+                    <div class="tour-content-box">
+                        <div class="tour-metadata">
+                            <div class="tour-meta-item">
+                                <span>📅</span>
+                                <span>9 Days / 8 Nights</span>
+                            </div>
+                            <div class="tour-meta-item">
+                                <span>👥</span>
+                                <span>Families</span>
+                            </div>
+                            <div class="tour-meta-item">
+                                <span>⭐</span>
+                                <span>All Ages</span>
+                            </div>
+                        </div>
+                        <h3 class="tour-name-editorial">Family Safari Adventure</h3>
+                        <p class="tour-narrative">Perfect for families with children, this journey combines wildlife viewing, beach time at Lake Kivu, cultural activities, and age-appropriate gorilla tracking experiences. Private vehicles and family-friendly lodges throughout.</p>
+                        <div class="tour-bottom-bar">
+                            <div class="tour-pricing-box">
+                                <div class="tour-price-amount">$6,800</div>
+                                <div class="tour-price-note">per person</div>
+                            </div>
+                            <span class="tour-explore-link">View Itinerary →</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="tour-honeymoon.html" class="tour-editorial-card">
+                    <div class="tour-hero-image">
+                        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200&q=80" alt="Honeymoon Package">
+                        <div class="tour-featured-badge">Romance</div>
+                    </div>
+                    <div class="tour-content-box">
+                        <div class="tour-metadata">
+                            <div class="tour-meta-item">
+                                <span>📅</span>
+                                <span>8 Days / 7 Nights</span>
+                            </div>
+                            <div class="tour-meta-item">
+                                <span>👥</span>
+                                <span>Couples</span>
+                            </div>
+                            <div class="tour-meta-item">
+                                <span>⭐</span>
+                                <span>Romantic</span>
+                            </div>
+                        </div>
+                        <h3 class="tour-name-editorial">Romantic Honeymoon Escape</h3>
+                        <p class="tour-narrative">An intimate journey designed for couples, featuring private gorilla treks, sunset boat cruises on Lake Kivu, couples' spa treatments, candlelit dinners, and the most romantic lodges Rwanda offers.</p>
+                        <div class="tour-bottom-bar">
+                            <div class="tour-pricing-box">
+                                <div class="tour-price-amount">$9,200</div>
+                                <div class="tour-price-note">per person</div>
+                            </div>
+                            <span class="tour-explore-link">View Itinerary →</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Carousel Dots -->
+            <div class="carousel-dots" id="carouselDots"></div>
+        </div>
+    </div>
+</section>
+
+<!-- GALLERY PREVIEW -->
+<section class="gallery-preview">
+    <div class="gallery-preview-container">
+        <div class="section-header-dark">
+            <div class="section-label" style="color: var(--gold-light); border-color: var(--gold-light);">Visual Chronicles</div>
+            <h2 class="section-heading" style="color: white;">Rwanda in Pictures</h2>
+        </div>
+        
+        <div class="gallery-preview-grid">
+            <div class="gallery-preview-item">
+                <img src="https://images.unsplash.com/photo-1589553416260-f586c8f1514f?w=800&q=80" alt="Virunga">
+            </div>
+            <div class="gallery-preview-item">
+                <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=800&q=80" alt="Lake Kivu">
+            </div>
+            <div class="gallery-preview-item">
+                <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80" alt="Nyungwe">
+            </div>
+            <div class="gallery-preview-item">
+                <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&q=80" alt="Akagera">
+            </div>
+        </div>
+        
+        <div class="gallery-preview-cta">
+            <a href="{% url 'gallery' %}" class="cta-btn cta-secondary">View Full Gallery</a>
+        </div>
+    </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why-luxury">
+    <div class="about-header-center">
+        <div class="section-label">The Rwanda Difference</div>
+        <h2 class="section-heading">Why Choose Us</h2>
+        <p class="section-intro">Unparalleled expertise, exclusive access, and unwavering commitment to excellence</p>
+    </div>
+    
+    <div class="why-benefits-grid">
+        <div class="benefit-luxury-card">
+            <div class="benefit-icon-luxury">🎯</div>
+            <h3 class="benefit-title-luxury">Local Mastery</h3>
+            <p class="benefit-text-luxury">Rwanda-based team with two decades of combined experience crafting journeys that reveal the country's hidden treasures and authentic experiences.</p>
+        </div>
+        <div class="benefit-luxury-card">
+            <div class="benefit-icon-luxury">✨</div>
+            <h3 class="benefit-title-luxury">Bespoke Design</h3>
+            <p class="benefit-text-luxury">Every itinerary is custom-crafted around your interests, pace, and preferences—no cookie-cutter packages, only personalized adventures.</p>
+        </div>
+        <div class="benefit-luxury-card">
+            <div class="benefit-icon-luxury">🤝</div>
+            <h3 class="benefit-title-luxury">Community Impact</h3>
+            <p class="benefit-text-luxury">Your journey directly supports local communities and conservation initiatives, creating positive change while delivering transformative experiences.</p>
+        </div>
+        <div class="benefit-luxury-card">
+            <div class="benefit-icon-luxury">👑</div>
+            <h3 class="benefit-title-luxury">Luxury Standards</h3>
+            <p class="benefit-text-luxury">Handpicked five-star accommodations, exclusive access, private guides, and 24/7 concierge support ensure flawless execution of every detail.</p>
+        </div>
+    </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-luxury">
+    <div class="section-header-dark">
+        <div class="section-label" style="color: var(--gold-light); border-color: var(--gold-light);">Guest Experiences</div>
+        <h2 class="section-heading" style="color: white;">What Travelers Say</h2>
+    </div>
+    
+    <div class="testimonials-grid">
+        <!-- Testimonial 1 -->
+        <div class="testimonial-card-compact">
+            <div class="quote-mark-small">"</div>
+            <p class="testimonial-text-compact">Our Rwanda journey exceeded every expectation. The gorilla encounter was profoundly moving, and every detail—from our expert guide to the exquisite lodges—was absolutely flawless.</p>
+            <div class="testimonial-author-compact">
+                <div class="author-image-compact">
+                    <img src="https://i.pravatar.cc/150?img=47" alt="Dr. Elena Martínez">
+                </div>
+                <div class="author-info-compact">
+                    <div class="author-name-compact">Dr. Elena Martínez</div>
+                    <div class="author-title-compact">Conservation Photographer, Spain</div>
+                </div>
+            </div>
+            <div class="testimonial-rating">★★★★★</div>
+        </div>
+        
+        <!-- Testimonial 2 -->
+        <div class="testimonial-card-compact">
+            <div class="quote-mark-small">"</div>
+            <p class="testimonial-text-compact">The perfect blend of adventure and luxury. Lake Kivu was paradise, Akagera exceeded our safari dreams, and the cultural experiences in Kigali were deeply meaningful. Unforgettable!</p>
+            <div class="testimonial-author-compact">
+                <div class="author-image-compact">
+                    <img src="https://i.pravatar.cc/150?img=32" alt="James & Sarah Thompson">
+                </div>
+                <div class="author-info-compact">
+                    <div class="author-name-compact">James & Sarah Thompson</div>
+                    <div class="author-title-compact">Travel Bloggers, Australia</div>
+                </div>
+            </div>
+            <div class="testimonial-rating">★★★★★</div>
+        </div>
+        
+        <!-- Testimonial 3 -->
+        <div class="testimonial-card-compact">
+            <div class="quote-mark-small">"</div>
+            <p class="testimonial-text-compact">Exceptional service from start to finish. The guides were knowledgeable, accommodations were stunning, and seeing mountain gorillas in the wild was the experience of a lifetime. Highly recommend!</p>
+            <div class="testimonial-author-compact">
+                <div class="author-image-compact">
+                    <img src="https://i.pravatar.cc/150?img=28" alt="Michael Chen">
+                </div>
+                <div class="author-info-compact">
+                    <div class="author-name-compact">Michael Chen</div>
+                    <div class="author-title-compact">Entrepreneur, Singapore</div>
+                </div>
+            </div>
+            <div class="testimonial-rating">★★★★★</div>
+        </div>
+    </div>
+</section>
+
+<!-- TRAVEL RWANDA YOUR WAY -->
+<section class="travel-your-way">
+    <div class="travel-your-way-content">
+        <div class="travel-your-way-label">Your Journey, Your Style</div>
+        <h2 class="travel-your-way-title">Travel Rwanda Your Way</h2>
+        <p class="travel-your-way-description">
+            Whether you seek adventure, relaxation, cultural immersion, or luxury indulgence—we craft personalized experiences that match your travel style and exceed your expectations.
+        </p>
+        
+        <div class="travel-ways-grid">
+            <div class="travel-way-card">
+                <span class="travel-way-number">01</span>
+                <h3 class="travel-way-title">Solo Adventures</h3>
+                <p class="travel-way-text">
+                    Join small groups or travel independently with expert guides ensuring safety, connection, and unforgettable experiences.
+                </p>
+            </div>
+            
+            <div class="travel-way-card">
+                <span class="travel-way-number">02</span>
+                <h3 class="travel-way-title">Family Journeys</h3>
+                <p class="travel-way-text">
+                    Multi-generational adventures with age-appropriate activities, comfortable accommodations, and experiences everyone will cherish.
+                </p>
+            </div>
+            
+            <div class="travel-way-card">
+                <span class="travel-way-number">03</span>
+                <h3 class="travel-way-title">Romantic Escapes</h3>
+                <p class="travel-way-text">
+                    Intimate hideaways, private experiences, and luxury touches that create the perfect backdrop for celebrating love.
+                </p>
+            </div>
+            
+            <div class="travel-way-card">
+                <span class="travel-way-number">04</span>
+                <h3 class="travel-way-title">Group Experiences</h3>
+                <p class="travel-way-text">
+                    Customized itineraries for friends, corporate retreats, or special celebrations with seamless coordination for larger parties.
+                </p>
+            </div>
+        </div>
+        
+        <a href="{% url 'contact' %}" class="travel-your-way-cta">
+            Design Your Journey
+            <span>→</span>
+        </a>
+    </div>
+</section>
+
+
+
+<!-- POWERFUL CTA -->
+<section class="cta-immersive">
+    <div class="cta-split-container">
+        <!-- Left: Image Carousel -->
+        <div class="cta-images-carousel">
+            <div class="cta-carousel-wrapper">
+                <div class="cta-carousel-track" id="ctaCarouselTrack">
+                    <!-- Slide 1: Traditional Cooking -->
+                    <div class="cta-carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=1200&q=85" alt="Traditional Rwandan Cooking">
+                        <div class="cta-carousel-overlay"></div>
+                        <div class="cta-carousel-label">
+                            <span class="cta-carousel-category">Culinary</span>
+                            <h3 class="cta-carousel-title">Traditional Cooking Classes</h3>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 2: Village Visits -->
+                    <div class="cta-carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=1200&q=85" alt="Traditional Village">
+                        <div class="cta-carousel-overlay"></div>
+                        <div class="cta-carousel-label">
+                            <span class="cta-carousel-category">Culture</span>
+                            <h3 class="cta-carousel-title">Authentic Village Experiences</h3>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 3: Local Food Markets -->
+                    <div class="cta-carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&q=85" alt="Local Food Market">
+                        <div class="cta-carousel-overlay"></div>
+                        <div class="cta-carousel-label">
+                            <span class="cta-carousel-category">Local Food</span>
+                            <h3 class="cta-carousel-title">Traditional Markets & Cuisine</h3>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 4: Lake Kivu Activities -->
+                    <div class="cta-carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=1200&q=85" alt="Lake Kivu">
+                        <div class="cta-carousel-overlay"></div>
+                        <div class="cta-carousel-label">
+                            <span class="cta-carousel-category">Lakes</span>
+                            <h3 class="cta-carousel-title">Lake Kivu Water Activities</h3>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 5: Cultural Dance -->
+                    <div class="cta-carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=1200&q=85" alt="Intore Dance">
+                        <div class="cta-carousel-overlay"></div>
+                        <div class="cta-carousel-label">
+                            <span class="cta-carousel-category">Culture</span>
+                            <h3 class="cta-carousel-title">Traditional Intore Dance</h3>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 6: Kayaking -->
+                    <div class="cta-carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1502933691298-84fc14542831?w=1200&q=85" alt="Kayaking">
+                        <div class="cta-carousel-overlay"></div>
+                        <div class="cta-carousel-label">
+                            <span class="cta-carousel-category">Activities</span>
+                            <h3 class="cta-carousel-title">Kayaking & Water Sports</h3>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 7: Artisan Crafts -->
+                    <div class="cta-carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1610631069863-2daec2f4f929?w=1200&q=85" alt="Local Artisans">
+                        <div class="cta-carousel-overlay"></div>
+                        <div class="cta-carousel-label">
+                            <span class="cta-carousel-category">Culture</span>
+                            <h3 class="cta-carousel-title">Meet Local Artisans</h3>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 8: Coffee Plantation Tour -->
+                    <div class="cta-carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1200&q=85" alt="Coffee Plantation">
+                        <div class="cta-carousel-overlay"></div>
+                        <div class="cta-carousel-label">
+                            <span class="cta-carousel-category">Local Food</span>
+                            <h3 class="cta-carousel-title">Coffee Plantation Tours</h3>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 9: Fishing Village -->
+                    <div class="cta-carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&q=85" alt="Fishing Village">
+                        <div class="cta-carousel-overlay"></div>
+                        <div class="cta-carousel-label">
+                            <span class="cta-carousel-category">Villages</span>
+                            <h3 class="cta-carousel-title">Lakeside Fishing Communities</h3>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 10: Mountain Biking -->
+                    <div class="cta-carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=1200&q=85" alt="Mountain Biking">
+                        <div class="cta-carousel-overlay"></div>
+                        <div class="cta-carousel-label">
+                            <span class="cta-carousel-category">Activities</span>
+                            <h3 class="cta-carousel-title">Mountain Biking Adventures</h3>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 11: Traditional Pottery -->
+                    <div class="cta-carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=1200&q=85" alt="Pottery Making">
+                        <div class="cta-carousel-overlay"></div>
+                        <div class="cta-carousel-label">
+                            <span class="cta-carousel-category">Culture</span>
+                            <h3 class="cta-carousel-title">Traditional Pottery Workshops</h3>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 12: Lake Sunset -->
+                    <div class="cta-carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=85" alt="Lake Sunset">
+                        <div class="cta-carousel-overlay"></div>
+                        <div class="cta-carousel-label">
+                            <span class="cta-carousel-category">Lakes</span>
+                            <h3 class="cta-carousel-title">Sunset Boat Cruises</h3>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cta-carousel-nav">
+                    <button class="cta-carousel-arrow" onclick="scrollCTACarousel('prev')">←</button>
+                    <button class="cta-carousel-arrow" onclick="scrollCTACarousel('next')">→</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right: Text Content -->
+        <div class="cta-content-right">
+            <h2 class="cta-headline">Your Rwanda Journey Awaits</h2>
+            <p class="cta-subtext">Let our expert team craft your bespoke adventure. From securing gorilla permits to arranging luxury accommodations, we orchestrate every detail of your transformative journey.</p>
+            <div class="cta-action-buttons">
+                <a href="contact.html" class="cta-btn cta-btn-light">
+                    Start Planning
+                    <span>→</span>
+                </a>
+                <a href="tel:+250788123456" class="cta-btn cta-secondary">
+                    Call Our Experts
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<!-- LUXURY FOOTER -->
+<footer>
+    <div class="footer-grid-luxury">
+        <div class="footer-brand-section">
+            <h3>Discover Rwanda</h3>
+            <p class="footer-description">Your gateway to extraordinary journeys through the Land of a Thousand Hills. We curate transformative experiences across Rwanda's pristine wilderness, rare wildlife encounters, and vibrant cultural tapestry.</p>
+            
+            <div class="footer-contact-info">
+                <div class="footer-contact-item">
+                    <span>📧</span>
+                    <a href="/cdn-cgi/l/email-protection#7d1712080f1318040e3d19140e1e120b180f0f0a1c13191c531e1210"><span class="__cf_email__" data-cfemail="462c29333428233f3506222f3525293023343431272822276825292b">[email&#160;protected]</span></a>
+                </div>
+                <div class="footer-contact-item">
+                    <span>📱</span>
+                    <a href="tel:+250788123456">+250 788 123 456</a>
+                </div>
+                <div class="footer-contact-item">
+                    <span>📍</span>
+                    <span>Kigali, Rwanda</span>
+                </div>
+            </div>
+            
+            <div class="footer-social-links">
+                <a href="#" class="social-icon-link">f</a>
+                <a href="#" class="social-icon-link">𝕏</a>
+                <a href="#" class="social-icon-link">in</a>
+                <a href="#" class="social-icon-link">📷</a>
+            </div>
+        </div>
+        
+        <div class="footer-column">
+            <h4>Discover</h4>
+            <ul class="footer-nav-links">
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="wildlife.html">Wildlife</a></li>
+                <li><a href="culture.html">Culture</a></li>
+                <li><a href="conservation.html">Conservation</a></li>
+                <li><a href="itineraries.html">Itineraries</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h4>Resources</h4>
+            <ul class="footer-nav-links">
+                <li><a href="about.html">About Rwanda</a></li>
+                <li><a href="gallery.html">Photo Gallery</a></li>
+                <li><a href="travel-guide.html">Travel Guide</a></li>
+                <li><a href="blog.html">Blog & Stories</a></li>
+                <li><a href="faq.html">FAQs</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h4>Partners</h4>
+            <p class="footer-description" style="font-size: 0.875rem; margin-bottom: 1.5rem;">Trusted by leading organizations</p>
+            <div class="footer-partners">
+                <div class="footer-partner">UNESCO</div>
+                <div class="footer-partner">National Geographic</div>
+                <div class="footer-partner">Virtuoso</div>
+                <div class="footer-partner">African Parks</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-bottom-bar">
+        <p class="footer-copyright">© 2025 Discover Rwanda. All rights reserved.</p>
+        <div class="footer-legal-links">
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <a href="cookies.html">Cookies</a>
+        </div>
+    </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Advanced navigation
+const navigation = document.querySelector('.nav');
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 200) {
+        navigation.classList.add('scrolled');
+    } else {
+        navigation.classList.remove('scrolled');
+    }
+});
+
+// Epic hero slideshow
+const heroSlides = document.querySelectorAll('.hero-slide');
+let currentSlideIndex = 0;
+
+function transitionSlide() {
+    heroSlides[currentSlideIndex].classList.remove('active');
+    currentSlideIndex = (currentSlideIndex + 1) % heroSlides.length;
+    heroSlides[currentSlideIndex].classList.add('active');
+}
+
+setInterval(transitionSlide, 8000);
+
+// Smooth anchor scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetElement = document.querySelector(this.getAttribute('href'));
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+});
+
+// Tours Carousel - Enhanced with 3 cards visible, dots, and auto-scroll
+const toursCarousel = document.getElementById('toursCarousel');
+const carouselDots = document.getElementById('carouselDots');
+let currentToursIndex = 0;
+let toursAutoScrollInterval;
+
+if (toursCarousel) {
+    const tourCards = toursCarousel.querySelectorAll('.tour-editorial-card');
+    const totalCards = tourCards.length;
+    const cardsPerView = 3;
+    const totalPages = Math.ceil(totalCards / cardsPerView);
+    
+    // Create dots
+    for (let i = 0; i < totalPages; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('carousel-dot');
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToToursPage(i));
+        carouselDots.appendChild(dot);
+    }
+    
+    const dots = carouselDots.querySelectorAll('.carousel-dot');
+    
+    function updateToursCarousel() {
+        const cardWidth = tourCards[0].offsetWidth;
+        const gap = 40; // 2.5rem = 40px
+        const scrollAmount = (cardWidth + gap) * cardsPerView * currentToursIndex;
+        toursCarousel.style.transform = `translateX(-${scrollAmount}px)`;
+        toursCarousel.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        
+        // Update dots
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentToursIndex);
+        });
+    }
+    
+    function goToToursPage(pageIndex) {
+        currentToursIndex = pageIndex;
+        updateToursCarousel();
+        resetAutoScroll();
+    }
+    
+    function scrollTours(direction) {
+        if (direction === 'left') {
+            currentToursIndex = (currentToursIndex - 1 + totalPages) % totalPages;
+        } else {
+            currentToursIndex = (currentToursIndex + 1) % totalPages;
+        }
+        updateToursCarousel();
+        resetAutoScroll();
+    }
+    
+    // Make scrollTours available globally
+    window.scrollTours = scrollTours;
+    
+    // Auto-scroll functionality
+    function startAutoScroll() {
+        toursAutoScrollInterval = setInterval(() => {
+            scrollTours('right');
+        }, 5000); // Change slide every 5 seconds
+    }
+    
+    function resetAutoScroll() {
+        clearInterval(toursAutoScrollInterval);
+        startAutoScroll();
+    }
+    
+    // Start auto-scroll
+    startAutoScroll();
+    
+    // Pause auto-scroll on hover
+    toursCarousel.addEventListener('mouseenter', () => {
+        clearInterval(toursAutoScrollInterval);
+    });
+    
+    toursCarousel.addEventListener('mouseleave', () => {
+        startAutoScroll();
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowLeft') {
+            scrollTours('left');
+        } else if (e.key === 'ArrowRight') {
+            scrollTours('right');
+        }
+    });
+}
+
+// CTA Carousel - Enhanced Navigation with Auto-scroll
+let ctaCurrentSlide = 0;
+let ctaAutoScrollInterval;
+const ctaCarouselTrack = document.getElementById('ctaCarouselTrack');
+
+if (ctaCarouselTrack) {
+    const ctaTotalSlides = ctaCarouselTrack.children.length;
+    const ctaCarouselWrapper = ctaCarouselTrack.closest('.cta-carousel-wrapper');
+    
+    function updateCTACarousel() {
+        const offset = -ctaCurrentSlide * 100;
+        ctaCarouselTrack.style.transform = `translateX(${offset}%)`;
+        ctaCarouselTrack.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+    }
+    
+    function scrollCTACarousel(direction) {
+        if (direction === 'prev') {
+            ctaCurrentSlide = (ctaCurrentSlide - 1 + ctaTotalSlides) % ctaTotalSlides;
+        } else {
+            ctaCurrentSlide = (ctaCurrentSlide + 1) % ctaTotalSlides;
+        }
+        updateCTACarousel();
+        resetCTAAutoScroll();
+    }
+    
+    // Make function globally available
+    window.scrollCTACarousel = scrollCTACarousel;
+    
+    // Auto-scroll functionality
+    function startCTAAutoScroll() {
+        ctaAutoScrollInterval = setInterval(() => {
+            scrollCTACarousel('next');
+        }, 4000); // Change slide every 4 seconds
+    }
+    
+    function resetCTAAutoScroll() {
+        clearInterval(ctaAutoScrollInterval);
+        startCTAAutoScroll();
+    }
+    
+    // Start auto-scroll
+    startCTAAutoScroll();
+    
+    // Pause auto-scroll on hover
+    if (ctaCarouselWrapper) {
+        ctaCarouselWrapper.addEventListener('mouseenter', () => {
+            clearInterval(ctaAutoScrollInterval);
+        });
+        
+        ctaCarouselWrapper.addEventListener('mouseleave', () => {
+            startCTAAutoScroll();
+        });
+    }
+}
+
+// Intersection Observer for animations
+const observerOptions = {
+    threshold: 0.12,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const fadeInObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+// Apply to all animated elements
+document.querySelectorAll('.experience-luxury-card, .tour-editorial-card, .gallery-piece, .article-card, .benefit-luxury-card, .essential-card, .stat

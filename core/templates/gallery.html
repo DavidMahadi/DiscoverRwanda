@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery | Discover Rwanda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Italiana&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; color: #1a1a1a; line-height: 1.7; background: #fff; }
+        
+        /* Navigation */
+        .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1.25rem 6%; background: #fff; box-shadow: 0 2px 15px rgba(0,0,0,0.06); }
+        .nav-container { max-width: 1600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .nav-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+        .nav-logo-img { font-size: 1.75rem; }
+        .nav-logo-text { font-family: 'Italiana', serif; font-size: 1.35rem; color: #000; letter-spacing: 3px; }
+        .nav-menu { display: flex; list-style: none; gap: 3.5rem; align-items: center; }
+        .nav-item a { font-size: 0.8125rem; font-weight: 600; color: #333; text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; transition: all 0.3s ease; }
+        .nav-item a:hover { color: #000; }
+        .nav-cta { background: #000 !important; color: #fff !important; padding: 0.875rem 2rem !important; border-radius: 50px !important; }
+        
+        /* Hero */
+        .hero { height: 65vh; min-height: 550px; background: linear-gradient(135deg, #1a1a1a 0%, #000 100%); display: flex; align-items: center; margin-top: 75px; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.03) 0%, transparent 50%); }
+        .hero-content { max-width: 1000px; margin: 0 auto; padding: 0 6%; text-align: center; position: relative; z-index: 2; }
+        .hero-eyebrow { display: inline-block; font-size: 0.6875rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #fff; padding: 0.4rem 1.25rem; border: 1.5px solid rgba(255,255,255,0.4); border-radius: 50px; margin-bottom: 2rem; background: rgba(255,255,255,0.05); }
+        .hero-title { font-family: 'Italiana', serif; font-size: clamp(3.5rem, 8vw, 6.5rem); color: #fff; margin-bottom: 1.5rem; letter-spacing: 8px; line-height: 1.1; font-weight: 400; }
+        .hero-subtitle { font-size: clamp(1.0625rem, 1.8vw, 1.25rem); color: rgba(255,255,255,0.88); max-width: 800px; margin: 0 auto; line-height: 1.75; font-weight: 300; }
+        
+        /* Filter Tabs */
+        .filter-section { background: #fafafa; padding: 3rem 6%; border-bottom: 2px solid #e5e5e5; }
+        .filter-container { max-width: 1600px; margin: 0 auto; display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; }
+        .filter-btn { padding: 0.75rem 2rem; background: #fff; border: 2px solid #e5e5e5; border-radius: 50px; font-size: 0.875rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; color: #333; }
+        .filter-btn:hover { background: #000; color: #fff; border-color: #000; transform: translateY(-2px); }
+        .filter-btn.active { background: #000; color: #fff; border-color: #000; }
+        
+        /* Gallery Section */
+        .gallery-section { padding: 7rem 6%; }
+        .gallery-section:nth-child(even) { background: #fafafa; }
+        .gallery-container { max-width: 1700px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-number { font-family: 'Italiana', serif; font-size: 0.875rem; color: #666; letter-spacing: 3px; margin-bottom: 1rem; text-transform: uppercase; }
+        .section-title { font-family: 'Italiana', serif; font-size: clamp(2.5rem, 5vw, 4rem); color: #000; margin-bottom: 1.25rem; letter-spacing: 6px; font-weight: 400; }
+        .section-description { font-size: 1.0625rem; color: #666; max-width: 750px; margin: 0 auto; line-height: 1.8; }
+        
+        /* Photo Grid */
+        .photo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+        .photo-item { position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 8px 30px rgba(0,0,0,0.08); cursor: pointer; transition: all 0.4s ease; }
+        .photo-item:hover { transform: translateY(-8px); box-shadow: 0 15px 50px rgba(0,0,0,0.15); }
+        
+        /* Varying heights for visual interest */
+        .photo-item:nth-child(3n+1) { aspect-ratio: 3/4; }
+        .photo-item:nth-child(3n+2) { aspect-ratio: 3/4; }
+        .photo-item:nth-child(3n+3) { aspect-ratio: 3/4; }
+        
+        .photo-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .photo-item:hover img { transform: scale(1.08); }
+        
+        .photo-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%); opacity: 0; transition: opacity 0.4s ease; display: flex; align-items: flex-end; padding: 2rem; }
+        .photo-item:hover .photo-overlay { opacity: 1; }
+        .photo-info { color: #fff; }
+        .photo-title { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .photo-location { font-size: 0.875rem; opacity: 0.9; letter-spacing: 1px; text-transform: uppercase; }
+        
+        /* Stats Banner */
+        .stats-banner { background: #000; color: #fff; padding: 5rem 6%; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4rem; max-width: 1400px; margin: 0 auto; text-align: center; }
+        .stat-item h3 { font-family: 'Italiana', serif; font-size: 3.5rem; margin-bottom: 0.75rem; font-weight: 400; }
+        .stat-item p { font-size: 0.875rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.85; line-height: 1.5; }
+        
+        /* CTA */
+        .cta { background: #000; padding: 7rem 6%; text-align: center; }
+        .cta-title { font-family: 'Italiana', serif; font-size: clamp(2.5rem, 5vw, 4rem); color: #fff; margin-bottom: 1.5rem; letter-spacing: 4px; font-weight: 400; }
+        .cta-text { font-size: 1.1875rem; color: rgba(255,255,255,0.85); margin-bottom: 2.5rem; max-width: 750px; margin-left: auto; margin-right: auto; line-height: 1.8; }
+        .cta-button { display: inline-flex; align-items: center; gap: 0.875rem; padding: 1.25rem 3.5rem; background: #fff; color: #000; text-decoration: none; font-weight: 700; font-size: 0.875rem; letter-spacing: 2px; text-transform: uppercase; border-radius: 50px; transition: all 0.3s ease; }
+        .cta-button:hover { background: #f0f0f0; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255,255,255,0.2); }
+        
+        /* Footer */
+        footer { background: #1a1a1a; color: #fff; padding: 6rem 6% 2.5rem; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; max-width: 1600px; margin: 0 auto 4rem; }
+        .footer-brand h3 { font-family: 'Italiana', serif; font-size: 2rem; margin-bottom: 1.5rem; letter-spacing: 2px; font-weight: 400; }
+        .footer-description { font-size: 0.9375rem; line-height: 1.8; color: rgba(255,255,255,0.7); }
+        .footer-column h4 { font-size: 0.875rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1.75rem; color: #fff; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 0.875rem; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.875rem; transition: all 0.3s ease; }
+        .footer-links a:hover { color: #fff; padding-left: 5px; }
+        .footer-bottom { text-align: center; padding-top: 3rem; border-top: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.5); font-size: 0.875rem; }
+        
+        @media (max-width: 1200px) {
+            .photo-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            .photo-grid { grid-template-columns: 1fr; }
+            .photo-item:nth-child(n) { aspect-ratio: 4/3; }
+            .stats-grid, .footer-grid { grid-template-columns: 1fr; }
+            .filter-container { gap: 1rem; }
+            .filter-btn { padding: 0.625rem 1.5rem; font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav">
+    <div class="nav-container">
+        <a href="index.html" class="nav-brand">
+            <div class="nav-logo-img">🌿</div>
+            <div class="nav-logo-text">RWANDA</div>
+        </a>
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="{% url 'index' %}">Home</a></li>
+            <li class="nav-item"><a href="{% url 'things_to_do' %}">Things to Do</a></li>
+            <li class="nav-item"><a href="{% url 'gallery' %}">Gallery</a></li>
+            <li class="nav-item"><a href="{% url 'contact' %}" class="nav-cta">Plan Your Trip</a></li>
+        </ul>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="hero-content">
+        <span class="hero-eyebrow">Visual Journey</span>
+        <h1 class="hero-title">DISCOVER RWANDA</h1>
+        <p class="hero-subtitle">
+            Explore the Land of a Thousand Hills through stunning imagery. From mist-covered mountains to vibrant wildlife, discover why Rwanda captivates every traveler.
+        </p>
+    </div>
+</section>
+
+<section class="filter-section">
+    <div class="filter-container">
+        <button class="filter-btn active">All Photos</button>
+        <button class="filter-btn">Wildlife</button>
+        <button class="filter-btn">Landscapes</button>
+        <button class="filter-btn">Culture</button>
+        <button class="filter-btn">Adventures</button>
+        <button class="filter-btn">Accommodations</button>
+    </div>
+</section>
+
+<section class="gallery-section">
+    <div class="gallery-container">
+        <div class="section-header">
+            <div class="section-number">01 — Wildlife & Safaris</div>
+            <h2 class="section-title">MEET THE WILDLIFE</h2>
+            <p class="section-description">
+                From majestic mountain gorillas to the Big Five in Akagera, Rwanda's wildlife encounters are unforgettable. Every moment brings you closer to nature's most magnificent creatures.
+            </p>
+        </div>
+        
+        <div class="photo-grid">
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1722293094576-424bd9b4aef9?q=80&w=1144&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Mountain Gorilla">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Mountain Gorilla</div>
+                        <div class="photo-location">Volcanoes National Park</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1575550959106-5a7defe28b56?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Lion">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">African Lion</div>
+                        <div class="photo-location">Akagera National Park</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1611262084470-0e8686d7be78?q=80&w=686&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Elephant">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">African Elephant</div>
+                        <div class="photo-location">Akagera Savanna</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1643367750096-0f9215fdd0ae?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Giraffe">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Rothschild Giraffe</div>
+                        <div class="photo-location">Akagera Plains</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1756909358952-7e90a62b8319?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Zebra">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Plains Zebra</div>
+                        <div class="photo-location">Akagera Grasslands</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://plus.unsplash.com/premium_photo-1664302756337-8aa34a2785d5?q=80&w=685&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Chimpanzee">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Chimpanzee</div>
+                        <div class="photo-location">Nyungwe Forest</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1612703252506-e2f1f674752d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Rhinos">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Rhinos</div>
+                        <div class="photo-location">Akagera National Park</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1626569706439-59455ae2d68f?q=80&w=765&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Buffalo">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Buffalo</div>
+                        <div class="photo-location">Akagera National Park</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="gallery-section">
+    <div class="gallery-container">
+        <div class="section-header">
+            <div class="section-number">02 — Landscapes & Nature</div>
+            <h2 class="section-title">BREATHTAKING VISTAS</h2>
+            <p class="section-description">
+                Rwanda's landscapes tell a story of dramatic volcanoes, rolling tea plantations, pristine lakes, and endless horizons. Each view is more stunning than the last.
+            </p>
+        </div>
+        
+        <div class="photo-grid">
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/48/04/e4/4804e4f62dd660785340c42fec7f2860.jpg" alt="Volcanoes">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Virunga Volcanoes</div>
+                        <div class="photo-location">Northern Rwanda</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1514547085879-968fe519da2c?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Lake Kivu">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Lake Kivu Sunset</div>
+                        <div class="photo-location">Western Rwanda</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://plus.unsplash.com/premium_photo-1697730334419-fba83fe143b7?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Tea Plantation">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Tea Plantations</div>
+                        <div class="photo-location">Southern Province</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1765307095557-703fe7b10118?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Mountains">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Thousand Hills</div>
+                        <div class="photo-location">Central Rwanda</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1523224949444-170258978eef?q=80&w=627&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Waterfall">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Forest Waterfall</div>
+                        <div class="photo-location">Nyungwe National Park</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1602426973528-040a2abb486c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sunrise">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Mountain Sunrise</div>
+                        <div class="photo-location">Volcano View</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1646558581928-e5d54dd2be3c?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Flowers">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Flowers</div>
+                        <div class="photo-location">Field View</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://plus.unsplash.com/premium_photo-1661962258493-892a496fafba?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Landscapes">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Landscapes </div>
+                        <div class="photo-location">Field View</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="stats-banner">
+    <div class="stats-grid">
+        <div class="stat-item">
+            <h3>3</h3>
+            <p>National<br>Parks</p>
+        </div>
+        <div class="stat-item">
+            <h3>1,000+</h3>
+            <p>Mountain<br>Gorillas</p>
+        </div>
+        <div class="stat-item">
+            <h3>5</h3>
+            <p>Volcanic<br>Peaks</p>
+        </div>
+        <div class="stat-item">
+            <h3>13</h3>
+            <p>Primate<br>Species</p>
+        </div>
+    </div>
+</section>
+
+<section class="gallery-section">
+    <div class="gallery-container">
+        <div class="section-header">
+            <div class="section-number">03 — Culture & People</div>
+            <h2 class="section-title">VIBRANT CULTURE</h2>
+            <p class="section-description">
+                Experience Rwanda's rich cultural heritage through traditional dance, local crafts, warm hospitality, and the vibrant spirit of its people.
+            </p>
+        </div>
+        
+        <div class="photo-grid">
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/68/bf/a3/68bfa3e2fbb8f5742191c32d29a5a2b6.jpg" alt="Traditional Dance">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Intore Dancers</div>
+                        <div class="photo-location">Traditional Performance</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/a6/68/09/a668094df248d58c5c8cc7c2957f984f.jpg" alt="Cultural Village">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Cultural Village</div>
+                        <div class="photo-location">Iby'Iwacu</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/15/88/bd/1588bdbacb7002a58506bd58bd24c99c.jpg" alt="Local Market">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Local Market</div>
+                        <div class="photo-location">Kimironko, Kigali</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/fb/e7/82/fbe7825a3cc208c86b76725657ed224e.jpg" alt="Coffee Ceremony">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Coffee Ceremony</div>
+                        <div class="photo-location">Traditional Experience</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/db/5d/04/db5d04089f3cdacf724742c644702715.jpg" alt="Basket Weaving">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Basket Weaving</div>
+                        <div class="photo-location">Artisan Cooperative</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/ae/a9/34/aea934af406f26259dc288bb69b05f32.jpg" alt="Rwandan Cuisine">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Traditional Cuisine</div>
+                        <div class="photo-location">Local Flavors</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/52/f4/16/52f41662a488d31883d2ae8017e7943f.jpg" alt="Arts & Creative Expression">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Arts & Creative Expression</div>
+                        <div class="photo-location">Arts & Creative Expression</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/81/cd/ab/81cdab691eae00fdfcabe0a5bdafd482.jpg" alt="Fashion & Style">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Fashion & Style</div>
+                        <div class="photo-location">Fashion & Style</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="gallery-section">
+    <div class="gallery-container">
+        <div class="section-header">
+            <div class="section-number">04 — Adventures & Activities</div>
+            <h2 class="section-title">THRILLING EXPERIENCES</h2>
+            <p class="section-description">
+                From gorilla trekking to canopy walks, kayaking to volcano hiking—Rwanda offers adventures that create memories lasting a lifetime.
+            </p>
+        </div>
+        
+        <div class="photo-grid">
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/fc/11/44/fc1144e0afcb01f118c03205ac22a63e.jpg" alt="Gorilla Trekking">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Gorilla Trekking</div>
+                        <div class="photo-location">Volcanoes National Park</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/34/cc/5a/34cc5ab0c0db9ab717ae7ddc773c3a35.jpg" alt="Boat Safari">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Boat Safari</div>
+                        <div class="photo-location">Lake Ihema</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/cd/f0/a7/cdf0a76254e1e1b7f1dadbbc82f68ee9.jpg" alt="Canopy Walk">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Canopy Walkway</div>
+                        <div class="photo-location">Nyungwe Forest</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/b5/24/85/b52485be31f7b08774a0578d5dbcefc5.jpg" alt="City Tour">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Kigali City Tour</div>
+                        <div class="photo-location">Modern Kigali</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/f2/79/38/f279381c9b2e4845a3b3d115a6c222da.jpg" alt="Cycling">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Cycling Adventures</div>
+                        <div class="photo-location">Congo Nile Trail</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/a1/bd/21/a1bd21340e4d3f65ec1eae7ef7fc171e.jpg" alt="Hiking">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Volcano Hiking</div>
+                        <div class="photo-location">Mount Bisoke</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/a4/2d/a2/a42da2d345da37813ba3f8d6b4af7606.jpg" alt="Hot-Air Balloon">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Hot-Air Balloon</div>
+                        <div class="photo-location">Akagera National Park</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/4f/b2/53/4fb25345609b1678ce9a088b629afa18.jpg" alt="Rock Climbing">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Rock Climbing</div>
+                        <div class="photo-location">Mount Bisoke</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="gallery-section">
+    <div class="gallery-container">
+        <div class="section-header">
+            <div class="section-number">05 — Luxury Accommodations</div>
+            <h2 class="section-title">WHERE COMFORT MEETS NATURE</h2>
+            <p class="section-description">
+                From boutique lodges nestled in the mountains to lakeside resorts with stunning views—experience Rwanda's finest accommodations where luxury and nature blend seamlessly.
+            </p>
+        </div>
+        
+        <div class="photo-grid">
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&q=85" alt="Luxury Lodge">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Mountain Lodge</div>
+                        <div class="photo-location">Volcano Views</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/25/ab/29/25ab29f9737533afd876af5914f39868.jpg" alt="Resort Dining">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Fine Dining</div>
+                        <div class="photo-location">Lake Kivu Resort</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/d1/65/7d/d1657d1781fdabb94f8f5c5050057ff3.jpg" alt="Eco Lodge">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Eco Lodge</div>
+                        <div class="photo-location">Nyungwe Forest</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/ce/86/01/ce8601ece9908e8783c6cab2fb34325e.jpg" alt="Hotel Pool">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Infinity Pool</div>
+                        <div class="photo-location">Rubavu Serena</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/8b/c9/54/8bc954053b0d64cf9e98db7b0a46b7eb.jpg" alt="Suite">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Luxury Suite</div>
+                        <div class="photo-location">Bisate Lodge</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/2c/b5/4b/2cb54bc578ca484c365f0afa2ebc3500.jpg" alt="Spa">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Wellness Spa</div>
+                        <div class="photo-location">Resort Facilities</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/5d/d2/ef/5dd2ef87583b9550ab067e5981581add.jpg" alt="Scenic Peace & Privacy">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Scenic Peace & Privacy</div>
+                        <div class="photo-location">Resort Facilities</div>
+                    </div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/04/fa/50/04fa50a0ff98d075feb404bb6fea2886.jpg" alt="Comfort Crafted by Nature">
+                <div class="photo-overlay">
+                    <div class="photo-info">
+                        <div class="photo-title">Crafted by Nature</div>
+                        <div class="photo-location">Crafted by Nature</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta">
+    <h2 class="cta-title">Ready to Experience Rwanda?</h2>
+    <p class="cta-text">
+        These images are just the beginning. Let us create a personalized journey that brings you face-to-face with Rwanda's breathtaking beauty, incredible wildlife, and warm hospitality.
+    </p>
+    <a href="{% url 'contact' %}" class="cta-button">
+        Start Planning Your Journey
+        <span>→</span>
+    </a>
+</section>
+
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <h3>Discover Rwanda</h3>
+            <p class="footer-description">Your gateway to extraordinary journeys through the Land of a Thousand Hills. We curate transformative experiences across Rwanda's pristine wilderness and vibrant cultural tapestry.</p>
+        </div>
+        <div class="footer-column">
+            <h4>Explore</h4>
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="things-to-do.html">Things to Do</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="travel-types.html">Travel Types</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Travel Smart</h4>
+            <ul class="footer-links">
+                <li><a href="traveling-with-pets.html">Traveling with Pets</a></li>
+                <li><a href="senior-friendly.html">Senior-Friendly</a></li>
+                <li><a href="invest-rwanda.html">Invest</a></li>
+                <li><a href="accessible-travel.html">Accessible Travel</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Contact</h4>
+            <ul class="footer-links">
+                <li><a href="tel:+250788123456">+250 788 123 456</a></li>
+                <li><a href="mailto:info@discoverrwanda.com">info@discoverrwanda.com</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 Discover Rwanda. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>

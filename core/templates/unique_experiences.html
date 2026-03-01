@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unique Experiences | Discover Rwanda</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Italiana&display=swap" rel="stylesheet">
+    
+<style>
+    :root {
+        --black: #000000;
+        --charcoal: #1a1a1a;
+        --dark-gray: #2c2c2c;
+        --mid-gray: #6a6a6a;
+        --light-gray: #e5e5e5;
+        --off-white: #f8f8f8;
+        --white: #ffffff;
+        --gold: #c59959;
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Inter', sans-serif;
+        color: var(--charcoal);
+        line-height: 1.6;
+        overflow-x: hidden;
+        background: var(--white);
+    }
+    
+    /* Navigation */
+    .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 1.5rem 6%;
+        background: var(--white);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .nav-container {
+        max-width: 1900px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-decoration: none;
+    }
+    
+    .nav-logo-img {
+        font-size: 2rem;
+    }
+    
+    .nav-logo-text {
+        font-family: 'Italiana', serif;
+        font-size: 1.5rem;
+        color: var(--black);
+        letter-spacing: 4px;
+    }
+    
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 4rem;
+        align-items: center;
+    }
+    
+    .nav-item a {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--charcoal);
+        text-decoration: none;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-item a:hover {
+        color: var(--gold);
+    }
+    
+    .nav-cta {
+        background: var(--black);
+        color: var(--white) !important;
+        padding: 1rem 2.5rem !important;
+        border-radius: 50px !important;
+    }
+    
+    .nav-cta:hover {
+        background: var(--gold);
+        color: var(--white) !important;
+    }
+    
+    /* Hero */
+    .hero-section {
+        position: relative;
+        height: 85vh;
+        min-height: 700px;
+        background: var(--black);
+        display: flex;
+        align-items: center;
+        margin-top: 88px;
+        overflow: hidden;
+    }
+    
+    .hero-bg-pattern {
+        position: absolute;
+        inset: 0;
+        background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        background-size: 50px 50px;
+        opacity: 0.3;
+    }
+    
+    .hero-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 6%;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .hero-eyebrow {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--white);
+        padding: 0.5rem 1.5rem;
+        border: 2px solid var(--white);
+        border-radius: 50px;
+        margin-bottom: 2.5rem;
+        background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .hero-title {
+        font-family: 'Italiana', serif;
+        font-size: clamp(4rem, 10vw, 7rem);
+        font-weight: 400;
+        color: var(--white);
+        margin-bottom: 2rem;
+        letter-spacing: 12px;
+        line-height: 1.1;
+    }
+    
+    .hero-subtitle {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.85);
+        max-width: 900px;
+        margin: 0 auto;
+        line-height: 1.8;
+    }
+    
+    /* Experience Section */
+    .experience-section {
+        padding: 8rem 6%;
+    }
+    
+    .experience-section:nth-child(even) {
+        background: var(--off-white);
+    }
+    
+    .experience-container {
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+    
+    .experience-header {
+        text-align: center;
+        margin-bottom: 5rem;
+    }
+    
+    .experience-number {
+        font-family: 'Italiana', serif;
+        font-size: 1rem;
+        color: var(--gold);
+        letter-spacing: 3px;
+        margin-bottom: 1rem;
+    }
+    
+    .experience-title {
+        font-family: 'Italiana', serif;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 400;
+        color: var(--black);
+        margin-bottom: 1.5rem;
+        letter-spacing: 4px;
+    }
+    
+    .experience-intro {
+        font-size: 1.125rem;
+        font-weight: 300;
+        line-height: 1.9;
+        color: var(--mid-gray);
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    
+    /* Photo Grid Layouts */
+    .photos-grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin-bottom: 4rem;
+    }
+    
+    .photos-grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+        margin-bottom: 4rem;
+    }
+    
+    .photo-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+    
+    .photo-item img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    
+    .photo-item:hover img {
+        transform: scale(1.08);
+    }
+    
+    .photo-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1.5rem;
+        background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+        color: var(--white);
+    }
+    
+    .photo-caption-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+    }
+    
+    .photo-caption-text {
+        font-size: 0.875rem;
+        color: rgba(255,255,255,0.9);
+    }
+    
+    /* Info Cards */
+    .info-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+        margin-top: 4rem;
+    }
+    
+    .info-card {
+        background: var(--white);
+        padding: 2.5rem;
+        border: 1px solid var(--light-gray);
+        transition: all 0.3s ease;
+    }
+    
+    .experience-section:nth-child(even) .info-card {
+        background: var(--white);
+    }
+    
+    .info-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+    }
+    
+    .info-card-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .info-card-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--black);
+        margin-bottom: 1rem;
+    }
+    
+    .info-card-text {
+        font-size: 1rem;
+        line-height: 1.7;
+        color: var(--mid-gray);
+    }
+    
+    .learn-more-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: transparent;
+        color: var(--black);
+        border: 2px solid var(--black);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.75rem;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        margin-top: 1.5rem;
+    }
+    
+    .learn-more-btn:hover {
+        background: var(--black);
+        color: var(--white);
+        gap: 1rem;
+    }
+    
+    /* Highlights List */
+    .highlights-list {
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        margin-top: 3rem;
+    }
+    
+    /* Buttons */
+    .learn-more-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: transparent;
+        color: var(--black);
+        border: 2px solid var(--black);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.8125rem;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        margin-top: 1.5rem;
+    }
+    
+    .learn-more-btn:hover {
+        background: var(--black);
+        color: var(--white);
+        gap: 1rem;
+    }
+    
+    .section-cta {
+        text-align: center;
+        margin-top: 5rem;
+    }
+    
+    .plan-trip-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.25rem 3rem;
+        background: var(--gold);
+        color: var(--white);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.875rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(197, 153, 89, 0.3);
+    }
+    
+    .plan-trip-btn:hover {
+        background: var(--black);
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        gap: 1.5rem;
+    }
+    
+    .highlight-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .highlight-icon {
+        flex-shrink: 0;
+        font-size: 1.5rem;
+    }
+    
+    .highlight-text {
+        flex: 1;
+    }
+    
+    .highlight-title {
+        font-weight: 700;
+        font-size: 1rem;
+        color: var(--black);
+        margin-bottom: 0.25rem;
+    }
+    
+    .highlight-desc {
+        font-size: 0.9375rem;
+        color: var(--mid-gray);
+        line-height: 1.6;
+    }
+    
+    /* CTA */
+    .cta-final {
+        background: var(--black);
+        padding: 10rem 6%;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .cta-final::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        background-size: 50px 50px;
+        opacity: 0.3;
+    }
+    
+    .cta-content {
+        max-width: 1000px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .cta-title {
+        font-family: 'Italiana', serif;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 400;
+        color: var(--white);
+        margin-bottom: 2rem;
+        letter-spacing: 4px;
+    }
+    
+    .cta-text {
+        font-size: 1.25rem;
+        font-weight: 300;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 3.5rem;
+    }
+    
+    .cta-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.25rem 3.5rem;
+        background: var(--white);
+        color: var(--black);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.875rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border-radius: 50px;
+        transition: all 0.4s ease;
+    }
+    
+    .cta-button:hover {
+        background: var(--gold);
+        color: var(--white);
+        transform: translateY(-3px);
+        gap: 1.5rem;
+    }
+    
+    /* Footer */
+    footer {
+        background: var(--charcoal);
+        color: var(--white);
+        padding: 6rem 6% 3rem;
+    }
+    
+    .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 4rem;
+        max-width: 1800px;
+        margin: 0 auto 4rem;
+    }
+    
+    .footer-brand h3 {
+        font-family: 'Italiana', serif;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        letter-spacing: 2px;
+    }
+    
+    .footer-description {
+        font-size: 0.9375rem;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .footer-column h4 {
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        color: var(--gold);
+    }
+    
+    .footer-links {
+        list-style: none;
+    }
+    
+    .footer-links li {
+        margin-bottom: 0.75rem;
+    }
+    
+    .footer-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+        color: var(--gold);
+    }
+    
+    .footer-bottom {
+        text-align: center;
+        padding-top: 3rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.875rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+        .photos-grid-3,
+        .info-cards {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .photos-grid-2 {
+            grid-template-columns: 1fr;
+        }
+        
+        .highlights-list {
+            grid-template-columns: 1fr;
+        }
+        
+        .footer-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .nav-menu {
+            display: none;
+        }
+        
+        .photos-grid-3,
+        .info-cards {
+            grid-template-columns: 1fr;
+        }
+        
+        .footer-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+</head>
+<body>
+
+<script>
+// Smooth scrolling for anchor links
+document.addEventListener('DOMContentLoaded', function() {
+    // Smooth scroll behavior
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+    
+    // Scroll to section if coming from external link with hash
+    if (window.location.hash) {
+        setTimeout(function() {
+            const target = document.querySelector(window.location.hash);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 100);
+    }
+});
+</script>
+
+<!-- Navigation -->
+<nav class="nav">
+    <div class="nav-container">
+        <a href="index.html" class="nav-brand">
+            <div class="nav-logo-img">🌿</div>
+            <div class="nav-logo-text">RWANDA</div>
+        </a>
+        
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="{% url 'index' %}">Home</a></li>
+            <li class="nav-item"><a href="#experiences">Experiences</a></li>
+            <li class="nav-item"><a href="{% url 'contact' %}" class="nav-cta">Plan Your Trip</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero-section">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-content">
+        <span class="hero-eyebrow">Extraordinary Adventures</span>
+        <h1 class="hero-title">UNIQUE EXPERIENCES</h1>
+        <p class="hero-subtitle">
+            Discover Rwanda through curated experiences that go beyond traditional tourism—from culinary journeys to luxury escapes, cultural immersions to wildlife adventures.
+        </p>
+    </div>
+</section>
+
+<!-- 01: Food Tours -->
+<section class="experience-section" id="food-tours">
+    <div class="experience-container">
+        <div class="experience-header">
+            <div class="experience-number">01</div>
+            <h2 class="experience-title">FOOD TOURS</h2>
+            <p class="experience-intro">
+                Embark on a culinary journey through Rwanda's rich gastronomic heritage, from bustling markets to traditional kitchens, savoring authentic flavors that tell the story of this vibrant nation.
+            </p>
+        </div>
+        
+        <div class="photos-grid-3">
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/90/59/fd/9059fde4141f08a5bc815b8fda1f4d26.jpg" alt="Traditional Rwandan dishes">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Traditional Dishes</div>
+                    <div class="photo-caption-text">Ugali, isombe, and matoke</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/a0/4c/f4/a04cf4473e5797baf91c3ddec7c915b8.jpg" alt="Street food">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Street Food</div>
+                    <div class="photo-caption-text">Brochettes and sambusas</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/15/88/bd/1588bdbacb7002a58506bd58bd24c99c.jpg" alt="Market visit">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Market Experience</div>
+                    <div class="photo-caption-text">Fresh local ingredients</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/c9/b4/8e/c9b48e9163a33ddf4dd15cacff862ca8.jpg" alt="Grilled meat">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Grilled Specialties</div>
+                    <div class="photo-caption-text">Fresh brochettes</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/ef/97/4b/ef974bce56a6a4f7b6dd060d4529b6e9.jpg" alt="Fresh fish">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Lake Tilapia</div>
+                    <div class="photo-caption-text">Grilled whole fish</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/4c/e3/08/4ce308cdeae22029c5a4072948e8887b.jpg" alt="Rwanda coffee">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Coffee Tasting</div>
+                    <div class="photo-caption-text">World-class beans</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-card-icon">🍽️</div>
+                <h3 class="info-card-title">Market to Table</h3>
+                <p class="info-card-text">
+                    Start at Kimironko Market, exploring fresh produce and spices before visiting traditional restaurants for authentic Rwandan meals.
+                </p>
+                <a href="{% url 'contact' %}" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🥘</div>
+                <h3 class="info-card-title">Cooking Classes</h3>
+                <p class="info-card-text">
+                    Learn to prepare traditional dishes like isombe and matoke from local chefs who share their family recipes and techniques.
+                </p>
+                <a href="{% url 'contact' %}" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">☕</div>
+                <h3 class="info-card-title">Coffee & Tea</h3>
+                <p class="info-card-text">
+                    Taste Rwanda's world-renowned coffee and tea, learning about the cultivation and processing that makes them exceptional.
+                </p>
+                <a href="contact.html" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 02: Women-Only Retreats -->
+<section class="experience-section" id="women-retreats">
+    <div class="experience-container">
+        <div class="experience-header">
+            <div class="experience-number">02</div>
+            <h2 class="experience-title">WOMEN-ONLY RETREATS</h2>
+            <p class="experience-intro">
+                Empowering journeys designed exclusively for women, combining wellness, cultural connection, and personal growth in Rwanda's most serene settings.
+            </p>
+        </div>
+        
+        <div class="photos-grid-3">
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/02/c7/e3/02c7e35760633ce0952da52821d9738a.jpg" alt="Wellness retreat">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Wellness & Relaxation</div>
+                    <div class="photo-caption-text">Yoga by the lake</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/cd/49/2b/cd492b5331c4d46f090f7cc1859d6dc6.jpg" alt="Women's circle">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Sisterhood Circles</div>
+                    <div class="photo-caption-text">Shared stories</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/a5/e8/0e/a5e80e5360e67f9009f7236c19b1738a.jpg" alt="Meditation">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Meditation Sessions</div>
+                    <div class="photo-caption-text">Inner peace</div>
+                </div>
+            </div>
+            
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/3d/30/ac/3d30ac7e5d52f07dc39d3c41cbc1c998.jpg" alt="Spa treatments">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Spa & Massage</div>
+                    <div class="photo-caption-text">Natural treatments</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/79/5c/b7/795cb7119382c2313783aef7349daf16.jpg" alt="Basket weaving">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Craft Workshops</div>
+                    <div class="photo-caption-text">Traditional skills</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/22/5d/0c/225d0cd2468fb0a616e1ac6f4265fc1c.jpg" alt="Nature walks">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Nature Immersion</div>
+                    <div class="photo-caption-text">Peaceful walks</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-card-icon">🧘</div>
+                <h3 class="info-card-title">Daily Wellness</h3>
+                <p class="info-card-text">
+                    Morning yoga, meditation sessions, and guided breathwork in peaceful lakeside settings designed for rejuvenation.
+                </p>
+                <a href="contact.html" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">💆</div>
+                <h3 class="info-card-title">Spa Treatments</h3>
+                <p class="info-card-text">
+                    Traditional Rwandan massage, aromatherapy, and natural beauty treatments using local ingredients.
+                </p>
+                <a href="contact.html" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🤝</div>
+                <h3 class="info-card-title">Women's Cooperatives</h3>
+                <p class="info-card-text">
+                    Meet Rwandan women entrepreneurs, learn basket weaving, and support female-led businesses.
+                </p>
+                <a href="contact.html" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 03: Luxury Rwanda -->
+<section class="experience-section" id="luxury-rwanda">
+    <div class="experience-container">
+        <div class="experience-header">
+            <div class="experience-number">03</div>
+            <h2 class="experience-title">LUXURY RWANDA</h2>
+            <p class="experience-intro">
+                Experience Rwanda in unparalleled elegance with exclusive accommodations, private experiences, and personalized service that redefines luxury travel in Africa.
+            </p>
+        </div>
+        
+        <div class="photos-grid-3">
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/29/4d/d4/294dd4bd97f476fcf79c46668a4a91c4.jpg" alt="Luxury lodge">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Five-Star Lodges</div>
+                    <div class="photo-caption-text">World-class accommodations</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/c3/79/bf/c379bfbe635153ec71c36d20a49e8b65.jpg" alt="Private safari">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Private Safaris</div>
+                    <div class="photo-caption-text">Exclusive wildlife encounters</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/88/89/e3/8889e3109a898d58c64918aecf7e80dc.jpg" alt="Fine dining">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Gourmet Dining</div>
+                    <div class="photo-caption-text">World-class cuisine</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/22/38/d7/2238d70ac2bc8738b116398e56679153.jpg" alt="Luxury pool">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Infinity Pools</div>
+                    <div class="photo-caption-text">Stunning views</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/3d/90/ba/3d90badbe67abdaa6245d8e4a0d9eada.jpg" alt="Spa luxury">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Premium Spa</div>
+                    <div class="photo-caption-text">Indulgent treatments</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/7f/5c/e6/7f5ce6435bd01fc76c106a5dc5be0c7d.jpg" alt="Helicopter view">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Helicopter Tours</div>
+                    <div class="photo-caption-text">Aerial adventures</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-card-icon">🏨</div>
+                <h3 class="info-card-title">Ultra-Luxury Lodges</h3>
+                <p class="info-card-text">
+                    Stay at Bisate Lodge, One&Only Nyungwe House, or Magashi Camp—properties that blend contemporary design with environmental sensitivity.
+                </p>
+                <a href="contact.html" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🚁</div>
+                <h3 class="info-card-title">Helicopter Transfers</h3>
+                <p class="info-card-text">
+                    Travel between destinations by private helicopter, enjoying aerial views of Rwanda's stunning landscapes and saving precious time.
+                </p>
+                <a href="contact.html" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">👔</div>
+                <h3 class="info-card-title">Butler Service</h3>
+                <p class="info-card-text">
+                    Personal concierge and butler services ensure every detail of your journey is perfectly orchestrated to your preferences.
+                </p>
+                <a href="contact.html" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 04: Living the Culture -->
+<section class="experience-section" id="living-culture">
+    <div class="experience-container">
+        <div class="experience-header">
+            <div class="experience-number">04</div>
+            <h2 class="experience-title">LIVING THE CULTURE</h2>
+            <p class="experience-intro">
+                Immerse yourself in authentic Rwandan life through homestays, traditional ceremonies, and deep cultural exchanges that create lasting connections with local communities.
+            </p>
+        </div>
+        
+        <div class="photos-grid-3">
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/68/bf/a3/68bfa3e2fbb8f5742191c32d29a5a2b6.jpg" alt="Traditional dance">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Intore Dance</div>
+                    <div class="photo-caption-text">Warrior dance performances</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/44/c5/dd/44c5dd3ea0e86348ee1f745a7f84853f.jpg" alt="Basket weaving">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Basket Weaving</div>
+                    <div class="photo-caption-text">Traditional peace baskets</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/c1/f5/fd/c1f5fd475bdb4fd508b5ad9e40aa2add.jpg" alt="Village life">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Village Life</div>
+                    <div class="photo-caption-text">Daily rural experiences</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/e6/83/70/e683706dea8d77ca7fa0220ed4b3f2c6.jpg" alt="Traditional clothing">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Cultural Dress</div>
+                    <div class="photo-caption-text">Traditional attire</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/61/75/67/6175678056cc59ba5612752cac8b3b72.jpg" alt="Drumming">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Royal Drums</div>
+                    <div class="photo-caption-text">Sacred Ingoma</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/69/5f/cd/695fcde009e99747a1dad2b0c0bde83f.jpg" alt="Local market">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Community Markets</div>
+                    <div class="photo-caption-text">Local trading</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-card-icon">🏠</div>
+                <h3 class="info-card-title">Homestay Experiences</h3>
+                <p class="info-card-text">
+                    Live with Rwandan families, share meals, help with daily activities, and gain intimate insights into local life.
+                </p>
+                <a href="contact.html" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🥁</div>
+                <h3 class="info-card-title">Traditional Ceremonies</h3>
+                <p class="info-card-text">
+                    Participate in marriage ceremonies, naming events, and community celebrations with local guidance.
+                </p>
+                <a href="contact.html" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🎨</div>
+                <h3 class="info-card-title">Craft Workshops</h3>
+                <p class="info-card-text">
+                    Learn pottery, basket weaving, beadwork, and painting from master artisans in their workshops.
+                </p>
+                <a href="contact.html" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 05: City Biking & Night Walks -->
+<section class="experience-section" id="city-biking">
+    <div class="experience-container">
+        <div class="experience-header">
+            <div class="experience-number">05</div>
+            <h2 class="experience-title">CITY BIKING & NIGHT WALKS</h2>
+            <p class="experience-intro">
+                Explore Kigali's vibrant urban landscape on two wheels or by foot, discovering hidden gems, local hangouts, and the city's transformation after dark.
+            </p>
+        </div>
+        
+        <div class="photos-grid-3">
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/f2/79/38/f279381c9b2e4845a3b3d115a6c222da.jpg" alt="City biking">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Urban Cycling</div>
+                    <div class="photo-caption-text">Explore neighborhoods</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/f1/6d/fc/f16dfcd3c1f23563b130de73aec8412d.jpg" alt="Night markets">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Evening Markets</div>
+                    <div class="photo-caption-text">Bustling nighttime scenes</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/cf/bf/b6/cfbfb6af06c21c4492e1e2d316a05be2.jpg" alt="City streets">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Street Life</div>
+                    <div class="photo-caption-text">Urban energy</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/34/b5/1f/34b51f64416711f9870ed6adf4767f14.jpg" alt="Night lights">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">City Lights</div>
+                    <div class="photo-caption-text">Evening ambiance</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/a6/16/9c/a6169cd27884cef699e0c9b42b0c0e35.jpg" alt="Local cafes">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Café Culture</div>
+                    <div class="photo-caption-text">Coffee stops</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/98/7c/d1/987cd12aea30141505e71b54ba3fd8cd.jpg" alt="Art centers">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Art Spaces</div>
+                    <div class="photo-caption-text">Creative hubs</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-card-icon">🚴</div>
+                <h3 class="info-card-title">Bike Tours</h3>
+                <p class="info-card-text">
+                    Cycle through Kigali's neighborhoods, stopping at artisan workshops, cafes, and viewpoints while learning about the city's remarkable transformation.
+                </p>
+                <a href="contact.html" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🌃</div>
+                <h3 class="info-card-title">Night Walking Tours</h3>
+                <p class="info-card-text">
+                    Discover Kigali's safe, vibrant nightlife—from rooftop bars to live music venues, night markets to late-night eateries.
+                </p>
+                <a href="contact.html" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🎭</div>
+                <h3 class="info-card-title">Cultural Hotspots</h3>
+                <p class="info-card-text">
+                    Visit Inema Arts Centre, Nyamirambo Women's Center, and other cultural spaces that showcase contemporary Rwandan creativity.
+                </p>
+                <a href="contact.html" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 06: Coffee Experiences -->
+<section class="experience-section" id="coffee-experiences">
+    <div class="experience-container">
+        <div class="experience-header">
+            <div class="experience-number">06</div>
+            <h2 class="experience-title">COFFEE EXPERIENCES</h2>
+            <p class="experience-intro">
+                Journey from bean to cup through Rwanda's celebrated coffee regions, learning why Rwandan coffee is considered among the world's finest specialty coffees.
+            </p>
+        </div>
+        
+        <div class="photos-grid-3">
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/05/ac/7a/05ac7ab362378a8fec9738c792da5ab7.jpg" alt="Coffee plantation">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Coffee Farms</div>
+                    <div class="photo-caption-text">High-altitude arabica beans</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/20/9c/ba/209cba4cd081f513dbec03c303229a4a.jpg" alt="Coffee processing">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Processing Station</div>
+                    <div class="photo-caption-text">Washing and drying</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/ac/be/f3/acbef3adcfe947a8db487a7a8c99181d.jpg" alt="Coffee tasting">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Cupping Sessions</div>
+                    <div class="photo-caption-text">Professional tastings</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/c0/51/a7/c051a709c6d81a85dccb1b26c190878b.jpg" alt="Barista">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Barista Training</div>
+                    <div class="photo-caption-text">Expert techniques</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/c6/7b/40/c67b4049176a604c4a7bd683e1b1b7bf.jpg" alt="Coffee roasting">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Roasting Process</div>
+                    <div class="photo-caption-text">Perfect roasts</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/43/e5/d6/43e5d605038291d1855cceb0ff183a59.jpg" alt="Coffee farm views">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Mountain Views</div>
+                    <div class="photo-caption-text">Scenic plantations</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-card-icon">🌱</div>
+                <h3 class="info-card-title">Farm Visits</h3>
+                <p class="info-card-text">
+                    Tour coffee cooperatives, meet farmers, and learn about sustainable cultivation practices at 1,700-2,000m altitude.
+                </p>
+                <a href="contact.html" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">⚙️</div>
+                <h3 class="info-card-title">Processing Tours</h3>
+                <p class="info-card-text">
+                    See the wet-processing method that gives Rwandan coffee its clean, bright flavor profile and fruity notes.
+                </p>
+                <a href="contact.html" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">☕</div>
+                <h3 class="info-card-title">Barista Training</h3>
+                <p class="info-card-text">
+                    Learn professional brewing techniques—pour-over, French press, espresso—from skilled Rwandan baristas.
+                </p>
+                <a href="contact.html" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 07: Adventure & Nature -->
+<section class="experience-section" id="adventure-nature">
+    <div class="experience-container">
+        <div class="experience-header">
+            <div class="experience-number">07</div>
+            <h2 class="experience-title">ADVENTURE & NATURE</h2>
+            <p class="experience-intro">
+                Push your limits with adrenaline-pumping activities across Rwanda's diverse landscapes—from volcano summits to forest canopies, kayaking to mountain biking.
+            </p>
+        </div>
+        
+        <div class="photos-grid-3">
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/84/24/0c/84240cddc9708e0ca5af2fc75c5ff1ae.jpg" alt="Mountain hiking">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Volcano Trekking</div>
+                    <div class="photo-caption-text">Summit volcanic peaks</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/736x/be/33/c9/be33c98bd56d787e0cfc7a1b143babf7.jpg" alt="Zipline">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Zipline</div>
+                    <div class="photo-caption-text">above forest</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/1f/d0/5e/1fd05ee5d2ba983074eca089205b4788.jpg" alt="Kayaking">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Lake Kivu Kayaking</div>
+                    <div class="photo-caption-text">Water adventures</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="photos-grid-2" style="margin-bottom: 4rem;">
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/e9/50/a6/e950a6922fac82df11e78575ecc01c86.jpg" alt="Mountain biking">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Mountain Biking</div>
+                    <div class="photo-caption-text">Thrilling trails</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/f2/11/80/f21180f8c713c6d7f07a82c17f19f2e3.jpg" alt="Nature trails">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Hiking Trails</div>
+                    <div class="photo-caption-text">Scenic routes</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-card-icon">⛰️</div>
+                <h3 class="info-card-title">Mountain Expeditions</h3>
+                <p class="info-card-text">
+                    Summit Mount Karisimbi (4,507m) on a 2-day trek, or hike Mount Bisoke for stunning crater lake views and gorilla territory exploration.
+                </p>
+                <a href="contact.html" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🌉</div>
+                <h3 class="info-card-title">Canopy Adventures</h3>
+                <p class="info-card-text">
+                    Walk the 160m suspension bridge in Nyungwe Forest, 50m above the rainforest floor, spotting primates and birds from above.
+                </p>
+                <a href="contact.html" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🚣</div>
+                <h3 class="info-card-title">Water Sports</h3>
+                <p class="info-card-text">
+                    Kayak across Lake Kivu, paddleboard at sunrise, or take boat tours exploring islands and fishing villages along the shoreline.
+                </p>
+                <a href="contact.html" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 08: Akagera Night Safari -->
+<section class="experience-section" id="night-safari">
+    <div class="experience-container">
+        <div class="experience-header">
+            <div class="experience-number">08</div>
+            <h2 class="experience-title">AKAGERA NIGHT SAFARI EXPERIENCE</h2>
+            <p class="experience-intro">
+                Witness the savanna come alive after dark on exclusive night drives through Akagera National Park, spotting nocturnal predators and rare species invisible during daylight hours.
+            </p>
+        </div>
+        
+        <div class="photos-grid-3">
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/21/33/da/2133dad5194f1921ffff6e6dec8c973d.jpg" alt="Night safari">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">After-Dark Wildlife</div>
+                    <div class="photo-caption-text">Nocturnal predators hunting</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/1e/7d/7d/1e7d7d64ab24aa2635594c5f982edf98.jpg" alt="Lions at night">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Big Cats</div>
+                    <div class="photo-caption-text">Lions and leopards active</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/d4/02/d6/d402d63868c862fd763f4102a6409a02.jpg" alt="Stargazing">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Starry Skies</div>
+                    <div class="photo-caption-text">Milky Way views</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="photos-grid-2" style="margin-bottom: 4rem;">
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/27/25/21/272521a6a36c3c5e714d4fdc904071d4.jpg" alt="Safari vehicle">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Night Drives</div>
+                    <div class="photo-caption-text">Specialized safari vehicles</div>
+                </div>
+            </div>
+            <div class="photo-item">
+                <img src="https://i.pinimg.com/1200x/f1/6a/c1/f16ac1e4e6ee949d2ae09b041103fbed.jpg" alt="Wildlife tracking">
+                <div class="photo-caption">
+                    <div class="photo-caption-title">Expert Tracking</div>
+                    <div class="photo-caption-text">Spotlight searches</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-card-icon">🦁</div>
+                <h3 class="info-card-title">Predator Spotting</h3>
+                <p class="info-card-text">
+                    Lions, leopards, and hyenas are most active at night—witness hunting behaviors rarely seen during day safaris.
+                </p>
+                <a href="contact.html" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🦉</div>
+                <h3 class="info-card-title">Nocturnal Species</h3>
+                <p class="info-card-text">
+                    Spot genets, civets, bushbabies, and nightjars—creatures that only emerge after sunset.
+                </p>
+                <a href="contact.html" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">⭐</div>
+                <h3 class="info-card-title">Stargazing</h3>
+                <p class="info-card-text">
+                    With minimal light pollution, enjoy spectacular views of the Milky Way and Southern Cross constellations.
+                </p>
+                <a href="contact.html" class="learn-more-btn">Learn More <span>→</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-final">
+    <div class="cta-content">
+        <h2 class="cta-title">Create Your Experience</h2>
+        <p class="cta-text">
+            Let Discover Rwanda design your perfect journey. Combine multiple experiences or focus on one—we'll craft an unforgettable adventure tailored to your interests.
+        </p>
+        <a href="{% url 'contact' %}" class="cta-button">
+            Start Planning
+            <span>→</span>
+        </a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <h3>Discover Rwanda</h3>
+            <p class="footer-description">Your gateway to extraordinary journeys through the Land of a Thousand Hills. We curate transformative experiences across Rwanda's pristine wilderness, rare wildlife encounters, and vibrant cultural tapestry.</p>
+        </div>
+        
+        <div class="footer-column">
+            <h4>Experiences</h4>
+            <ul class="footer-links">
+                <li><a href="#food-tours">Food Tours</a></li>
+                <li><a href="#women-retreats">Women-Only Retreats</a></li>
+                <li><a href="#luxury-rwanda">Luxury Rwanda</a></li>
+                <li><a href="#living-culture">Living the Culture</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h4>More Adventures</h4>
+            <ul class="footer-links">
+                <li><a href="#city-biking">City Biking & Walks</a></li>
+                <li><a href="#coffee-experiences">Coffee Experiences</a></li>
+                <li><a href="#adventure-nature">Adventure & Nature</a></li>
+                <li><a href="#night-safari">Night Safari</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h4>Contact</h4>
+            <ul class="footer-links">
+                <li><a href="{% url 'contact' %}">Get In Touch</a></li>
+                <li><a href="tel:+250788123456">+250 788 123 456</a></li>
+                <li><a href="mailto:info@discoverrwanda.com">info@discoverrwanda.com</a></li>
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>&copy; 2026 Discover Rwanda. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>

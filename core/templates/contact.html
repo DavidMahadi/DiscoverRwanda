@@ -1,0 +1,1672 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Discover Rwanda | Book Your Journey</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Bodoni+Moda:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ================================
+   PREMIUM BOOKING PAGE STYLES
+   ================================ */
+
+/* === BASE & RESET === */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-black: #000000;
+    --dark-gray: #1a1a1a;
+    --medium-gray: #666666;
+    --light-gray: #e5e5e5;
+    --soft-white: #fafafa;
+    --pure-white: #ffffff;
+}
+
+body{
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--soft-white);
+    color: #1a1a1a;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* === NAVIGATION === */
+.nav{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav.scrolled{
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+}
+
+.nav-container{
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+}
+
+.nav-brand{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--primary-black);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 2px;
+    font-family: 'Bodoni Moda', serif;
+}
+
+.nav-brand span{
+    font-size: 24px;
+}
+
+.nav-menu{
+    list-style: none;
+    display: flex;
+    gap: 35px;
+    align-items: center;
+}
+
+.nav-item a{
+    text-decoration: none;
+    color: #2a2a2a;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    position: relative;
+    padding: 8px 0;
+    transition: color 0.3s ease;
+}
+
+.nav-item a::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-black);
+    transition: width 0.3s ease;
+}
+
+.nav-item a:hover{
+    color: var(--primary-black);
+}
+
+.nav-item a:hover::after{
+    width: 100%;
+}
+
+/* === HERO SECTION === */
+.booking-hero{
+    position: relative;
+    height: 65vh;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 70px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+}
+
+.hero-background{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1523805009345-7448845a9e53?q=80&w=2000') center/cover;
+    opacity: 0.2;
+}
+
+.hero-overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, transparent 0%, rgba(10, 10, 10, 0.3) 100%);
+}
+
+.hero-content{
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    max-width: 900px;
+    padding: 0 30px;
+    animation: fadeInUp 1s ease;
+}
+
+.hero-badge{
+    display: inline-block;
+    padding: 10px 24px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    color: white;
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+}
+
+.hero-content h1{
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+}
+
+.hero-content p{
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.8;
+    font-weight: 300;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+@keyframes fadeInUp{
+    from{
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* === MAIN BOOKING SECTION === */
+.booking-section{
+    padding: 100px 0;
+    position: relative;
+}
+
+.booking-container{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+/* Progress Indicator */
+.progress-bar{
+    position: sticky;
+    top: 90px;
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    margin-bottom: 60px;
+    z-index: 100;
+}
+
+.progress-steps{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.progress-line{
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #e5e7eb;
+    z-index: -1;
+}
+
+.progress-line-fill{
+    height: 100%;
+    background: var(--primary-black);
+    width: 0%;
+    transition: width 0.6s ease;
+}
+
+.progress-step{
+    text-align: center;
+    flex: 1;
+}
+
+.step-circle{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    font-weight: 700;
+    font-size: 14px;
+    color: #999;
+    transition: all 0.4s ease;
+}
+
+.progress-step.active .step-circle{
+    background: var(--primary-black);
+    border-color: var(--primary-black);
+    color: white;
+    transform: scale(1.1);
+}
+
+.step-label{
+    font-size: 12px;
+    font-weight: 600;
+    color: #999;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+}
+
+.progress-step.active .step-label{
+    color: var(--primary-black);
+}
+
+/* === FORM SECTIONS === */
+.booking-form{
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+}
+
+.form-section{
+    background: white;
+    padding: 50px;
+    border-radius: 24px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form-section::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #000000 0%, #333333 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.form-section:hover::before{
+    opacity: 1;
+}
+
+.form-section:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.1);
+}
+
+.section-number{
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    font-size: 80px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.03);
+    font-family: 'Playfair Display', serif;
+    pointer-events: none;
+}
+
+.form-section-title{
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--primary-black);
+    letter-spacing: -0.5px;
+}
+
+.form-section-subtitle{
+    color: #666;
+    font-size: 15px;
+    margin-bottom: 40px;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+.form-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+/* === FORM INPUTS === */
+.form-group{
+    position: relative;
+}
+
+label{
+    display: block;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[type="number"],
+select,
+textarea{
+    width: 100%;
+    padding: 16px 20px;
+    border: 2px solid #a0a0a0;
+    border-radius: 12px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    background: white;
+    transition: all 0.3s ease;
+    color: #1a1a1a;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    outline: none;
+    border-color: var(--primary-black);
+    background: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+input:hover,
+select:hover,
+textarea:hover{
+    border-color: #666;
+}
+
+textarea{
+    min-height: 150px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+::placeholder{
+    color: #555;
+    opacity: 1;
+    font-weight: 400;
+}
+
+/* === TRAVEL TYPE CARDS === */
+.travel-type-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.travel-type-card{
+    position: relative;
+    padding: 30px 20px;
+    border: 2px solid #e8e8e8;
+    border-radius: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: white;
+}
+
+.travel-type-card::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #000000 0%, #333333 100%);
+    opacity: 0;
+    border-radius: 14px;
+    transition: opacity 0.4s ease;
+}
+
+.travel-type-card:hover{
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--primary-black);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.travel-type-card.selected{
+    border-color: var(--primary-black);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.02) 100%);
+    transform: translateY(-4px);
+}
+
+.travel-type-card .icon{
+    font-size: 36px;
+    margin-bottom: 15px;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+.travel-type-card .label{
+    font-weight: 600;
+    font-size: 14px;
+    color: #2a2a2a;
+    position: relative;
+    z-index: 1;
+}
+
+.travel-type-card .desc{
+    font-size: 12px;
+    color: #777;
+    margin-top: 8px;
+    line-height: 1.4;
+    position: relative;
+    z-index: 1;
+}
+
+/* === ACTIVITY CATEGORIES === */
+.activity-categories{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 25px 0 35px;
+    padding-bottom: 25px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.category-btn{
+    padding: 12px 24px;
+    border: 2px solid #e8e8e8;
+    border-radius: 50px;
+    background: white;
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Inter', sans-serif;
+}
+
+.category-btn .icon{
+    font-size: 16px;
+}
+
+.category-btn:hover{
+    border-color: var(--primary-black);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.category-btn.active{
+    background: var(--primary-black);
+    color: white;
+    border-color: var(--primary-black);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* === ACTIVITIES LIST === */
+.activities-list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.activity-item{
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.activity-item input[type="checkbox"]{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    margin: 0;
+}
+
+.activity-item label{
+    display: block;
+    padding: 14px 18px;
+    border: 2px solid #e8e8e8;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+    font-weight: 500;
+    font-size: 14px;
+    color: #2a2a2a;
+    text-transform: none;
+    letter-spacing: 0;
+    margin: 0;
+}
+
+.activity-item input[type="checkbox"]:checked + label{
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+    border-color: var(--primary-black);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.activity-item label:hover{
+    border-color: var(--primary-black);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* === ACCOMMODATION CARDS === */
+.accommodation-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.accommodation-card{
+    position: relative;
+    padding: 35px 20px;
+    border: 2px solid #e8e8e8;
+    border-radius: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: white;
+    overflow: hidden;
+}
+
+.accommodation-card::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #000000 0%, #666666 100%);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.accommodation-card:hover::before{
+    transform: scaleX(1);
+}
+
+.accommodation-card:hover{
+    transform: translateY(-8px);
+    border-color: var(--primary-black);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.accommodation-card.selected{
+    border-color: var(--primary-black);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.02) 100%);
+}
+
+.accommodation-card .icon{
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.accommodation-card .title{
+    font-weight: 700;
+    font-size: 16px;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.accommodation-card .price{
+    font-size: 13px;
+    color: #666;
+    font-weight: 500;
+}
+
+/* === BUDGET SLIDER === */
+.budget-box{
+    margin-top: 30px;
+}
+
+.budget-display{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.budget-amount{
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 600;
+    color: var(--primary-black);
+}
+
+.budget-label{
+    font-size: 13px;
+    color: #777;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 5px;
+}
+
+input[type="range"]{
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    background: linear-gradient(to right, #000000 0%, #666666 100%);
+    outline: none;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+input[type="range"]:hover{
+    opacity: 1;
+}
+
+input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    appearance: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid var(--primary-black);
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover{
+    transform: scale(1.2);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+}
+
+input[type="range"]::-moz-range-thumb{
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid var(--primary-black);
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.budget-markers{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    font-size: 12px;
+    color: #999;
+    font-weight: 500;
+}
+
+/* === SUBMIT SECTION === */
+.submit-section{
+    text-align: center;
+    margin-top: 60px;
+}
+
+.submit-button{
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+    color: white;
+    border: none;
+    padding: 22px 70px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-button::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+.submit-button:hover::before{
+    left: 100%;
+}
+
+.submit-button:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.submit-button:active{
+    transform: translateY(-2px);
+}
+
+/* === TRUST BAR === */
+.trust-bar{
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    color: white;
+    padding: 70px 30px;
+    margin-top: 100px;
+    position: relative;
+    overflow: hidden;
+}
+
+.trust-bar::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+}
+
+.trust-grid{
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.trust-item{
+    padding: 30px;
+}
+
+.trust-item .icon{
+    font-size: 48px;
+    margin-bottom: 20px;
+    display: inline-block;
+    opacity: 0.9;
+}
+
+.trust-item h4{
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    font-family: 'Playfair Display', serif;
+}
+
+.trust-item p{
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.7;
+}
+
+/* === FOOTER === */
+.footer{
+    background: #0a0a0a;
+    color: #ccc;
+    padding: 80px 30px 40px;
+}
+
+.footer-grid{
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 50px;
+    margin-bottom: 60px;
+}
+
+.footer-col h4{
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 0.5px;
+}
+
+.footer-col p{
+    font-size: 14px;
+    line-height: 1.8;
+    color: #999;
+}
+
+.footer-col a{
+    display: block;
+    color: #aaa;
+    text-decoration: none;
+    margin-bottom: 12px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    padding-left: 0;
+}
+
+.footer-col a:hover{
+    color: #ffffff;
+    padding-left: 8px;
+}
+
+.footer-bottom{
+    text-align: center;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #777;
+    font-size: 13px;
+}
+
+/* === RESPONSIVE === */
+@media(max-width: 968px){
+    .nav-menu{
+        display: none;
+    }
+    
+    .hero-content h1{
+        font-size: 42px;
+    }
+    
+    .form-grid{
+        grid-template-columns: 1fr;
+    }
+    
+    .travel-type-grid{
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .activities-list{
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .accommodation-grid{
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .trust-grid{
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .footer-grid{
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .form-section{
+        padding: 35px 25px;
+    }
+    
+    .section-number{
+        font-size: 60px;
+        right: 20px;
+    }
+}
+
+@media(max-width: 640px){
+    .hero-content h1{
+        font-size: 32px;
+    }
+    
+    .hero-content p{
+        font-size: 16px;
+    }
+    
+    .travel-type-grid,
+    .activities-list,
+    .accommodation-grid{
+        grid-template-columns: 1fr;
+    }
+    
+    .progress-steps{
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .category-btn{
+        font-size: 13px;
+        padding: 10px 18px;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+    <div class="nav-container">
+        <a href="{% url 'index' %}" class="nav-brand">
+            <span>🌿</span> DISCOVER RWANDA
+        </a>
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="{% url 'index' %}">Home</a></li>
+            <li class="nav-item"><a href="{% url 'things_to_do' %}">Things to Do</a></li>
+            <li class="nav-item"><a href="{% url 'travel_types' %}">Travel Types</a></li>
+            <li class="nav-item"><a href="{% url 'contact' %}">Book Now</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="booking-hero">
+    <div class="hero-background"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-badge">Bespoke Rwanda Experiences</div>
+        <h1>Plan Your Journey</h1>
+        <p>Let us craft a personalized itinerary tailored to your dreams. From gorilla trekking to luxury safaris, every detail curated for an unforgettable African adventure.</p>
+    </div>
+</section>
+
+<!-- Booking Section -->
+<section class="booking-section">
+    <div class="booking-container">
+        
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-steps">
+                <div class="progress-line">
+                    <div class="progress-line-fill"></div>
+                </div>
+                <div class="progress-step active">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Personal</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">Dates</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">Preferences</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-circle">4</div>
+                    <div class="step-circle">Finalize</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Booking Form -->
+        <form method="POST" action="{% url 'contact' %}" class="booking-form">
+            {% csrf_token %}
+
+            <!-- Personal Information -->
+            <div class="form-section">
+                <div class="section-number">01</div>
+                <h3 class="form-section-title">Personal Information</h3>
+                <p class="form-section-subtitle">Tell us about yourself so we can personalize your Rwanda experience</p>
+                <div class="form-grid">
+                    <div class="form-group">
+                        {{ form.first_name.label_tag }}
+                        {{ form.first_name }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.last_name.label_tag }}
+                        {{ form.last_name }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.email.label_tag }}
+                        {{ form.email }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.phone.label_tag }}
+                        {{ form.phone }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.country.label_tag }}
+                        {{ form.country }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.travelers.label_tag }}
+                        {{ form.travelers }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Travel Style -->
+            <div class="form-section">
+                <div class="section-number">02</div>
+                <h3 class="form-section-title">Travel Style</h3>
+                <p class="form-section-subtitle">What type of experience resonates with you?</p>
+                <div class="travel-type-grid">
+                    <div class="travel-type-card" onclick="selectTravelType(this, 'solo')">
+                        <span class="icon">🎒</span>
+                        <div class="label">Solo Explorer</div>
+                        <div class="desc">Independent adventure</div>
+                    </div>
+                    <div class="travel-type-card" onclick="selectTravelType(this, 'couple')">
+                        <span class="icon">💑</span>
+                        <div class="label">Romantic Escape</div>
+                        <div class="desc">Couples & honeymoons</div>
+                    </div>
+                    <div class="travel-type-card" onclick="selectTravelType(this, 'family')">
+                        <span class="icon">👨‍👩‍👧‍👦</span>
+                        <div class="label">Family Journey</div>
+                        <div class="desc">Multi-generational</div>
+                    </div>
+                    <div class="travel-type-card" onclick="selectTravelType(this, 'group')">
+                        <span class="icon">👥</span>
+                        <div class="label">Group Adventure</div>
+                        <div class="desc">Friends & parties</div>
+                    </div>
+                </div>
+                {{ form.travel_type }}
+            </div>
+
+            <!-- Travel Dates -->
+            <div class="form-section">
+                <div class="section-number">03</div>
+                <h3 class="form-section-title">Travel Dates</h3>
+                <p class="form-section-subtitle">When would you like to visit the Land of a Thousand Hills?</p>
+                <div class="form-grid">
+                    <div class="form-group">
+                        {{ form.start_date.label_tag }}
+                        {{ form.start_date }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.end_date.label_tag }}
+                        {{ form.end_date }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.date_flexibility.label_tag }}
+                        {{ form.date_flexibility }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.duration.label_tag }}
+                        {{ form.duration }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activities -->
+            <div class="form-section">
+                <div class="section-number">04</div>
+                <h3 class="form-section-title">Activities & Experiences</h3>
+                <p class="form-section-subtitle">Select all that interest you</p>
+                
+                <!-- Category Filters -->
+                <div class="activity-categories">
+                    <button type="button" class="category-btn active" data-category="all">
+                        <span class="icon">✨</span> All Activities
+                    </button>
+                    <button type="button" class="category-btn" data-category="wildlife">
+                        <span class="icon">🦍</span> Gorilla Trekking
+                    </button>
+                    <button type="button" class="category-btn" data-category="safari">
+                        <span class="icon">🦁</span> Wildlife Safari
+                    </button>
+                    <button type="button" class="category-btn" data-category="cultural">
+                        <span class="icon">🎭</span> Cultural Tours
+                    </button>
+                    <button type="button" class="category-btn" data-category="nature">
+                        <span class="icon">🌿</span> Hiking & Nature
+                    </button>
+                    <button type="button" class="category-btn" data-category="lake">
+                        <span class="icon">🏖️</span> Lake Kivu
+                    </button>
+                    <button type="button" class="category-btn" data-category="city">
+                        <span class="icon">🏙️</span> Kigali City
+                    </button>
+                </div>
+
+                <!-- Activities List -->
+                <div class="activities-list">
+                    <!-- Wildlife Activities -->
+                    <div class="activity-item" data-category="wildlife">
+                        <input type="checkbox" id="gorilla-trekking" name="activities" value="gorilla-trekking">
+                        <label for="gorilla-trekking">Gorilla Trekking</label>
+                    </div>
+                    <div class="activity-item" data-category="wildlife">
+                        <input type="checkbox" id="golden-monkey" name="activities" value="golden-monkey">
+                        <label for="golden-monkey">Golden Monkey Tracking</label>
+                    </div>
+                    <div class="activity-item" data-category="wildlife">
+                        <input type="checkbox" id="chimpanzee" name="activities" value="chimpanzee">
+                        <label for="chimpanzee">Chimpanzee Trekking</label>
+                    </div>
+
+                    <!-- Safari Activities -->
+                    <div class="activity-item" data-category="safari">
+                        <input type="checkbox" id="big-five" name="activities" value="big-five">
+                        <label for="big-five">Big Five Safari</label>
+                    </div>
+                    <div class="activity-item" data-category="safari">
+                        <input type="checkbox" id="boat-safari" name="activities" value="boat-safari">
+                        <label for="boat-safari">Boat Safari</label>
+                    </div>
+                    <div class="activity-item" data-category="safari">
+                        <input type="checkbox" id="bird-watching" name="activities" value="bird-watching">
+                        <label for="bird-watching">Bird Watching</label>
+                    </div>
+
+                    <!-- Nature Activities -->
+                    <div class="activity-item" data-category="nature">
+                        <input type="checkbox" id="canopy-walk" name="activities" value="canopy-walk">
+                        <label for="canopy-walk">Canopy Walk</label>
+                    </div>
+                    <div class="activity-item" data-category="nature">
+                        <input type="checkbox" id="guided-walks" name="activities" value="guided-walks">
+                        <label for="guided-walks">Guided Nature Walks</label>
+                    </div>
+                    <div class="activity-item" data-category="nature">
+                        <input type="checkbox" id="waterfall-hikes" name="activities" value="waterfall-hikes">
+                        <label for="waterfall-hikes">Waterfall Hikes</label>
+                    </div>
+                    <div class="activity-item" data-category="nature">
+                        <input type="checkbox" id="volcano-hiking" name="activities" value="volcano-hiking">
+                        <label for="volcano-hiking">Volcano Hiking</label>
+                    </div>
+                    <div class="activity-item" data-category="nature">
+                        <input type="checkbox" id="mountain-climbing" name="activities" value="mountain-climbing">
+                        <label for="mountain-climbing">Mountain Climbing</label>
+                    </div>
+
+                    <!-- Lake Kivu Activities -->
+                    <div class="activity-item" data-category="lake">
+                        <input type="checkbox" id="kayaking" name="activities" value="kayaking">
+                        <label for="kayaking">Kayaking</label>
+                    </div>
+                    <div class="activity-item" data-category="lake">
+                        <input type="checkbox" id="congo-nile" name="activities" value="congo-nile">
+                        <label for="congo-nile">Congo Nile Trail</label>
+                    </div>
+                    <div class="activity-item" data-category="lake">
+                        <input type="checkbox" id="sport-fishing" name="activities" value="sport-fishing">
+                        <label for="sport-fishing">Sport Fishing</label>
+                    </div>
+                    <div class="activity-item" data-category="lake">
+                        <input type="checkbox" id="zip-lining" name="activities" value="zip-lining">
+                        <label for="zip-lining">Zip Lining</label>
+                    </div>
+                    <div class="activity-item" data-category="lake">
+                        <input type="checkbox" id="sunset-cruise" name="activities" value="sunset-cruise">
+                        <label for="sunset-cruise">Sunset Cruise</label>
+                    </div>
+                    <div class="activity-item" data-category="lake">
+                        <input type="checkbox" id="swimming-beach" name="activities" value="swimming-beach">
+                        <label for="swimming-beach">Swimming & Beach</label>
+                    </div>
+                    <div class="activity-item" data-category="lake">
+                        <input type="checkbox" id="spa-wellness" name="activities" value="spa-wellness">
+                        <label for="spa-wellness">Spa & Wellness</label>
+                    </div>
+                    <div class="activity-item" data-category="lake">
+                        <input type="checkbox" id="yoga-meditation" name="activities" value="yoga-meditation">
+                        <label for="yoga-meditation">Yoga & Meditation</label>
+                    </div>
+                    <div class="activity-item" data-category="lake">
+                        <input type="checkbox" id="hot-springs" name="activities" value="hot-springs">
+                        <label for="hot-springs">Hot Springs</label>
+                    </div>
+                    <div class="activity-item" data-category="lake">
+                        <input type="checkbox" id="golf" name="activities" value="golf">
+                        <label for="golf">Golf</label>
+                    </div>
+
+                    <!-- Cultural Activities -->
+                    <div class="activity-item" data-category="cultural">
+                        <input type="checkbox" id="genocide-memorial" name="activities" value="genocide-memorial">
+                        <label for="genocide-memorial">Genocide Memorial</label>
+                    </div>
+                    <div class="activity-item" data-category="cultural">
+                        <input type="checkbox" id="cultural-villages" name="activities" value="cultural-villages">
+                        <label for="cultural-villages">Cultural Villages</label>
+                    </div>
+                    <div class="activity-item" data-category="cultural">
+                        <input type="checkbox" id="traditional-dance" name="activities" value="traditional-dance">
+                        <label for="traditional-dance">Traditional Dance</label>
+                    </div>
+                    <div class="activity-item" data-category="cultural">
+                        <input type="checkbox" id="cooking-classes" name="activities" value="cooking-classes">
+                        <label for="cooking-classes">Cooking Classes</label>
+                    </div>
+                    <div class="activity-item" data-category="cultural">
+                        <input type="checkbox" id="art-workshops" name="activities" value="art-workshops">
+                        <label for="art-workshops">Art Workshops</label>
+                    </div>
+                    <div class="activity-item" data-category="cultural">
+                        <input type="checkbox" id="museums-galleries" name="activities" value="museums-galleries">
+                        <label for="museums-galleries">Museums & Galleries</label>
+                    </div>
+                    <div class="activity-item" data-category="cultural">
+                        <input type="checkbox" id="coffee-tours" name="activities" value="coffee-tours">
+                        <label for="coffee-tours">Coffee Tours</label>
+                    </div>
+                    <div class="activity-item" data-category="cultural">
+                        <input type="checkbox" id="tea-plantations" name="activities" value="tea-plantations">
+                        <label for="tea-plantations">Tea Plantations</label>
+                    </div>
+                    <div class="activity-item" data-category="cultural">
+                        <input type="checkbox" id="market-tours" name="activities" value="market-tours">
+                        <label for="market-tours">Market Tours</label>
+                    </div>
+
+                    <!-- Kigali City Activities -->
+                    <div class="activity-item" data-category="city">
+                        <input type="checkbox" id="kigali-tour" name="activities" value="kigali-tour">
+                        <label for="kigali-tour">Kigali City Tour</label>
+                    </div>
+                    <div class="activity-item" data-category="city">
+                        <input type="checkbox" id="fine-dining" name="activities" value="fine-dining">
+                        <label for="fine-dining">Fine Dining</label>
+                    </div>
+                    <div class="activity-item" data-category="city">
+                        <input type="checkbox" id="street-food" name="activities" value="street-food">
+                        <label for="street-food">Street Food Tours</label>
+                    </div>
+                    <div class="activity-item" data-category="city">
+                        <input type="checkbox" id="nightlife-music" name="activities" value="nightlife-music">
+                        <label for="nightlife-music">Nightlife & Music</label>
+                    </div>
+                    <div class="activity-item" data-category="city">
+                        <input type="checkbox" id="photography-tours" name="activities" value="photography-tours">
+                        <label for="photography-tours">Photography Tours</label>
+                    </div>
+                    <div class="activity-item" data-category="city">
+                        <input type="checkbox" id="shopping" name="activities" value="shopping">
+                        <label for="shopping">Shopping</label>
+                    </div>
+                </div>
+                
+            </div>
+
+            <!-- Accommodation -->
+            <div class="form-section">
+                <div class="section-number">05</div>
+                <h3 class="form-section-title">Accommodation Preferences</h3>
+                <p class="form-section-subtitle">Choose your preferred level of comfort</p>
+                <div class="accommodation-grid">
+                    <div class="accommodation-card" onclick="selectAccommodation(this, 'luxury')">
+                        <div class="icon">⭐</div>
+                        <div class="title">5-Star Luxury</div>
+                        <div class="price">$500+ per night</div>
+                    </div>
+                    <div class="accommodation-card" onclick="selectAccommodation(this, 'boutique')">
+                        <div class="icon">🏨</div>
+                        <div class="title">Boutique Lodges</div>
+                        <div class="price">$250-500 per night</div>
+                    </div>
+                    <div class="accommodation-card" onclick="selectAccommodation(this, 'mid-range')">
+                        <div class="icon">🏡</div>
+                        <div class="title">Mid-Range</div>
+                        <div class="price">$100-250 per night</div>
+                    </div>
+                    <div class="accommodation-card" onclick="selectAccommodation(this, 'budget')">
+                        <div class="icon">🎪</div>
+                        <div class="title">Budget-Friendly</div>
+                        <div class="price">Under $100 per night</div>
+                    </div>
+                </div>
+                {{ form.accommodation }}
+            </div>
+
+            <!-- Budget -->
+            <div class="form-section">
+                <div class="section-number">06</div>
+                <h3 class="form-section-title">Budget Range</h3>
+                <p class="form-section-subtitle">What's your estimated budget per person (USD)?</p>
+                <div class="budget-box">
+                    <div class="budget-display">
+                        <div class="budget-amount" id="budgetDisplay">$5,000</div>
+                        <div class="budget-label">Per Person</div>
+                    </div>
+                    {{ form.budget }}
+                    <div class="budget-markers">
+                        <span>$1,000</span>
+                        <span>$5,000</span>
+                        <span>$10,000</span>
+                        <span>$15,000+</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Special Requests -->
+            <div class="form-section">
+                <div class="section-number">07</div>
+                <h3 class="form-section-title">Special Requests & Additional Information</h3>
+                <p class="form-section-subtitle">Tell us more about your dream Rwanda journey</p>
+                {{ form.special_requests }}
+            </div>
+
+            <!-- Submit -->
+            <div class="submit-section">
+                <button type="submit" class="submit-button">SUBMIT BOOKING REQUEST →</button>
+                <p style="margin-top: 20px; color: #777; font-size: 13px;">We'll respond within 24 hours with a personalized itinerary</p>
+            </div>
+
+        </form>
+    </div>
+</section>
+
+<!-- Trust Bar -->
+<div class="trust-bar">
+    <div class="trust-grid">
+        <div class="trust-item">
+            <div class="icon">⚡</div>
+            <h4>Quick Response</h4>
+            <p>We respond within 24 hours with a personalized itinerary proposal crafted by our expert team.</p>
+        </div>
+        <div class="trust-item">
+            <div class="icon">🎯</div>
+            <h4>Expert Planning</h4>
+            <p>Over 10 years of experience crafting unforgettable Rwanda adventures with local insights.</p>
+        </div>
+        <div class="trust-item">
+            <div class="icon">💯</div>
+            <h4>No Obligation</h4>
+            <p>Completely free consultation. Book only when you're ready and confident in your itinerary.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>Discover Rwanda</h4>
+            <p>We curate transformative experiences across Rwanda's pristine wilderness, rare wildlife encounters, and vibrant culture. Let us turn your African dream into reality.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Explore</h4>
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'things_to_do' %}">Things to Do</a>
+            <a href="{% url 'travel_types' %}">Travel Types</a>
+            <a href="{% url 'contact' %}">Book Now</a>
+        </div>
+        <div class="footer-col">
+            <h4>Support</h4>
+            <a href="#">FAQ</a>
+            <a href="#">Travel Guide</a>
+            <a href="#">Visa Information</a>
+            <a href="#">Terms & Conditions</a>
+        </div>
+        <div class="footer-col">
+            <h4>Contact</h4>
+            <a href="mailto:info@discoverrwanda.com">info@discoverrwanda.com</a>
+            <a href="tel:+250788123456">+250 788 123 456</a>
+            <a href="#">Kigali, Rwanda</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        © 2026 Discover Rwanda. All rights reserved. Crafted with love for Africa.
+    </div>
+</footer>
+
+<script>
+// Navigation scroll effect
+window.addEventListener('scroll', function() {
+    const nav = document.querySelector('.nav');
+    if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+    } else {
+        nav.classList.remove('scrolled');
+    }
+});
+
+// Travel Type Selection
+function selectTravelType(card, type) {
+    document.querySelectorAll('.travel-type-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    document.querySelector('[name="travel_type"]').value = type;
+}
+
+// Accommodation Selection
+function selectAccommodation(card, type) {
+    document.querySelectorAll('.accommodation-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    document.querySelector('[name="accommodation"]').value = type;
+}
+
+// Budget Slider
+const budgetSlider = document.querySelector('[name="budget"]');
+const budgetDisplay = document.getElementById('budgetDisplay');
+
+if (budgetSlider) {
+    budgetSlider.addEventListener('input', function() {
+        const value = parseInt(this.value);
+        budgetDisplay.textContent = '$' + value.toLocaleString();
+    });
+}
+
+// Category Filter for Activities
+const categoryButtons = document.querySelectorAll('.category-btn');
+const activityItems = document.querySelectorAll('.activity-item');
+
+categoryButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        // Remove active class from all buttons
+        categoryButtons.forEach(btn => btn.classList.remove('active'));
+        
+        // Add active class to clicked button
+        this.classList.add('active');
+        
+        // Get selected category
+        const selectedCategory = this.dataset.category;
+        
+        // Filter activities
+        activityItems.forEach(item => {
+            if (selectedCategory === 'all') {
+                item.style.display = 'block';
+            } else if (item.dataset.category === selectedCategory) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+});
+
+// Progress Bar Animation (scroll-based)
+window.addEventListener('scroll', function() {
+    const sections = document.querySelectorAll('.form-section');
+    const progressSteps = document.querySelectorAll('.progress-step');
+    const progressFill = document.querySelector('.progress-line-fill');
+    
+    let currentSection = 0;
+    const scrollPosition = window.scrollY + window.innerHeight / 2;
+    
+    sections.forEach((section, index) => {
+        const sectionTop = section.offsetTop;
+        const sectionBottom = sectionTop + section.offsetHeight;
+        
+        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+            currentSection = Math.min(index, 3); // Max 4 steps (0-3)
+        }
+    });
+    
+    progressSteps.forEach((step, index) => {
+        if (index <= currentSection) {
+            step.classList.add('active');
+        } else {
+            step.classList.remove('active');
+        }
+    });
+    
+    const fillPercentage = (currentSection / (progressSteps.length - 1)) * 100;
+    progressFill.style.width = fillPercentage + '%';
+});
+
+// Form Section Animations
+const observerOptions = {
+    threshold: 0.2,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.form-section').forEach(section => {
+    section.style.opacity = '0';
+    section.style.transform = 'translateY(30px)';
+    section.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+    observer.observe(section);
+});
+
+// Form validation with activities check
+document.querySelector('.booking-form').addEventListener('submit', function(e) {
+    // Check if at least one activity is selected
+    const selectedActivities = document.querySelectorAll('input[name="activities"]:checked');
+    
+    if (selectedActivities.length === 0) {
+        e.preventDefault();
+        
+        // Scroll to activities section
+        const activitiesSection = document.querySelector('.form-section:nth-child(4)');
+        activitiesSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Highlight the section
+        activitiesSection.style.border = '3px solid #ff4444';
+        setTimeout(() => {
+            activitiesSection.style.border = '';
+        }, 2000);
+        
+        alert('Please select at least one activity that interests you.');
+        return false;
+    }
+    
+    // Check other required fields
+    const requiredInputs = this.querySelectorAll('input[required], select[required], textarea[required]');
+    for (let input of requiredInputs) {
+        if (!input.value) {
+            e.preventDefault();
+            input.focus();
+            input.style.borderColor = '#ff4444';
+            setTimeout(() => {
+                input.style.borderColor = '';
+            }, 2000);
+            alert('Please complete all required fields: ' + (input.labels[0]?.textContent || 'Missing field'));
+            return false;
+        }
+    }
+    
+    // If all validations pass, show loading state
+    const submitBtn = this.querySelector('.submit-button');
+    submitBtn.textContent = 'SUBMITTING...';
+    submitBtn.style.opacity = '0.7';
+    submitBtn.disabled = true;
+});
+
+// Set fields as required (except special requests)
+document.querySelectorAll('input, select, textarea').forEach(el => {
+    // Skip activities checkboxes (we validate manually) and special requests textarea
+    if (el.name === 'activities' || el.name === 'special_requests') {
+        return;
+    }
+    // Skip hidden inputs for travel_type and accommodation
+    if (el.type === 'hidden') {
+        return;
+    }
+    el.setAttribute('required', 'required');
+});
+
+// Add visual feedback for activity selection
+document.querySelectorAll('input[name="activities"]').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+        const selectedCount = document.querySelectorAll('input[name="activities"]:checked').length;
+        const activitySection = document.querySelector('.form-section:nth-child(4)');
+        
+        if (selectedCount > 0) {
+            activitySection.style.borderLeft = '4px solid #28a745';
+        } else {
+            activitySection.style.borderLeft = '';
+        }
+    });
+});
+
+// Show selected activities count
+function updateActivityCount() {
+    const selectedCount = document.querySelectorAll('input[name="activities"]:checked').length;
+    const subtitle = document.querySelector('.form-section:nth-child(4) .form-section-subtitle');
+    
+    if (selectedCount > 0) {
+        subtitle.textContent = `Select all that interest you (${selectedCount} selected)`;
+        subtitle.style.color = '#28a745';
+        subtitle.style.fontWeight = '600';
+    } else {
+        subtitle.textContent = 'Select all that interest you (Please select at least one)';
+        subtitle.style.color = '#ff4444';
+        subtitle.style.fontWeight = '600';
+    }
+}
+
+// Update count on checkbox change
+document.querySelectorAll('input[name="activities"]').forEach(checkbox => {
+    checkbox.addEventListener('change', updateActivityCount);
+});
+
+// Initial count update
+updateActivityCount();
+
+// Set fields as required (except activities and special requests)
+document.querySelectorAll('input, select, textarea').forEach(el => {
+    // Skip activities checkboxes and special requests textarea
+    if (el.name === 'activities' || el.name === 'special_requests') {
+        return;
+    }
+    el.setAttribute('required', 'required');
+});
+
+// Duration calculator
+const start = document.querySelector('#id_start_date');
+const end = document.querySelector('#id_end_date');
+const duration = document.querySelector('#id_duration');
+
+function calcDuration() {
+    if (start && end && duration) {
+        if (start.value && end.value) {
+            const s = new Date(start.value);
+            const e = new Date(end.value);
+
+            if (e >= s) {
+                let diff = (e - s) / (1000 * 60 * 60 * 24);
+                if (diff === 0) diff = 1;
+                duration.value = diff;
+            }
+        }
+    }
+}
+
+if (start && end) {
+    start.addEventListener('change', calcDuration);
+    end.addEventListener('change', calcDuration);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Booking - Rwanda Dashboard</title>
+    <style>
+        /* Sidebar & Dashboard Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background-color: #f8f9fa;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #1b1b1b;
+            color: white;
+            height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .sidebar h2 {
+            font-size: 24px;
+            margin-bottom: 40px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin: 20px 0;
+        }
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar ul li a:hover {
+            color: #4fceac;
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            padding: 40px;
+        }
+        .main h1 {
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        /* Card Form */
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            max-width: 800px;
+            margin: auto;
+        }
+        .card h2 {
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        /* Form Fields */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group button {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .form-group button {
+            background-color: #4fceac;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .form-group button:hover {
+            background-color: #45b896;
+        }
+
+        /* Travel Style Buttons */
+        .travel-style-btns button {
+            width: 48%;
+            margin: 5px 1%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f4f4f4;
+            cursor: pointer;
+        }
+        .travel-style-btns button.selected {
+            border-color: #4fceac;
+            background-color: #e6fff5;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>RWANDA</h2>
+        <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Bookings</a></li>
+            <li><a href="#">Customers</a></li>
+            <li><a href="#">Activities</a></li>
+            <li><a href="#">Accommodations</a></li>
+            <li><a href="#">Itineraries</a></li>
+            <li><a href="#">Reports</a></li>
+            <li><a href="#">Analytics</a></li>
+        </ul>
+    </div>
+    <form method="POST" action="{% url 'booking_edit' booking.id %}">
+    {% csrf_token %}
+    <div class="main">
+        <h1>Edit Booking</h1>
+        <div class="card">
+            <h2>Personal Information</h2>
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" id="first_name" value="{{ booking.first_name }}">
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text" id="last_name" value="{{ booking.last_name }}">
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" value="{{ booking.email }}">
+            </div>
+            <div class="form-group">
+                <label for="phone_number">Phone Number</label>
+                <input type="text" id="phone_number" value="{{ booking.phone_number }}">
+            </div>
+            <div class="form-group">
+                <label for="country">Country</label>
+                <input type="text" id="country" value="{{ booking.country }}">
+            </div>
+            <div class="form-group">
+                <label for="number_of_travelers">Number of Travelers</label>
+                <select id="number_of_travelers">
+                    <option value="1" {% if booking.number_of_travelers == 1 %}selected{% endif %}>1 Traveler</option>
+                    <option value="2" {% if booking.number_of_travelers == 2 %}selected{% endif %}>2 Travelers</option>
+                    <option value="3" {% if booking.number_of_travelers == 3 %}selected{% endif %}>3 Travelers</option>
+                    <option value="4" {% if booking.number_of_travelers == 4 %}selected{% endif %}>4 Travelers</option>
+                </select>
+            </div>
+
+            <h2>Travel Style</h2>
+            <div class="travel-style-btns">
+                <button type="button" data-travel="solo">Solo Travel</button>
+                <button type="button" data-travel="family">Family Travel</button>
+                <button type="button" data-travel="couple">Couple Getaway</button>
+                <button type="button" data-travel="group">Group Adventure</button>
+            </div>
+
+            <h2>Travel Dates</h2>
+            <div class="form-group">
+                <label for="start_date">Preferred Start Date</label>
+                <input type="date" id="start_date" value="{{ booking.start_date }}">
+            </div>
+            <div class="form-group">
+                <label for="end_date">Preferred End Date</label>
+                <input type="date" id="end_date" value="{{ booking.end_date }}">
+            </div>
+            <div class="form-group">
+                <label for="date_flexibility">Date Flexibility</label>
+                <select id="date_flexibility">
+                    <option value="fixed" {% if booking.date_flexibility == 'fixed' %}selected{% endif %}>Fixed dates - cannot change</option>
+                    <option value="flexible" {% if booking.date_flexibility == 'flexible' %}selected{% endif %}>Flexible</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button id="saveBtn">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</form>
+    {% comment %} <script>
+        // Pre-select travel style
+        let selectedTravel = "{{ booking.travel_type }}";
+        document.querySelectorAll(".travel-style-btns button").forEach(btn => {
+            if(btn.dataset.travel === selectedTravel) btn.classList.add("selected");
+            btn.addEventListener("click", () => {
+                selectedTravel = btn.dataset.travel;
+                document.querySelectorAll(".travel-style-btns button").forEach(b => b.classList.remove("selected"));
+                btn.classList.add("selected");
+            });
+        });
+
+        // Save changes
+        document.getElementById("saveBtn").addEventListener("click", () => {
+            const data = {
+                first_name: document.getElementById("first_name").value,
+                last_name: document.getElementById("last_name").value,
+                email: document.getElementById("email").value,
+                phone_number: document.getElementById("phone_number").value,
+                country: document.getElementById("country").value,
+                number_of_travelers: document.getElementById("number_of_travelers").value,
+                travel_type: selectedTravel,
+                start_date: document.getElementById("start_date").value,
+                end_date: document.getElementById("end_date").value,
+                date_flexibility: document.getElementById("date_flexibility").value
+            };
+
+            fetch("/booking-update/{{ booking.id }}/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(res => alert(res.message))
+            .catch(err => console.error(err));
+        });
+    </script> {% endcomment %}
+</body>
+</html>

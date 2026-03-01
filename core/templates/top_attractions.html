@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Attractions | Discover Rwanda</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Italiana&display=swap" rel="stylesheet">
+    
+<style>
+    :root {
+        --black: #000000;
+        --charcoal: #1a1a1a;
+        --dark-gray: #2c2c2c;
+        --mid-gray: #6a6a6a;
+        --light-gray: #e5e5e5;
+        --off-white: #f8f8f8;
+        --white: #ffffff;
+        --gold: #c59959;
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Inter', sans-serif;
+        color: var(--charcoal);
+        line-height: 1.6;
+        overflow-x: hidden;
+        background: var(--white);
+    }
+    
+    /* Navigation */
+    .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 1.5rem 6%;
+        background: var(--white);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .nav-container {
+        max-width: 1900px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-decoration: none;
+    }
+    
+    .nav-logo-img {
+        font-size: 2rem;
+    }
+    
+    .nav-logo-text {
+        font-family: 'Italiana', serif;
+        font-size: 1.5rem;
+        color: var(--black);
+        letter-spacing: 4px;
+    }
+    
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 4rem;
+        align-items: center;
+    }
+    
+    .nav-item a {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--charcoal);
+        text-decoration: none;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-item a:hover {
+        color: var(--gold);
+    }
+    
+    .nav-cta {
+        background: var(--black);
+        color: var(--white) !important;
+        padding: 1rem 2.8rem !important;
+        border-radius: 50px !important;
+    }
+    
+    .nav-cta:hover {
+        background: var(--gold);
+    }
+    
+    /* Hero */
+    .hero-section {
+        position: relative;
+        height: 85vh;
+        min-height: 700px;
+        background: var(--black);
+        display: flex;
+        align-items: center;
+        margin-top: 88px;
+        overflow: hidden;
+    }
+    
+    .hero-bg-pattern {
+        position: absolute;
+        inset: 0;
+        background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        background-size: 50px 50px;
+        opacity: 0.3;
+    }
+    
+    .hero-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 6%;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .hero-eyebrow {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--white);
+        padding: 0.5rem 1.5rem;
+        border: 2px solid var(--white);
+        border-radius: 50px;
+        margin-bottom: 2.5rem;
+        background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .hero-title {
+        font-family: 'Italiana', serif;
+        font-size: clamp(4rem, 10vw, 7rem);
+        font-weight: 400;
+        color: var(--white);
+        margin-bottom: 2rem;
+        letter-spacing: 12px;
+        line-height: 1.1;
+    }
+    
+    .hero-subtitle {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.85);
+        max-width: 900px;
+        margin: 0 auto;
+        line-height: 1.8;
+    }
+    
+    /* Photo Grid Section */
+    .photo-grid-section {
+        background: var(--white);
+        padding: 8rem 6%;
+    }
+    
+    .grid-container {
+        max-width: 1800px;
+        margin: 0 auto;
+    }
+    
+    .section-header {
+        text-align: center;
+        margin-bottom: 5rem;
+    }
+    
+    .section-eyebrow {
+        display: inline-block;
+        font-size: 0.6875rem;
+        font-weight: 800;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--black);
+        padding: 0.4rem 1.25rem;
+        border: 2px solid var(--black);
+        border-radius: 50px;
+        margin-bottom: 2rem;
+    }
+    
+    .section-title {
+        font-family: 'Italiana', serif;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 400;
+        color: var(--black);
+        margin-bottom: 1.5rem;
+        letter-spacing: 4px;
+    }
+    
+    /* Photo Cards with Point Descriptions */
+    .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+        margin-bottom: 6rem;
+    }
+    
+    .photo-card {
+        background: var(--white);
+        border: 1px solid var(--light-gray);
+        overflow: hidden;
+        transition: all 0.4s ease;
+    }
+    
+    .photo-card:hover {
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+        transform: translateY(-8px);
+        border-color: var(--black);
+    }
+    
+    .photo-card-image {
+        position: relative;
+        height: 350px;
+        overflow: hidden;
+    }
+    
+    .photo-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(10%);
+        transition: all 0.5s ease;
+    }
+    
+    .photo-card:hover .photo-card-image img {
+        transform: scale(1.08);
+        filter: grayscale(0%);
+    }
+    
+    .photo-card-badge {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: var(--white);
+        color: var(--black);
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+    }
+    
+    .photo-card-content {
+        padding: 2rem;
+    }
+    
+    .photo-card-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--black);
+        margin-bottom: 1rem;
+        line-height: 1.3;
+    }
+    
+    .photo-card-points {
+        list-style: none;
+        margin-bottom: 1.5rem;
+    }
+    
+    .photo-card-points li {
+        font-size: 0.9375rem;
+        line-height: 1.7;
+        color: var(--mid-gray);
+        padding-left: 1.5rem;
+        position: relative;
+        margin-bottom: 0.5rem;
+    }
+    
+    .photo-card-points li::before {
+        content: '•';
+        position: absolute;
+        left: 0;
+        color: var(--gold);
+        font-weight: 700;
+        font-size: 1.25rem;
+    }
+    
+    .photo-card-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.8125rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--black);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .photo-card-link:hover {
+        color: var(--gold);
+        gap: 1rem;
+    }
+    
+    /* Category Sections */
+    .category-divider {
+        text-align: center;
+        margin: 8rem 0 5rem;
+    }
+    
+    .category-title {
+        font-family: 'Italiana', serif;
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 400;
+        color: var(--black);
+        letter-spacing: 4px;
+        position: relative;
+        display: inline-block;
+        padding: 0 3rem;
+    }
+    
+    .category-title::before,
+    .category-title::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 60px;
+        height: 1px;
+        background: var(--light-gray);
+    }
+    
+    .category-title::before {
+        left: 0;
+    }
+    
+    .category-title::after {
+        right: 0;
+    }
+    
+    /* Large Feature Cards */
+    .large-photo-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+        margin-bottom: 6rem;
+    }
+    
+    .large-photo-card {
+        background: var(--white);
+        border: 1px solid var(--light-gray);
+        overflow: hidden;
+        transition: all 0.4s ease;
+    }
+    
+    .large-photo-card:hover {
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        transform: translateY(-8px);
+    }
+    
+    .large-photo-image {
+        position: relative;
+        height: 500px;
+        overflow: hidden;
+    }
+    
+    .large-photo-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(10%);
+        transition: all 0.5s ease;
+    }
+    
+    .large-photo-card:hover .large-photo-image img {
+        transform: scale(1.05);
+        filter: grayscale(0%);
+    }
+    
+    .large-photo-content {
+        padding: 3rem;
+    }
+    
+    .large-photo-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--black);
+        margin-bottom: 1.5rem;
+    }
+    
+    .large-photo-points {
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .large-photo-points li {
+        font-size: 0.9375rem;
+        line-height: 1.6;
+        color: var(--mid-gray);
+        padding-left: 1.5rem;
+        position: relative;
+    }
+    
+    .large-photo-points li::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: var(--gold);
+        font-weight: 700;
+    }
+    
+    /* CTA */
+    .cta-final {
+        background: var(--black);
+        padding: 10rem 6%;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .cta-final::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        background-size: 50px 50px;
+        opacity: 0.3;
+    }
+    
+    .cta-content {
+        max-width: 1000px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .cta-title {
+        font-family: 'Italiana', serif;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 400;
+        color: var(--white);
+        margin-bottom: 2rem;
+        letter-spacing: 4px;
+    }
+    
+    .cta-text {
+        font-size: 1.25rem;
+        font-weight: 300;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 3.5rem;
+    }
+    
+    .cta-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.25rem 3.5rem;
+        background: var(--white);
+        color: var(--black);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.875rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border-radius: 50px;
+        transition: all 0.4s ease;
+    }
+    
+    .cta-button:hover {
+        background: var(--gold);
+        color: var(--white);
+        transform: translateY(-3px);
+        gap: 1.5rem;
+    }
+    
+    /* Footer */
+    footer {
+        background: var(--charcoal);
+        color: var(--white);
+        padding: 6rem 6% 3rem;
+    }
+    
+    .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 4rem;
+        max-width: 1800px;
+        margin: 0 auto 4rem;
+    }
+    
+    .footer-brand h3 {
+        font-family: 'Italiana', serif;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        letter-spacing: 2px;
+    }
+    
+    .footer-description {
+        font-size: 0.9375rem;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .footer-column h4 {
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        color: var(--gold);
+    }
+    
+    .footer-links {
+        list-style: none;
+    }
+    
+    .footer-links li {
+        margin-bottom: 0.75rem;
+    }
+    
+    .footer-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+        color: var(--gold);
+    }
+    
+    .footer-bottom {
+        text-align: center;
+        padding-top: 3rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.875rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 1200px) {
+        .photo-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .large-photo-points {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .nav-menu {
+            display: none;
+        }
+        
+        .photo-grid,
+        .large-photo-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .footer-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+    <div class="nav-container">
+        <a href="index.html" class="nav-brand">
+            <div class="nav-logo-img">🌿</div>
+            <div class="nav-logo-text">RWANDA</div>
+        </a>
+        
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="{% url 'index' %}">Home</a></li>
+            <li class="nav-item"><a href="towns.html">Towns</a></li>
+            <li class="nav-item"><a href="#attractions">Attractions</a></li>
+            <li class="nav-item"><a href="contact.html" class="nav-cta">Plan Visit</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero-section">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-content">
+        <span class="hero-eyebrow">Must-See Destinations</span>
+        <h1 class="hero-title">TOP ATTRACTIONS</h1>
+        <p class="hero-subtitle">
+            From volcanic peaks to pristine lakes, explore Rwanda's most iconic destinations and unforgettable experiences across this land of a thousand hills.
+        </p>
+    </div>
+</section>
+
+<!-- National Parks -->
+<section class="photo-grid-section" id="attractions">
+    <div class="grid-container">
+        <div class="section-header">
+            <span class="section-eyebrow">Protected Wilderness</span>
+            <h2 class="section-title">National Parks</h2>
+        </div>
+        
+        <div class="photo-grid">
+            <div class="photo-card">
+                <div class="photo-card-image">
+                    <img src="https://www.explorerwandatours.com/wp-content/uploads/2021/12/History-of-Volcanoes-National.jpg" alt="Volcanoes National Park">
+                    <div class="photo-card-badge">Iconic</div>
+                </div>
+                <div class="photo-card-content">
+                    <h3 class="photo-card-title">Volcanoes National Park</h3>
+                    <ul class="photo-card-points">
+                        <li>Mountain gorilla trekking</li>
+                        <li>Five volcanic peaks</li>
+                        <li>Golden monkey tracking</li>
+                        <li>Dian Fossey research center</li>
+                    </ul>
+                    <a href="volcanoes-park.html" class="photo-card-link">
+                        Explore Park
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="photo-card">
+                <div class="photo-card-image">
+                    <img src="https://i.pinimg.com/1200x/a8/92/87/a892878d5917b95dab293af2edf8fa6c.jpg" alt="Akagera National Park">
+                    <div class="photo-card-badge">Big Five</div>
+                </div>
+                <div class="photo-card-content">
+                    <h3 class="photo-card-title">Akagera National Park</h3>
+                    <ul class="photo-card-points">
+                        <li>Lions, elephants, rhinos</li>
+                        <li>Savanna safari drives</li>
+                        <li>Boat safaris on Lake Ihema</li>
+                        <li>480+ bird species</li>
+                    </ul>
+                    <a href="akagera-park.html" class="photo-card-link">
+                        Explore Park
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="photo-card">
+                <div class="photo-card-image">
+                    <img src="https://i.pinimg.com/736x/5f/fb/f0/5ffbf0e6de5ac565a1ce229426563282.jpg" alt="Nyungwe Forest">
+                    <div class="photo-card-badge">Rainforest</div>
+                </div>
+                <div class="photo-card-content">
+                    <h3 class="photo-card-title">Nyungwe Forest Park</h3>
+                    <ul class="photo-card-points">
+                        <li>Chimpanzee tracking</li>
+                        <li>Canopy walkway 50m high</li>
+                        <li>13 primate species</li>
+                        <li>310+ bird species</li>
+                    </ul>
+                    <a href="nyungwe-park.html" class="photo-card-link">
+                        Explore Forest
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="photo-card">
+                <div class="photo-card-image">
+                    <img src="https://visitrwanda.com/wp-content/uploads/fly-images/1336/Visit-Rwanda-NH_OO_Activities_Chimpanzee_Trek_6853_MASTER-1920x1280.jpg" alt="Gishwati-Mukura">
+                </div>
+                <div class="photo-card-content">
+                    <h3 class="photo-card-title">Gishwati-Mukura Park</h3>
+                    <ul class="photo-card-points">
+                        <li>Restored rainforest</li>
+                        <li>Chimpanzees & golden monkeys</li>
+                        <li>230+ bird species</li>
+                        <li>Conservation success story</li>
+                    </ul>
+                    <a href="gishwati-park.html" class="photo-card-link">
+                        Explore Park
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="photo-card">
+                <div class="photo-card-image">
+                    <img src="https://www.queenelizabethparkuganda.com/wp-content/uploads/2025/01/4-Days-Rwanda-Gorillas-and-Lake-Kivu-Safari-1200x600-1.jpg" alt="Lake Kivu">
+                    <div class="photo-card-badge">Popular</div>
+                </div>
+                <div class="photo-card-content">
+                    <h3 class="photo-card-title">Lake Kivu</h3>
+                    <ul class="photo-card-points">
+                        <li>Sandy beaches & resorts</li>
+                        <li>Kayaking & boat tours</li>
+                        <li>Island exploration</li>
+                        <li>Stunning sunset views</li>
+                    </ul>
+                    <a href="lake-kivu.html" class="photo-card-link">
+                        Explore Lake
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="photo-card">
+                <div class="photo-card-image">
+                    <img src="https://www.silverbackgorillatours.com/wp-content/uploads/2018/11/musanze-caves.jpg" alt="Musanze Caves">
+                </div>
+                <div class="photo-card-content">
+                    <h3 class="photo-card-title">Musanze Caves</h3>
+                    <ul class="photo-card-points">
+                        <li>Ancient lava tube caves</li>
+                        <li>2km underground network</li>
+                        <li>Historical refuge site</li>
+                        <li>Guided cave tours</li>
+                    </ul>
+                    <a href="musanze-caves.html" class="photo-card-link">
+                        Explore Caves
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Category Divider -->
+        <div class="category-divider">
+            <h2 class="category-title">LAKES & WATERFALLS</h2>
+        </div>
+        
+        <div class="large-photo-grid">
+            <div class="large-photo-card">
+                <div class="large-photo-image">
+                    <img src="https://rwandaecocompany.com/wp-content/uploads/2021/05/twin-lakes.jpg" alt="Twin Lakes">
+                </div>
+                <div class="large-photo-content">
+                    <h3 class="large-photo-title">Burera & Ruhondo Twin Lakes</h3>
+                    <ul class="large-photo-points">
+                        <li>Volcanic mountain backdrop</li>
+                        <li>Terraced hillsides</li>
+                        <li>Canoeing adventures</li>
+                        <li>Birdwatching paradise</li>
+                        <li>Fishing communities</li>
+                        <li>Stunning panoramic views</li>
+                    </ul>
+                    <a href="twin-lakes.html" class="photo-card-link">
+                        Explore Lakes →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="large-photo-card">
+                <div class="large-photo-image">
+                    <img src="https://images.squarespace-cdn.com/content/v1/60f41bfb9496217336cd6dfd/6076b9da-af0e-48a9-977d-9d9a58050c23/Lounge+at+Night.jpg?format=2500w" alt="Lake Muhazi">
+                </div>
+                <div class="large-photo-content">
+                    <h3 class="large-photo-title">Lake Muhazi</h3>
+                    <ul class="large-photo-points">
+                        <li>60km serpentine lake</li>
+                        <li>Close to Kigali (1 hour)</li>
+                        <li>Water sports & swimming</li>
+                        <li>Lakeside resorts</li>
+                        <li>Fresh fish restaurants</li>
+                        <li>Day trip destination</li>
+                    </ul>
+                    <a href="lake-muhazi.html" class="photo-card-link">
+                        Explore Lake →
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Category Divider -->
+        <div class="category-divider">
+            <h2 class="category-title">CULTURAL SITES</h2>
+        </div>
+        
+        <div class="photo-grid">
+            <div class="photo-card">
+                <div class="photo-card-image">
+                    <img src="https://i.pinimg.com/736x/05/4c/f0/054cf0ea526fc1e4f5c0dfd31dc1e882.jpg" alt="King's Palace">
+                </div>
+                <div class="photo-card-content">
+                    <h3 class="photo-card-title">King's Palace Museum</h3>
+                    <ul class="photo-card-points">
+                        <li>Traditional beehive palace</li>
+                        <li>Sacred Inyambo cattle</li>
+                        <li>Royal artifacts & regalia</li>
+                        <li>Cultural performances</li>
+                    </ul>
+                    <a href="kings-palace.html" class="photo-card-link">
+                        Visit Palace
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="photo-card">
+                <div class="photo-card-image">
+                    <img src="https://i.pinimg.com/1200x/e8/2f/f1/e82ff197b1f70c7c8b76527f28eb3b38.jpg" alt="Iby'Iwacu Village">
+                </div>
+                <div class="photo-card-content">
+                    <h3 class="photo-card-title">Iby'Iwacu Cultural Village</h3>
+                    <ul class="photo-card-points">
+                        <li>Intore dance performances</li>
+                        <li>Traditional archery</li>
+                        <li>Banana beer brewing</li>
+                        <li>Basket weaving workshops</li>
+                    </ul>
+                    <a href="ibyiwacu.html" class="photo-card-link">
+                        Visit Village
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="photo-card">
+                <div class="photo-card-image">
+                    <img src="https://rentcarrwanda.com//storage/blog-content-dir/vF7SGc6KlyOsJWNJuidQtfpwwz7a89xwk3FrTNYH.png" alt="Ethnographic Museum">
+                </div>
+                <div class="photo-card-content">
+                    <h3 class="photo-card-title">Ethnographic Museum</h3>
+                    <ul class="photo-card-points">
+                        <li>Seven themed galleries</li>
+                        <li>Pre-colonial artifacts</li>
+                        <li>Traditional clothing</li>
+                        <li>Contemporary art</li>
+                    </ul>
+                    <a href="ethnographic.html" class="photo-card-link">
+                        Visit Museum
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Category Divider -->
+        <div class="category-divider">
+            <h2 class="category-title">ADVENTURE ACTIVITIES</h2>
+        </div>
+        
+        <div class="photo-grid">
+            <div class="photo-card">
+                <div class="photo-card-image">
+                    <img src="https://i.pinimg.com/1200x/6e/00/be/6e00beec0a3e6008b2b86da5bb8dc4ca.jpg" alt="Volcano Hiking">
+                    <div class="photo-card-badge">Trekking</div>
+                </div>
+                <div class="photo-card-content">
+                    <h3 class="photo-card-title">Volcano Hiking</h3>
+                    <ul class="photo-card-points">
+                        <li>Mount Bisoke day hike</li>
+                        <li>Karisimbi 2-day trek</li>
+                        <li>Crater lake summits</li>
+                        <li>Alpine ecosystems</li>
+                    </ul>
+                    <a href="volcano-hiking.html" class="photo-card-link">
+                        Plan Trek
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="photo-card">
+                <div class="photo-card-image">
+                    <img src="https://i.pinimg.com/736x/13/55/18/1355183aa4fc29574a19a4fbbc945661.jpg" alt="Canopy Walk">
+                </div>
+                <div class="photo-card-content">
+                    <h3 class="photo-card-title">Canopy Walkway</h3>
+                    <ul class="photo-card-points">
+                        <li>50 meters above forest</li>
+                        <li>160m suspension bridge</li>
+                        <li>Bird's-eye rainforest views</li>
+                        <li>Primate spotting</li>
+                    </ul>
+                    <a href="canopy-walk.html" class="photo-card-link">
+                        Book Experience
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="photo-card">
+                <div class="photo-card-image">
+                    <img src="https://www.insidevolcanoesnationalpark.com/wp-content/uploads/2025/05/PFunda-Tea-Plantation-Tour.jpg" alt="Tea Plantations">
+                </div>
+                <div class="photo-card-content">
+                    <h3 class="photo-card-title">Tea Plantation Tours</h3>
+                    <ul class="photo-card-points">
+                        <li>Rolling green hills</li>
+                        <li>Tea picking experience</li>
+                        <li>Factory tours</li>
+                        <li>Fresh tea tasting</li>
+                    </ul>
+                    <a href="tea-tours.html" class="photo-card-link">
+                        Book Tour
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-final">
+    <div class="cta-content">
+        <h2 class="cta-title">Start Your Adventure</h2>
+        <p class="cta-text">
+            Let Discover Rwanda create your perfect itinerary exploring these incredible attractions. From wildlife safaris to cultural immersions, we'll craft an unforgettable journey tailored to you.
+        </p>
+        <a href="{% url 'contact' %}" class="cta-button">
+            Plan Your Trip
+            <span>→</span>
+        </a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <h3>Discover Rwanda</h3>
+            <p class="footer-description">Your gateway to extraordinary journeys through the Land of a Thousand Hills. We curate transformative experiences across Rwanda's pristine wilderness, rare wildlife encounters, and vibrant cultural tapestry.</p>
+        </div>
+        
+        <div class="footer-column">
+            <h4>Parks</h4>
+            <ul class="footer-links">
+                <li><a href="volcanoes-park.html">Volcanoes</a></li>
+                <li><a href="akagera-park.html">Akagera</a></li>
+                <li><a href="nyungwe-park.html">Nyungwe</a></li>
+                <li><a href="gishwati-park.html">Gishwati-Mukura</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h4>Destinations</h4>
+            <ul class="footer-links">
+                <li><a href="towns.html">Towns</a></li>
+                <li><a href="lakes.html">Lakes</a></li>
+                <li><a href="volcanic-mountains.html">Mountains</a></li>
+                <li><a href="cultural-villages.html">Cultural Villages</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h4>Contact</h4>
+            <ul class="footer-links">
+                <li><a href="{% url 'contact' %}">Get In Touch</a></li>
+                <li><a href="tel:+250788123456">+250 788 123 456</a></li>
+                <li><a href="mailto:info@discoverrwanda.com">info@discoverrwanda.com</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    .footer-bottom {
+        <p>&copy; 2026 Discover Rwanda. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>

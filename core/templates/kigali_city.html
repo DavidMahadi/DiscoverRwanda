@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kigali City Guide | Discover Rwanda's Heart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Italiana&display=swap" rel="stylesheet">
+    
+<style>
+    :root {
+        --forest-darkest: #0a2f1a;
+        --forest-deep: #145c35;
+        --emerald-rich: #1a5f3a;
+        --sage: #2d8659;
+        --jade: #48a375;
+        --gold-deep: #9e7841;
+        --gold: #c59959;
+        --gold-light: #d4a574;
+        --ivory: #fdfbf7;
+        --cream: #f8f6f0;
+        --pearl: #f4f2eb;
+        --obsidian: #1a1a1a;
+        --text-ink: #2c2c2c;
+        --text-primary: #3a3a3a;
+        --text-secondary: #5a5a5a;
+        --space-xs: 0.5rem;
+        --space-sm: 1rem;
+        --space-md: 1.5rem;
+        --space-lg: 2rem;
+        --space-xl: 3rem;
+        --space-2xl: 4.5rem;
+        --space-3xl: 6rem;
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Inter', sans-serif;
+        color: var(--text-primary);
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+    
+    /* Navigation */
+    .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 1.5rem 6%;
+        background: transparent;
+        backdrop-filter: blur(20px);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .nav.scrolled {
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+    }
+    
+    .nav-container {
+        max-width: 1900px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-logo-img {
+        font-size: 2rem;
+    }
+    
+    .nav-logo-text {
+        font-family: 'Italiana', serif;
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: white;
+        letter-spacing: 4px;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    .nav.scrolled .nav-logo-text {
+        color: var(--forest-deep);
+        text-shadow: none;
+    }
+    
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 4rem;
+        align-items: center;
+    }
+    
+    .nav-item {
+        position: relative;
+    }
+    
+    .nav-item a {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: white;
+        text-decoration: none;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        position: relative;
+        padding: 0.5rem 0;
+        transition: all 0.3s ease;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        display: block;
+    }
+    
+    .nav.scrolled .nav-item a {
+        color: var(--text-primary);
+        text-shadow: none;
+    }
+    
+    .nav-item a:hover {
+        color: var(--gold-light);
+    }
+    
+    .nav.scrolled .nav-item a:hover {
+        color: var(--gold);
+    }
+    
+    .nav-cta {
+        background: linear-gradient(135deg, var(--gold-deep) 0%, var(--gold) 50%, var(--gold-light) 100%);
+        color: white !important;
+        padding: 1rem 2.8rem !important;
+        border-radius: 50px !important;
+        font-weight: 700 !important;
+        box-shadow: 0 8px 30px rgba(197, 153, 91, 0.35);
+    }
+    
+    /* Hero Section */
+    .hero-destination {
+        position: relative;
+        height: 80vh;
+        min-height: 600px;
+        background: linear-gradient(rgba(10, 47, 26, 0.4), rgba(26, 95, 58, 0.6)), 
+                    url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1920&q=80') center/cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .hero-content {
+        max-width: 1200px;
+        padding: 0 6%;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .hero-eyebrow {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--gold-light);
+        padding: 0.5rem 1.5rem;
+        border: 2px solid var(--gold-light);
+        border-radius: 50px;
+        margin-bottom: 2rem;
+    }
+    
+    .hero-title {
+        font-family: 'Italiana', serif;
+        font-size: clamp(4rem, 10vw, 7rem);
+        font-weight: 400;
+        color: white;
+        margin-bottom: 2rem;
+        letter-spacing: 8px;
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+    
+    .hero-subtitle {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.95);
+        margin-bottom: 3rem;
+        letter-spacing: 1px;
+        line-height: 1.6;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .hero-buttons {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.25rem 3rem;
+        background: linear-gradient(135deg, var(--gold-deep), var(--gold-light));
+        color: white;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.875rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border-radius: 50px;
+        transition: all 0.4s ease;
+        box-shadow: 0 10px 35px rgba(197, 153, 91, 0.4);
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 45px rgba(197, 153, 91, 0.5);
+    }
+    
+    .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.25rem 3rem;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border: 2px solid white;
+        color: white;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.875rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border-radius: 50px;
+        transition: all 0.4s ease;
+    }
+    
+    .btn-secondary:hover {
+        background: white;
+        color: var(--emerald-rich);
+        transform: translateY(-3px);
+    }
+    
+    /* Introduction Section */
+    .intro-section {
+        background: linear-gradient(to bottom, var(--pearl), white);
+        padding: 8rem 6%;
+    }
+    
+    .intro-container {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    
+    .section-eyebrow {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gold);
+        padding: 0.5rem 1.5rem;
+        border: 2px solid var(--gold);
+        border-radius: 50px;
+        margin-bottom: 2rem;
+    }
+    
+    .section-title {
+        font-family: 'Italiana', serif;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 400;
+        color: var(--forest-deep);
+        margin-bottom: 2rem;
+        letter-spacing: 2px;
+        line-height: 1.2;
+    }
+    
+    .section-description {
+        font-size: 1.25rem;
+        font-weight: 300;
+        line-height: 1.9;
+        color: var(--text-secondary);
+        margin-bottom: 3rem;
+        max-width: 900px;
+    }
+    
+    .intro-split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        margin-top: 5rem;
+        align-items: center;
+    }
+    
+    .intro-image {
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15);
+    }
+    
+    .intro-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    /* Attractions Grid */
+    .attractions-section {
+        background: var(--cream);
+        padding: 10rem 6%;
+    }
+    
+    .attractions-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 3rem;
+        max-width: 1800px;
+        margin: 5rem auto 0;
+    }
+    
+    .attraction-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.5s ease;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+        text-decoration: none;
+        display: block;
+    }
+    
+    .attraction-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15);
+    }
+    
+    .attraction-image {
+        height: 280px;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .attraction-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.8s ease;
+    }
+    
+    .attraction-card:hover .attraction-image img {
+        transform: scale(1.1);
+    }
+    
+    .attraction-content {
+        padding: 2.5rem;
+    }
+    
+    .attraction-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--forest-deep);
+        margin-bottom: 1rem;
+    }
+    
+    .attraction-description {
+        font-size: 1rem;
+        line-height: 1.7;
+        color: var(--text-secondary);
+    }
+    
+    /* Features Section */
+    .features-section {
+        background: white;
+        padding: 10rem 6%;
+    }
+    
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4rem;
+        max-width: 1600px;
+        margin: 5rem auto 0;
+    }
+    
+    .feature-card {
+        text-align: center;
+    }
+    
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 2rem;
+        background: linear-gradient(135deg, var(--gold-deep), var(--gold-light));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        box-shadow: 0 10px 30px rgba(197, 153, 91, 0.3);
+        transition: all 0.4s ease;
+    }
+    
+    .feature-card:hover .feature-icon {
+        transform: translateY(-8px) scale(1.05);
+        box-shadow: 0 15px 40px rgba(197, 153, 91, 0.4);
+    }
+    
+    .feature-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--forest-deep);
+        margin-bottom: 1rem;
+    }
+    
+    .feature-text {
+        font-size: 1.0625rem;
+        line-height: 1.7;
+        color: var(--text-secondary);
+    }
+    
+    /* Investment Section */
+    .investment-section {
+        background: linear-gradient(135deg, var(--forest-deep), var(--emerald-rich));
+        padding: 10rem 6%;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .investment-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        text-align: center;
+        color: white;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .investment-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+        margin-top: 5rem;
+    }
+    
+    .investment-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        padding: 3rem 2rem;
+        transition: all 0.4s ease;
+    }
+    
+    .investment-card:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-8px);
+    }
+    
+    .investment-card h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    /* CTA Section */
+    .cta-section {
+        background: var(--ivory);
+        padding: 10rem 6%;
+        text-align: center;
+    }
+    
+    .cta-container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    
+    /* Footer */
+    footer {
+        background: linear-gradient(135deg, var(--forest-darkest), var(--obsidian));
+        color: white;
+        padding: 6rem 6% 3rem;
+    }
+    
+    .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 4rem;
+        max-width: 1800px;
+        margin: 0 auto 4rem;
+    }
+    
+    .footer-brand h3 {
+        font-family: 'Italiana', serif;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        letter-spacing: 2px;
+    }
+    
+    .footer-description {
+        font-size: 0.9375rem;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 2rem;
+    }
+    
+    .footer-column h4 {
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        color: var(--gold-light);
+    }
+    
+    .footer-links {
+        list-style: none;
+    }
+    
+    .footer-links li {
+        margin-bottom: 0.75rem;
+    }
+    
+    .footer-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        font-size: 0.9375rem;
+        transition: all 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+        color: var(--gold-light);
+    }
+    
+    .footer-bottom {
+        text-align: center;
+        padding-top: 3rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.875rem;
+    }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+    <div class="nav-container">
+        <a href="index.html" class="nav-brand">
+            <div class="nav-logo-img">🌿</div>
+            <div class="nav-logo-text">RWANDA</div>
+        </a>
+        
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="{% url 'index' %}">Home</a></li>
+            <li class="nav-item"><a href="#about">About</a></li>
+            <li class="nav-item"><a href="#attractions">Attractions</a></li>
+            <li class="nav-item"><a href="contact.html" class="nav-cta">Plan Your Visit</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-destination">
+    <div class="hero-content">
+        <span class="hero-eyebrow">Rwanda's Capital</span>
+        <h1 class="hero-title">KIGALI</h1>
+        <p class="hero-subtitle">A City You Won't Forget—Where Africa's Heart Beats Strongest</p>
+        <div class="hero-buttons">
+            <a href="#attractions" class="btn-primary">
+                Explore Attractions
+                <span>→</span>
+            </a>
+            <a href="contact.html" class="btn-secondary">
+                Plan Your Trip
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Introduction Section -->
+<section class="intro-section" id="about">
+    <div class="intro-container">
+        <span class="section-eyebrow">Discover Kigali</span>
+        <h2 class="section-title">Experience the Energy, Embrace the Beauty</h2>
+        <p class="section-description">
+            Kigali is where Rwanda's heart beats strongest—a city that tells a powerful story of resilience, growth, and vibrant culture. Once marked by tragedy, it's now one of Africa's cleanest, safest, and most inspiring capitals. From its modern skyline to its soulful art scene and warm hospitality, Kigali welcomes you with open arms and endless stories to discover.
+        </p>
+        
+        <div class="intro-split">
+            <div>
+                <h3 class="feature-title" style="text-align: left; margin-bottom: 2rem;">A Living Testament to Transformation</h3>
+                <p class="feature-text" style="text-align: left;">
+                    Imagine a city alive with energy—a beacon of hope and transformation in the heart of Africa. This is Kigali, Rwanda. More than just a capital, it's a living testament to resilience and renewal. Picture rolling hills that hum with life, where sleek modern architecture meets the quiet grace of nature. Wander through vibrant markets, soak in the creative buzz of the arts scene, and discover a city where innovation and tradition walk hand in hand.
+                </p>
+            </div>
+            <div class="intro-image">
+                <img src="https://images.unsplash.com/photo-1589553416260-f586c8f1514f?w=800&q=80" alt="Kigali City Skyline">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Attractions -->
+<section class="attractions-section" id="attractions">
+    <div class="intro-container" style="text-align: center;">
+        <span class="section-eyebrow">Immerse Yourself</span>
+        <h2 class="section-title">Top Attractions in Kigali</h2>
+        <p class="section-description" style="margin-left: auto; margin-right: auto;">
+            From poignant memorials to vibrant markets and lush green spaces, Kigali offers experiences that touch the heart and inspire the soul.
+        </p>
+    </div>
+    
+    <div class="attractions-grid">
+        <a href="kigali-genocide-memorial.html" class="attraction-card">
+            <div class="attraction-image">
+                <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&q=80" alt="Kigali Genocide Memorial">
+            </div>
+            <div class="attraction-content">
+                <h3 class="attraction-title">Kigali Genocide Memorial</h3>
+                <p class="attraction-description">A powerful and moving tribute to the victims of the 1994 genocide. This memorial provides deep insights into Rwanda's history and the journey toward reconciliation and healing.</p>
+            </div>
+        </a>
+        
+        <a href="contact.html" class="attraction-card">
+            <div class="attraction-image">
+                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80" alt="Kimironko Market">
+            </div>
+            <div class="attraction-content">
+                <h3 class="attraction-title">Kimironko Market</h3>
+                <p class="attraction-description">Dive into the vibrant heart of Kigali at this bustling market. Experience local life, taste fresh produce, discover traditional crafts, and engage with the friendly vendors.</p>
+            </div>
+        </a>
+        
+        <a href="contact.html" class="attraction-card">
+            <div class="attraction-image">
+                <img src="https://images.unsplash.com/photo-1610631069863-2daec2f4f929?w=800&q=80" alt="Inema Arts Centre">
+            </div>
+            <div class="attraction-content">
+                <h3 class="attraction-title">Inema Arts Centre</h3>
+                <p class="attraction-description">Explore Rwanda's contemporary art scene at this dynamic gallery. Meet local artists, view stunning exhibitions, and even participate in creative workshops.</p>
+            </div>
+        </a>
+        
+        <a href="contact.html" class="attraction-card">
+            <div class="attraction-image">
+                <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&q=80" alt="Kigali Botanical Garden">
+            </div>
+            <div class="attraction-content">
+                <h3 class="attraction-title">Kigali Botanical Garden</h3>
+                <p class="attraction-description">Find peace in this lush urban oasis. Stroll through diverse plant collections, enjoy serene walking paths, and connect with nature in the heart of the city.</p>
+            </div>
+        </a>
+        
+        <a href="contact.html" class="attraction-card">
+            <div class="attraction-image">
+                <img src="https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=800&q=80" alt="Nyamirambo">
+            </div>
+            <div class="attraction-content">
+                <h3 class="attraction-title">Nyamirambo Neighborhood</h3>
+                <p class="attraction-description">Experience authentic Kigali in this vibrant Muslim quarter. Discover street food, local fashion, and the genuine warmth of community life in one of the city's oldest neighborhoods.</p>
+            </div>
+        </a>
+        
+        <a href="contact.html" class="attraction-card">
+            <div class="attraction-image">
+                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80" alt="City Green Spaces">
+            </div>
+            <div class="attraction-content">
+                <h3 class="attraction-title">City's Green Spaces</h3>
+                <p class="attraction-description">Discover why Kigali is known as one of Africa's cleanest cities. Explore beautifully maintained parks, tree-lined streets, and peaceful recreational areas throughout the capital.</p>
+            </div>
+        </a>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+    <div class="intro-container" style="text-align: center;">
+        <span class="section-eyebrow">Travel Made Easy</span>
+        <h2 class="section-title">Getting Around Kigali</h2>
+    </div>
+    
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">🚌</div>
+            <h3 class="feature-title">Public Transport</h3>
+            <p class="feature-text">Well-organized bus system offering affordable and efficient travel throughout the city with clear routes and regular schedules.</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">🏍️</div>
+            <h3 class="feature-title">Moto Taxis</h3>
+            <p class="feature-text">Quick and convenient motorcycle taxis for navigating traffic and reaching your destination fast—an authentic Kigali experience.</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">🚗</div>
+            <h3 class="feature-title">Private Taxis</h3>
+            <p class="feature-text">Comfortable and safe taxi services available through apps or hotel arrangements for a personalized travel experience.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Investment Opportunities -->
+<section class="investment-section">
+    <div class="investment-content">
+        <span class="section-eyebrow" style="border-color: var(--gold-light); color: var(--gold-light);">Invest in Kigali</span>
+        <h2 class="section-title" style="color: white;">Unlock Kigali's Potential</h2>
+        <p class="section-description" style="color: rgba(255, 255, 255, 0.9); margin-left: auto; margin-right: auto;">
+            Kigali is experiencing rapid economic growth and offers exciting investment opportunities across various sectors.
+        </p>
+        
+        <div class="investment-grid">
+            <div class="investment-card">
+                <div class="feature-icon" style="margin: 0 auto 1.5rem;">🏨</div>
+                <h3>Tourism & Hospitality</h3>
+                <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9375rem; line-height: 1.7;">Growing demand for hotels, restaurants, and tourism services in Africa's most welcoming capital city.</p>
+            </div>
+            
+            <div class="investment-card">
+                <div class="feature-icon" style="margin: 0 auto 1.5rem;">💻</div>
+                <h3>Technology & Innovation</h3>
+                <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9375rem; line-height: 1.7;">Thriving tech ecosystem with government support, innovation hubs, and a skilled workforce.</p>
+            </div>
+            
+            <div class="investment-card">
+                <div class="feature-icon" style="margin: 0 auto 1.5rem;">🏗️</div>
+                <h3>Real Estate Development</h3>
+                <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9375rem; line-height: 1.7;">Expanding urban development with opportunities in residential, commercial, and mixed-use properties.</p>
+            </div>
+        </div>
+        
+        <div style="margin-top: 4rem;">
+            <a href="invest-rwanda.html" class="btn-primary">
+                Learn More About Investment
+                <span>→</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Final CTA -->
+<section class="cta-section">
+    <div class="cta-container">
+        <span class="section-eyebrow">Ready to Explore?</span>
+        <h2 class="section-title">Plan Your Kigali Visit Today</h2>
+        <p class="section-description" style="margin-left: auto; margin-right: auto;">
+            Let Discover Rwanda design your perfect Kigali itinerary. We'll handle all the details, from booking accommodations and transportation to arranging cultural experiences and ensuring a seamless and enriching stay in the city.
+        </p>
+        <div style="margin-top: 3rem;">
+            <a href="contact.html" class="btn-primary">
+                Start Planning Your Trip
+                <span>→</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <h3>Discover Rwanda</h3>
+            <p class="footer-description">Your gateway to extraordinary journeys through the Land of a Thousand Hills. We curate transformative experiences across Rwanda's pristine wilderness, rare wildlife encounters, and vibrant cultural tapestry.</p>
+        </div>
+        
+        <div class="footer-column">
+            <h4>Destinations</h4>
+            <ul class="footer-links">
+                <li><a href="kigali-city.html">Kigali City</a></li>
+                <li><a href="volcanoes-national-park.html">Volcanoes National Park</a></li>
+                <li><a href="akagera-national-park.html">Akagera National Park</a></li>
+                <li><a href="lake-kivu.html">Lake Kivu</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h4>Experiences</h4>
+            <ul class="footer-links">
+                <li><a href="unique-experiences.html">Unique Experiences</a></li>
+                <li><a href="things-to-do.html">Things To Do</a></li>
+                <li><a href="travel-your-way.html">Travel Your Way</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h4>Contact</h4>
+            <ul class="footer-links">
+                <li><a href="contact.html">Get In Touch</a></li>
+                <li><a href="tel:+250788123456">+250 788 123 456</a></li>
+                <li><a href="mailto:info@discoverrwanda.com">info@discoverrwanda.com</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>&copy; 2026 Discover Rwanda. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+// Navigation scroll effect
+const navigation = document.querySelector('.nav');
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 100) {
+        navigation.classList.add('scrolled');
+    } else {
+        navigation.classList.remove('scrolled');
+    }
+});
+
+// Smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetElement = document.querySelector(this.getAttribute('href'));
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+});
+</script>
+
+</body>
+</html>

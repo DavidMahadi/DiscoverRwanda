@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Received | Discover Rwanda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600;700&family=Italiana&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f8f8f8; }
+        
+        .success-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .success-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 4rem;
+            max-width: 700px;
+            text-align: center;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.1);
+        }
+        
+        .success-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            animation: scaleIn 0.5s ease;
+        }
+        
+        @keyframes scaleIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .success-title {
+            font-family: 'Italiana', serif;
+            font-size: 3rem;
+            color: #000;
+            margin-bottom: 1.5rem;
+            letter-spacing: 4px;
+        }
+        
+        .success-message {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: #6a6a6a;
+            margin-bottom: 2rem;
+        }
+        
+        .success-details {
+            background: #f8f8f8;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        
+        .detail-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .detail-icon { font-size: 1.5rem; }
+        
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: #000;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 50px;
+            margin-top: 2rem;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: #333;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="success-container">
+    <div class="success-card">
+        <div class="success-icon">✅</div>
+        
+        <h1 class="success-title">REQUEST RECEIVED!</h1>
+        
+        <p class="success-message">
+            Thank you for your interest in Rwanda! Your booking request has been successfully submitted.
+        </p>
+        
+        <div class="success-details">
+            <div class="detail-item">
+                <div class="detail-icon">📧</div>
+                <div>Confirmation email sent to your inbox</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-icon">⏰</div>
+                <div>We'll respond within 24 hours with a personalized itinerary</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-icon">💬</div>
+                <div>Check your email (including spam folder)</div>
+            </div>
+        </div>
+        
+        <a href="/" class="btn">Back to Homepage →</a>
+    </div>
+</div>
+
+</body>
+</html>

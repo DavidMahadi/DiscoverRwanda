@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Tours | Discover Rwanda</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Italiana&display=swap" rel="stylesheet">
+    
+<style>
+    :root {
+        --black: #000000;
+        --charcoal: #1a1a1a;
+        --dark-gray: #2c2c2c;
+        --mid-gray: #6a6a6a;
+        --light-gray: #e5e5e5;
+        --off-white: #f8f8f8;
+        --white: #ffffff;
+        --gold: #c59959;
+        --food-accent: #d4a574;
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Inter', sans-serif;
+        color: var(--charcoal);
+        line-height: 1.6;
+        overflow-x: hidden;
+        background: var(--white);
+    }
+    
+    /* Navigation */
+    .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 1.5rem 6%;
+        background: var(--white);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .nav-container {
+        max-width: 1900px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-decoration: none;
+    }
+    
+    .nav-logo-img {
+        font-size: 2rem;
+    }
+    
+    .nav-logo-text {
+        font-family: 'Italiana', serif;
+        font-size: 1.5rem;
+        color: var(--black);
+        letter-spacing: 4px;
+    }
+    
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 4rem;
+        align-items: center;
+    }
+    
+    .nav-item a {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--charcoal);
+        text-decoration: none;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-item a:hover {
+        color: var(--gold);
+    }
+    
+    /* Hero - Full-width Image with Overlay Text */
+    .hero-section {
+        position: relative;
+        height: 90vh;
+        min-height: 700px;
+        margin-top: 88px;
+        overflow: hidden;
+    }
+    
+    .hero-image {
+        position: absolute;
+        inset: 0;
+        background: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1920&q=80') center/cover;
+    }
+    
+    .hero-image::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 6%;
+    }
+    
+    .hero-text {
+        max-width: 700px;
+    }
+    
+    .hero-eyebrow {
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 2rem;
+    }
+    
+    .hero-title {
+        font-family: 'Italiana', serif;
+        font-size: clamp(4rem, 8vw, 6rem);
+        font-weight: 400;
+        color: var(--white);
+        margin-bottom: 2rem;
+        letter-spacing: 8px;
+        line-height: 1.1;
+    }
+    
+    .hero-description {
+        font-size: 1.25rem;
+        color: rgba(255,255,255,0.9);
+        line-height: 1.8;
+        margin-bottom: 3rem;
+    }
+    
+    /* Dish Showcase - Grid with Large Photos */
+    .dishes-section {
+        padding: 10rem 6%;
+        background: var(--off-white);
+    }
+    
+    .dishes-container {
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+    
+    .section-header {
+        text-align: center;
+        margin-bottom: 6rem;
+    }
+    
+    .section-title {
+        font-family: 'Italiana', serif;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 400;
+        color: var(--black);
+        margin-bottom: 1.5rem;
+        letter-spacing: 4px;
+    }
+    
+    .dishes-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4rem;
+    }
+    
+    .dish-card {
+        background: var(--white);
+        overflow: hidden;
+        box-shadow: 0 10px 50px rgba(0,0,0,0.1);
+        transition: all 0.4s ease;
+    }
+    
+    .dish-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 70px rgba(0,0,0,0.15);
+    }
+    
+    .dish-image {
+        height: 450px;
+        overflow: hidden;
+    }
+    
+    .dish-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+    
+    .dish-card:hover .dish-image img {
+        transform: scale(1.1);
+    }
+    
+    .dish-content {
+        padding: 3rem;
+    }
+    
+    .dish-name {
+        font-family: 'Playfair Display', serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--black);
+        margin-bottom: 1rem;
+    }
+    
+    .dish-description {
+        font-size: 1.0625rem;
+        line-height: 1.8;
+        color: var(--mid-gray);
+        margin-bottom: 2rem;
+    }
+    
+    .dish-tags {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+    
+    .dish-tag {
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        background: var(--gold);
+        color: var(--white);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    /* Tour Itinerary */
+    .itinerary-section {
+        padding: 10rem 6%;
+        background: var(--white);
+    }
+    
+    .itinerary-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .itinerary-timeline {
+        position: relative;
+        padding-left: 4rem;
+    }
+    
+    .itinerary-timeline::before {
+        content: '';
+        position: absolute;
+        left: 1rem;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--gold);
+    }
+    
+    .timeline-item {
+        position: relative;
+        margin-bottom: 4rem;
+    }
+    
+    .timeline-dot {
+        position: absolute;
+        left: -3rem;
+        top: 0.5rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        background: var(--gold);
+        border-radius: 50%;
+        border: 4px solid var(--white);
+        box-shadow: 0 0 0 2px var(--gold);
+    }
+    
+    .timeline-time {
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--gold);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 0.5rem;
+    }
+    
+    .timeline-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--black);
+        margin-bottom: 0.75rem;
+    }
+    
+    .timeline-description {
+        font-size: 1rem;
+        line-height: 1.7;
+        color: var(--mid-gray);
+    }
+    
+    /* CTA */
+    .cta-section {
+        padding: 10rem 6%;
+        background: var(--black);
+        text-align: center;
+        color: var(--white);
+    }
+    
+    .cta-title {
+        font-family: 'Italiana', serif;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        margin-bottom: 2rem;
+        letter-spacing: 4px;
+    }
+    
+    .cta-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.5rem 3.5rem;
+        background: var(--gold);
+        color: var(--white);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.875rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+    }
+    
+    .cta-button:hover {
+        background: var(--food-accent);
+        gap: 1.5rem;
+    }
+    
+    @media (max-width: 768px) {
+        .nav-menu { display: none; }
+        .dishes-grid { grid-template-columns: 1fr; }
+    }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+    <div class="nav-container">
+        <a href="index.html" class="nav-brand">
+            <div class="nav-logo-img">🌿</div>
+            <div class="nav-logo-text">RWANDA</div>
+        </a>
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="{% url 'index' %}">Home</a></li>
+            <li class="nav-item"><a href="unique-experiences.html">Unique Experiences</a></li>
+            <li class="nav-item"><a href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<section class="hero-section">
+    <div class="hero-image"></div>
+    <div class="hero-content">
+        <div class="hero-text">
+            <div class="hero-eyebrow">Culinary Adventures</div>
+            <h1 class="hero-title">FOOD TOURS</h1>
+            <p class="hero-description">
+                Discover Rwanda's rich culinary heritage through guided tastings of traditional dishes, street food adventures, and farm-to-table experiences that tell the story of this vibrant culture.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="dishes-section">
+    <div class="dishes-container">
+        <div class="section-header">
+            <h2 class="section-title">Signature Dishes</h2>
+        </div>
+        
+        <div class="dishes-grid">
+            <div class="dish-card">
+                <div class="dish-image">
+                    <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=1200&q=80" alt="Ugali">
+                </div>
+                <div class="dish-content">
+                    <h3 class="dish-name">Ugali & Isombe</h3>
+                    <p class="dish-description">
+                        Staple cornmeal porridge served with cassava leaves in peanut sauce—a beloved combination that represents Rwandan comfort food at its finest.
+                    </p>
+                    <div class="dish-tags">
+                        <span class="dish-tag">Traditional</span>
+                        <span class="dish-tag">Vegetarian</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dish-card">
+                <div class="dish-image">
+                    <img src="https://images.unsplash.com/photo-1529042410759-befb1204b468?w=1200&q=80" alt="Brochettes">
+                </div>
+                <div class="dish-content">
+                    <h3 class="dish-name">Brochettes</h3>
+                    <p class="dish-description">
+                        Grilled meat skewers seasoned with African spices, served with fried plantains—Rwanda's favorite street food found in markets across the country.
+                    </p>
+                    <div class="dish-tags">
+                        <span class="dish-tag">Street Food</span>
+                        <span class="dish-tag">Grilled</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dish-card">
+                <div class="dish-image">
+                    <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=1200&q=80" alt="Tilapia">
+                </div>
+                <div class="dish-content">
+                    <h3 class="dish-name">Fresh Lake Tilapia</h3>
+                    <p class="dish-description">
+                        Whole grilled fish from Lake Kivu, served with traditional sides—a lakeside specialty that showcases Rwanda's freshwater abundance.
+                    </p>
+                    <div class="dish-tags">
+                        <span class="dish-tag">Seafood</span>
+                        <span class="dish-tag">Lake Kivu</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dish-card">
+                <div class="dish-image">
+                    <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=1200&q=80" alt="Matoke">
+                </div>
+                <div class="dish-content">
+                    <h3 class="dish-name">Matoke</h3>
+                    <p class="dish-description">
+                        Steamed plantains in banana leaves—a traditional preparation method that infuses the dish with subtle herbal notes and authentic Rwandan flavors.
+                    </p>
+                    <div class="dish-tags">
+                        <span class="dish-tag">Traditional</span>
+                        <span class="dish-tag">Vegan</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="itinerary-section">
+    <div class="itinerary-container">
+        <div class="section-header">
+            <h2 class="section-title">Tour Itinerary</h2>
+        </div>
+        
+        <div class="itinerary-timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">9:00 AM</div>
+                <h3 class="timeline-title">Market Visit</h3>
+                <p class="timeline-description">
+                    Start at Kimironko Market to explore fresh produce, spices, and local ingredients while learning about Rwandan cooking traditions from vendors.
+                </p>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">11:00 AM</div>
+                <h3 class="timeline-title">Street Food Tasting</h3>
+                <p class="timeline-description">
+                    Sample brochettes, sambusas, and other popular street foods while exploring Kigali's vibrant food scene.
+                </p>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">1:00 PM</div>
+                <h3 class="timeline-title">Traditional Lunch</h3>
+                <p class="timeline-description">
+                    Enjoy an authentic Rwandan meal at a local restaurant, featuring ugali, isombe, and fresh tilapia.
+                </p>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time">3:00 PM</div>
+                <h3 class="timeline-title">Coffee Experience</h3>
+                <p class="timeline-description">
+                    Visit a specialty coffee shop to taste Rwanda's world-renowned single-origin beans and learn about the coffee-making process.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <h2 class="cta-title">Book Your Food Tour</h2>
+    <a href="contact.html" class="cta-button">
+        Reserve Your Spot
+        <span>→</span>
+    </a>
+</section>
+
+</body>
+</html>
