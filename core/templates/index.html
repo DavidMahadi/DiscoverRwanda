@@ -19,7 +19,181 @@
         padding: 0;
         box-sizing: border-box;
     }
-    
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+    --forest-deep: #0a2f1a;
+    --emerald-rich: #145c35;
+    --gold-deep: #a67c52;
+    --gold: #c5995b;
+    --gold-light: #d4a870;
+    --gold-shimmer: #e8d4b8;
+    --ivory: #f2efe9;
+    --pearl: #fdfcfa;
+    --text-primary: #2a2a2a;
+    --text-muted: #6a6a6a;
+}
+body { font-family: 'Inter', sans-serif; background: var(--ivory); color: var(--text-primary); }
+
+/* ── DEMO CARDS ── */
+.demo-section {
+    padding: 60px 5%;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+.demo-label {
+    text-align: center;
+    font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 8px;
+}
+.demo-title {
+    font-family: 'Italiana', serif; font-size: 2.8rem; text-align: center;
+    color: var(--emerald-rich); margin-bottom: 48px; letter-spacing: 1px;
+}
+.cards-row {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+    margin-bottom: 28px;
+}
+.cards-row-2 { grid-template-columns: repeat(3, 1fr); }
+
+.tour-card {
+    background: #fff; border-radius: 20px; overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,.08);
+    transition: transform .4s ease, box-shadow .4s ease;
+    display: flex; flex-direction: column;
+}
+.tour-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(0,0,0,.13); }
+
+.card-img { position: relative; height: 220px; overflow: hidden; }
+.card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.tour-card:hover .card-img img { transform: scale(1.06); }
+.card-badge {
+    position: absolute; top: 16px; left: 16px;
+    background: linear-gradient(135deg, var(--gold-deep), var(--gold));
+    color: #fff; font-size: 8px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; padding: 5px 14px; border-radius: 20px;
+}
+.card-body { padding: 22px 24px 0; flex: 1; }
+.card-meta {
+    display: flex; gap: 14px; margin-bottom: 12px;
+    font-size: 10px; color: var(--text-muted); font-weight: 500;
+}
+.card-meta span { display: flex; align-items: center; gap: 4px; }
+.card-meta .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+.card-name {
+    font-family: 'Italiana', serif; font-size: 1.5rem; color: #1a1a1a;
+    margin-bottom: 10px; letter-spacing: .5px; line-height: 1.2;
+}
+.card-desc { font-size: 11.5px; line-height: 1.8; color: #666; }
+.card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 24px 20px; margin-top: 16px;
+    border-top: 1px solid rgba(197,153,91,.12);
+}
+.card-price { font-family: 'Italiana', serif; font-size: 1.7rem; color: var(--gold); }
+.card-price span { font-size: 10px; color: var(--text-muted); font-family: 'Inter', sans-serif; margin-left: 3px; }
+.view-btn {
+    background: none; border: none; cursor: pointer; padding: 0;
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; color: #1a1a1a;
+    display: flex; align-items: center; gap: 6px;
+    transition: color .2s;
+}
+.view-btn:hover { color: var(--gold); }
+.view-btn::after { content: '→'; font-size: 13px; transition: transform .2s; }
+.view-btn:hover::after { transform: translateX(4px); }
+
+/* ── MODAL ── */
+.modal-overlay {
+    position: fixed; inset: 0; z-index: 99999;
+    background: rgba(10, 10, 10, 0.75);
+    backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.itinerary-modal {
+    background: #fff; border-radius: 24px;
+    width: 100%; max-width: 900px; max-height: 92vh;
+    overflow-y: auto; position: relative;
+    transform: translateY(50px) scale(0.96);
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    scrollbar-width: thin; scrollbar-color: #f5edd9 transparent;
+}
+.modal-overlay.open .itinerary-modal { transform: translateY(0) scale(1); }
+.itinerary-modal::-webkit-scrollbar { width: 4px; }
+.itinerary-modal::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+.modal-hero { position: relative; height: 340px; overflow: hidden; border-radius: 24px 24px 0 0; }
+.modal-hero img { width: 100%; height: 100%; object-fit: cover; }
+.modal-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,15,10,0.85) 0%, transparent 55%); }
+.modal-hero-text { position: absolute; bottom: 32px; left: 44px; right: 80px; color: #fff; }
+.modal-hero-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gold-deep), var(--gold));
+    color: #fff; font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+    padding: 6px 16px; border-radius: 20px; margin-bottom: 12px;
+    box-shadow: 0 4px 15px rgba(197,153,91,0.4);
+}
+.modal-hero-title { font-family: 'Italiana', serif; font-size: 2.6rem; font-weight: 400; line-height: 1.1; letter-spacing: 1.5px; }
+.modal-close-btn {
+    position: absolute; top: 18px; right: 18px; z-index: 10;
+    width: 42px; height: 42px; border-radius: 50%;
+    background: rgba(255,255,255,0.18); backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #fff; font-size: 18px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, transform 0.2s; line-height: 1;
+}
+.modal-close-btn:hover { background: rgba(255,255,255,0.3); transform: scale(1.08); }
+.modal-body-content { padding: 38px 44px 48px; }
+.modal-overview-pills {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    padding-bottom: 28px; border-bottom: 1px solid rgba(197,153,91,0.15); margin-bottom: 34px;
+}
+.modal-pill {
+    background: #fdf8f2; border: 1px solid rgba(197,153,91,0.25);
+    border-radius: 50px; padding: 8px 18px;
+    display: flex; flex-direction: column; gap: 2px;
+}
+.modal-pill-label { font-size: 8px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+.modal-pill-value { font-size: 12px; font-weight: 600; color: #1a1a1a; }
+.modal-section-title { font-family: 'Italiana', serif; font-size: 1.6rem; font-weight: 400; color: var(--emerald-rich); margin-bottom: 22px; letter-spacing: 0.5px; }
+.modal-timeline { position: relative; padding-left: 36px; margin-bottom: 40px; }
+.modal-timeline::before { content: ''; position: absolute; left: 8px; top: 10px; bottom: 10px; width: 1px; background: linear-gradient(to bottom, var(--gold), rgba(197,153,91,0.1)); }
+.modal-timeline-item { position: relative; margin-bottom: 30px; }
+.modal-timeline-item:last-child { margin-bottom: 0; }
+.modal-timeline-dot { position: absolute; left: -33px; top: 5px; width: 15px; height: 15px; border-radius: 50%; background: #fff; border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; }
+.modal-timeline-dot::after { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+.modal-day-label { font-size: 9px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+.modal-day-title { font-family: 'Italiana', serif; font-size: 1.2rem; font-weight: 400; color: #1a1a1a; margin-bottom: 6px; }
+.modal-day-desc { font-size: 0.875rem; line-height: 1.85; color: #555; }
+.modal-day-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.modal-day-tag { background: #fdf4e7; color: var(--gold-deep); font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 11px; border-radius: 20px; }
+.modal-includes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 38px; }
+.modal-include-item { display: flex; align-items: flex-start; gap: 10px; font-size: 0.8125rem; line-height: 1.5; color: #3a3530; background: #fafaf8; border-radius: 8px; padding: 10px 12px; border: 1px solid rgba(197,153,91,0.1); }
+.modal-footer-bar { display: flex; align-items: center; justify-content: space-between; padding-top: 28px; border-top: 1px solid rgba(197,153,91,0.15); flex-wrap: wrap; gap: 16px; }
+.modal-price-display { font-family: 'Italiana', serif; }
+.modal-price-amount { font-size: 2.6rem; color: var(--gold); }
+.modal-price-per { font-size: 11px; color: #8a7f76; margin-left: 6px; font-family: 'Inter', sans-serif; }
+.modal-price-note { font-size: 10px; color: #8a7f76; margin-top: 2px; font-family: 'Inter', sans-serif; }
+.modal-book-btn {
+    background: var(--forest-deep); color: #fff; border: none; cursor: pointer;
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700;
+    letter-spacing: 2.5px; text-transform: uppercase; padding: 16px 38px; border-radius: 50px;
+    text-decoration: none; display: inline-block;
+    transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+    box-shadow: 0 6px 20px rgba(10,47,26,0.2);
+}
+.modal-book-btn:hover { background: var(--gold); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(197,153,91,0.35); }
+@media (max-width: 640px) {
+    .modal-body-content { padding: 24px 22px 36px; }
+    .modal-hero-title { font-size: 1.8rem; }
+    .modal-includes-grid { grid-template-columns: 1fr; }
+    .modal-hero { height: 260px; }
+    .modal-hero-text { left: 22px; }
+    .cards-row, .cards-row-2 { grid-template-columns: 1fr; }
+}
     :root {
         --forest-darkest: #051810;
         --forest-deep: #0a2f1a;
@@ -2534,7 +2708,7 @@
             </div>
         </div>
         
-        <a href="about.html" class="intro-link">
+        <a href="{% url 'index' %}" class="intro-link">
             Discover Rwanda's Story
             <span>→</span>
         </a>
@@ -2623,267 +2797,257 @@
             <p class="section-intro">Meticulously designed itineraries combining Rwanda's greatest treasures with luxury accommodations and expert guidance</p>
         </div>
         
-        <div class="tours-carousel-container">
-            <button class="carousel-nav-btn prev" onclick="scrollTours('left')">←</button>
-            <button class="carousel-nav-btn next" onclick="scrollTours('right')">→</button>
-            
-            <div class="tours-grid-luxury" id="toursCarousel">
-                <a href="tour-ultimate.html" class="tour-editorial-card">
-                    <div class="tour-hero-image">
-                        <img src="https://images.unsplash.com/photo-1551918120-9739cb430c6d?w=1200&q=80" alt="Ultimate Rwanda">
-                        <div class="tour-featured-badge">Signature Collection</div>
-                    </div>
-                    <div class="tour-content-box">
-                        <div class="tour-metadata">
-                            <div class="tour-meta-item">
-                                <span>📅</span>
-                                <span>10 Days / 9 Nights</span>
-                            </div>
-                            <div class="tour-meta-item">
-                                <span>👥</span>
-                                <span>Max 10 Guests</span>
-                            </div>
-                            <div class="tour-meta-item">
-                                <span>⭐</span>
-                                <span>Ultra-Luxury</span>
-                            </div>
-                        </div>
-                        <h3 class="tour-name-editorial">The Ultimate Rwanda</h3>
-                        <p class="tour-narrative">Our flagship journey combines gorilla trekking in Volcanoes National Park, Big Five safaris in Akagera, Lake Kivu relaxation, and cultural immersion in Kigali—the complete Rwanda experience in supreme comfort.</p>
-                        <div class="tour-bottom-bar">
-                            <div class="tour-pricing-box">
-                                <div class="tour-price-amount">$9,850</div>
-                                <div class="tour-price-note">per person</div>
-                            </div>
-                            <span class="tour-explore-link">View Itinerary →</span>
-                        </div>
-                    </div>
-                </a>
-                
-                <a href="tour-exclusive.html" class="tour-editorial-card">
-                    <div class="tour-hero-image">
-                        <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1200&q=80" alt="Exclusive Gorillas">
-                        <div class="tour-featured-badge">Exclusive Access</div>
-                    </div>
-                    <div class="tour-content-box">
-                        <div class="tour-metadata">
-                            <div class="tour-meta-item">
-                                <span>📅</span>
-                                <span>6 Days / 5 Nights</span>
-                            </div>
-                            <div class="tour-meta-item">
-                                <span>👥</span>
-                                <span>Private Tour</span>
-                            </div>
-                            <div class="tour-meta-item">
-                                <span>⭐</span>
-                                <span>Bespoke</span>
-                            </div>
-                        </div>
-                        <h3 class="tour-name-editorial">Exclusive Gorilla Experience</h3>
-                        <p class="tour-narrative">Intimate encounters with mountain gorillas through private trekking permits, helicopter transfers, butler service, and luxury lodges perched above volcanic peaks. Limited to four departures annually.</p>
-                        <div class="tour-bottom-bar">
-                            <div class="tour-pricing-box">
-                                <div class="tour-price-amount">$14,500</div>
-                                <div class="tour-price-note">per person</div>
-                            </div>
-                            <span class="tour-explore-link">View Itinerary →</span>
-                        </div>
-                    </div>
-                </a>
-                
-                <a href="tour-wildlife.html" class="tour-editorial-card">
-                    <div class="tour-hero-image">
-                        <img src="https://images.unsplash.com/photo-1589553416260-f586c8f1514f?w=1200&q=80" alt="Wildlife Safari">
-                        <div class="tour-featured-badge">Big Five Adventure</div>
-                    </div>
-                    <div class="tour-content-box">
-                        <div class="tour-metadata">
-                            <div class="tour-meta-item">
-                                <span>📅</span>
-                                <span>7 Days / 6 Nights</span>
-                            </div>
-                            <div class="tour-meta-item">
-                                <span>👥</span>
-                                <span>Small Groups</span>
-                            </div>
-                            <div class="tour-meta-item">
-                                <span>⭐</span>
-                                <span>Safari Focus</span>
-                            </div>
-                        </div>
-                        <h3 class="tour-name-editorial">Complete Wildlife Safari</h3>
-                        <p class="tour-narrative">Experience the full spectrum of Rwanda's wildlife—from mountain gorillas in Volcanoes to lions, elephants, and rhinos in Akagera, with boat safaris and night game drives included.</p>
-                        <div class="tour-bottom-bar">
-                            <div class="tour-pricing-box">
-                                <div class="tour-price-amount">$7,200</div>
-                                <div class="tour-price-note">per person</div>
-                            </div>
-                            <span class="tour-explore-link">View Itinerary →</span>
-                        </div>
-                    </div>
-                </a>
-                
-                <a href="tour-primates.html" class="tour-editorial-card">
-                    <div class="tour-hero-image">
-                        <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1200&q=80" alt="Primate Trek">
-                        <div class="tour-featured-badge">Conservation Focus</div>
-                    </div>
-                    <div class="tour-content-box">
-                        <div class="tour-metadata">
-                            <div class="tour-meta-item">
-                                <span>📅</span>
-                                <span>8 Days / 7 Nights</span>
-                            </div>
-                            <div class="tour-meta-item">
-                                <span>👥</span>
-                                <span>Max 8 Guests</span>
-                            </div>
-                            <div class="tour-meta-item">
-                                <span>⭐</span>
-                                <span>Active Adventure</span>
-                            </div>
-                        </div>
-                        <h3 class="tour-name-editorial">Primate Trekking Expedition</h3>
-                        <p class="tour-narrative">Track mountain gorillas, chimpanzees, and golden monkeys across Rwanda's pristine forests. Includes canopy walks, conservation talks with researchers, and stays at eco-luxury lodges.</p>
-                        <div class="tour-bottom-bar">
-                            <div class="tour-pricing-box">
-                                <div class="tour-price-amount">$8,400</div>
-                                <div class="tour-price-note">per person</div>
-                            </div>
-                            <span class="tour-explore-link">View Itinerary →</span>
-                        </div>
-                    </div>
-                </a>
-                
-                <a href="tour-lakes.html" class="tour-editorial-card">
-                    <div class="tour-hero-image">
-                        <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=1200&q=80" alt="Lakes Retreat">
-                        <div class="tour-featured-badge">Relaxation</div>
-                    </div>
-                    <div class="tour-content-box">
-                        <div class="tour-metadata">
-                            <div class="tour-meta-item">
-                                <span>📅</span>
-                                <span>5 Days / 4 Nights</span>
-                            </div>
-                            <div class="tour-meta-item">
-                                <span>👥</span>
-                                <span>Couples</span>
-                            </div>
-                            <div class="tour-meta-item">
-                                <span>⭐</span>
-                                <span>Beach & Wellness</span>
-                            </div>
-                        </div>
-                        <h3 class="tour-name-editorial">Lake Kivu Luxury Retreat</h3>
-                        <p class="tour-narrative">Unwind on pristine beaches, explore coffee plantations, kayak to Napoleon Island, and indulge in spa treatments at Rwanda's most exclusive lakeside resorts. Perfect post-safari relaxation.</p>
-                        <div class="tour-bottom-bar">
-                            <div class="tour-pricing-box">
-                                <div class="tour-price-amount">$4,800</div>
-                                <div class="tour-price-note">per person</div>
-                            </div>
-                            <span class="tour-explore-link">View Itinerary →</span>
-                        </div>
-                    </div>
-                </a>
-                
-                <a href="tour-culture.html" class="tour-editorial-card">
-                    <div class="tour-hero-image">
-                        <img src="https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=1200&q=80" alt="Cultural Journey">
-                        <div class="tour-featured-badge">Cultural Immersion</div>
-                    </div>
-                    <div class="tour-content-box">
-                        <div class="tour-metadata">
-                            <div class="tour-meta-item">
-                                <span>📅</span>
-                                <span>6 Days / 5 Nights</span>
-                            </div>
-                            <div class="tour-meta-item">
-                                <span>👥</span>
-                                <span>Small Groups</span>
-                            </div>
-                            <div class="tour-meta-item">
-                                <span>⭐</span>
-                                <span>Heritage & Arts</span>
-                            </div>
-                        </div>
-                        <h3 class="tour-name-editorial">Cultural Heritage Journey</h3>
-                        <p class="tour-narrative">Discover Rwanda's transformation through visits to memorials, museums, art galleries, traditional villages, and contemporary Kigali. Meet artisans, attend Intore dance performances, and understand resilience.</p>
-                        <div class="tour-bottom-bar">
-                            <div class="tour-pricing-box">
-                                <div class="tour-price-amount">$5,500</div>
-                                <div class="tour-price-note">per person</div>
-                            </div>
-                            <span class="tour-explore-link">View Itinerary →</span>
-                        </div>
-                    </div>
-                </a>
-                
-                <a href="tour-family.html" class="tour-editorial-card">
-                    <div class="tour-hero-image">
-                        <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=1200&q=80" alt="Family Safari">
-                        <div class="tour-featured-badge">Family Adventure</div>
-                    </div>
-                    <div class="tour-content-box">
-                        <div class="tour-metadata">
-                            <div class="tour-meta-item">
-                                <span>📅</span>
-                                <span>9 Days / 8 Nights</span>
-                            </div>
-                            <div class="tour-meta-item">
-                                <span>👥</span>
-                                <span>Families</span>
-                            </div>
-                            <div class="tour-meta-item">
-                                <span>⭐</span>
-                                <span>All Ages</span>
-                            </div>
-                        </div>
-                        <h3 class="tour-name-editorial">Family Safari Adventure</h3>
-                        <p class="tour-narrative">Perfect for families with children, this journey combines wildlife viewing, beach time at Lake Kivu, cultural activities, and age-appropriate gorilla tracking experiences. Private vehicles and family-friendly lodges throughout.</p>
-                        <div class="tour-bottom-bar">
-                            <div class="tour-pricing-box">
-                                <div class="tour-price-amount">$6,800</div>
-                                <div class="tour-price-note">per person</div>
-                            </div>
-                            <span class="tour-explore-link">View Itinerary →</span>
-                        </div>
-                    </div>
-                </a>
-                
-                <a href="tour-honeymoon.html" class="tour-editorial-card">
-                    <div class="tour-hero-image">
-                        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200&q=80" alt="Honeymoon Package">
-                        <div class="tour-featured-badge">Romance</div>
-                    </div>
-                    <div class="tour-content-box">
-                        <div class="tour-metadata">
-                            <div class="tour-meta-item">
-                                <span>📅</span>
-                                <span>8 Days / 7 Nights</span>
-                            </div>
-                            <div class="tour-meta-item">
-                                <span>👥</span>
-                                <span>Couples</span>
-                            </div>
-                            <div class="tour-meta-item">
-                                <span>⭐</span>
-                                <span>Romantic</span>
-                            </div>
-                        </div>
-                        <h3 class="tour-name-editorial">Romantic Honeymoon Escape</h3>
-                        <p class="tour-narrative">An intimate journey designed for couples, featuring private gorilla treks, sunset boat cruises on Lake Kivu, couples' spa treatments, candlelit dinners, and the most romantic lodges Rwanda offers.</p>
-                        <div class="tour-bottom-bar">
-                            <div class="tour-pricing-box">
-                                <div class="tour-price-amount">$9,200</div>
-                                <div class="tour-price-note">per person</div>
-                            </div>
-                            <span class="tour-explore-link">View Itinerary →</span>
-                        </div>
-                    </div>
-                </a>
+    <div class="cards-row">
+        <!-- Card 1 -->
+        <div class="tour-card">
+            <div class="card-img">
+                <img src="https://images.unsplash.com/photo-1551918120-9739cb430c6d?w=800&q=80" alt="Ultimate Rwanda">
+                <span class="card-badge">Signature Collection</span>
             </div>
+            <div class="card-body">
+                <div class="card-meta">
+                    <span><span class="dot"></span>10 Days / 9 Nights</span>
+                    <span><span class="dot"></span>Max 10 Guests</span>
+                    <span><span class="dot"></span>Ultra-Luxury</span>
+                </div>
+                <h3 class="card-name">The Ultimate Rwanda</h3>
+                <p class="card-desc">Our flagship journey combines gorilla trekking in Volcanoes NP, Big Five safaris in Akagera, Lake Kivu relaxation, and cultural immersion in Kigali.</p>
+            </div>
+            <div class="card-footer">
+                <div class="card-price">$9,850<span>per person</span></div>
+                <button class="view-btn" onclick="openItineraryModal('ultimate')">VIEW ITINERARY</button>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="tour-card">
+            <div class="card-img">
+                <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&q=80" alt="Exclusive Gorilla">
+                <span class="card-badge">Exclusive Access</span>
+            </div>
+            <div class="card-body">
+                <div class="card-meta">
+                    <span><span class="dot"></span>6 Days / 5 Nights</span>
+                    <span><span class="dot"></span>Private Tour</span>
+                    <span><span class="dot"></span>Bespoke</span>
+                </div>
+                <h3 class="card-name">Exclusive Gorilla Experience</h3>
+                <p class="card-desc">Intimate encounters with mountain gorillas through private trekking permits, helicopter transfers, butler service, and luxury lodges above volcanic peaks.</p>
+            </div>
+            <div class="card-footer">
+                <div class="card-price">$14,500<span>per person</span></div>
+                <button class="view-btn" onclick="openItineraryModal('exclusive')">VIEW ITINERARY</button>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="tour-card">
+            <div class="card-img">
+                <img src="https://images.unsplash.com/photo-1589553416260-f586c8f1514f?w=800&q=80" alt="Wildlife Safari">
+                <span class="card-badge">Big Five Adventure</span>
+            </div>
+            <div class="card-body">
+                <div class="card-meta">
+                    <span><span class="dot"></span>7 Days / 6 Nights</span>
+                    <span><span class="dot"></span>Small Groups</span>
+                    <span><span class="dot"></span>Safari Focus</span>
+                </div>
+                <h3 class="card-name">Complete Wildlife Safari</h3>
+                <p class="card-desc">Experience the full spectrum of Rwanda's wildlife—from gorillas in Volcanoes to lions, elephants, and rhinos in Akagera, with boat safaris included.</p>
+            </div>
+            <div class="card-footer">
+                <div class="card-price">$7,200<span>per person</span></div>
+                <button class="view-btn" onclick="openItineraryModal('wildlife')">VIEW ITINERARY</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="cards-row cards-row-2">
+        <!-- Card 4 -->
+        <div class="tour-card">
+            <div class="card-img">
+                <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80" alt="Primate Trek">
+                <span class="card-badge">Conservation Focus</span>
+            </div>
+            <div class="card-body">
+                <div class="card-meta">
+                    <span><span class="dot"></span>8 Days / 7 Nights</span>
+                    <span><span class="dot"></span>Max 8 Guests</span>
+                    <span><span class="dot"></span>Active Adventure</span>
+                </div>
+                <h3 class="card-name">Primate Trekking Expedition</h3>
+                <p class="card-desc">Track mountain gorillas, chimpanzees, and golden monkeys across Rwanda's pristine forests. Includes canopy walks and conservation talks with researchers.</p>
+            </div>
+            <div class="card-footer">
+                <div class="card-price">$8,400<span>per person</span></div>
+                <button class="view-btn" onclick="openItineraryModal('primates')">VIEW ITINERARY</button>
+            </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="tour-card">
+            <div class="card-img">
+                <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=800&q=80" alt="Lake Kivu">
+                <span class="card-badge">Relaxation</span>
+            </div>
+            <div class="card-body">
+                <div class="card-meta">
+                    <span><span class="dot"></span>5 Days / 4 Nights</span>
+                    <span><span class="dot"></span>Couples</span>
+                    <span><span class="dot"></span>Beach & Wellness</span>
+                </div>
+                <h3 class="card-name">Lake Kivu Luxury Retreat</h3>
+                <p class="card-desc">Unwind on pristine beaches, explore coffee plantations, kayak to Napoleon Island, and indulge in spa treatments at Rwanda's most exclusive lakeside resorts.</p>
+            </div>
+            <div class="card-footer">
+                <div class="card-price">$4,800<span>per person</span></div>
+                <button class="view-btn" onclick="openItineraryModal('lakes')">VIEW ITINERARY</button>
+            </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="tour-card">
+            <div class="card-img">
+                <img src="https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=800&q=80" alt="Cultural Journey">
+                <span class="card-badge">Cultural Immersion</span>
+            </div>
+            <div class="card-body">
+                <div class="card-meta">
+                    <span><span class="dot"></span>6 Days / 5 Nights</span>
+                    <span><span class="dot"></span>Small Groups</span>
+                    <span><span class="dot"></span>Heritage & Arts</span>
+                </div>
+                <h3 class="card-name">Cultural Heritage Journey</h3>
+                <p class="card-desc">Discover Rwanda's transformation through memorials, museums, traditional villages, Intore dance performances, and contemporary Kigali art galleries.</p>
+            </div>
+            <div class="card-footer">
+                <div class="card-price">$5,500<span>per person</span></div>
+                <button class="view-btn" onclick="openItineraryModal('culture')">VIEW ITINERARY</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="cards-row cards-row-2" style="grid-template-columns: repeat(2, 1fr); max-width: 880px; margin: 28px auto 0;">
+        <!-- Card 7 -->
+        <div class="tour-card">
+            <div class="card-img">
+                <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=800&q=80" alt="Family Safari">
+                <span class="card-badge">Family Adventure</span>
+            </div>
+            <div class="card-body">
+                <div class="card-meta">
+                    <span><span class="dot"></span>9 Days / 8 Nights</span>
+                    <span><span class="dot"></span>Families</span>
+                    <span><span class="dot"></span>All Ages</span>
+                </div>
+                <h3 class="card-name">Family Safari Adventure</h3>
+                <p class="card-desc">Multi-generational adventure combining wildlife viewing, beach time at Lake Kivu, cultural activities, and age-appropriate gorilla tracking experiences.</p>
+            </div>
+            <div class="card-footer">
+                <div class="card-price">$6,800<span>per person</span></div>
+                <button class="view-btn" onclick="openItineraryModal('family')">VIEW ITINERARY</button>
+            </div>
+        </div>
+            
+        <!-- Card 8 -->
+        <div class="tour-card">
+            <div class="card-img">
+                <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80" alt="Honeymoon">
+                <span class="card-badge">Romance</span>
+            </div>
+            <div class="card-body">
+                <div class="card-meta">
+                    <span><span class="dot"></span>8 Days / 7 Nights</span>
+                    <span><span class="dot"></span>Couples Only</span>
+                    <span><span class="dot"></span>Romantic</span>
+                </div>
+                <h3 class="card-name">Romantic Honeymoon Escape</h3>
+                <p class="card-desc">Private gorilla treks, sunset cruises, private island picnics, couples' spa days, and candlelit dinners at Rwanda's most romantic lodges.</p>
+            </div>
+            <div class="card-footer">
+                <div class="card-price">$9,200<span>per person</span></div>
+                <button class="view-btn" onclick="openItineraryModal('honeymoon')">VIEW ITINERARY</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="itineraryModalOverlay" onclick="handleItineraryOverlayClick(event)">
+    <div class="itinerary-modal" id="itineraryModal">
+        <div class="modal-hero">
+            <img id="itin-hero-img" src="" alt="">
+            <div class="modal-hero-overlay"></div>
+            <div class="modal-hero-text">
+                <span class="modal-hero-badge" id="itin-badge"></span>
+                <h2 class="modal-hero-title" id="itin-title"></h2>
+            </div>
+            <button class="modal-close-btn" onclick="closeItineraryModal()" aria-label="Close">✕</button>
+        </div>
+        <div class="modal-body-content">
+            <div class="modal-overview-pills" id="itin-overview"></div>
+            <h3 class="modal-section-title">Day-by-Day Itinerary</h3>
+            <div class="modal-timeline" id="itin-timeline"></div>
+            <h3 class="modal-section-title">What's Included</h3>
+            <div class="modal-includes-grid" id="itin-includes"></div>
+            <div class="modal-footer-bar">
+                <div class="modal-price-display">
+                    <span class="modal-price-amount" id="itin-price"></span>
+                    <span class="modal-price-per">per person</span>
+                    <div class="modal-price-note" id="itin-note"></div>
+                </div>
+                <a href="{% url 'contact' %}" class="modal-book-btn" id="itin-book-btn">Book This Journey</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const itineraryData = {
+    ultimate: { badge:'Signature Collection', title:'The Ultimate Rwanda', img:'https://images.unsplash.com/photo-1551918120-9739cb430c6d?w=1200&q=85', price:'$9,850', note:'All-inclusive · Min. 2 guests', bookUrl:'tour-ultimate.html', overview:[{label:'Duration',value:'10 Days / 9 Nights'},{label:'Group Size',value:'Max 10 Guests'},{label:'Style',value:'Ultra-Luxury'},{label:'Difficulty',value:'Moderate'},{label:'Season',value:'Year-Round'}], days:[{day:'Day 1',title:'Arrival in Kigali',desc:'Private VIP transfer from Kigali International Airport to your boutique city hotel. Afternoon guided orientation walk through the city\'s vibrant streets, visiting local artisan markets and scenic viewpoints. Welcome cocktails and dinner with panoramic views of the Thousand Hills.',tags:['Kigali','City Tour','Welcome Dinner']},{day:'Days 2–3',title:'Gorilla Trekking — Volcanoes NP',desc:'Two consecutive gorilla permit days in Volcanoes National Park. Trek through ancient bamboo and hagenia forest to spend one magical hour with mountain gorilla families. Stay at Bisate Lodge with butler service, open-air bathtub, and volcano views from your villa.',tags:['Gorilla Trekking','Bisate Lodge','Volcanoes NP']},{day:'Day 4',title:'Golden Monkey Trek & Karisoke',desc:'Morning golden monkey tracking followed by a guided hike to the Dian Fossey Tomb and former Karisoke Research Center—a moving tribute to Rwanda\'s conservation legacy and the woman who changed how the world sees gorillas.',tags:['Golden Monkeys','Karisoke','Conservation']},{day:'Days 5–6',title:'Nyungwe Forest — Chimpanzees',desc:'Transfer south to Nyungwe Forest National Park—Africa\'s oldest highland rainforest. Track wild chimpanzees and red-tailed monkeys. Experience the suspended canopy walkway at dawn, 50m above the forest floor with panoramic views.',tags:['Nyungwe','Chimps','Canopy Walk']},{day:'Days 7–8',title:'Lake Kivu Relaxation',desc:'Two leisurely days on the shores of Lake Kivu at Kivu Serena Hotel. Sunset boat cruise, kayaking to Napoleon Island, visit to a lakeside coffee plantation, and optional full spa day using locally sourced ingredients.',tags:['Lake Kivu','Boat Cruise','Relax','Coffee Farm']},{day:'Days 9–10',title:'Akagera Big Five Safari & Departure',desc:'Game drives in Akagera National Park targeting lions, elephants, hippos, black rhinos, and giraffes—Rwanda\'s Big Five. Afternoon boat safari on Lake Ihema. Return to Kigali for a farewell dinner at a rooftop restaurant before your departure.',tags:['Akagera','Big Five','Game Drive','Boat Safari']}], includes:['✈️ All domestic transfers & flights','🏨 9 nights luxury accommodation','🦍 2 gorilla trekking permits','🍽️ All meals & selected beverages','🚙 Private safari vehicle & expert guide','🎒 Dedicated naturalist throughout','⛵ Lake Kivu sunset cruise','🌿 Nyungwe canopy walk','📷 Photography orientation session','💆 Welcome spa treatment'] },
+    exclusive: { badge:'Exclusive Access', title:'Exclusive Gorilla Experience', img:'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1200&q=85', price:'$14,500', note:'Private · 4 departures per year only', bookUrl:'tour-exclusive.html', overview:[{label:'Duration',value:'6 Days / 5 Nights'},{label:'Group Size',value:'Private (2–4)'},{label:'Style',value:'Bespoke Luxury'},{label:'Transfers',value:'Helicopter'},{label:'Difficulty',value:'Moderate Trek'}], days:[{day:'Day 1',title:'VIP Arrival & Kigali',desc:'Private VIP meet-and-greet at the airport with a welcome garland and dedicated concierge. Luxury transfer to One&Only Nyungwe House. Arrival cocktails, private briefing with your personal host, and a candlelit welcome dinner.',tags:['VIP Arrival','One&Only','Fine Dining']},{day:'Day 2',title:'Helicopter to Volcanoes NP',desc:'Exclusive helicopter flight over the Virunga volcano chain, landing directly at Bisate Lodge. Afternoon briefing with the senior tracker team—learn about gorilla families and tracking techniques—followed by a cultural visit to a local Batwa community.',tags:['Helicopter','Bisate Lodge','Village Visit']},{day:'Days 3–4',title:'Private Gorilla Trekking',desc:'Two full days of exclusive gorilla family visits with private permits. Your group only—no shared encounters. A dedicated team of two trackers, one ranger, and a resident primatologist guides every step of your encounter and answers every question.',tags:['Private Permits','Primatologist','Gorilla Families']},{day:'Day 5',title:'Volcano Summit or Spa Day',desc:'Choose your perfect day: summit hike of Mt. Bisoke (3,711 m) with a volcanic crater lake at the top and views across into the DRC, or a leisurely morning of spa treatments, yoga, and champagne on the volcano-view terrace.',tags:['Mt. Bisoke','Crater Lake','Spa Option']},{day:'Day 6',title:'Farewell Champagne & Departure',desc:'Helicopter return to Kigali. Champagne farewell brunch at a rooftop restaurant overlooking the city. A curated conservation gift presentation before private transfer to the airport with full VIP lounge access.',tags:['Helicopter Return','Champagne Brunch','VIP Lounge']}], includes:['🚁 All helicopter transfers','🏨 5 nights ultra-luxury lodges','🦍 2 private gorilla permits','🍽️ All meals & premium open bar','👨‍🔬 Personal primatologist guide','💆 Daily spa treatments','📸 Professional photographer (Day 3)','🎁 Curated conservation gift set','🌋 Volcano summit trek option','🛋️ VIP airport lounge access'] },
+    wildlife: { badge:'Big Five Adventure', title:'Complete Wildlife Safari', img:'https://images.unsplash.com/photo-1589553416260-f586c8f1514f?w=1200&q=85', price:'$7,200', note:'Small groups · Max 8 guests', bookUrl:'tour-wildlife.html', overview:[{label:'Duration',value:'7 Days / 6 Nights'},{label:'Group Size',value:'Max 8 Guests'},{label:'Focus',value:'Wildlife Safari'},{label:'Difficulty',value:'Easy–Moderate'},{label:'Departs',value:'Bi-Monthly'}], days:[{day:'Day 1',title:'Kigali Arrival & City Tour',desc:'Settle into your Kigali hotel. Half-day city tour including the Kigali Genocide Memorial, Kimironko Market, and the vibrant Nyamirambo neighbourhood with its great street food and local coffee shops. Group welcome dinner with Rwandan cuisine.',tags:['Kigali','Memorial','Welcome Dinner']},{day:'Days 2–3',title:'Gorilla Trekking — Volcanoes NP',desc:'Morning drive through the rolling hills to Volcanoes National Park. One full day of gorilla trekking with an experienced ranger—one of Africa\'s most profound wildlife encounters. Stay at Sabyinyo Silverback Lodge with golden monkey walk available.',tags:['Gorilla Trek','Volcanoes NP','Sabyinyo Lodge']},{day:'Day 4',title:'Transfer to Akagera NP',desc:'Scenic drive east across Rwanda\'s beautiful terrain to Akagera National Park. Afternoon arrival game drive to warm up—hippos at the lake, baboons, buffalos, zebra, and first lion sightings. Sundowner drinks at the lakeside camp.',tags:['Akagera','Game Drive','Sundowner']},{day:'Days 5–6',title:'Big Five Game Drives & Boat Safari',desc:'Two full days in Akagera. Morning and golden-hour evening drives targeting lions, elephants, black rhinos, leopards, and buffalo. Afternoon boat safari on Lake Ihema spotting crocodiles, hippos, and hundreds of bird species.',tags:['Big Five','Boat Safari','Night Drive','Birding']},{day:'Day 7',title:'Morning Walk & Departure',desc:'Early morning bird walk in Akagera\'s open savannah—over 500 species recorded here. Return to Kigali. Optional visit to the Inema Arts Center and local market. Farewell group lunch at a celebrated rooftop restaurant.',tags:['Birding','Inema Arts','Farewell Lunch']}], includes:['🚙 Private game-drive vehicle','🏨 6 nights safari lodges','🦍 1 gorilla trekking permit','🍽️ All meals included','⛵ Boat safari on Lake Ihema','🌅 Evening sundowner drinks','🎒 Expert wildlife guide throughout','🦅 Morning bird walk','🏙️ Kigali city orientation tour','🎨 Inema Arts Center visit'] },
+    primates: { badge:'Conservation Focus', title:'Primate Trekking Expedition', img:'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1200&q=85', price:'$8,400', note:'All-inclusive · Max 8 guests', bookUrl:'tour-primates.html', overview:[{label:'Duration',value:'8 Days / 7 Nights'},{label:'Group Size',value:'Max 8 Guests'},{label:'Style',value:'Active Adventure'},{label:'Difficulty',value:'Moderate–Strenuous'},{label:'Focus',value:'Primates & Forest'}], days:[{day:'Day 1',title:'Arrival & Kigali Orientation',desc:'Welcome to Rwanda. Private transfer to your city hotel, briefing dinner with your lead guide, and an inspiring introduction to Rwanda\'s extraordinary conservation success story over the past three decades.',tags:['Kigali','Briefing','Welcome Dinner']},{day:'Days 2–3',title:'Mountain Gorillas — Volcanoes NP',desc:'Two gorilla permit days in Volcanoes National Park, visiting different gorilla families each day. Evening talks with conservation researchers about ongoing gorilla protection programs and anti-poaching efforts.',tags:['Gorilla Trekking','Research Talk','Volcanoes NP']},{day:'Day 4',title:'Golden Monkey Habituation & Dian Fossey',desc:'Morning golden monkey habituation experience—longer, more intimate visits than standard tracking. Afternoon hike to Karisoke Research Center and Dian Fossey\'s tomb in the heart of the forest.',tags:['Golden Monkeys','Habituation','Karisoke']},{day:'Days 5–6',title:'Nyungwe — Chimpanzees & Canopy Walk',desc:'Two immersive days in Nyungwe Forest. Day 5: chimpanzee tracking at first light—follow the calls through ancient forest. Day 6: colobus monkey group walk and the canopy walkway suspended 50m above the forest floor.',tags:['Chimp Trek','Colobus','Canopy Walk','Nyungwe']},{day:'Day 7',title:'Akagera — Olive Baboons & Birding',desc:'Full-day excursion to Akagera for savannah primates—olive baboons and vervet monkeys—plus a boat safari on Lake Ihema targeting rare shoebill storks and over 500 bird species.',tags:['Baboons','Birding','Shoebill']},{day:'Day 8',title:'Final Forest Walk & Departure',desc:'Optional sunrise forest hike in Nyungwe before transfer to Kigali. Conservation certificate presentation from the Rwanda Development Board, curated gift, and VIP airport transfer.',tags:['Final Hike','Certificate','Farewell']}], includes:['🦍 2 gorilla trekking permits','🐒 Chimp trekking permit','🏨 7 nights eco-luxury lodges','🍽️ All meals & drinks','🌿 Canopy walkway access','👨‍🔬 Conservation researcher evening talks','🚙 Private vehicle throughout','🦅 Akagera bird walk','📜 Conservation certificate','🎁 Curated conservation gift'] },
+    lakes: { badge:'Relaxation', title:'Lake Kivu Luxury Retreat', img:'https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=1200&q=85', price:'$4,800', note:'Couples · Beach & Wellness focus', bookUrl:'tour-lakes.html', overview:[{label:'Duration',value:'5 Days / 4 Nights'},{label:'Group Size',value:'Couples / Small Groups'},{label:'Style',value:'Beach & Wellness'},{label:'Difficulty',value:'Easy'},{label:'Season',value:'Year-Round'}], days:[{day:'Day 1',title:'Kigali to Rubavu — Lake Arrival',desc:'Scenic drive from Kigali to Lake Kivu, passing through tea plantations and hilltop villages with sweeping valley views. Arrive at your exclusive lakeside resort for welcome drinks on the terrace and a romantic sunset cruise.',tags:['Kigali','Scenic Drive','Sunset Cruise']},{day:'Day 2',title:'Napoleon Island & Fishing Villages',desc:'Morning boat trip to Napoleon Island—home to thousands of fruit bats and beautiful lake birds that emerge at dusk. Afternoon visit to a lakeside fishing community to learn traditional methods and sample freshly grilled tilapia.',tags:['Napoleon Island','Boat Trip','Fishing Village']},{day:'Day 3',title:'Coffee Farm & Spa Day',desc:'Morning tour of a premium lakeside coffee plantation—from cherry picking to cup tasting, learning about Rwanda\'s celebrated coffee culture. Full afternoon of couples\' spa treatments including volcanic stone massage.',tags:['Coffee Farm','Spa','Couples Treatments']},{day:'Day 4',title:'Kayaking & Private Beach Dinner',desc:'Guided kayaking tour along Lake Kivu\'s pristine shoreline, exploring hidden coves and small islands. Afternoon free on the resort\'s private beach. Sunset cocktails followed by a private candlelit beach dinner.',tags:['Kayaking','Beach','Private Dinner']},{day:'Day 5',title:'Farewell Morning & Return to Kigali',desc:'Leisurely final morning swim and brunch. Optional visit to Rubavu town market for local crafts and handwoven baskets. Scenic return drive to Kigali via the spectacular Congo-Nile Divide ridge road.',tags:['Market Visit','Scenic Drive','Farewell']}], includes:['⛵ Sunset & Napoleon Island cruises','🏨 4 nights luxury lakeside resort','🍽️ All meals & welcome drinks','☕ Coffee plantation farm tour','💆 Couples\' spa full-day treatment','🚣 Guided lake kayaking','🐠 Fishing community village visit','🏖️ Private beach dinner','🚙 Kigali–Lake Kivu transfers','🛍️ Rubavu local market visit'] },
+    culture: { badge:'Cultural Immersion', title:'Cultural Heritage Journey', img:'https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=1200&q=85', price:'$5,500', note:'Small groups · Heritage & Arts focus', bookUrl:'tour-culture.html', overview:[{label:'Duration',value:'6 Days / 5 Nights'},{label:'Group Size',value:'Max 10 Guests'},{label:'Focus',value:'Heritage & Arts'},{label:'Difficulty',value:'Easy'},{label:'Pace',value:'Leisurely'}], days:[{day:'Day 1',title:'Kigali — Memorial & Inema Arts',desc:'Arrive in Kigali. A sensitive, expertly guided visit to the Kigali Genocide Memorial—a powerful testament to human resilience and remembrance. Evening private exhibition opening at Inema Arts Center with local contemporary artists.',tags:['Kigali','Memorial','Inema Arts']},{day:'Day 2',title:'Ethnographic Museum & Royal Palace',desc:'Drive south to Butare. Full day at the National Museum of Rwanda with its rich ethnographic collection, then the reconstructed Nyanza Royal Palace—home to the famous long-horned Inyambo royal cattle, still lovingly tended today.',tags:['Butare','Museum','Royal Palace','Inyambo Cattle']},{day:'Day 3',title:'Iby\'iwacu Cultural Village',desc:'Full day at Iby\'iwacu Cultural Village near Volcanoes NP. Participate in traditional Rwandan life—learn ancient bow-hunting techniques, grind sorghum, hear traditional stories, make local beer, and experience the thrilling Intore warrior dance.',tags:['Intore Dance','Cultural Village','Traditions']},{day:'Day 4',title:'Artisan Workshops — Weaving & Pottery',desc:'Visit the Gahaya Links cooperative where skilled women artisans create Rwanda\'s famous Agaseke peace baskets. Hands-on weaving workshop. Afternoon visit to a traditional pottery workshop using ancient coiling techniques unchanged for centuries.',tags:['Basket Weaving','Pottery','Artisans','Workshop']},{day:'Day 5',title:'Musanze Caves & Family Cooking',desc:'Explore the remarkable Musanze Caves—a 2km lava tube labyrinth used as refuges during historical conflicts. Afternoon with a Rwandan family for an authentic cooking lesson, learning to prepare traditional dishes over an open fire.',tags:['Musanze Caves','Cooking Class','Family Visit']},{day:'Day 6',title:'Contemporary Kigali & Departure',desc:'Morning exploring Kigali\'s remarkable contemporary architecture—the convention centre dome, modern galleries, and vibrant café culture. Farewell lunch at a celebrated Kigali restaurant showcasing Rwanda\'s exciting new culinary scene.',tags:['Modern Kigali','Café Culture','Farewell Lunch']}], includes:['🎭 Intore dance performance','🏺 Pottery & basket weaving workshop','🏛️ Museum & Royal Palace visits','🍳 Traditional family cooking class','🏨 5 nights boutique hotels','🍽️ All meals included','🕌 Kigali Genocide Memorial','🧺 Artisan cooperative visit','🌋 Musanze Caves guided tour','🚙 Private transport throughout'] },
+    family: { badge:'Family Adventure', title:'Family Safari Adventure', img:'https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=1200&q=85', price:'$6,800', note:'All ages welcome · Family-paced', bookUrl:'tour-family.html', overview:[{label:'Duration',value:'9 Days / 8 Nights'},{label:'Group Size',value:'Families'},{label:'Style',value:'Family-Friendly'},{label:'Difficulty',value:'Easy–Moderate'},{label:'Ages',value:'All Ages Welcome'}], days:[{day:'Day 1',title:'Family Arrival in Kigali',desc:'Family-friendly welcome with airport greeting, welcome gifts for the children, and VIP lounge access. Transfer to your family suite with pool. Child-oriented introductory city walk with a young guide passionate about wildlife education.',tags:['Kigali','Family Hotel','Welcome']},{day:'Days 2–3',title:'Akagera Game Drives & Boat Safari',desc:'Two days of wildlife excitement in Akagera—perfect for all ages. Game drives targeting lions, elephants, zebra, and giraffe. Boat safari with hippos and crocodiles. Evening wildlife talks by rangers designed to engage young minds.',tags:['Akagera','Big Five','Boat Safari','Kids Rangers']},{day:'Day 4',title:'Lake Kivu Beach & Water Fun',desc:'Family beach day on Lake Kivu\'s safe, calm freshwater shores—no crocodiles or bilharzia, perfect for swimming. Kayaking, paddleboarding, and a fun boat cruise to Napoleon Island with a wildlife presentation for children.',tags:['Lake Kivu','Swimming','Kayaking','Family Boat']},{day:'Days 5–6',title:'Golden Monkeys & Cultural Village',desc:'Age-appropriate golden monkey tracking in Volcanoes NP (suitable for children 8+). Day 6: Iby\'iwacu Cultural Village with interactive Intore dance lessons, traditional games, bow-and-arrow demonstrations, and crafts activities for the whole family.',tags:['Golden Monkeys','Cultural Village','Intore Dance','Kids Activities']},{day:'Days 7–8',title:'Gorilla Trek (15+) & Junior Rangers',desc:'Adults and teens (15+) join gorilla trekking while younger children enjoy an immersive junior ranger programme with forest walks, animal tracking, and bird identification. Reunite over a family feast at the forest lodge.',tags:['Gorilla Trek','Junior Rangers','Nature Walk']},{day:'Day 9',title:'Kigali Zoo, Museum & Farewell',desc:'Final morning at the Kigali natural history museum and arts centre. Special farewell lunch with a Rwandan family who welcome children warmly. Each child receives a personalised wildlife explorer certificate before airport transfer.',tags:['Zoo','Museum','Kids Certificates','Farewell']}], includes:['🦁 2 days Akagera game drives','⛵ Family boat safari','🦍 Gorilla trek (15+ years)','🐒 Golden monkey family track','🏨 8 nights family-friendly lodges','🍽️ All meals & snacks','🎒 Junior ranger programme','🏖️ Lake Kivu beach day','📜 Children\'s wildlife certificates','🎭 Intore dance lessons'] },
+    honeymoon: { badge:'Romance', title:'Romantic Honeymoon Escape', img:'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200&q=85', price:'$9,200', note:'Couples only · Fully private', bookUrl:'tour-honeymoon.html', overview:[{label:'Duration',value:'8 Days / 7 Nights'},{label:'Group Size',value:'Couples Only'},{label:'Style',value:'Romantic Luxury'},{label:'Difficulty',value:'Easy–Moderate'},{label:'Privacy',value:'Fully Private'}], days:[{day:'Day 1',title:'Romantic Kigali Arrival',desc:'Rose-petal room reveal and champagne upon arrival at your boutique Kigali hotel. Private sunset cocktails on a rooftop terrace overlooking the city of a thousand hills. Intimate candlelit welcome dinner curated by a private chef.',tags:['Kigali','Champagne','Romantic Dinner']},{day:'Days 2–3',title:'Private Gorilla Trek & Lodge Romance',desc:'Two private gorilla permit days in Volcanoes NP—just the two of you and your guide. Return each evening to your suite at One&Only Nyungwe House for candlelit dinners, guided stargazing with a telescope, and couples\' spa treatments.',tags:['Private Trek','One&Only','Couples Spa','Stargazing']},{day:'Day 4',title:'Lake Kivu — Love on the Water',desc:'Scenic transfer to Lake Kivu. Private sunset cruise with champagne and canapés. Arrive at your exclusive lakeside villa with private infinity pool, open-air bath, and a personal butler. Candlelit dinner on your private terrace.',tags:['Lake Kivu','Private Villa','Sunset Cruise','Butler']},{day:'Days 5–6',title:'Island Escapes & Spa Bliss',desc:'Day 5: Private boat to a secluded uninhabited island for a romantic gourmet picnic with breathtaking lake views. Day 6: Full couples\' spa day with volcanic stone massage, hibiscus flower bath, and a private cooking class at sunset.',tags:['Private Island','Picnic','Spa Day','Cooking Class']},{day:'Day 7',title:'Akagera — Wild Skies for Two',desc:'Private game drive in Akagera—lions, elephants, and giraffes roaming as the sky turns gold. A private sundowner ceremony with your ranger at a scenic hilltop. Candlelit dinner under a canopy of stars at the safari camp.',tags:['Akagera','Private Drive','Sundowner','Star Dinner']},{day:'Day 8',title:'Kigali Farewell & Departure',desc:'Return to Kigali. Bespoke jewellery experience at a local goldsmith using Rwanda\'s beautiful minerals and gemstones—a unique keepsake of your journey. Farewell champagne brunch before your airport transfer.',tags:['Kigali','Jewellery','Champagne Brunch','Farewell']}], includes:['🦍 2 private gorilla permits','🏨 7 nights romantic luxury lodges','🥂 Welcome & departure champagne','🍽️ All meals & premium bar','💆 Two full couples\' spa days','⛵ Private Lake Kivu sunset cruise','🏝️ Private island picnic','🚙 All private transport','🍳 Private cooking class','💍 Kigali jewellery experience'] }
+};
+
+function openItineraryModal(key) {
+    const d = itineraryData[key];
+    if (!d) return;
+    document.getElementById('itin-hero-img').src = d.img;
+    document.getElementById('itin-hero-img').alt = d.title;
+    document.getElementById('itin-badge').textContent = d.badge;
+    document.getElementById('itin-title').textContent = d.title;
+    document.getElementById('itin-price').textContent = d.price;
+    document.getElementById('itin-note').textContent = d.note;
+    document.getElementById('itin-book-btn').href = d.bookUrl;
+    document.getElementById('itin-overview').innerHTML = d.overview.map(o =>
+        `<div class="modal-pill"><span class="modal-pill-label">${o.label}</span><span class="modal-pill-value">${o.value}</span></div>`
+    ).join('');
+    document.getElementById('itin-timeline').innerHTML = d.days.map(day =>
+        `<div class="modal-timeline-item"><div class="modal-timeline-dot"></div><div class="modal-day-label">${day.day}</div><div class="modal-day-title">${day.title}</div><div class="modal-day-desc">${day.desc}</div><div class="modal-day-tags">${day.tags.map(t => `<span class="modal-day-tag">${t}</span>`).join('')}</div></div>`
+    ).join('');
+    document.getElementById('itin-includes').innerHTML = d.includes.map(inc =>
+        `<div class="modal-include-item">${inc}</div>`
+    ).join('');
+    const overlay = document.getElementById('itineraryModalOverlay');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => { document.getElementById('itineraryModal').scrollTop = 0; }, 20);
+}
+function closeItineraryModal() {
+    document.getElementById('itineraryModalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+}
+function handleItineraryOverlayClick(e) {
+    if (e.target === document.getElementById('itineraryModalOverlay')) closeItineraryModal();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeItineraryModal(); });
+</script>
+</div>
             
             <!-- Carousel Dots -->
             <div class="carousel-dots" id="carouselDots"></div>
@@ -3283,7 +3447,7 @@
     </div>
     
     <div class="footer-bottom-bar">
-        <p class="footer-copyright">© 2025 Discover Rwanda. All rights reserved.</p>
+        <p class="footer-copyright">© 2026 Discover Rwanda. All rights reserved.</p>
         <div class="footer-legal-links">
             <a href="privacy.html">Privacy</a>
             <a href="terms.html">Terms</a>
