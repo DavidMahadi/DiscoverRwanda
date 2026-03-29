@@ -277,13 +277,12 @@ body { font-family: 'Inter', sans-serif; background: var(--ivory); color: var(--
     display: flex;               /* horizontal layout */
     align-items: center;         /* vertically center items */
     justify-content: flex-start; /* start from left */
-    padding: 10px 20px;
     gap: 20px;                   /* space between logo and links */
 }
 
 .nav-logo-img {
-    width: 300px;                /* adjust size */
-    height: 120px;
+    width: 160px;
+    height: 68px;
     border-radius: 50%;
     background: transparent;
     display: flex;
@@ -746,7 +745,144 @@ body { font-family: 'Inter', sans-serif; background: var(--ivory); color: var(--
     /* ============================================
        COMPACT INTRO (Preview to About)
     ============================================ */
-    
+    /* ── HAMBURGER BUTTON ── */
+.nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 44px; height: 44px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 10001;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    flex-shrink: 0;
+}
+.nav.scrolled .nav-hamburger {
+    background: rgba(0,0,0,0.06);
+    border-color: rgba(197,153,91,0.3);
+}
+.nav-hamburger:hover { background: rgba(197,153,91,0.25); border-color: var(--gold); }
+.nav-hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: white; border-radius: 2px;
+    transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+    transform-origin: center;
+}
+.nav.scrolled .nav-hamburger span { background: var(--text-primary); }
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── OVERLAY ── */
+.mobile-nav-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(5,24,16,0.6);
+    backdrop-filter: blur(4px);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+.mobile-nav-overlay.open { opacity: 1; pointer-events: all; }
+
+/* ── DRAWER ── */
+.mobile-nav-drawer {
+    position: fixed; top: 0; right: 0; bottom: 0;
+    z-index: 10000;
+    width: min(360px, 88vw);
+    background: linear-gradient(160deg, #0a2f1a 0%, #051810 60%, #0a0a0a 100%);
+    transform: translateX(100%);
+    transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
+    display: flex; flex-direction: column;
+    overflow-y: auto;
+    box-shadow: -20px 0 60px rgba(0,0,0,0.5);
+}
+.mobile-nav-drawer.open { transform: translateX(0); }
+
+.mobile-nav-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(197,153,91,0.15);
+    flex-shrink: 0;
+}
+.mobile-nav-logo { height: 52px; width: auto; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.9; }
+.mobile-nav-close {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: white; font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s ease;
+}
+.mobile-nav-close:hover { background: rgba(197,153,91,0.3); border-color: var(--gold); }
+
+.mobile-nav-list { list-style: none; padding: 1rem 0 2rem; flex: 1; }
+.mobile-nav-item { border-bottom: 1px solid rgba(255,255,255,0.05); }
+.mobile-nav-row { display: flex; align-items: center; justify-content: space-between; }
+.mobile-nav-link {
+    display: block; flex: 1; padding: 1rem 1.5rem;
+    color: rgba(255,255,255,0.88); text-decoration: none;
+    font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    transition: color 0.2s ease;
+}
+.mobile-nav-link:hover { color: var(--gold-light); }
+.mobile-nav-toggle {
+    width: 44px; height: 48px;
+    background: none; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.4);
+    transition: all 0.3s ease;
+}
+.mobile-nav-toggle:hover { color: var(--gold); }
+.mobile-nav-toggle.open { color: var(--gold); transform: rotate(180deg); }
+
+.mobile-nav-dropdown {
+    display: none;
+    background: rgba(0,0,0,0.25);
+    border-left: 2px solid rgba(197,153,91,0.3);
+    margin-left: 1.5rem; padding: 0.5rem 0;
+}
+.mobile-nav-dropdown.open { display: block; }
+.mobile-nav-dropdown a {
+    display: block; padding: 0.7rem 1.25rem;
+    color: rgba(255,255,255,0.65); text-decoration: none;
+    font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.mobile-nav-dropdown a:last-child { border-bottom: none; }
+.mobile-nav-dropdown a:hover { color: var(--gold-light); padding-left: 1.75rem; background: rgba(197,153,91,0.06); }
+
+.mobile-nav-cta {
+    margin: 1rem 1.5rem 0.5rem; display: block; padding: 1rem 2rem;
+    background: linear-gradient(135deg, var(--gold-deep), var(--gold), var(--gold-light));
+    color: white; text-align: center; text-decoration: none;
+    font-size: 0.75rem; font-weight: 800;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    border-radius: 50px; transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(197,153,91,0.35);
+}
+.mobile-nav-cta:hover { transform: translateY(-2px); }
+
+.mobile-nav-footer {
+    padding: 1.25rem 1.5rem;
+    border-top: 1px solid rgba(197,153,91,0.15);
+    flex-shrink: 0;
+}
+.mobile-nav-contact { display: flex; flex-direction: column; gap: 0.6rem; }
+.mobile-nav-contact a {
+    display: flex; align-items: center; gap: 0.75rem;
+    color: rgba(255,255,255,0.55); text-decoration: none;
+    font-size: 0.75rem; transition: color 0.2s;
+}
+.mobile-nav-contact a:hover { color: var(--gold-light); }
+
+body.nav-open { overflow: hidden; }
     /* ============================================
        INTRO SECTION - ENHANCED DESIGN
     ============================================ */
@@ -2475,45 +2611,931 @@ body { font-family: 'Inter', sans-serif; background: var(--ivory); color: var(--
        RESPONSIVE EXCELLENCE
     ============================================ */
     
-    @media (max-width: 1400px) {
-        .experiences-showcase,
-        .tours-grid-luxury {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        
-        .gallery-preview-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-    
-    @media (max-width: 1024px) {
-        .why-benefits-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        
-        .footer-grid-luxury {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-    
-    @media (max-width: 768px) {
-        .nav-menu {
-            display: none;
-        }
-        
-        .experiences-showcase,
-        .tours-grid-luxury,
-        .why-benefits-grid,
-        .gallery-preview-grid,
-        .footer-grid-luxury {
-            grid-template-columns: 1fr;
-        }
-        
-        .footer-bottom-bar {
-            flex-direction: column;
-            gap: 3rem;
-        }
-    }
+   /* ============================================================
+   DISCOVER RWANDA — COMPREHENSIVE RESPONSIVE MEDIA QUERIES
+   Covers: 4K → 2K → Desktop → Laptop → Tablet → Mobile → XS
+   ============================================================ */
+
+
+/* ============================================================
+   4K / ULTRA-WIDE  (2560px+)
+   ============================================================ */
+@media (min-width: 2560px) {
+  .nav-container               { max-width: 2400px; padding: 0 8%; }
+  .hero-headline               { font-size: 11rem; }
+  .hero-description            { font-size: 2.2rem; max-width: 1300px; }
+  .cta-btn                     { padding: 1.75rem 5rem; font-size: 1rem; }
+
+  .intro-compact               { padding: 7rem 8%; }
+  .intro-statement             { font-size: 1.9rem; max-width: 1400px; }
+  .intro-highlights            { max-width: 1300px; gap: 3.5rem; }
+
+  .about-luxury,
+  .experiences-premium,
+  .tours-signature,
+  .gallery-preview,
+  .why-luxury,
+  .testimonials-luxury,
+  .travel-essentials,
+  .blog-luxury                 { padding: 12rem 8%; }
+
+  .section-heading             { font-size: 5.5rem; }
+  .section-intro               { font-size: 1.35rem; max-width: 1200px; }
+
+  .experiences-showcase        { grid-template-columns: repeat(3, 1fr); gap: 4rem; }
+  .experience-luxury-card      { height: 850px; }
+
+  .tour-editorial-card         { flex: 0 0 calc(33.333% - 1.667rem); }
+  .tour-hero-image             { height: 600px; }
+
+  .gallery-preview-grid        { grid-template-columns: repeat(4, 1fr); gap: 2.5rem; }
+  .gallery-preview-item        { height: 450px; }
+
+  .why-benefits-grid           { gap: 5rem; }
+  .benefit-luxury-card         { padding: 5rem 3.5rem; }
+
+  .testimonials-grid           { gap: 4rem; max-width: 2000px; }
+
+  .footer-grid-luxury          { max-width: 2400px; gap: 9rem; }
+  .footer-bottom-bar           { max-width: 2400px; }
+
+  .nav-logo-img                { width: 360px; height: 150px; }
+}
+
+
+/* ============================================================
+   2K / QHD  (1921px – 2559px)
+   ============================================================ */
+@media (min-width: 1921px) and (max-width: 2559px) {
+  .nav-container               { max-width: 2100px; padding: 0 7%; }
+  .hero-headline               { font-size: 9.5rem; }
+  .hero-description            { font-size: 1.9rem; max-width: 1150px; }
+
+  .section-heading             { font-size: 5rem; }
+  .experiences-showcase        { grid-template-columns: repeat(3, 1fr); }
+  .experience-luxury-card      { height: 780px; }
+
+  .about-luxury,
+  .experiences-premium,
+  .tours-signature,
+  .why-luxury,
+  .testimonials-luxury         { padding: 11rem 7%; }
+
+  .footer-grid-luxury          { max-width: 2100px; gap: 8rem; }
+  .footer-bottom-bar           { max-width: 2100px; }
+}
+
+
+/* ============================================================
+   LARGE DESKTOP  (1600px – 1920px)
+   ============================================================ */
+@media (min-width: 1600px) and (max-width: 1920px) {
+  .nav-container               { padding: 0 6%; }
+  .hero-headline               { font-size: clamp(6rem, 8.5vw, 8rem); }
+  .experiences-showcase        { grid-template-columns: repeat(3, 1fr); }
+  .tour-editorial-card         { flex: 0 0 calc(33.333% - 1.667rem); }
+  .gallery-preview-grid        { grid-template-columns: repeat(4, 1fr); }
+  .footer-grid-luxury          { grid-template-columns: 2.5fr 1fr 1fr 1fr; }
+}
+
+
+/* ============================================================
+   STANDARD DESKTOP  (1400px – 1599px)
+   ============================================================ */
+@media (min-width: 1400px) and (max-width: 1599px) {
+  .hero-headline               { font-size: clamp(5rem, 7.5vw, 7rem); }
+  .experience-luxury-card      { height: 650px; }
+  .tour-hero-image             { height: 460px; }
+  .tour-content-box            { padding: 3rem; }
+}
+
+
+/* ============================================================
+   LAPTOP / SMALL DESKTOP  (1200px – 1399px)
+   ============================================================ */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .nav-container               { padding: 0 4%; }
+  .nav-menu                    { gap: 2.5rem; }
+  .nav-item a                  { font-size: 0.75rem; letter-spacing: 1.4px; }
+  .nav-logo-img                { width: 240px; height: 100px; }
+
+  .hero-headline               { font-size: clamp(4rem, 7vw, 6rem); letter-spacing: 4px; }
+  .hero-description            { font-size: 1.35rem; }
+
+  .section-heading             { font-size: clamp(2.5rem, 4.5vw, 3.75rem); }
+
+  .experiences-showcase        { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+  .experience-luxury-card      { height: 580px; }
+
+  .tour-editorial-card         { flex: 0 0 calc(33.333% - 1.667rem); }
+  .tour-hero-image             { height: 400px; }
+  .tour-content-box            { padding: 2.5rem; }
+  .tour-name-editorial         { font-size: 1.9rem; }
+
+  .gallery-preview-grid        { grid-template-columns: repeat(4, 1fr); }
+  .gallery-preview-item        { height: 300px; }
+
+  .why-benefits-grid           { grid-template-columns: repeat(4, 1fr); gap: 2.5rem; }
+  .benefit-luxury-card         { padding: 3rem 2rem; }
+
+  .testimonials-grid           { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+
+  .footer-grid-luxury          { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; }
+
+  .cards-row,
+  .cards-row-2                 { grid-template-columns: repeat(3, 1fr); }
+}
+
+
+/* ============================================================
+   TABLET LANDSCAPE / SMALL LAPTOP  (1024px – 1199px)
+   ============================================================ */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .nav-container               { padding: 0 3.5%; }
+  .nav-menu                    { gap: 2rem; }
+  .nav-item a                  { font-size: 0.6875rem; letter-spacing: 1.2px; }
+  .nav-logo-img                { width: 210px; height: 90px; }
+  .nav-cta                     { padding: 0.8rem 2rem !important; }
+
+  .nav-hamburger               { display: none !important; }
+  .mobile-nav-overlay,
+  .mobile-nav-drawer           { display: none !important; }
+
+  .hero                        { min-height: 800px; }
+  .hero-headline               { font-size: clamp(3.5rem, 6.5vw, 5.5rem); letter-spacing: 3px; }
+  .hero-description            { font-size: 1.2rem; max-width: 700px; }
+  .cta-btn                     { padding: 1.25rem 3rem; font-size: 0.75rem; }
+
+  .intro-compact               { padding: 4rem 4%; }
+  .intro-statement             { font-size: 1.15rem; }
+  .intro-highlights            { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; max-width: 900px; }
+
+  .about-luxury,
+  .tours-signature,
+  .why-luxury,
+  .blog-luxury                 { padding: 7rem 4%; }
+  .experiences-premium         { padding: 7rem 4%; }
+  .testimonials-luxury,
+  .travel-essentials           { padding: 6rem 4%; }
+  .gallery-preview             { padding: 6rem 4%; }
+  .travel-your-way             { padding: 9rem 4%; }
+  .cta-immersive               { padding: 0; }
+
+  .section-heading             { font-size: clamp(2.2rem, 4vw, 3rem); }
+  .section-intro               { font-size: 1rem; }
+
+  .experiences-showcase        { grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
+  .experience-luxury-card      { height: 560px; }
+  .experience-title-luxury     { font-size: 1.9rem; }
+
+  .tours-grid-luxury           { gap: 2rem; }
+  .tour-editorial-card         { flex: 0 0 calc(50% - 1rem); }
+  .tour-hero-image             { height: 380px; }
+  .tour-content-box            { padding: 2.25rem; }
+  .tour-name-editorial         { font-size: 1.7rem; }
+  .tour-price-amount           { font-size: 2rem; }
+
+  .gallery-preview-grid        { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .gallery-preview-item        { height: 280px; }
+
+  .why-benefits-grid           { grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
+  .benefit-luxury-card         { padding: 3rem 2.5rem; }
+  .benefit-icon-luxury         { width: 90px; height: 90px; font-size: 3rem; }
+
+  .testimonials-grid           { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .testimonial-text-compact    { font-size: 0.9375rem; min-height: 120px; }
+
+  .travel-ways-grid            { grid-template-columns: repeat(2, 1fr); }
+  .travel-way-card:nth-child(2n){ border-right: none; }
+
+  .cta-split-container         { grid-template-columns: 1fr 1fr; }
+  .cta-headline                { font-size: 2.25rem; }
+
+  .essentials-grid             { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+
+  .footer-grid-luxury          { grid-template-columns: repeat(2, 1fr); gap: 4rem; }
+  .footer-bottom-bar           { flex-direction: row; }
+
+  .cards-row,
+  .cards-row-2                 { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+  .stat-card-luxury            { padding: 2rem; }
+  .stat-number-luxury          { font-size: 3rem; }
+  .stats-grid-luxury           { gap: 2.5rem; }
+}
+
+
+/* ============================================================
+   TABLET PORTRAIT  (768px – 1023px)
+   ============================================================ */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Nav */
+  .nav-menu                    { display: none; }
+  .nav-container               { padding: 0 4%; }
+  .nav-logo-img                { width: 190px; height: 80px; }
+  .nav                         { padding: 1rem 0; }
+
+  .nav-hamburger               { display: flex; }
+  .mobile-nav-drawer           { width: min(360px, 88vw); }
+
+  /* Hero */
+  .hero                        { min-height: 700px; }
+  .hero-headline               { font-size: clamp(3rem, 7vw, 5rem); letter-spacing: 3px; }
+  .hero-description            { font-size: 1.1rem; max-width: 600px; }
+  .hero-eyebrow                { font-size: 0.5625rem; letter-spacing: 4px; }
+  .cta-btn                     { padding: 1.1rem 2.5rem; font-size: 0.75rem; gap: 0.75rem; }
+  .hero-cta-group              { gap: 1.25rem; }
+  .scroll-line                 { height: 50px; }
+
+  /* Intro */
+  .intro-compact               { padding: 3.5rem 4%; }
+  .intro-statement             { font-size: 1.1rem; }
+  .intro-highlights            { grid-template-columns: repeat(2, 1fr); gap: 1.75rem; max-width: 700px; }
+  .intro-highlight-icon        { width: 52px; height: 52px; font-size: 1.5rem; }
+
+  /* Section globals */
+  .about-luxury,
+  .tours-signature,
+  .why-luxury,
+  .blog-luxury,
+  .travel-essentials           { padding: 6rem 4%; }
+  .experiences-premium         { padding: 6rem 4%; }
+  .testimonials-luxury         { padding: 5rem 4%; }
+  .gallery-preview             { padding: 5rem 4%; }
+  .travel-your-way             { padding: 7rem 4%; background-attachment: scroll; }
+
+  .section-heading             { font-size: clamp(2rem, 4.5vw, 2.8rem); letter-spacing: 1px; }
+  .section-label               { font-size: 0.5625rem; padding: 0.6rem 1.5rem; }
+  .section-intro               { font-size: 0.975rem; }
+
+  .about-header-center         { margin-bottom: 5rem; }
+  .stats-grid-luxury           { grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 3.5rem; }
+  .stat-number-luxury          { font-size: 2.75rem; }
+
+  /* Experiences */
+  .experiences-showcase        { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  .experience-luxury-card      { height: 500px; }
+  .experience-title-luxury     { font-size: 1.75rem; }
+  .experience-description-luxury{ font-size: 0.975rem; }
+  .experience-number-badge     { width: 58px; height: 58px; font-size: 1.75rem; top: 2rem; right: 2rem; }
+  .experience-info-box         { padding: 2.5rem; }
+
+  /* Tours */
+  .tours-grid-luxury           { gap: 2rem; }
+  .tour-editorial-card         { flex: 0 0 calc(50% - 1rem); }
+  .tour-hero-image             { height: 340px; }
+  .tour-content-box            { padding: 2rem; }
+  .tour-name-editorial         { font-size: 1.6rem; }
+  .tour-narrative              { font-size: 0.975rem; }
+  .tour-price-amount           { font-size: 1.85rem; }
+
+  /* Cards row */
+  .cards-row,
+  .cards-row-2                 { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .card-name                   { font-size: 1.3rem; }
+  .card-img                    { height: 190px; }
+
+  /* Gallery */
+  .gallery-preview-grid        { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+  .gallery-preview-item        { height: 260px; }
+
+  /* Why */
+  .why-benefits-grid           { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  .benefit-luxury-card         { padding: 2.75rem 2rem; }
+  .benefit-icon-luxury         { width: 80px; height: 80px; font-size: 2.75rem; margin-bottom: 2rem; }
+  .benefit-title-luxury        { font-size: 1.35rem; }
+  .benefit-text-luxury         { font-size: 0.9375rem; }
+
+  /* Testimonials */
+  .testimonials-grid           { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  .testimonial-text-compact    { font-size: 0.9375rem; min-height: 110px; }
+
+  /* Travel ways */
+  .travel-ways-grid            { grid-template-columns: repeat(2, 1fr); }
+  .travel-way-card:nth-child(2n){ border-right: none; }
+  .travel-your-way-title       { font-size: clamp(2.5rem, 6vw, 4rem); }
+  .travel-your-way-description { font-size: 1.1rem; }
+
+  /* CTA Split */
+  .cta-split-container         { grid-template-columns: 1fr; min-height: auto; }
+  .cta-images-carousel         { height: 380px; }
+  .cta-content-right           { padding: 4rem 6%; }
+  .cta-headline                { font-size: 2.1rem; }
+  .cta-subtext                 { font-size: 1rem; }
+
+  /* Essentials */
+  .essentials-grid             { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  .essential-card              { padding: 3rem 2.5rem; }
+
+  /* Blog */
+  .blog-articles-grid          { grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
+  .article-featured-image      { height: 340px; }
+
+  /* Footer */
+  .footer-grid-luxury          { grid-template-columns: repeat(2, 1fr); gap: 3.5rem; }
+  .footer-bottom-bar           { flex-direction: column; gap: 2rem; align-items: flex-start; }
+  .footer-legal-links          { gap: 2rem; }
+  .social-icon-link            { width: 50px; height: 50px; font-size: 1.15rem; }
+
+  /* Modal */
+  .modal-hero                  { height: 280px; }
+  .modal-hero-title            { font-size: 2rem; }
+  .modal-body-content          { padding: 28px 32px 40px; }
+  .modal-includes-grid         { grid-template-columns: 1fr 1fr; }
+  .modal-price-amount          { font-size: 2.2rem; }
+}
+
+
+/* ============================================================
+   LARGE MOBILE / PHABLET  (576px – 767px)
+   ============================================================ */
+@media (min-width: 576px) and (max-width: 767px) {
+  /* Nav */
+  .nav-menu                    { display: none; }
+  .nav-container               { padding: 0 5%; }
+  .nav-logo-img                { width: 170px; height: 72px; }
+  .nav                         { padding: 0.75rem 0; }
+
+  .nav-hamburger               { display: flex; }
+  .mobile-nav-drawer           { width: min(340px, 88vw); }
+
+  /* Hero */
+  .hero                        { min-height: 620px; }
+  .hero-content-wrapper        { padding: 0 5%; }
+  .hero-headline               { font-size: clamp(2.6rem, 10vw, 4rem); letter-spacing: 2px; line-height: 1; }
+  .hero-description            { font-size: 1rem; max-width: 520px; margin-bottom: 3rem; }
+  .hero-eyebrow                { font-size: 0.5rem; letter-spacing: 3.5px; margin-bottom: 2.5rem; gap: 1.25rem; }
+  .hero-eyebrow::before,
+  .hero-eyebrow::after         { width: 30px; }
+  .hero-cta-group              { flex-direction: column; align-items: center; gap: 1rem; }
+  .cta-btn                     { padding: 1rem 2.5rem; font-size: 0.75rem; width: 100%; max-width: 300px; justify-content: center; }
+  .hero-scroll-indicator       { bottom: 3rem; }
+  .scroll-line                 { height: 40px; }
+
+  /* Intro */
+  .intro-compact               { padding: 3rem 5%; }
+  .intro-eyebrow               { font-size: 0.625rem; padding: 0.3rem 1rem; }
+  .intro-statement             { font-size: 1rem; line-height: 1.75; }
+  .intro-highlights            { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+  .intro-highlight-title       { font-size: 0.9375rem; }
+  .intro-highlight-text        { font-size: 0.8125rem; }
+  .intro-link                  { font-size: 0.75rem; padding: 0.9rem 2rem; }
+
+  /* Section globals */
+  .about-luxury,
+  .tours-signature,
+  .why-luxury,
+  .blog-luxury,
+  .travel-essentials           { padding: 5rem 5%; }
+  .experiences-premium         { padding: 5rem 5%; }
+  .testimonials-luxury         { padding: 4rem 5%; }
+  .gallery-preview             { padding: 4rem 5%; }
+  .travel-your-way             { padding: 5rem 5%; background-attachment: scroll; }
+  .partners-showcase           { padding: 4rem 5%; }
+
+  .section-heading             { font-size: clamp(1.85rem, 5vw, 2.5rem); letter-spacing: 0.5px; }
+  .section-label               { font-size: 0.5rem; padding: 0.5rem 1.25rem; letter-spacing: 3px; }
+  .section-intro               { font-size: 0.9375rem; line-height: 1.75; }
+  .about-header-center         { margin-bottom: 3.5rem; }
+
+  .stats-grid-luxury           { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+  .stat-number-luxury          { font-size: 2.5rem; }
+  .stat-label-luxury           { font-size: 0.75rem; }
+
+  /* Experiences */
+  .experiences-showcase        { grid-template-columns: 1fr; gap: 1.75rem; }
+  .experience-luxury-card      { height: 460px; }
+  .experience-title-luxury     { font-size: 1.65rem; }
+  .experience-description-luxury{ font-size: 0.9375rem; }
+  .experience-info-box         { padding: 2rem; }
+
+  /* Tours */
+  .tours-grid-luxury           { gap: 1.75rem; }
+  .tour-editorial-card         { flex: 0 0 100%; }
+  .tour-hero-image             { height: 300px; }
+  .tour-content-box            { padding: 1.75rem; }
+  .tour-name-editorial         { font-size: 1.5rem; }
+  .tour-narrative              { font-size: 0.9375rem; line-height: 1.75; }
+  .tour-price-amount           { font-size: 1.75rem; }
+  .tour-price-note             { font-size: 0.8125rem; }
+
+  /* Cards row */
+  .cards-row,
+  .cards-row-2                 { grid-template-columns: 1fr; gap: 18px; }
+  .card-img                    { height: 200px; }
+  .card-name                   { font-size: 1.35rem; }
+  .card-desc                   { font-size: 11px; }
+  .card-price                  { font-size: 1.5rem; }
+
+  /* Gallery */
+  .gallery-preview-grid        { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .gallery-preview-item        { height: 230px; }
+
+  /* Why */
+  .why-benefits-grid           { grid-template-columns: 1fr; gap: 1.5rem; }
+  .benefit-luxury-card         { padding: 2.5rem 2rem; }
+  .benefit-icon-luxury         { width: 75px; height: 75px; font-size: 2.5rem; margin-bottom: 1.75rem; }
+
+  /* Testimonials */
+  .testimonials-grid           { grid-template-columns: 1fr; gap: 1.5rem; }
+  .testimonial-text-compact    { min-height: auto; font-size: 0.9375rem; }
+  .testimonial-card-compact    { padding: 2.25rem 2rem; }
+
+  /* Travel ways */
+  .travel-ways-grid            { grid-template-columns: 1fr; }
+  .travel-way-card             { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.12); }
+  .travel-way-card:last-child  { border-bottom: none; }
+  .travel-your-way-title       { font-size: clamp(2.2rem, 7vw, 3rem); }
+  .travel-your-way-description { font-size: 1rem; margin-bottom: 3rem; }
+  .travel-way-number           { font-size: 2.75rem; margin-bottom: 1.25rem; }
+  .travel-way-title            { font-size: 1.5rem; }
+
+  /* CTA Split */
+  .cta-split-container         { grid-template-columns: 1fr; }
+  .cta-images-carousel         { height: 340px; }
+  .cta-content-right           { padding: 3.5rem 5%; }
+  .cta-headline                { font-size: 1.85rem; }
+  .cta-subtext                 { font-size: 0.975rem; margin-bottom: 2.5rem; }
+  .cta-action-buttons          { flex-direction: column; }
+  .cta-action-buttons .cta-btn { width: 100%; justify-content: center; max-width: 320px; }
+
+  /* Essentials */
+  .essentials-grid             { grid-template-columns: 1fr; gap: 1.5rem; }
+  .essential-card              { padding: 3rem 2rem; }
+  .essential-title             { font-size: 1.5rem; }
+
+  /* Blog */
+  .blog-articles-grid          { grid-template-columns: 1fr; gap: 2rem; }
+  .article-featured-image      { height: 300px; }
+  .article-headline            { font-size: 1.5rem; }
+
+  /* Partners */
+  .partners-logos              { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+
+  /* Footer */
+  .footer-grid-luxury          { grid-template-columns: 1fr; gap: 3rem; }
+  .footer-bottom-bar           { flex-direction: column; gap: 1.75rem; align-items: flex-start; padding-top: 3rem; }
+  .footer-legal-links          { gap: 1.5rem; flex-wrap: wrap; }
+  .footer-brand-section h3     { font-size: 1.6rem; }
+  .social-icon-link            { width: 48px; height: 48px; font-size: 1.1rem; }
+  footer                       { padding: 7rem 5% 4rem; }
+
+  /* Modal */
+  .modal-overlay               { padding: 12px; }
+  .modal-hero                  { height: 240px; border-radius: 18px 18px 0 0; }
+  .modal-hero-title            { font-size: 1.7rem; }
+  .modal-hero-text             { left: 18px; bottom: 20px; }
+  .modal-body-content          { padding: 22px 20px 34px; }
+  .modal-overview-pills        { gap: 8px; }
+  .modal-includes-grid         { grid-template-columns: 1fr; }
+  .modal-footer-bar            { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .modal-book-btn              { width: 100%; text-align: center; }
+  .modal-price-amount          { font-size: 2rem; }
+  .itinerary-modal             { max-height: 96vh; border-radius: 18px; }
+}
+
+
+/* ============================================================
+   MOBILE  (400px – 575px)
+   ============================================================ */
+@media (min-width: 400px) and (max-width: 575px) {
+  /* Nav */
+  .nav-menu                    { display: none; }
+  .nav-container               { padding: 0 4%; }
+  .nav-logo-img                { width: 150px; height: 64px; }
+  .nav                         { padding: 0.65rem 0; }
+
+  .nav-hamburger               { display: flex; }
+  .mobile-nav-drawer           { width: min(320px, 90vw); }
+
+  /* Hero */
+  .hero                        { min-height: 580px; }
+  .hero-content-wrapper        { padding: 0 4%; }
+  .hero-headline               { font-size: clamp(2.3rem, 10.5vw, 3.2rem); letter-spacing: 1.5px; }
+  .hero-description            { font-size: 0.95rem; line-height: 1.65; margin-bottom: 2.5rem; }
+  .hero-eyebrow                { font-size: 0.4375rem; letter-spacing: 3px; margin-bottom: 2rem; gap: 1rem; }
+  .hero-eyebrow::before,
+  .hero-eyebrow::after         { width: 24px; }
+  .cta-btn                     { padding: 1rem 2.25rem; font-size: 0.6875rem; }
+  .hero-cta-group              { flex-direction: column; align-items: center; gap: 0.9rem; }
+
+  /* Intro */
+  .intro-compact               { padding: 2.5rem 4%; }
+  .intro-statement             { font-size: 0.9375rem; }
+  .intro-highlights            { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .intro-highlight-icon        { width: 46px; height: 46px; font-size: 1.4rem; margin-bottom: 0.9rem; }
+
+  /* Sections */
+  .about-luxury,
+  .tours-signature,
+  .why-luxury,
+  .blog-luxury,
+  .travel-essentials           { padding: 4rem 4%; }
+  .experiences-premium         { padding: 4rem 4%; }
+  .testimonials-luxury         { padding: 3.5rem 4%; }
+  .gallery-preview             { padding: 3.5rem 4%; }
+  .travel-your-way             { padding: 4rem 4%; background-attachment: scroll; }
+
+  .section-heading             { font-size: clamp(1.7rem, 6vw, 2.25rem); }
+  .about-header-center         { margin-bottom: 3rem; }
+  .stats-grid-luxury           { grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 2rem; }
+  .stat-card-luxury            { padding: 1.75rem 1.25rem; }
+  .stat-number-luxury          { font-size: 2.2rem; }
+
+  /* Experiences */
+  .experiences-showcase        { grid-template-columns: 1fr; gap: 1.5rem; }
+  .experience-luxury-card      { height: 420px; }
+  .experience-title-luxury     { font-size: 1.5rem; }
+  .experience-info-box         { padding: 1.75rem; }
+  .experience-number-badge     { width: 50px; height: 50px; font-size: 1.5rem; top: 1.5rem; right: 1.5rem; }
+
+  /* Tours */
+  .tours-grid-luxury           { gap: 1.5rem; }
+  .tour-editorial-card         { flex: 0 0 100%; }
+  .tour-hero-image             { height: 280px; }
+  .tour-content-box            { padding: 1.5rem; }
+  .tour-name-editorial         { font-size: 1.4rem; }
+  .tour-price-amount           { font-size: 1.65rem; }
+  .tour-bottom-bar             { flex-direction: column; gap: 1rem; align-items: flex-start; }
+
+  /* Cards */
+  .cards-row,
+  .cards-row-2                 { grid-template-columns: 1fr; gap: 16px; }
+  .card-img                    { height: 185px; }
+  .card-body                   { padding: 18px 20px 0; }
+  .card-footer                 { padding: 14px 20px 18px; }
+  .card-price                  { font-size: 1.4rem; }
+
+  /* Gallery */
+  .gallery-preview-grid        { grid-template-columns: 1fr; gap: 1rem; }
+  .gallery-preview-item        { height: 240px; }
+
+  /* Why */
+  .why-benefits-grid           { grid-template-columns: 1fr; gap: 1.25rem; }
+  .benefit-luxury-card         { padding: 2.25rem 1.75rem; }
+
+  /* Testimonials */
+  .testimonials-grid           { grid-template-columns: 1fr; gap: 1.25rem; }
+  .testimonial-card-compact    { padding: 2rem 1.5rem; }
+
+  /* Travel ways */
+  .travel-ways-grid            { grid-template-columns: 1fr; }
+  .travel-way-card             { border-right: none; padding: 2.5rem 2rem; }
+  .travel-your-way-title       { font-size: clamp(1.9rem, 8vw, 2.6rem); }
+
+  /* CTA */
+  .cta-images-carousel         { height: 300px; }
+  .cta-content-right           { padding: 3rem 4%; }
+  .cta-headline                { font-size: 1.7rem; }
+  .cta-action-buttons          { flex-direction: column; }
+
+  /* Essentials */
+  .essentials-grid             { grid-template-columns: 1fr; gap: 1.25rem; }
+
+  /* Blog */
+  .blog-articles-grid          { grid-template-columns: 1fr; gap: 1.75rem; }
+  .article-featured-image      { height: 260px; }
+
+  /* Partners */
+  .partners-logos              { grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
+
+  /* Footer */
+  .footer-grid-luxury          { grid-template-columns: 1fr; gap: 2.5rem; }
+  footer                       { padding: 5rem 4% 3.5rem; }
+  .footer-bottom-bar           { flex-direction: column; gap: 1.5rem; padding-top: 2.5rem; }
+
+  /* Modal */
+  .modal-overlay               { padding: 8px; }
+  .modal-hero                  { height: 210px; }
+  .modal-hero-title            { font-size: 1.5rem; }
+  .modal-body-content          { padding: 18px 16px 28px; }
+  .modal-includes-grid         { grid-template-columns: 1fr; gap: 8px; }
+  .modal-section-title         { font-size: 1.3rem; }
+  .modal-timeline              { padding-left: 28px; }
+  .modal-price-amount          { font-size: 1.85rem; }
+}
+
+
+/* ============================================================
+   SMALL MOBILE  (320px – 399px)
+   ============================================================ */
+@media (max-width: 399px) {
+  /* Nav */
+  .nav-menu                    { display: none; }
+  .nav-container               { padding: 0 4%; }
+  .nav-logo-img                { width: 130px; height: 56px; }
+  .nav                         { padding: 0.5rem 0; }
+
+  .nav-hamburger               { display: flex; }
+  .mobile-nav-drawer           { width: 100vw; }
+
+  /* Hero */
+  .hero                        { min-height: 520px; }
+  .hero-content-wrapper        { padding: 0 4%; }
+  .hero-headline               { font-size: 2rem; letter-spacing: 1px; }
+  .hero-description            { font-size: 0.875rem; line-height: 1.6; margin-bottom: 2rem; }
+  .hero-eyebrow                { display: none; }
+  .cta-btn                     { padding: 0.9rem 2rem; font-size: 0.6875rem; }
+  .hero-cta-group              { flex-direction: column; align-items: center; gap: 0.75rem; }
+
+  /* Intro */
+  .intro-compact               { padding: 2.5rem 4%; }
+  .intro-eyebrow               { font-size: 0.5625rem; }
+  .intro-statement             { font-size: 0.875rem; line-height: 1.7; }
+  .intro-highlights            { grid-template-columns: 1fr 1fr; gap: 0.875rem; }
+  .intro-highlight-icon        { width: 40px; height: 40px; font-size: 1.2rem; margin-bottom: 0.75rem; }
+  .intro-highlight-title       { font-size: 0.875rem; }
+  .intro-highlight-text        { font-size: 0.75rem; }
+
+  /* Sections */
+  .about-luxury,
+  .tours-signature,
+  .why-luxury,
+  .blog-luxury,
+  .travel-essentials           { padding: 3.5rem 4%; }
+  .experiences-premium         { padding: 3.5rem 4%; }
+  .testimonials-luxury         { padding: 3rem 4%; }
+  .gallery-preview             { padding: 3rem 4%; }
+  .travel-your-way             { padding: 3.5rem 4%; background-attachment: scroll; }
+
+  .section-heading             { font-size: 1.6rem; letter-spacing: 0; }
+  .section-intro               { font-size: 0.875rem; }
+  .about-header-center         { margin-bottom: 2.5rem; }
+
+  .stats-grid-luxury           { grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .stat-card-luxury            { padding: 1.5rem 1rem; }
+  .stat-number-luxury          { font-size: 1.9rem; margin-bottom: 0.75rem; }
+  .stat-label-luxury           { font-size: 0.6875rem; letter-spacing: 1.2px; }
+
+  /* Experiences */
+  .experiences-showcase        { grid-template-columns: 1fr; gap: 1.25rem; }
+  .experience-luxury-card      { height: 380px; }
+  .experience-title-luxury     { font-size: 1.4rem; }
+  .experience-description-luxury{ font-size: 0.875rem; line-height: 1.7; }
+  .experience-info-box         { padding: 1.5rem; }
+  .experience-number-badge     { width: 44px; height: 44px; font-size: 1.3rem; top: 1.25rem; right: 1.25rem; }
+
+  /* Tours */
+  .tour-editorial-card         { flex: 0 0 100%; }
+  .tour-hero-image             { height: 250px; }
+  .tour-content-box            { padding: 1.25rem; }
+  .tour-name-editorial         { font-size: 1.3rem; margin-bottom: 1rem; }
+  .tour-metadata               { gap: 1.25rem; font-size: 0.75rem; }
+  .tour-price-amount           { font-size: 1.5rem; }
+  .tour-bottom-bar             { flex-direction: column; gap: 0.875rem; }
+
+  /* Cards */
+  .cards-row,
+  .cards-row-2                 { grid-template-columns: 1fr; gap: 14px; }
+  .card-img                    { height: 170px; }
+  .card-name                   { font-size: 1.2rem; }
+  .card-desc                   { font-size: 10.5px; }
+  .card-price                  { font-size: 1.3rem; }
+  .card-body                   { padding: 16px 18px 0; }
+  .card-footer                 { padding: 12px 18px 16px; }
+
+  /* Gallery */
+  .gallery-preview-grid        { grid-template-columns: 1fr; gap: 0.875rem; }
+  .gallery-preview-item        { height: 200px; }
+
+  /* Why */
+  .why-benefits-grid           { grid-template-columns: 1fr; gap: 1rem; }
+  .benefit-luxury-card         { padding: 2rem 1.5rem; }
+  .benefit-icon-luxury         { width: 64px; height: 64px; font-size: 2.2rem; margin-bottom: 1.5rem; }
+  .benefit-title-luxury        { font-size: 1.2rem; }
+  .benefit-text-luxury         { font-size: 0.875rem; }
+
+  /* Testimonials */
+  .testimonials-grid           { grid-template-columns: 1fr; gap: 1rem; }
+  .testimonial-card-compact    { padding: 1.75rem 1.25rem; }
+  .testimonial-text-compact    { font-size: 0.875rem; }
+  .author-name-compact         { font-size: 0.875rem; }
+
+  /* Travel ways */
+  .travel-ways-grid            { grid-template-columns: 1fr; }
+  .travel-way-card             { border-right: none; padding: 2rem 1.5rem; }
+  .travel-your-way-title       { font-size: 1.75rem; }
+  .travel-your-way-description { font-size: 0.9375rem; }
+  .travel-way-number           { font-size: 2.2rem; }
+  .travel-way-title            { font-size: 1.3rem; }
+  .travel-way-text             { font-size: 0.875rem; }
+
+  /* CTA */
+  .cta-images-carousel         { height: 260px; }
+  .cta-content-right           { padding: 2.5rem 4%; }
+  .cta-headline                { font-size: 1.5rem; letter-spacing: 1px; }
+  .cta-subtext                 { font-size: 0.875rem; margin-bottom: 2rem; }
+  .cta-action-buttons          { flex-direction: column; }
+  .cta-action-buttons .cta-btn { font-size: 0.6875rem; padding: 0.9rem 2rem; }
+
+  /* Essentials */
+  .essentials-grid             { grid-template-columns: 1fr; gap: 1rem; }
+  .essential-card              { padding: 2.5rem 1.5rem; }
+  .essential-title             { font-size: 1.35rem; }
+  .essential-list li           { font-size: 0.9375rem; }
+
+  /* Blog */
+  .blog-articles-grid          { grid-template-columns: 1fr; gap: 1.5rem; }
+  .article-featured-image      { height: 220px; }
+  .article-headline            { font-size: 1.3rem; }
+  .article-preview             { font-size: 0.9375rem; }
+
+  /* Partners */
+  .partners-logos              { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+
+  /* Footer */
+  footer                       { padding: 4rem 4% 3rem; }
+  .footer-grid-luxury          { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-brand-section h3     { font-size: 1.4rem; }
+  .footer-description          { font-size: 0.9375rem; line-height: 1.8; }
+  .footer-nav-links a          { font-size: 0.9375rem; }
+  .footer-column h4            { font-size: 0.6875rem; letter-spacing: 2px; margin-bottom: 2rem; }
+  .footer-bottom-bar           { flex-direction: column; gap: 1.25rem; padding-top: 2rem; }
+  .footer-legal-links          { gap: 1.25rem; flex-wrap: wrap; }
+  .footer-copyright            { font-size: 0.8125rem; }
+  .social-icon-link            { width: 44px; height: 44px; font-size: 1rem; }
+  .newsletter-submit           { padding: 1rem 1.5rem; font-size: 0.6875rem; letter-spacing: 1.5px; }
+
+  /* Modal */
+  .modal-overlay               { padding: 6px; }
+  .itinerary-modal             { border-radius: 14px; max-height: 98vh; }
+  .modal-hero                  { height: 190px; border-radius: 14px 14px 0 0; }
+  .modal-hero-title            { font-size: 1.3rem; letter-spacing: 0.5px; }
+  .modal-hero-text             { left: 14px; bottom: 16px; right: 50px; }
+  .modal-hero-badge            { font-size: 7.5px; padding: 5px 12px; }
+  .modal-body-content          { padding: 14px 14px 24px; }
+  .modal-overview-pills        { gap: 6px; margin-bottom: 20px; }
+  .modal-pill                  { padding: 6px 12px; }
+  .modal-pill-label            { font-size: 7px; }
+  .modal-pill-value            { font-size: 11px; }
+  .modal-section-title         { font-size: 1.2rem; margin-bottom: 16px; }
+  .modal-timeline              { padding-left: 24px; }
+  .modal-day-label             { font-size: 8px; }
+  .modal-day-title             { font-size: 1.05rem; }
+  .modal-day-desc              { font-size: 0.8125rem; line-height: 1.75; }
+  .modal-includes-grid         { grid-template-columns: 1fr; gap: 6px; }
+  .modal-include-item          { font-size: 0.75rem; padding: 8px 10px; }
+  .modal-price-amount          { font-size: 1.7rem; }
+  .modal-book-btn              { padding: 13px 28px; font-size: 9px; width: 100%; text-align: center; }
+  .modal-footer-bar            { flex-direction: column; gap: 16px; }
+
+  /* Carousel nav */
+  .carousel-nav-btn            { width: 50px; height: 50px; font-size: 1.1rem; }
+  .carousel-nav-btn.prev       { left: -20px; }
+  .carousel-nav-btn.next       { right: -20px; }
+  .cta-carousel-arrow          { width: 40px; height: 40px; font-size: 1rem; }
+}
+
+
+/* ============================================================
+   TOUCH DEVICES — disable fixed background-attachment
+   (causes performance issues on mobile)
+   ============================================================ */
+@media (hover: none) {
+  .travel-your-way             { background-attachment: scroll; }
+  .hero-slide.active           { animation: none; }
+}
+
+
+/* ============================================================
+   PRINT
+   ============================================================ */
+@media print {
+  .nav,
+  .hero-scroll-indicator,
+  .hero-cta-group,
+  .carousel-nav-btn,
+  .cta-carousel-nav,
+  .carousel-dots,
+  .modal-overlay,
+  .cta-immersive               { display: none !important; }
+
+  body                         { font-size: 12pt; color: #000; background: #fff; }
+  .hero                        { height: auto; min-height: 250px; }
+  .hero-headline               { font-size: 32pt; color: #000; text-shadow: none; }
+  .hero-description            { font-size: 13pt; color: #333; text-shadow: none; }
+  .section-heading             { font-size: 22pt; }
+
+  .experiences-showcase,
+  .why-benefits-grid,
+  .testimonials-grid,
+  .cards-row,
+  .cards-row-2,
+  .blog-articles-grid,
+  .gallery-preview-grid        { grid-template-columns: repeat(2, 1fr) !important; }
+
+  .tour-editorial-card         { flex: 0 0 calc(50% - 1rem) !important; }
+  .footer-grid-luxury          { grid-template-columns: repeat(2, 1fr); }
+
+  a[href]::after               { content: " (" attr(href) ")"; font-size: 10pt; }
+}
+
+/* ══════════════════════════════════════════
+   HOMEPAGE NAV LOGO — RESPONSIVE OVERRIDES
+   (overrides the 300×120 default)
+══════════════════════════════════════════ */
+
+/* 2K+ */
+@media (min-width: 2560px) {
+    .nav-logo-img { width: 280px; height: 118px; }
+}
+
+/* Large desktop */
+@media (min-width: 1600px) and (max-width: 2559px) {
+    .nav-logo-img { width: 200px; height: 84px; }
+}
+
+/* Standard desktop */
+@media (min-width: 1400px) and (max-width: 1599px) {
+    .nav-logo-img { width: 180px; height: 76px; }
+}
+
+/* Laptop */
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .nav-logo-img { width: 160px; height: 68px; }
+}
+
+/* Small laptop / tablet landscape */
+@media (min-width: 1024px) and (max-width: 1199px) {
+    .nav-logo-img { width: 140px; height: 60px; }
+}
+
+/* Tablet portrait — hamburger on */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .nav-logo-img { width: 130px; height: 56px; }
+    .nav-hamburger { display: flex !important; }
+    .nav-menu { display: none !important; }
+}
+
+/* iPad Air portrait precision fix */
+@media (min-width: 810px) and (max-width: 840px) {
+    .nav-logo-img { width: 120px; height: 52px; }
+    .nav-hamburger { display: flex !important; }
+    .nav-menu { display: none !important; }
+}
+
+/* Large phones */
+@media (min-width: 576px) and (max-width: 767px) {
+    .nav-logo-img { width: 110px; height: 48px; }
+    .nav-hamburger { display: flex !important; }
+    .nav-menu { display: none !important; }
+}
+
+/* Phones */
+@media (min-width: 400px) and (max-width: 575px) {
+    .nav-logo-img { width: 96px; height: 42px; }
+    .nav-hamburger { display: flex !important; }
+    .nav-menu { display: none !important; }
+}
+
+/* Small phones */
+@media (max-width: 399px) {
+    .nav-logo-img { width: 80px; height: 36px; }
+    .nav-hamburger { display: flex !important; }
+    .nav-menu { display: none !important; }
+}
+
+/* ══════════════════════════════════════════
+   HOMEPAGE HERO — min-height fix
+   (hero uses 100vh which is correct, but
+   needs to account for the nav height)
+══════════════════════════════════════════ */
+@media (max-width: 767px) {
+    .hero { min-height: 580px; }
+    .hero-content-wrapper { padding: 0 5%; }
+    .hero-headline { font-size: clamp(2.8rem, 10vw, 4.5rem); letter-spacing: 3px; }
+    .hero-description { font-size: clamp(0.95rem, 2vw, 1.125rem); margin-bottom: 3rem; }
+    .hero-eyebrow { font-size: 0.5rem; letter-spacing: 3px; gap: 1rem; margin-bottom: 2.5rem; }
+    .hero-cta-group { flex-direction: column; align-items: center; gap: 1rem; }
+    .cta-btn { width: 100%; max-width: 300px; justify-content: center; padding: 1rem 2.5rem; }
+    .cards-row,
+    .cards-row-2 { grid-template-columns: 1fr !important; max-width: 100% !important; }
+}
+
+@media (max-width: 575px) {
+    .hero { min-height: 520px; }
+    .hero-headline { font-size: clamp(2.4rem, 10vw, 3.5rem); letter-spacing: 2px; }
+    .hero-eyebrow { display: none; }
+    .hero-description { font-size: 0.95rem; }
+    .experiences-showcase { grid-template-columns: 1fr !important; }
+    .experience-luxury-card { height: 420px; }
+}
+
+@media (max-width: 399px) {
+    .hero { min-height: 460px; }
+    .hero-headline { font-size: 2rem; letter-spacing: 1px; }
+    .hero-description { font-size: 0.875rem; }
+    .cta-btn { padding: 0.9rem 2rem; font-size: 0.6875rem; }
+}
+
+/* Touch devices — performance */
+@media (hover: none) {
+    .travel-your-way { background-attachment: scroll; }
+    .hero-slide.active { animation: none; }
+    .benefit-luxury-card:hover .benefit-icon-luxury { transform: none; }
+    .experience-luxury-card:hover .experience-number-badge { transform: none; }
+    .social-icon-link:hover { transform: translateY(-4px); }
+}
 </style>
 </head>
 <body>
@@ -2641,14 +3663,90 @@ body { font-family: 'Inter', sans-serif; background: var(--ivory); color: var(--
             <li class="nav-item"><a href="{% url 'gallery' %}">Gallery</a></li>
             <li class="nav-item"><a href="{% url 'contact' %}" class="nav-cta">Begin Your Journey</a></li>
         </ul>
+        <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </div>
 </nav>
+<!-- Mobile overlay -->
+<div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
 
+<!-- Mobile drawer -->
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div class="mobile-nav-header">
+        <img src="{% static 'logo.png' %}" alt="Discover Rwanda" class="mobile-nav-logo">
+        <button class="mobile-nav-close" id="mobileNavClose">✕</button>
+    </div>
+
+    <ul class="mobile-nav-list">
+        <li class="mobile-nav-item">
+            <div class="mobile-nav-row">
+                <a href="#about" class="mobile-nav-link">Destinations</a>
+                <button class="mobile-nav-toggle" data-target="mob-destinations">
+                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                </button>
+            </div>
+            <div class="mobile-nav-dropdown" id="mob-destinations">
+                <a href="{% url 'towns' %}">Towns</a>
+                <a href="{% url 'lakes' %}">Lakes</a>
+                <a href="{% url 'volcanic_mountains' %}">Volcanic Mountains</a>
+                <a href="{% url 'museums_heritage' %}">Museums & Heritage Sites</a>
+                <a href="{% url 'memorial_sites' %}">Memorial Sites</a>
+                <a href="{% url 'cultural_villages' %}">Cultural & Art Villages</a>
+                <a href="{% url 'top_attractions' %}">Top Tourist Attractions</a>
+            </div>
+        </li>
+        <li class="mobile-nav-item">
+            <div class="mobile-nav-row">
+                <a href="#experiences" class="mobile-nav-link">Experiences</a>
+                <button class="mobile-nav-toggle" data-target="mob-experiences">
+                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                </button>
+            </div>
+            <div class="mobile-nav-dropdown" id="mob-experiences">
+                <a href="{% url 'unique_experiences' %}">Unique Experiences</a>
+                <a href="{% url 'things_to_do' %}">Things To Do In Rwanda</a>
+                <a href="{% url 'travel_types' %}">Travel Rwanda Your Way</a>
+            </div>
+        </li>
+        <li class="mobile-nav-item">
+            <div class="mobile-nav-row">
+                <a href="#tours" class="mobile-nav-link">Tours</a>
+                <button class="mobile-nav-toggle" data-target="mob-tours">
+                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                </button>
+            </div>
+            <div class="mobile-nav-dropdown" id="mob-tours">
+                <a href="{% url 'traveling_with_pets' %}">Traveling with Pets</a>
+                <a href="{% url 'senior_friendly' %}">Senior-Friendly Rwanda</a>
+                <a href="{% url 'invest_rwanda' %}">Invest in Rwanda</a>
+                <a href="{% url 'accessible_travel' %}">Accessible Travel Support</a>
+            </div>
+        </li>
+        <li class="mobile-nav-item">
+            <div class="mobile-nav-row">
+                <a href="{% url 'gallery' %}" class="mobile-nav-link">Gallery</a>
+            </div>
+        </li>
+    </ul>
+
+    <a href="{% url 'contact' %}" class="mobile-nav-cta">Begin Your Journey</a>
+
+    <div class="mobile-nav-footer">
+        <div class="mobile-nav-contact">
+            <a href="mailto:info@discoverrwanda.com"><span class="icon">📧</span> helpdiscoverrwanda@gmail.com</a>
+            <a href="tel:+250788123456"><span class="icon">📱</span> +250 798 019 909</a>
+            <a href="#"><span class="icon">📍</span> Kigali, Rwanda</a>
+        </div>
+    </div>
+</div>
 <!-- NEXT-GEN HERO -->
 <section class="hero">
     <div class="hero-slideshow">
         <div class="hero-slide active" style="background-image: url('https://cdn1.parksmedia.wdprapps.disney.com/resize/mwImage/1/1600/900/75/vision-dam/digital/parks-platform/parks-global-assets/disney-world/attractions/animals/gorillas/Gorilla-Looking-into-Distance-16x9.jpg?2022-07-11T15:13:59+00:00');"></div>
-       <div class="hero-slide" style="background-image: url('https://media.istockphoto.com/id/1156515281/photo/huge-silverback-mountain-gorilla-in-wildlive.jpg?s=2048x2048&w=is&k=20&c=416Zo1J_5_qe8RHJR0d6uF1ztopJ4aVK8c_dUpJ7bow=');"></div>
+       <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1535338454770-8be927b5a00b?q=80&w=1162&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
         {% comment %} <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1920&q=80');"></div> {% endcomment %}
     </div>
     <div class="hero-gradient-overlay"></div>
@@ -3392,11 +4490,11 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeItinera
             <div class="footer-contact-info">
                 <div class="footer-contact-item">
                     <span>📧</span>
-                    <a href="/cdn-cgi/l/email-protection#7d1712080f1318040e3d19140e1e120b180f0f0a1c13191c531e1210"><span class="__cf_email__" data-cfemail="462c29333428233f3506222f3525293023343431272822276825292b">[email&#160;protected]</span></a>
+                    <a href="/cdn-cgi/l/email-protection#7d1712080f1318040e3d19140e1e120b180f0f0a1c13191c531e1210"><span class="__cf_email__" data-cfemail="462c29333428233f3506222f3525293023343431272822276825292b">helpdiscoverrwanda@gmail.com</span></a>
                 </div>
                 <div class="footer-contact-item">
                     <span>📱</span>
-                    <a href="tel:+250788123456">+250 788 123 456</a>
+                    <a href="tel:+250788123456">+250 798 019 909</a>
                 </div>
                 <div class="footer-contact-item">
                     <span>📍</span>
@@ -3650,4 +4748,52 @@ const fadeInObserver = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 // Apply to all animated elements
-document.querySelectorAll('.experience-luxury-card, .tour-editorial-card, .gallery-piece, .article-card, .benefit-luxury-card, .essential-card, .stat
+document.querySelectorAll('.experience-luxury-card, .tour-editorial-card, .gallery-piece, .article-card, .benefit-luxury-card, .essential-card, .stat-card-luxury, .testimonial-card-compact, .tour-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(40px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    fadeInObserver.observe(el);
+});
+
+
+(function () {
+    const hamburger = document.getElementById('navHamburger');
+    const drawer    = document.getElementById('mobileNavDrawer');
+    const overlay   = document.getElementById('mobileNavOverlay');
+    const closeBtn  = document.getElementById('mobileNavClose');
+
+    function openDrawer() {
+        drawer.classList.add('open');
+        overlay.classList.add('open');
+        hamburger.classList.add('open');
+        document.body.classList.add('nav-open');
+    }
+    function closeDrawer() {
+        drawer.classList.remove('open');
+        overlay.classList.remove('open');
+        hamburger.classList.remove('open');
+        document.body.classList.remove('nav-open');
+    }
+
+    hamburger.addEventListener('click', () => {
+        drawer.classList.contains('open') ? closeDrawer() : openDrawer();
+    });
+    closeBtn.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+    document.querySelectorAll('.mobile-nav-toggle').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const panel  = document.getElementById(btn.getAttribute('data-target'));
+            const isOpen = panel.classList.contains('open');
+            document.querySelectorAll('.mobile-nav-dropdown').forEach(p => p.classList.remove('open'));
+            document.querySelectorAll('.mobile-nav-toggle').forEach(b => b.classList.remove('open'));
+            if (!isOpen) { panel.classList.add('open'); btn.classList.add('open'); }
+        });
+    });
+
+    drawer.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => setTimeout(closeDrawer, 150));
+    });
+})();
+</script>

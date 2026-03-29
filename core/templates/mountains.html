@@ -954,6 +954,7 @@
 <!-- NAVIGATION -->
 <nav>
     <div class="nav-container">
+        <a href="{% url 'index' %}">
         <div class="logo-wrapper">
                 <img src="{% static 'logo.png' %}" alt="Logo" class="logo-img">
             </div>
@@ -1458,10 +1459,10 @@
             <div class="footer-section">
                 <h4>Resources</h4>
                 <ul>
-                    <li><a href="investment.html">Investment Opportunities</a></li>
-                    <li><a href="itineraries.html">Sample Itineraries</a></li>
+                    <li><a href="{% url 'invest_rwanda' %}">Investment Opportunities</a></li>
+                    <li><a href="{% url 'index' %}">Sample Itineraries</a></li>
                     <li><a href="about.html">About Rwanda</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="{% url 'contact' %}">Contact Us</a></li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -1474,7 +1475,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 Discover Rwanda. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            <p>&copy; 2026 Discover Rwanda. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
         </div>
     </div>
 </footer>

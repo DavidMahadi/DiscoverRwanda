@@ -624,6 +624,251 @@
             grid-template-columns: 1fr;
         }
     }
+
+    /* ══════════════════════════════════════════
+   HAMBURGER BUTTON
+══════════════════════════════════════════ */
+.nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 44px; height: 44px;
+    background: rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 10001;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+.nav-hamburger:hover { background: rgba(138,138,138,0.15); border-color: var(--memorial-accent); }
+.nav-hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--charcoal); border-radius: 2px;
+    transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+    transform-origin: center;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ══════════════════════════════════════════
+   MOBILE NAV OVERLAY
+══════════════════════════════════════════ */
+.mobile-nav-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(5,24,16,0.6);
+    backdrop-filter: blur(4px);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+.mobile-nav-overlay.open { opacity: 1; pointer-events: all; }
+
+/* ══════════════════════════════════════════
+   MOBILE DRAWER
+══════════════════════════════════════════ */
+.mobile-nav-drawer {
+    position: fixed; top: 0; right: 0; bottom: 0;
+    z-index: 10000;
+    width: min(360px, 88vw);
+    background: linear-gradient(160deg, #0a2f1a 0%, #051810 60%, #0a0a0a 100%);
+    transform: translateX(100%);
+    transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
+    display: flex; flex-direction: column;
+    overflow-y: auto;
+    box-shadow: -20px 0 60px rgba(0,0,0,0.5);
+}
+.mobile-nav-drawer.open { transform: translateX(0); }
+.mobile-nav-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(138,138,138,0.2);
+    flex-shrink: 0;
+}
+.mobile-nav-logo { height: 52px; width: auto; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.9; }
+.mobile-nav-close {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: white; font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s ease;
+}
+.mobile-nav-close:hover { background: rgba(138,138,138,0.3); border-color: var(--memorial-accent); }
+.mobile-nav-list { list-style: none; padding: 1rem 0 2rem; flex: 1; }
+.mobile-nav-item { border-bottom: 1px solid rgba(255,255,255,0.05); }
+.mobile-nav-row { display: flex; align-items: center; justify-content: space-between; }
+.mobile-nav-link {
+    display: block; flex: 1; padding: 1rem 1.5rem;
+    color: rgba(255,255,255,0.88); text-decoration: none;
+    font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    transition: color 0.2s ease;
+}
+.mobile-nav-link:hover { color: var(--memorial-accent); }
+.mobile-nav-toggle {
+    width: 44px; height: 48px;
+    background: none; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.4);
+    transition: all 0.3s ease;
+}
+.mobile-nav-toggle:hover { color: var(--memorial-accent); }
+.mobile-nav-toggle.open { color: var(--memorial-accent); transform: rotate(180deg); }
+.mobile-nav-dropdown {
+    display: none;
+    background: rgba(0,0,0,0.25);
+    border-left: 2px solid rgba(138,138,138,0.3);
+    margin-left: 1.5rem; padding: 0.5rem 0;
+}
+.mobile-nav-dropdown.open { display: block; }
+.mobile-nav-dropdown a {
+    display: block; padding: 0.7rem 1.25rem;
+    color: rgba(255,255,255,0.65); text-decoration: none;
+    font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.mobile-nav-dropdown a:last-child { border-bottom: none; }
+.mobile-nav-dropdown a:hover { color: var(--memorial-accent); padding-left: 1.75rem; background: rgba(138,138,138,0.06); }
+.mobile-nav-cta {
+    margin: 1rem 1.5rem 0.5rem; display: block; padding: 1rem 2rem;
+    background: var(--charcoal);
+    color: white; text-align: center; text-decoration: none;
+    font-size: 0.75rem; font-weight: 800;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    border-radius: 50px; transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    border: 1px solid rgba(138,138,138,0.3);
+}
+.mobile-nav-cta:hover { transform: translateY(-2px); background: var(--memorial-accent); }
+.mobile-nav-footer {
+    padding: 1.25rem 1.5rem;
+    border-top: 1px solid rgba(138,138,138,0.2);
+    flex-shrink: 0;
+}
+.mobile-nav-contact { display: flex; flex-direction: column; gap: 0.6rem; }
+.mobile-nav-contact a {
+    display: flex; align-items: center; gap: 0.75rem;
+    color: rgba(255,255,255,0.55); text-decoration: none;
+    font-size: 0.75rem; transition: color 0.2s;
+}
+.mobile-nav-contact a:hover { color: var(--memorial-accent); }
+body.nav-open { overflow: hidden; }
+
+/* ══════════════════════════════════════════
+   MEDIA QUERIES — ALL SCREENS
+══════════════════════════════════════════ */
+
+/* 1200px */
+@media (max-width: 1200px) {
+    .nav-menu { gap: 2.5rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    .memorial-details { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* 1024px */
+@media (max-width: 1024px) {
+    .memorial-card { grid-template-columns: 1fr !important; }
+    .memorial-card:nth-child(even) .memorial-image-wrapper { order: 1; }
+    .memorial-image-wrapper { min-height: 420px; }
+    .memorial-details { grid-template-columns: repeat(3, 1fr); }
+    .remembrance-values { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .guidelines-grid { grid-template-columns: repeat(2, 1fr); }
+    .nav-logo-img { width: 120px; height: 60px; }
+    .nav-logo-text { font-size: 1.1rem; }
+    .nav-menu { gap: 1.75rem; }
+}
+
+/* 900px */
+@media (max-width: 900px) {
+    .remembrance-values { grid-template-columns: 1fr; gap: 1.5rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .nav-menu { gap: 1.25rem; }
+}
+
+/* 768px — Hamburger activates */
+@media (max-width: 768px) {
+    .nav-menu { display: none; }
+    .nav-hamburger { display: flex; }          /* ← KEY LINE */
+
+    .nav { padding: 0.75rem 5%; }
+    .nav-logo-img { width: 85px; height: 46px; }
+    .nav-logo-text { font-size: 1rem; letter-spacing: 1.5px; }
+
+    .hero-section { margin-top: 68px; min-height: 480px; height: auto; padding: 4rem 0; }
+    .hero-title { letter-spacing: 3px; }
+
+    .memorial-image-wrapper { min-height: 320px; }
+    .memorial-body { padding: 2.5rem 6%; }
+    .memorial-details { grid-template-columns: 1fr; gap: 1.5rem; }
+
+    .remembrance-values { grid-template-columns: 1fr; }
+    .guidelines-grid { grid-template-columns: 1fr; }
+
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    footer { padding: 4rem 6% 2rem; }
+}
+
+/* 600px */
+@media (max-width: 600px) {
+    .nav { padding: 0.75rem 4%; }
+    .nav-logo-img { width: 75px; height: 42px; }
+    .nav-logo-text { font-size: 0.9rem; letter-spacing: 1px; }
+
+    .hero-section { margin-top: 64px; }
+    .hero-title { font-size: clamp(2rem, 7vw, 3rem); letter-spacing: 2px; }
+    .hero-subtitle { font-size: 1rem; }
+
+    .memorial-image-wrapper { min-height: 260px; }
+    .memorial-body { padding: 2rem 5%; }
+    .memorial-card { margin-bottom: 3rem; }
+
+    .memorials-section { padding: 5rem 5%; }
+    .remembrance-section { padding: 6rem 5%; }
+    .guidelines-section { padding: 5rem 5%; }
+    .guideline-card { padding: 2rem; }
+}
+
+/* 480px */
+@media (max-width: 480px) {
+    .nav-logo-text { display: none; }
+    .nav-logo-img { width: 70px; height: 40px; }
+    .nav { padding: 0.75rem 4%; }
+
+    .hero-section { margin-top: 60px; min-height: 380px; }
+    .hero-title { font-size: clamp(1.75rem, 6vw, 2.5rem); letter-spacing: 1px; }
+    .hero-subtitle { font-size: 0.95rem; }
+
+    .memorial-image-wrapper { min-height: 220px; }
+    .memorial-body { padding: 1.75rem 4%; }
+    .memorial-details { grid-template-columns: 1fr; }
+    .detail-value { font-size: 1rem; }
+
+    .intro-text { font-size: 1rem; }
+    .intro-quote { font-size: 1.2rem; }
+
+    .remembrance-title { letter-spacing: 2px; }
+    .value-item { padding: 1.25rem; }
+
+    .guidelines-title { letter-spacing: 2px; }
+    .guideline-card { padding: 1.5rem; }
+
+    .cta-button { width: 100%; justify-content: center; }
+    footer { padding: 3rem 4% 2rem; }
+}
+
+/* 360px */
+@media (max-width: 360px) {
+    .hero-section { min-height: 340px; }
+    .hero-title { font-size: 1.75rem; }
+    .memorial-image-wrapper { min-height: 180px; }
+    .memorial-body { padding: 1.5rem 4%; }
+}
+    
 </style>
 </head>
 <body>
@@ -631,7 +876,7 @@
 <!-- Navigation -->
 <nav class="nav">
     <div class="nav-container">
-        <a href="index.html" class="nav-brand">
+        <a href="{% url 'index' %}" class="nav-brand">
             <div class="nav-logo-img">
             <div class="logo-wrapper">
                 <img src="{% static 'logo.png' %}" alt="Logo" class="logo-img">
@@ -645,8 +890,86 @@
             <li class="nav-item"><a href="#memorials">Memorials</a></li>
             <li class="nav-item"><a href="{% url 'contact' %}" class="nav-cta">Plan Visit</a></li>
         </ul>
+        <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </div>
 </nav>
+
+<!-- Mobile overlay -->
+<div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+
+<!-- Mobile drawer -->
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div class="mobile-nav-header">
+        <img src="{% static 'logo.png' %}" alt="Discover Rwanda" class="mobile-nav-logo">
+        <button class="mobile-nav-close" id="mobileNavClose">✕</button>
+    </div>
+
+    <ul class="mobile-nav-list">
+        <li class="mobile-nav-item">
+            <div class="mobile-nav-row">
+                <a href="#about" class="mobile-nav-link">Destinations</a>
+                <button class="mobile-nav-toggle" data-target="mob-destinations">
+                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                </button>
+            </div>
+            <div class="mobile-nav-dropdown" id="mob-destinations">
+                <a href="{% url 'towns' %}">Towns</a>
+                <a href="{% url 'lakes' %}">Lakes</a>
+                <a href="{% url 'volcanic_mountains' %}">Volcanic Mountains</a>
+                <a href="{% url 'museums_heritage' %}">Museums & Heritage Sites</a>
+                <a href="{% url 'memorial_sites' %}">Memorial Sites</a>
+                <a href="{% url 'cultural_villages' %}">Cultural & Art Villages</a>
+                <a href="{% url 'top_attractions' %}">Top Tourist Attractions</a>
+            </div>
+        </li>
+        <li class="mobile-nav-item">
+            <div class="mobile-nav-row">
+                <a href="#experiences" class="mobile-nav-link">Experiences</a>
+                <button class="mobile-nav-toggle" data-target="mob-experiences">
+                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                </button>
+            </div>
+            <div class="mobile-nav-dropdown" id="mob-experiences">
+                <a href="{% url 'unique_experiences' %}">Unique Experiences</a>
+                <a href="{% url 'things_to_do' %}">Things To Do In Rwanda</a>
+                <a href="{% url 'travel_types' %}">Travel Rwanda Your Way</a>
+            </div>
+        </li>
+        <li class="mobile-nav-item">
+            <div class="mobile-nav-row">
+                <a href="#tours" class="mobile-nav-link">Tours</a>
+                <button class="mobile-nav-toggle" data-target="mob-tours">
+                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                </button>
+            </div>
+            <div class="mobile-nav-dropdown" id="mob-tours">
+                <a href="{% url 'traveling_with_pets' %}">Traveling with Pets</a>
+                <a href="{% url 'senior_friendly' %}">Senior-Friendly Rwanda</a>
+                <a href="{% url 'invest_rwanda' %}">Invest in Rwanda</a>
+                <a href="{% url 'accessible_travel' %}">Accessible Travel Support</a>
+            </div>
+        </li>
+        <li class="mobile-nav-item">
+            <div class="mobile-nav-row">
+                <a href="{% url 'gallery' %}" class="mobile-nav-link">Gallery</a>
+            </div>
+        </li>
+    </ul>
+
+    <a href="{% url 'contact' %}" class="mobile-nav-cta">Begin Your Journey</a>
+
+    <div class="mobile-nav-footer">
+        <div class="mobile-nav-contact">
+            <a href="mailto:helpdiscoverrwanda@gmail.com"><span class="icon">📧</span> helpdiscoverrwanda@gmail.com</a>
+            <a href="tel:+250788123456"><span class="icon">📱</span> +250 798 019 909</a>
+            <a href="#"><span class="icon">📍</span> Kigali, Rwanda</a>
+        </div>
+    </div>
+</div>
 
 <!-- Hero Section -->
 <section class="hero-section">
@@ -956,10 +1279,10 @@
         <div class="footer-column">
             <h4>Destinations</h4>
             <ul class="footer-links">
-                <li><a href="towns.html">Towns</a></li>
-                <li><a href="lakes.html">Lakes</a></li>
-                <li><a href="volcanic-mountains.html">Mountains</a></li>
-                <li><a href="museums-heritage.html">Museums</a></li>
+                <li><a href="{% url 'towns' %}">Towns</a></li>
+                <li><a href="{% url 'lakes' %}">Lakes</a></li>
+                <li><a href="{% url 'volcanic_mountains' %}">Mountains</a></li>
+                <li><a href="{% url 'museums_heritage' %}">Museums</a></li>
             </ul>
         </div>
         
@@ -967,8 +1290,8 @@
             <h4>Contact</h4>
             <ul class="footer-links">
                 <li><a href="contact.html">Get In Touch</a></li>
-                <li><a href="tel:+250788123456">+250 788 123 456</a></li>
-                <li><a href="mailto:info@discoverrwanda.com">info@discoverrwanda.com</a></li>
+                <li><a href="tel:+250 798 019 909">+250 798 019 909</a></li>
+                <li><a href="mailto:helpdiscoverrwanda@gmail.com">helpdiscoverrwanda@gmail.com</a></li>
             </ul>
         </div>
     </div>
@@ -989,6 +1312,48 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+
+(function () {
+    const hamburger = document.getElementById('navHamburger');
+    const drawer    = document.getElementById('mobileNavDrawer');
+    const overlay   = document.getElementById('mobileNavOverlay');
+    const closeBtn  = document.getElementById('mobileNavClose');
+
+    function openDrawer() {
+        drawer.classList.add('open');
+        overlay.classList.add('open');
+        hamburger.classList.add('open');
+        document.body.classList.add('nav-open');
+    }
+    function closeDrawer() {
+        drawer.classList.remove('open');
+        overlay.classList.remove('open');
+        hamburger.classList.remove('open');
+        document.body.classList.remove('nav-open');
+    }
+
+    hamburger.addEventListener('click', () => {
+        drawer.classList.contains('open') ? closeDrawer() : openDrawer();
+    });
+    closeBtn.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+    document.querySelectorAll('.mobile-nav-toggle').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const panel  = document.getElementById(btn.getAttribute('data-target'));
+            const isOpen = panel.classList.contains('open');
+            document.querySelectorAll('.mobile-nav-dropdown').forEach(p => p.classList.remove('open'));
+            document.querySelectorAll('.mobile-nav-toggle').forEach(b => b.classList.remove('open'));
+            if (!isOpen) { panel.classList.add('open'); btn.classList.add('open'); }
+        });
+    });
+
+    drawer.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => setTimeout(closeDrawer, 150));
+    });
+})();
 </script>
 
 </body>

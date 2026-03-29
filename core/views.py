@@ -286,9 +286,8 @@ def send_customer_confirmation(booking):
                                         <div style="color: #999; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px;">
                                             Booking Reference
                                         </div>
-                                        <div style="color: #000; font-size: 24px; font-weight: 700; letter-spacing: 1px;">
-                                            #{booking.get_booking_id()}
-                                        </div>
+                                         <div style="color: #000; font-size: 24px; font-weight: 700; letter-spacing: 1px;">
+                                         </div>
                                         <div style="color: #666; font-size: 13px; margin-top: 5px;">
                                             Submitted on {booking.created_at.strftime('%B %d, %Y at %I:%M %p')}
                                         </div>
@@ -454,11 +453,11 @@ def send_customer_confirmation(booking):
                                             <tr>
                                                 <td style="padding: 8px 20px; text-align: left;">
                                                     <div style="color: rgba(255, 255, 255, 0.7); font-size: 12px; margin-bottom: 3px;">Email</div>
-                                                    <a href="mailto:info@discoverrwanda.com" style="color: #fff; text-decoration: none; font-size: 14px; font-weight: 600;">info@discoverrwanda.com</a>
+                                                    <a href="mailto:helpdiscoverrwanda@gmail.com" style="color: #fff; text-decoration: none; font-size: 14px; font-weight: 600;">helpdiscoverrwanda@gmail.com</a>
                                                 </td>
                                                 <td style="padding: 8px 20px; text-align: left;">
                                                     <div style="color: rgba(255, 255, 255, 0.7); font-size: 12px; margin-bottom: 3px;">Phone</div>
-                                                    <a href="tel:+250788123456" style="color: #fff; text-decoration: none; font-size: 14px; font-weight: 600;">+250 788 123 456</a>
+                                                    <a href="tel:+250 798 019 909" style="color: #fff; text-decoration: none; font-size: 14px; font-weight: 600;">+250 788 123 456</a>
                                                 </td>
                                             </tr>
                                         </table>
@@ -535,8 +534,8 @@ WHAT HAPPENS NEXT?
 ✓ Feel free to modify the itinerary until it's perfect for you
 
 CONTACT US
-Email: info@discoverrwanda.com
-Phone: +250 787 931 403
+Email: helpdiscoverrwanda@gmail.com
+Phone: +250 798 019 909
 Website: www.discoverrwanda.com
 
 Best regards,
@@ -555,7 +554,7 @@ Your gateway to extraordinary African adventures
             body=text_message,
             from_email=settings.DEFAULT_FROM_EMAIL,
             to=[booking.email],
-            reply_to=['info@discoverrwanda.com'],
+            reply_to=['helpdiscoverrwanda@gmail.com'],
         )
         email.attach_alternative(html_message, "text/html")
         email.send(fail_silently=False)
@@ -649,9 +648,9 @@ def send_admin_notification(booking):
                                         </div>
                                     </td>
                                     <td align="right">
-                                        <div style="display: inline-block; background-color: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); padding: 8px 20px; border-radius: 50px; color: #fff; font-size: 13px; font-weight: 700; letter-spacing: 1px;">
-                                            #{booking.get_booking_id()}
-                                        </div>
+                                        # <div style="display: inline-block; background-color: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); padding: 8px 20px; border-radius: 50px; color: #fff; font-size: 13px; font-weight: 700; letter-spacing: 1px;">
+                                        #     #{booking.get_booking_id()}
+                                        # </div>
                                     </td>
                                 </tr>
                             </table>
