@@ -137,28 +137,26 @@ ADMIN_EMAIL = "dvdnnkr@gmail.com"  # where notifications are sent
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:5000",
-    "http://127.0.0.0",
+    "http://127.0.0.1:8000",  # corrected from 127.0.0.0
     "http://197.243.57.75",
-    "discoverrwanda.rw",
-    "www.discoverrwanda.rw",
     "https://discoverrwanda.rw",
     "https://www.discoverrwanda.rw",
     "http://discoverrwanda.rw",
     "http://www.discoverrwanda.rw",
 ]
 
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:5000",
-    "http://127.0.0.0:8000",
+    "http://127.0.0.1:8000",  # corrected
     "http://197.243.57.75",
-    "discoverrwanda.rw",
-    "www.discoverrwanda.rw",
     "https://discoverrwanda.rw",
     "https://www.discoverrwanda.rw",
     "http://discoverrwanda.rw",
     "http://www.discoverrwanda.rw",
 ]
+
 
 
 CORS_ORIGIN_ALLOW_ALL = False
