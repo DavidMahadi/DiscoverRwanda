@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-pp+mesx&!zd&@9*3(cs9bbm_a8rl!f&!s%^0(@+mx$7+saa_q8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    # corsheaders
+    "corsheaders",
     "django.contrib.staticfiles",
     "core",
 ]
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -56,7 +59,7 @@ ROOT_URLCONF = "discover_rwanda.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, 'templates')],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -117,14 +120,46 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'dvdnnkr@gmail.com'          # your Gmail address
-EMAIL_HOST_PASSWORD = 'dftyxaediznmfqbz'         # the 16-char App Password
-DEFAULT_FROM_EMAIL = 'dvdnnkr@gmail.com'
-ADMIN_EMAIL = 'dvdnnkr@gmail.com'             # where notifications are sent
+EMAIL_HOST_USER = "dvdnnkr@gmail.com"  # your Gmail address
+EMAIL_HOST_PASSWORD = "dftyxaediznmfqbz"  # the 16-char App Password
+DEFAULT_FROM_EMAIL = "dvdnnkr@gmail.com"
+ADMIN_EMAIL = "dvdnnkr@gmail.com"  # where notifications are sent
+
+
+"""CORS HEADERS SETTINGS"""
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5173",
+    "http://localhost:5000",
+    "http://127.0.0.0",
+    "http://197.243.57.75",
+    "discoverrwanda.rw",
+    "www.discoverrwanda.rw",
+    "https://discoverrwanda.rw",
+    "https://www.discoverrwanda.rw",
+    "http://discoverrwanda.rw",
+    "http://www.discoverrwanda.rw",
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://localhost:5000",
+    "http://127.0.0.0:8000",
+    "http://197.243.57.75",
+    "discoverrwanda.rw",
+    "www.discoverrwanda.rw",
+    "https://discoverrwanda.rw",
+    "https://www.discoverrwanda.rw",
+    "http://discoverrwanda.rw",
+    "http://www.discoverrwanda.rw",
+]
+
+
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOW_CREDENTIALS = True
