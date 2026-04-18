@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-pp+mesx&!zd&@9*3(cs9bbm_a8rl!f&!s%^0(@+mx$7+saa_q8"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -127,10 +127,10 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "dvdnnkr@gmail.com"  # your Gmail address
-EMAIL_HOST_PASSWORD = "dftyxaediznmfqbz"  # the 16-char App Password
-DEFAULT_FROM_EMAIL = "dvdnnkr@gmail.com"
-ADMIN_EMAIL = "dvdnnkr@gmail.com"  # where notifications are sent
+EMAIL_HOST_USER = "helpdiscoverrwanda@gmail.com"  # your Gmail address
+EMAIL_HOST_PASSWORD = "iecmpdddcxnbluuc"  # the 16-char App Password
+DEFAULT_FROM_EMAIL = "helpdiscoverrwanda@gmail.com"
+ADMIN_EMAIL = "helpdiscoverrwanda@gmail.com"  # where notifications are sent
 
 
 """CORS HEADERS SETTINGS"""

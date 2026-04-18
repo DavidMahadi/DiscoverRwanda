@@ -195,7 +195,7 @@ def send_customer_confirmation(booking):
     Returns True if successful, False otherwise
     """
     try:
-        subject = f'Your Rwanda Journey Begins - Booking #{booking.get_booking_id()}'
+        subject = f'Your Rwanda Journey Begins Here'
         
         # Organize activities by category
         activities = booking.get_activities_list() if booking.get_activities_list() else []
@@ -457,7 +457,7 @@ def send_customer_confirmation(booking):
                                                 </td>
                                                 <td style="padding: 8px 20px; text-align: left;">
                                                     <div style="color: rgba(255, 255, 255, 0.7); font-size: 12px; margin-bottom: 3px;">Phone</div>
-                                                    <a href="tel:+250 798 019 909" style="color: #fff; text-decoration: none; font-size: 14px; font-weight: 600;">+250 788 123 456</a>
+                                                    <a href="tel:+250 798 019 909" style="color: #fff; text-decoration: none; font-size: 14px; font-weight: 600;">+250 798 919 909</a>
                                                 </td>
                                             </tr>
                                         </table>
@@ -535,8 +535,8 @@ WHAT HAPPENS NEXT?
 
 CONTACT US
 Email: helpdiscoverrwanda@gmail.com
-Phone: +250 798 019 909
-Website: www.discoverrwanda.com
+Phone: +250 798 919 909
+Website: www.discoverrwanda.rw
 
 Best regards,
 The Discover Rwanda Team

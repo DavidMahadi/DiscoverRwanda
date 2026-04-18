@@ -18,14 +18,12 @@
         --light-gray: #e5e5e5;
         --off-white: #f8f8f8;
         --white: #ffffff;
-        --gold: #c59959;
+        --green: #2d7a4f;
+        --green-deep: #1a5f3a;
+        --green-light: #4a9e6b;
     }
     
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
         font-family: 'Inter', sans-serif;
@@ -34,736 +32,457 @@
         overflow-x: hidden;
         background: var(--white);
     }
-    
-    /* Navigation */
-    .nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        padding: 1.5rem 6%;
-        background: var(--white);
-        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
-    }
-    
-    .nav-container {
-        max-width: 2000px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    .nav-brand {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        text-decoration: none;
-    }
-    
-    .nav-logo-img {
-    width: 200px;                /* adjust size */
-    height: 100px;
-    border-radius: 50%;
-    background: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    transition: all 0.4s ease;
-}
 
-.nav-logo-img img {
-    width: 100%;                 /* fill the container */
-    height: 100%;
-    object-fit: contain;
-    transition: all 0.4s ease;
-}
-    
-    .nav-logo-text {
-        font-family: 'Italiana', serif;
-        font-size: 1.5rem;
-        color: var(--black);
-        letter-spacing: 4px;
+    /* ============================================
+       NAVIGATION — full index.html version (green)
+    ============================================ */
+    .nav {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 10000;
+        background: rgba(255,255,255,0.98);
+        backdrop-filter: blur(60px) saturate(200%);
+        box-shadow: 0 1px 0 rgba(45,122,79,0.1), 0 10px 40px rgba(0,0,0,0.03);
+        padding: 1rem 0;
+        transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
     }
-    
-    .nav-menu {
-        display: flex;
-        list-style: none;
-        gap: 4rem;
-        align-items: center;
+    .nav-container {
+        max-width: 1900px; margin: 0 auto; padding: 0 6%;
+        display: flex; justify-content: space-between; align-items: center;
     }
-    
+    .nav-brand { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo-img {
+        width: 160px; height: 68px;
+        display: flex; align-items: center; justify-content: center;
+        overflow: hidden; transition: all 0.4s ease;
+    }
+    .nav-logo-img img { width: 100%; height: 100%; object-fit: contain; }
+
+    .nav-menu { display: flex; list-style: none; gap: 4rem; align-items: center; }
+    .nav-item { position: relative; }
     .nav-item a {
-        font-size: 0.8125rem;
-        font-weight: 600;
-        color: var(--charcoal);
-        text-decoration: none;
-        letter-spacing: 1.8px;
-        text-transform: uppercase;
-        transition: all 0.3s ease;
+        font-size: 0.8125rem; font-weight: 600; color: var(--charcoal);
+        text-decoration: none; letter-spacing: 1.8px; text-transform: uppercase;
+        position: relative; padding: 0.5rem 0;
+        transition: all 0.3s ease; display: block;
     }
-    
-    .nav-item a:hover {
-        color: var(--gold);
+    .nav-item a::after {
+        content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 2px;
+        background: linear-gradient(90deg, transparent, var(--green), transparent);
+        transform: translateX(-50%); transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
     }
-    
+    .nav-item a:hover { color: var(--green); }
+    .nav-item a:hover::after { width: 100%; }
+
+    /* Dropdown */
+    .nav-dropdown {
+        position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+        background: white; border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        opacity: 0; visibility: hidden;
+        transition: all 0.3s ease; margin-top: 1.5rem;
+        min-width: 280px; padding: 1rem 0; z-index: 1000;
+    }
+    .nav-item:hover .nav-dropdown { opacity: 1; visibility: visible; margin-top: 1rem; }
+    .nav-dropdown::before {
+        content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+        border-left: 8px solid transparent; border-right: 8px solid transparent;
+        border-bottom: 8px solid white;
+    }
+    .nav-dropdown a {
+        display: block; padding: 0.875rem 1.75rem;
+        color: var(--charcoal); font-size: 0.75rem; font-weight: 600;
+        letter-spacing: 1.5px; text-transform: uppercase;
+        transition: all 0.3s ease; text-shadow: none;
+    }
+    .nav-dropdown a::after { display: none; }
+    .nav-dropdown a:hover { background: var(--off-white); color: var(--green); padding-left: 2rem; }
+
+    /* CTA button */
     .nav-cta {
-        background: var(--black);
+        background: var(--black) !important;
         color: var(--white) !important;
         padding: 1rem 2.8rem !important;
         border-radius: 50px !important;
+        font-weight: 700 !important;
+        transition: all 0.3s ease !important;
     }
-    
-    .nav-cta:hover {
-        background: var(--gold);
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--green) !important; color: var(--white) !important; transform: translateY(-2px); }
+
+    /* Hamburger */
+    .nav-hamburger {
+        display: none; flex-direction: column; justify-content: center;
+        align-items: center; gap: 5px; width: 44px; height: 44px;
+        background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.15);
+        border-radius: 10px; cursor: pointer; z-index: 10001;
+        transition: all 0.3s ease; flex-shrink: 0;
     }
-    
-.nav-cta:hover {
-    background: var(--gold);
-}
+    .nav-hamburger:hover { background: rgba(45,122,79,0.15); border-color: var(--green); }
+    .nav-hamburger span {
+        display: block; width: 22px; height: 2px;
+        background: var(--charcoal); border-radius: 2px;
+        transition: all 0.35s cubic-bezier(0.4,0,0.2,1); transform-origin: center;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* ── PASTE HAMBURGER CSS HERE ── */
-.nav-hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    width: 44px; height: 44px;
-    background: rgba(0,0,0,0.04);
-    border: 1px solid rgba(0,0,0,0.15);
-    border-radius: 10px;
-    cursor: pointer;
-    z-index: 10001;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-}
-.nav-hamburger:hover { background: rgba(197,153,91,0.15); border-color: var(--gold); }
-.nav-hamburger span {
-    display: block; width: 22px; height: 2px;
-    background: var(--charcoal); border-radius: 2px;
-    transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
-    transform-origin: center;
-}
-.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    /* Mobile overlay */
+    .mobile-nav-overlay {
+        position: fixed; inset: 0; z-index: 9999;
+        background: rgba(5,24,16,0.6); backdrop-filter: blur(4px);
+        opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
+    }
+    .mobile-nav-overlay.open { opacity: 1; pointer-events: all; }
 
-/* ── OVERLAY ── */
-.mobile-nav-overlay {
-    position: fixed; inset: 0; z-index: 9999;
-    background: rgba(5,24,16,0.6);
-    backdrop-filter: blur(4px);
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.35s ease;
-}
-.mobile-nav-overlay.open { opacity: 1; pointer-events: all; }
+    /* Mobile drawer */
+    .mobile-nav-drawer {
+        position: fixed; top: 0; right: 0; bottom: 0; z-index: 10000;
+        width: min(360px, 88vw);
+        background: linear-gradient(160deg, #0a2f1a 0%, #051810 60%, #0a0a0a 100%);
+        transform: translateX(100%);
+        transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
+        display: flex; flex-direction: column; overflow-y: auto;
+        box-shadow: -20px 0 60px rgba(0,0,0,0.5);
+    }
+    .mobile-nav-drawer.open { transform: translateX(0); }
+    .mobile-nav-header {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid rgba(45,122,79,0.25); flex-shrink: 0;
+    }
+    .mobile-nav-logo { height: 52px; width: auto; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.9; }
+    .mobile-nav-close {
+        width: 38px; height: 38px; border-radius: 50%;
+        background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+        color: white; font-size: 16px; cursor: pointer;
+        display: flex; align-items: center; justify-content: center; transition: all 0.2s ease;
+    }
+    .mobile-nav-close:hover { background: rgba(45,122,79,0.3); border-color: var(--green); }
+    .mobile-nav-list { list-style: none; padding: 1rem 0 2rem; flex: 1; }
+    .mobile-nav-item { border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .mobile-nav-row { display: flex; align-items: center; justify-content: space-between; }
+    .mobile-nav-link {
+        display: block; flex: 1; padding: 1rem 1.5rem;
+        color: rgba(255,255,255,0.88); text-decoration: none;
+        font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+        transition: color 0.2s ease;
+    }
+    .mobile-nav-link:hover { color: var(--green-light); }
+    .mobile-nav-toggle {
+        width: 44px; height: 48px; background: none; border: none; cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        color: rgba(255,255,255,0.4); transition: all 0.3s ease;
+    }
+    .mobile-nav-toggle:hover { color: var(--green); }
+    .mobile-nav-toggle.open { color: var(--green); transform: rotate(180deg); }
+    .mobile-nav-dropdown {
+        display: none; background: rgba(0,0,0,0.25);
+        border-left: 2px solid rgba(45,122,79,0.4);
+        margin-left: 1.5rem; padding: 0.5rem 0;
+    }
+    .mobile-nav-dropdown.open { display: block; }
+    .mobile-nav-dropdown a {
+        display: block; padding: 0.7rem 1.25rem;
+        color: rgba(255,255,255,0.65); text-decoration: none;
+        font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+        transition: all 0.2s ease; border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .mobile-nav-dropdown a:last-child { border-bottom: none; }
+    .mobile-nav-dropdown a:hover { color: var(--green-light); padding-left: 1.75rem; background: rgba(45,122,79,0.08); }
+    .mobile-nav-cta {
+        margin: 1rem 1.5rem 0.5rem; display: block; padding: 1rem 2rem;
+        background: linear-gradient(135deg, var(--green-deep), var(--green), var(--green-light));
+        color: white; text-align: center; text-decoration: none;
+        font-size: 0.75rem; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase;
+        border-radius: 50px; transition: all 0.3s ease;
+        box-shadow: 0 8px 25px rgba(45,122,79,0.35);
+    }
+    .mobile-nav-cta:hover { transform: translateY(-2px); }
+    .mobile-nav-footer {
+        padding: 1.25rem 1.5rem;
+        border-top: 1px solid rgba(45,122,79,0.2); flex-shrink: 0;
+    }
+    .mobile-nav-contact { display: flex; flex-direction: column; gap: 0.6rem; }
+    .mobile-nav-contact a {
+        display: flex; align-items: center; gap: 0.75rem;
+        color: rgba(255,255,255,0.55); text-decoration: none;
+        font-size: 0.75rem; transition: color 0.2s;
+    }
+    .mobile-nav-contact a:hover { color: var(--green-light); }
+    body.nav-open { overflow: hidden; }
 
-/* ── DRAWER ── */
-.mobile-nav-drawer {
-    position: fixed; top: 0; right: 0; bottom: 0;
-    z-index: 10000;
-    width: min(360px, 88vw);
-    background: linear-gradient(160deg, #0a2f1a 0%, #051810 60%, #0a0a0a 100%);
-    transform: translateX(100%);
-    transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
-    display: flex; flex-direction: column;
-    overflow-y: auto;
-    box-shadow: -20px 0 60px rgba(0,0,0,0.5);
-}
-.mobile-nav-drawer.open { transform: translateX(0); }
+    /* Nav logo responsive */
+    @media (min-width: 1400px) { .nav-logo-img { width: 180px; height: 76px; } }
+    @media (min-width: 1200px) and (max-width: 1399px) { .nav-logo-img { width: 160px; height: 68px; } }
+    @media (min-width: 1024px) and (max-width: 1199px) { .nav-logo-img { width: 140px; height: 60px; } .nav-menu { gap: 2rem; } }
+    @media (max-width: 1023px) { .nav-menu { display: none; } .nav-hamburger { display: flex; } .nav-logo-img { width: 130px; height: 56px; } }
+    @media (max-width: 767px) { .nav-logo-img { width: 110px; height: 48px; } }
+    @media (max-width: 575px) { .nav-logo-img { width: 96px; height: 42px; } }
+    @media (max-width: 399px) { .nav-logo-img { width: 80px; height: 36px; } .mobile-nav-drawer { width: 100vw; } }
 
-.mobile-nav-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid rgba(197,153,91,0.15);
-    flex-shrink: 0;
-}
-.mobile-nav-logo { height: 52px; width: auto; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.9; }
-.mobile-nav-close {
-    width: 38px; height: 38px; border-radius: 50%;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
-    color: white; font-size: 16px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s ease;
-}
-.mobile-nav-close:hover { background: rgba(197,153,91,0.3); border-color: var(--gold); }
-
-.mobile-nav-list { list-style: none; padding: 1rem 0 2rem; flex: 1; }
-.mobile-nav-item { border-bottom: 1px solid rgba(255,255,255,0.05); }
-.mobile-nav-row { display: flex; align-items: center; justify-content: space-between; }
-.mobile-nav-link {
-    display: block; flex: 1; padding: 1rem 1.5rem;
-    color: rgba(255,255,255,0.88); text-decoration: none;
-    font-size: 0.8rem; font-weight: 700;
-    letter-spacing: 2px; text-transform: uppercase;
-    transition: color 0.2s ease;
-}
-.mobile-nav-link:hover { color: var(--gold-light); }
-.mobile-nav-toggle {
-    width: 44px; height: 48px;
-    background: none; border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    color: rgba(255,255,255,0.4);
-    transition: all 0.3s ease;
-}
-.mobile-nav-toggle:hover { color: var(--gold); }
-.mobile-nav-toggle.open { color: var(--gold); transform: rotate(180deg); }
-
-.mobile-nav-dropdown {
-    display: none;
-    background: rgba(0,0,0,0.25);
-    border-left: 2px solid rgba(197,153,91,0.3);
-    margin-left: 1.5rem; padding: 0.5rem 0;
-}
-.mobile-nav-dropdown.open { display: block; }
-.mobile-nav-dropdown a {
-    display: block; padding: 0.7rem 1.25rem;
-    color: rgba(255,255,255,0.65); text-decoration: none;
-    font-size: 0.7rem; font-weight: 600;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    transition: all 0.2s ease;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-}
-.mobile-nav-dropdown a:last-child { border-bottom: none; }
-.mobile-nav-dropdown a:hover { color: var(--gold-light); padding-left: 1.75rem; background: rgba(197,153,91,0.06); }
-
-.mobile-nav-cta {
-    margin: 1rem 1.5rem 0.5rem; display: block; padding: 1rem 2rem;
-    background: linear-gradient(135deg, var(--gold-deep), var(--gold), var(--gold-light));
-    color: white; text-align: center; text-decoration: none;
-    font-size: 0.75rem; font-weight: 800;
-    letter-spacing: 2.5px; text-transform: uppercase;
-    border-radius: 50px; transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(197,153,91,0.35);
-}
-.mobile-nav-cta:hover { transform: translateY(-2px); }
-
-.mobile-nav-footer {
-    padding: 1.25rem 1.5rem;
-    border-top: 1px solid rgba(197,153,91,0.15);
-    flex-shrink: 0;
-}
-.mobile-nav-contact { display: flex; flex-direction: column; gap: 0.6rem; }
-.mobile-nav-contact a {
-    display: flex; align-items: center; gap: 0.75rem;
-    color: rgba(255,255,255,0.55); text-decoration: none;
-    font-size: 0.75rem; transition: color 0.2s;
-}
-.mobile-nav-contact a:hover { color: var(--gold-light); }
-
-body.nav-open { overflow: hidden; }
-
-
-
-    /* Hero Section */
+    /* ============================================
+       HERO
+    ============================================ */
     .hero-section {
-        position: relative;
-        height: 85vh;
-        min-height: 700px;
-        background: var(--black);
-        display: flex;
-        align-items: center;
-        margin-top: 88px;
-        overflow: hidden;
+        position: relative; height: 85vh; min-height: 700px;
+        background: var(--black); display: flex; align-items: center;
+        margin-top: 88px; overflow: hidden;
     }
-    
     .hero-bg-pattern {
-        position: absolute;
-        inset: 0;
-        background-image: 
-            linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-        background-size: 50px 50px;
-        opacity: 0.3;
+        position: absolute; inset: 0;
+        background-image:
+            linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+        background-size: 50px 50px; opacity: 0.3;
     }
-    
     .hero-content {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 0 6%;
-        text-align: center;
-        position: relative;
-        z-index: 2;
+        max-width: 1400px; margin: 0 auto; padding: 0 6%;
+        text-align: center; position: relative; z-index: 2;
     }
-    
     .hero-eyebrow {
-        display: inline-block;
-        font-size: 0.75rem;
-        font-weight: 800;
-        letter-spacing: 4px;
-        text-transform: uppercase;
-        color: var(--white);
-        padding: 0.5rem 1.5rem;
-        border: 2px solid var(--white);
-        border-radius: 50px;
-        margin-bottom: 2.5rem;
-        background: rgba(255, 255, 255, 0.05);
+        display: inline-block; font-size: 0.75rem; font-weight: 800;
+        letter-spacing: 4px; text-transform: uppercase; color: var(--white);
+        padding: 0.5rem 1.5rem; border: 2px solid var(--white); border-radius: 50px;
+        margin-bottom: 2.5rem; background: rgba(255,255,255,0.05);
     }
-    
     .hero-title {
         font-family: 'Italiana', serif;
         font-size: clamp(4rem, 10vw, 7rem);
-        font-weight: 400;
-        color: var(--white);
-        margin-bottom: 2rem;
-        letter-spacing: 12px;
-        line-height: 1.1;
+        font-weight: 400; color: var(--white);
+        margin-bottom: 2rem; letter-spacing: 12px; line-height: 1.1;
     }
-    
     .hero-subtitle {
         font-family: 'Cormorant Garamond', serif;
         font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-        font-weight: 400;
-        color: rgba(255, 255, 255, 0.85);
-        max-width: 900px;
-        margin: 0 auto 3rem;
-        line-height: 1.8;
+        font-weight: 400; color: rgba(255,255,255,0.85);
+        max-width: 900px; margin: 0 auto 3rem; line-height: 1.8;
     }
-    
-    .hero-stats {
-        display: flex;
-        justify-content: center;
-        gap: 5rem;
-        margin-top: 5rem;
-    }
-    
-    .stat-item {
-        text-align: center;
-    }
-    
-    .stat-number {
-        font-family: 'Italiana', serif;
-        font-size: 4rem;
-        color: var(--white);
-        display: block;
-    }
-    
-    .stat-label {
-        font-size: 0.875rem;
-        color: rgba(255, 255, 255, 0.7);
-        letter-spacing: 2px;
-        text-transform: uppercase;
-    }
-    
-    /* Introduction Section */
-    .intro-section {
-        background: var(--white);
-        padding: 10rem 6%;
-    }
-    
-    .intro-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        text-align: center;
-    }
-    
+    .hero-stats { display: flex; justify-content: center; gap: 5rem; margin-top: 5rem; }
+    .stat-item { text-align: center; }
+    .stat-number { font-family: 'Italiana', serif; font-size: 4rem; color: var(--white); display: block; }
+    .stat-label { font-size: 0.875rem; color: rgba(255,255,255,0.7); letter-spacing: 2px; text-transform: uppercase; }
+
+    /* ============================================
+       INTRODUCTION
+    ============================================ */
+    .intro-section { background: var(--white); padding: 10rem 6%; }
+    .intro-container { max-width: 1200px; margin: 0 auto; text-align: center; }
     .section-eyebrow {
-        display: inline-block;
-        font-size: 0.6875rem;
-        font-weight: 800;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        color: var(--black);
-        padding: 0.4rem 1.25rem;
-        border: 2px solid var(--black);
-        border-radius: 50px;
-        margin-bottom: 2.5rem;
+        display: inline-block; font-size: 0.6875rem; font-weight: 800;
+        letter-spacing: 3px; text-transform: uppercase; color: var(--black);
+        padding: 0.4rem 1.25rem; border: 2px solid var(--black); border-radius: 50px; margin-bottom: 2.5rem;
     }
-    
     .section-title {
-        font-family: 'Italiana', serif;
-        font-size: clamp(2.5rem, 5vw, 4rem);
-        font-weight: 400;
-        color: var(--black);
-        margin-bottom: 2rem;
-        letter-spacing: 4px;
-        line-height: 1.2;
+        font-family: 'Italiana', serif; font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 400; color: var(--black); margin-bottom: 2rem; letter-spacing: 4px; line-height: 1.2;
     }
-    
     .section-description {
-        font-size: 1.125rem;
-        font-weight: 300;
-        line-height: 1.9;
-        color: var(--mid-gray);
-        max-width: 900px;
-        margin: 0 auto;
+        font-size: 1.125rem; font-weight: 300; line-height: 1.9;
+        color: var(--mid-gray); max-width: 900px; margin: 0 auto;
     }
-    
-    /* Lakes Grid - Alternating Full-Width Sections */
-    .lakes-grid-section {
-        background: var(--off-white);
-        padding: 0;
-    }
-    
-    .lake-feature {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        min-height: 700px;
-    }
-    
-    .lake-feature:nth-child(even) {
-        direction: rtl;
-    }
-    
-    .lake-feature:nth-child(even) > * {
-        direction: ltr;
-    }
-    
-    .lake-image-container {
-        position: relative;
-        overflow: hidden;
-        background: var(--dark-gray);
-    }
-    
+
+    /* ============================================
+       LAKES GRID
+    ============================================ */
+    .lakes-grid-section { background: var(--off-white); padding: 0; }
+    .lake-feature { display: grid; grid-template-columns: 1fr 1fr; min-height: 700px; }
+    .lake-feature:nth-child(even) { direction: rtl; }
+    .lake-feature:nth-child(even) > * { direction: ltr; }
+    .lake-image-container { position: relative; overflow: hidden; background: var(--dark-gray); }
     .lake-image-container img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        filter: grayscale(20%);
+        width: 100%; height: 100%; object-fit: cover;
+        transition: transform 0.8s cubic-bezier(0.4,0,0.2,1); filter: grayscale(20%);
     }
-    
-    .lake-feature:hover .lake-image-container img {
-        transform: scale(1.05);
-        filter: grayscale(0%);
-    }
-    
+    .lake-feature:hover .lake-image-container img { transform: scale(1.05); filter: grayscale(0%); }
     .lake-content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 8% 10%;
-        background: var(--white);
+        display: flex; flex-direction: column; justify-content: center;
+        padding: 8% 10%; background: var(--white);
     }
-    
-    .lake-feature:nth-child(even) .lake-content {
-        background: var(--black);
-        color: var(--white);
-    }
-    
+    .lake-feature:nth-child(even) .lake-content { background: var(--black); color: var(--white); }
     .lake-number {
-        font-family: 'Italiana', serif;
-        font-size: 1rem;
-        color: var(--gold);
-        letter-spacing: 3px;
-        margin-bottom: 1.5rem;
+        font-family: 'Italiana', serif; font-size: 1rem;
+        color: var(--green); letter-spacing: 3px; margin-bottom: 1.5rem;
     }
-    
     .lake-name {
-        font-family: 'Italiana', serif;
-        font-size: clamp(2.5rem, 4vw, 3.5rem);
-        font-weight: 400;
-        color: var(--black);
-        margin-bottom: 1rem;
-        letter-spacing: 4px;
-        line-height: 1.2;
+        font-family: 'Italiana', serif; font-size: clamp(2.5rem, 4vw, 3.5rem);
+        font-weight: 400; color: var(--black);
+        margin-bottom: 1rem; letter-spacing: 4px; line-height: 1.2;
     }
-    
-    .lake-feature:nth-child(even) .lake-name {
-        color: var(--white);
-    }
-    
+    .lake-feature:nth-child(even) .lake-name { color: var(--white); }
     .lake-location {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1.125rem;
-        font-style: italic;
-        color: var(--mid-gray);
-        margin-bottom: 2.5rem;
+        font-family: 'Cormorant Garamond', serif; font-size: 1.125rem;
+        font-style: italic; color: var(--mid-gray); margin-bottom: 2.5rem;
     }
-    
-    .lake-feature:nth-child(even) .lake-location {
-        color: rgba(255, 255, 255, 0.7);
-    }
-    
+    .lake-feature:nth-child(even) .lake-location { color: rgba(255,255,255,0.7); }
     .lake-description {
-        font-size: 1.0625rem;
-        font-weight: 300;
-        line-height: 1.8;
-        color: var(--mid-gray);
-        margin-bottom: 2rem;
+        font-size: 1.0625rem; font-weight: 300; line-height: 1.8;
+        color: var(--mid-gray); margin-bottom: 2rem;
     }
-    
-    .lake-feature:nth-child(even) .lake-description {
-        color: rgba(255, 255, 255, 0.8);
-    }
-    
-    .lake-highlights {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-        margin-bottom: 3rem;
-    }
-    
-    .highlight-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-    
-    .highlight-icon {
-        font-size: 1.5rem;
-        flex-shrink: 0;
-    }
-    
-    .highlight-text {
-        flex: 1;
-    }
-    
-    .highlight-title {
-        font-weight: 600;
-        font-size: 0.9375rem;
-        color: var(--black);
-        margin-bottom: 0.25rem;
-    }
-    
-    .lake-feature:nth-child(even) .highlight-title {
-        color: var(--white);
-    }
-    
-    .highlight-desc {
-        font-size: 0.875rem;
-        color: var(--mid-gray);
-    }
-    
-    .lake-feature:nth-child(even) .highlight-desc {
-        color: rgba(255, 255, 255, 0.6);
-    }
-    
+    .lake-feature:nth-child(even) .lake-description { color: rgba(255,255,255,0.8); }
+    .lake-highlights { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem; margin-bottom: 3rem; }
+    .highlight-item { display: flex; align-items: flex-start; gap: 1rem; }
+    .highlight-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .highlight-text { flex: 1; }
+    .highlight-title { font-weight: 600; font-size: 0.9375rem; color: var(--black); margin-bottom: 0.25rem; }
+    .lake-feature:nth-child(even) .highlight-title { color: var(--white); }
+    .highlight-desc { font-size: 0.875rem; color: var(--mid-gray); }
+    .lake-feature:nth-child(even) .highlight-desc { color: rgba(255,255,255,0.6); }
     .lake-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.75rem;
-        font-size: 0.875rem;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: var(--black);
-        text-decoration: none;
-        transition: all 0.3s ease;
+        display: inline-flex; align-items: center; gap: 0.75rem;
+        font-size: 0.875rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+        color: var(--black); text-decoration: none; transition: all 0.3s ease;
     }
-    
-    .lake-link:hover {
-        gap: 1.25rem;
-        color: var(--gold);
-    }
-    
-    .lake-feature:nth-child(even) .lake-link {
-        color: var(--white);
-    }
-    
-    /* CTA Section */
+    .lake-link:hover { gap: 1.25rem; color: var(--green); }
+    .lake-feature:nth-child(even) .lake-link { color: var(--white); }
+    .lake-feature:nth-child(even) .lake-link:hover { color: var(--green-light); }
+
+    /* ============================================
+       CTA
+    ============================================ */
     .cta-final {
-        background: var(--black);
-        padding: 10rem 6%;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
+        background: var(--black); padding: 10rem 6%;
+        text-align: center; position: relative; overflow: hidden;
     }
-    
     .cta-final::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image: 
-            linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-        background-size: 50px 50px;
-        opacity: 0.3;
+        content: ''; position: absolute; inset: 0;
+        background-image:
+            linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+        background-size: 50px 50px; opacity: 0.3;
     }
-    
-    .cta-content {
-        max-width: 1000px;
-        margin: 0 auto;
-        position: relative;
-        z-index: 2;
-    }
-    
+    .cta-content { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
     .cta-title {
-        font-family: 'Italiana', serif;
-        font-size: clamp(2.5rem, 5vw, 4rem);
-        font-weight: 400;
-        color: var(--white);
-        margin-bottom: 2rem;
-        letter-spacing: 4px;
+        font-family: 'Italiana', serif; font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 400; color: var(--white); margin-bottom: 2rem; letter-spacing: 4px;
     }
-    
     .cta-text {
-        font-size: 1.25rem;
-        font-weight: 300;
-        line-height: 1.8;
-        color: rgba(255, 255, 255, 0.8);
-        margin-bottom: 3.5rem;
+        font-size: 1.25rem; font-weight: 300; line-height: 1.8;
+        color: rgba(255,255,255,0.8); margin-bottom: 3.5rem;
     }
-    
     .cta-button {
-        display: inline-flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 1.25rem 3.5rem;
-        background: var(--white);
-        color: var(--black);
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 0.875rem;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        border-radius: 50px;
+        display: inline-flex; align-items: center; gap: 1rem;
+        padding: 1.25rem 3.5rem; background: var(--white); color: var(--black);
+        text-decoration: none; font-weight: 700; font-size: 0.875rem;
+        letter-spacing: 2px; text-transform: uppercase; border-radius: 50px;
         transition: all 0.4s ease;
     }
-    
     .cta-button:hover {
-        background: var(--gold);
-        color: var(--white);
-        transform: translateY(-3px);
-        gap: 1.5rem;
+        background: var(--green); color: var(--white);
+        transform: translateY(-3px); gap: 1.5rem;
     }
-    
-    /* Footer */
-    footer {
-        background: var(--charcoal);
-        color: var(--white);
-        padding: 6rem 6% 3rem;
-    }
-    
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    footer { background: var(--charcoal); color: var(--white); padding: 6rem 6% 3rem; }
     .footer-grid {
-        display: grid;
-        grid-template-columns: 2fr 1fr 1fr 1fr;
-        gap: 4rem;
-        max-width: 1800px;
-        margin: 0 auto 4rem;
+        display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 4rem; max-width: 1800px; margin: 0 auto 4rem;
     }
-    
-    .footer-brand h3 {
-        font-family: 'Italiana', serif;
-        font-size: 2rem;
-        margin-bottom: 1.5rem;
-        letter-spacing: 2px;
-    }
-    
-    .footer-description {
-        font-size: 0.9375rem;
-        line-height: 1.8;
-        color: rgba(255, 255, 255, 0.7);
-    }
-    
+    .footer-brand h3 { font-family: 'Italiana', serif; font-size: 2rem; margin-bottom: 1.5rem; letter-spacing: 2px; }
+    .footer-description { font-size: 0.9375rem; line-height: 1.8; color: rgba(255,255,255,0.7); }
     .footer-column h4 {
-        font-size: 0.875rem;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        margin-bottom: 1.5rem;
-        color: var(--gold);
+        font-size: 0.875rem; font-weight: 700; letter-spacing: 2px;
+        text-transform: uppercase; margin-bottom: 1.5rem; color: var(--green-light);
     }
-    
-    .footer-links {
-        list-style: none;
-    }
-    
-    .footer-links li {
-        margin-bottom: 0.75rem;
-    }
-    
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 0.75rem; }
     .footer-links a {
-        color: rgba(255, 255, 255, 0.7);
-        text-decoration: none;
-        transition: all 0.3s ease;
+        color: rgba(255,255,255,0.7); text-decoration: none;
+        font-size: 0.9375rem; transition: all 0.3s ease;
     }
-    
-    .footer-links a:hover {
-        color: var(--gold);
-    }
-    
+    .footer-links a:hover { color: var(--green-light); }
     .footer-bottom {
-        text-align: center;
-        padding-top: 3rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 0.875rem;
+        text-align: center; padding-top: 3rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        color: rgba(255,255,255,0.5); font-size: 0.875rem;
     }
-    
-    /* Responsive */
-@media (max-width: 1024px) {
-    .nav-menu      { display: none; }
-    .nav-hamburger { display: flex; }
 
-    .lake-feature  { grid-template-columns: 1fr; }
-    .lake-feature:nth-child(even) { direction: ltr; }
-    .lake-highlights { grid-template-columns: 1fr; }
-    .hero-stats    { gap: 3rem; }
-    .footer-grid   { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 768px) {
-    .nav-menu      { display: none; }
-    .nav-hamburger { display: flex; }
-
-    .hero-stats    { flex-direction: column; gap: 2rem; }
-    .lake-content  { padding: 4rem 6%; }
-    .footer-grid   { grid-template-columns: 1fr; }
-    .intro-section { padding: 6rem 4%; }
-    .cta-final     { padding: 6rem 4%; }
-}
-
-@media (max-width: 576px) {
-    .nav-menu      { display: none; }
-    .nav-hamburger { display: flex; }
-    .nav-logo-img  { width: 140px; height: 70px; }
-    .nav-logo-text { display: none; }
-
-    .hero-section  { min-height: 70vh; margin-top: 70px; }
-    .hero-stats    { flex-direction: column; gap: 1.5rem; }
-    .stat-number   { font-size: 3rem; }
-    .lake-content  { padding: 3rem 5%; }
-    .lake-highlights { grid-template-columns: 1fr; }
-    .footer-grid   { grid-template-columns: 1fr; gap: 2rem; }
-    footer         { padding: 4rem 5% 2rem; }
-    .cta-final     { padding: 5rem 4%; }
-}
-
-@media (max-width: 400px) {
-    .nav-menu      { display: none; }
-    .nav-hamburger { display: flex; }
-    .nav-logo-img  { width: 110px; height: 56px; }
-    .nav-logo-text { display: none; }
-
-    .hero-section  { min-height: 65vh; margin-top: 62px; }
-    .lake-name     { font-size: 2rem; letter-spacing: 2px; }
-    .lake-content  { padding: 2.5rem 4%; }
-    .footer-grid   { grid-template-columns: 1fr; gap: 1.5rem; }
-    footer         { padding: 3rem 4% 2rem; }
-}
+    /* ============================================
+       RESPONSIVE
+    ============================================ */
+    @media (max-width: 1024px) {
+        .lake-feature { grid-template-columns: 1fr; }
+        .lake-feature:nth-child(even) { direction: ltr; }
+        .lake-highlights { grid-template-columns: 1fr; }
+        .hero-stats { gap: 3rem; }
+        .footer-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 768px) {
+        .hero-stats { flex-direction: column; gap: 2rem; }
+        .lake-content { padding: 4rem 6%; }
+        .footer-grid { grid-template-columns: 1fr; }
+        .intro-section { padding: 6rem 4%; }
+        .cta-final { padding: 6rem 4%; }
+    }
+    @media (max-width: 576px) {
+        .hero-section { min-height: 70vh; margin-top: 70px; }
+        .hero-stats { flex-direction: column; gap: 1.5rem; }
+        .stat-number { font-size: 3rem; }
+        .lake-content { padding: 3rem 5%; }
+        .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+        footer { padding: 4rem 5% 2rem; }
+        .cta-final { padding: 5rem 4%; }
+    }
+    @media (max-width: 400px) {
+        .hero-section { min-height: 65vh; margin-top: 62px; }
+        .lake-name { font-size: 2rem; letter-spacing: 2px; }
+        .lake-content { padding: 2.5rem 4%; }
+        footer { padding: 3rem 4% 2rem; }
+    }
 </style>
 </head>
 <body>
 
-<!-- Navigation -->
+<!-- ── NAVIGATION ── -->
 <nav class="nav">
     <div class="nav-container">
         <a href="{% url 'index' %}" class="nav-brand">
             <div class="nav-logo-img">
-            <div class="logo-wrapper">
-                <img src="{% static 'logo.png' %}" alt="Logo" class="logo-img">
+                <img src="{% static 'logo.png' %}" alt="Discover Rwanda">
             </div>
-        </div>
-            <div class="nav-logo-text">DISCOVER RWANDA</div>
         </a>
-        
+
         <ul class="nav-menu">
-            <li class="nav-item"><a href="{% url 'index' %}">Home</a></li>
-            <li class="nav-item"><a href="{% url 'lakes' %}">Lakes</a></li>
-            <li class="nav-item"><a href="{% url 'contact' %}" class="nav-cta">Plan Visit</a></li>
+            <li class="nav-item">
+                <a href="#">Destinations</a>
+                <div class="nav-dropdown">
+                    <div class="nav-dropdown-item"><a href="{% url 'towns' %}">Towns</a></div>
+                    <div class="nav-dropdown-item"><a href="{% url 'lakes' %}">Lakes</a></div>
+                    <div class="nav-dropdown-item"><a href="{% url 'volcanic_mountains' %}">Volcanic Mountains</a></div>
+                    <div class="nav-dropdown-item"><a href="{% url 'museums_heritage' %}">Museums & Heritage Sites</a></div>
+                    <div class="nav-dropdown-item"><a href="{% url 'memorial_sites' %}">Memorial Sites</a></div>
+                    <div class="nav-dropdown-item"><a href="{% url 'cultural_villages' %}">Cultural & Art Villages</a></div>
+                    <div class="nav-dropdown-item"><a href="{% url 'top_attractions' %}">Top Tourist Attractions</a></div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="#">Experiences</a>
+                <div class="nav-dropdown">
+                    <a href="{% url 'unique_experiences' %}">Unique Experiences</a>
+                    <a href="{% url 'things_to_do' %}">Things To Do In Rwanda</a>
+                    <a href="{% url 'travel_types' %}">Travel Rwanda Your Way</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="#">Tours</a>
+                <div class="nav-dropdown">
+                    <a href="{% url 'traveling_with_pets' %}">Traveling with Pets</a>
+                    <a href="{% url 'senior_friendly' %}">Senior-Friendly Rwanda</a>
+                    <a href="{% url 'invest_rwanda' %}">Invest in Rwanda</a>
+                    <a href="{% url 'accessible_travel' %}">Accessible Travel Support</a>
+                </div>
+            </li>
+            <li class="nav-item"><a href="{% url 'gallery' %}">Gallery</a></li>
+            <li class="nav-item"><a href="{% url 'contact' %}" class="nav-cta">Begin Your Journey</a></li>
         </ul>
+
         <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </button>
     </div>
 </nav>
+
 <!-- Mobile overlay -->
 <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
 
@@ -773,11 +492,10 @@ body.nav-open { overflow: hidden; }
         <img src="{% static 'logo.png' %}" alt="Discover Rwanda" class="mobile-nav-logo">
         <button class="mobile-nav-close" id="mobileNavClose">✕</button>
     </div>
-
     <ul class="mobile-nav-list">
         <li class="mobile-nav-item">
             <div class="mobile-nav-row">
-                <a href="#about" class="mobile-nav-link">Destinations</a>
+                <a href="#" class="mobile-nav-link">Destinations</a>
                 <button class="mobile-nav-toggle" data-target="mob-destinations">
                     <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                 </button>
@@ -794,7 +512,7 @@ body.nav-open { overflow: hidden; }
         </li>
         <li class="mobile-nav-item">
             <div class="mobile-nav-row">
-                <a href="#experiences" class="mobile-nav-link">Experiences</a>
+                <a href="#" class="mobile-nav-link">Experiences</a>
                 <button class="mobile-nav-toggle" data-target="mob-experiences">
                     <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                 </button>
@@ -807,7 +525,7 @@ body.nav-open { overflow: hidden; }
         </li>
         <li class="mobile-nav-item">
             <div class="mobile-nav-row">
-                <a href="#tours" class="mobile-nav-link">Tours</a>
+                <a href="#" class="mobile-nav-link">Tours</a>
                 <button class="mobile-nav-toggle" data-target="mob-tours">
                     <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                 </button>
@@ -825,18 +543,17 @@ body.nav-open { overflow: hidden; }
             </div>
         </li>
     </ul>
-
     <a href="{% url 'contact' %}" class="mobile-nav-cta">Begin Your Journey</a>
-
     <div class="mobile-nav-footer">
         <div class="mobile-nav-contact">
-            <a href="mailto:info@discoverrwanda.com"><span class="icon">📧</span> helpdiscoverrwanda@gmail.com</a>
-            <a href="tel:+250788123456"><span class="icon">📱</span> +250 798 019 909</a>
-            <a href="#"><span class="icon">📍</span> Kigali, Rwanda</a>
+            <a href="mailto:helpdiscoverrwanda@gmail.com"><span>📧</span> helpdiscoverrwanda@gmail.com</a>
+            <a href="tel:+250798919909"><span>📱</span> +250 798 919 909</a>
+            <a href="#"><span>📍</span> Kigali, Rwanda</a>
         </div>
     </div>
 </div>
-<!-- Hero Section -->
+
+<!-- ── HERO ── -->
 <section class="hero-section">
     <div class="hero-bg-pattern"></div>
     <div class="hero-content">
@@ -845,7 +562,6 @@ body.nav-open { overflow: hidden; }
         <p class="hero-subtitle">
             Discover pristine waters nestled among volcanic peaks and rolling hills—where tranquil shores meet adventure, and every lake tells a story of natural beauty and cultural heritage.
         </p>
-        
         <div class="hero-stats">
             <div class="stat-item">
                 <span class="stat-number">4</span>
@@ -863,7 +579,7 @@ body.nav-open { overflow: hidden; }
     </div>
 </section>
 
-<!-- Introduction -->
+<!-- ── INTRODUCTION ── -->
 <section class="intro-section">
     <div class="intro-container">
         <span class="section-eyebrow">Aquatic Wonders</span>
@@ -874,58 +590,52 @@ body.nav-open { overflow: hidden; }
     </div>
 </section>
 
-<!-- Lakes Grid -->
+<!-- ── LAKES GRID ── -->
 <section class="lakes-grid-section" id="lakes">
-    <!-- Lake Kivu -->
+
     <div class="lake-feature">
         <div class="lake-image-container">
-            <img src="https://images.unsplash.com/photo-1594175268654-e60bea6c037c?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Lake Kivu">
+            <img src="https://images.unsplash.com/photo-1594175268654-e60bea6c037c?q=80&w=735&auto=format&fit=crop" alt="Lake Kivu">
         </div>
         <div class="lake-content">
             <div class="lake-number">01</div>
             <h2 class="lake-name">LAKE KIVU</h2>
             <p class="lake-location">Western Rwanda • One of Africa's Great Lakes</p>
-            <p class="lake-description">
-                Rwanda's largest and most spectacular lake stretches along the western border with the Democratic Republic of Congo. With its crystal-clear waters, sandy beaches, and stunning mountain backdrop, Lake Kivu is a paradise for relaxation and water sports. The lake's unique methane reserves make it one of the world's three exploding lakes, while its peaceful shores host charming resort towns.
-            </p>
+            <p class="lake-description">Rwanda's largest and most spectacular lake stretches along the western border with the DRC. With crystal-clear waters, sandy beaches, and a stunning mountain backdrop, Lake Kivu is a paradise for relaxation and water sports. Its peaceful shores host charming resort towns and breathtaking sunsets.</p>
             <div class="lake-highlights">
                 <div class="highlight-item">
                     <div class="highlight-icon">🏖️</div>
                     <div class="highlight-text">
                         <div class="highlight-title">Sandy Beaches</div>
-                        <div class="highlight-desc">Pristine shores perfect for swimming and sunbathing</div>
+                        <div class="highlight-desc">Pristine shores perfect for swimming</div>
                     </div>
                 </div>
                 <div class="highlight-item">
                     <div class="highlight-icon">🚣</div>
                     <div class="highlight-text">
                         <div class="highlight-title">Water Sports</div>
-                        <div class="highlight-desc">Kayaking, paddleboarding, and boat tours</div>
+                        <div class="highlight-desc">Kayaking, paddleboarding, boat tours</div>
                     </div>
                 </div>
                 <div class="highlight-item">
                     <div class="highlight-icon">🏝️</div>
                     <div class="highlight-text">
                         <div class="highlight-title">Island Exploration</div>
-                        <div class="highlight-desc">Visit Napoleon Island and other islets</div>
+                        <div class="highlight-desc">Visit Napoleon Island and islets</div>
                     </div>
                 </div>
                 <div class="highlight-item">
                     <div class="highlight-icon">🌅</div>
                     <div class="highlight-text">
                         <div class="highlight-title">Sunset Views</div>
-                        <div class="highlight-desc">Spectacular evening colors over the mountains</div>
+                        <div class="highlight-desc">Spectacular colors over the mountains</div>
                     </div>
                 </div>
             </div>
-            <a href="lake-kivu.html" class="lake-link">
-                Explore Lake Kivu
-                <span>→</span>
-            </a>
+            <a href="#" class="lake-link">Explore Lake Kivu <span>→</span></a>
         </div>
     </div>
-    
-    <!-- Twin Lakes -->
+
     <div class="lake-feature">
         <div class="lake-image-container">
             <img src="https://i.pinimg.com/1200x/2b/aa/0f/2baa0f0b1c59deec862d2a8a6b300ae8.jpg" alt="Twin Lakes">
@@ -934,9 +644,7 @@ body.nav-open { overflow: hidden; }
             <div class="lake-number">02</div>
             <h2 class="lake-name">TWIN LAKES</h2>
             <p class="lake-location">Northern Rwanda • Burera & Ruhondo</p>
-            <p class="lake-description">
-                Nestled at the foot of the Virunga volcanoes, the Twin Lakes of Burera and Ruhondo are connected waterways surrounded by terraced hillsides and mountain peaks. These serene lakes offer a peaceful escape with stunning panoramic views. The area is perfect for canoeing, fishing, and birdwatching, with the dramatic backdrop of Rwanda's volcanic mountains creating unforgettable scenery.
-            </p>
+            <p class="lake-description">Nestled at the foot of the Virunga volcanoes, Lakes Burera and Ruhondo are connected waterways surrounded by terraced hillsides and mountain peaks. These serene lakes offer a peaceful escape with stunning panoramic views, perfect for canoeing, fishing, and birdwatching.</p>
             <div class="lake-highlights">
                 <div class="highlight-item">
                     <div class="highlight-icon">🛶</div>
@@ -949,32 +657,28 @@ body.nav-open { overflow: hidden; }
                     <div class="highlight-icon">🦅</div>
                     <div class="highlight-text">
                         <div class="highlight-title">Bird Watching</div>
-                        <div class="highlight-desc">Spot diverse aquatic bird species</div>
+                        <div class="highlight-desc">Diverse aquatic bird species</div>
                     </div>
                 </div>
                 <div class="highlight-item">
                     <div class="highlight-icon">🏔️</div>
                     <div class="highlight-text">
                         <div class="highlight-title">Volcano Views</div>
-                        <div class="highlight-desc">Stunning vistas of the Virunga peaks</div>
+                        <div class="highlight-desc">Stunning vistas of Virunga peaks</div>
                     </div>
                 </div>
                 <div class="highlight-item">
                     <div class="highlight-icon">🎣</div>
                     <div class="highlight-text">
                         <div class="highlight-title">Fishing Villages</div>
-                        <div class="highlight-desc">Experience local lakeside communities</div>
+                        <div class="highlight-desc">Local lakeside communities</div>
                     </div>
                 </div>
             </div>
-            <a href="twin-lakes.html" class="lake-link">
-                Explore Twin Lakes
-                <span>→</span>
-            </a>
+            <a href="#" class="lake-link">Explore Twin Lakes <span>→</span></a>
         </div>
     </div>
-    
-    <!-- Lake Muhazi -->
+
     <div class="lake-feature">
         <div class="lake-image-container">
             <img src="https://i.pinimg.com/1200x/11/71/99/117199d85fb6a014d2a1de1bc8283149.jpg" alt="Lake Muhazi">
@@ -983,9 +687,7 @@ body.nav-open { overflow: hidden; }
             <div class="lake-number">03</div>
             <h2 class="lake-name">LAKE MUHAZI</h2>
             <p class="lake-location">Eastern Province • 60km Long</p>
-            <p class="lake-description">
-                This long, winding lake stretches through eastern Rwanda like a natural serpent, creating countless coves and peninsulas perfect for exploration. Lake Muhazi is a popular weekend destination for Kigali residents, offering excellent fishing, water sports, and lakeside resorts. The lake's irregular shape and numerous inlets create a maze-like waterway ideal for boating adventures and peaceful relaxation.
-            </p>
+            <p class="lake-description">This long, winding lake stretches through eastern Rwanda, creating countless coves and peninsulas perfect for exploration. Lake Muhazi is a popular weekend destination for Kigali residents, offering excellent fishing, water sports, and lakeside resorts.</p>
             <div class="lake-highlights">
                 <div class="highlight-item">
                     <div class="highlight-icon">⛵</div>
@@ -1016,14 +718,10 @@ body.nav-open { overflow: hidden; }
                     </div>
                 </div>
             </div>
-            <a href="lake-muhazi.html" class="lake-link">
-                Explore Lake Muhazi
-                <span>→</span>
-            </a>
+            <a href="#" class="lake-link">Explore Lake Muhazi <span>→</span></a>
         </div>
     </div>
-    
-    <!-- Lake Ihema -->
+
     <div class="lake-feature">
         <div class="lake-image-container">
             <img src="https://i.pinimg.com/1200x/59/57/6a/59576a88e5f379afa6125d703ad30eb5.jpg" alt="Lake Ihema">
@@ -1032,9 +730,7 @@ body.nav-open { overflow: hidden; }
             <div class="lake-number">04</div>
             <h2 class="lake-name">LAKE IHEMA</h2>
             <p class="lake-location">Akagera National Park • Wildlife Paradise</p>
-            <p class="lake-description">
-                The largest lake in Akagera National Park, Lake Ihema is a wildlife haven where hippos wallow, crocodiles bask, and countless bird species congregate. Surrounded by papyrus swamps and acacia woodlands, the lake offers exceptional boat safaris where you can spot elephants, buffaloes, and giraffes drinking at the shore. It's a photographer's dream and a crucial ecosystem supporting the park's biodiversity.
-            </p>
+            <p class="lake-description">The largest lake in Akagera National Park, Lake Ihema is a wildlife haven where hippos wallow, crocodiles bask, and hundreds of bird species congregate. Surrounded by papyrus swamps and acacia woodlands, exceptional boat safaris bring you face-to-face with elephants, buffalo, and giraffes at the shore.</p>
             <div class="lake-highlights">
                 <div class="highlight-item">
                     <div class="highlight-icon">🦛</div>
@@ -1065,83 +761,70 @@ body.nav-open { overflow: hidden; }
                     </div>
                 </div>
             </div>
-            <a href="lake-ihema.html" class="lake-link">
-                Explore Lake Ihema
-                <span>→</span>
-            </a>
+            <a href="#" class="lake-link">Explore Lake Ihema <span>→</span></a>
         </div>
     </div>
+
 </section>
 
-<!-- CTA Section -->
+<!-- ── CTA ── -->
 <section class="cta-final">
     <div class="cta-content">
         <h2 class="cta-title">Experience Rwanda's Waters</h2>
-        <p class="cta-text">
-            Let Discover Rwanda craft your perfect lakeside adventure. From peaceful boat cruises to thrilling water sports, we'll create unforgettable experiences on Rwanda's most beautiful waters.
-        </p>
-        <a href="{% url 'contact' %}" class="cta-button">
-            Plan Your Lake Adventure
-            <span>→</span>
-        </a>
+        <p class="cta-text">Let Discover Rwanda craft your perfect lakeside adventure. From peaceful boat cruises to thrilling water sports, we'll create unforgettable experiences on Rwanda's most beautiful waters.</p>
+        <a href="{% url 'contact' %}" class="cta-button">Plan Your Lake Adventure <span>→</span></a>
     </div>
 </section>
 
-<!-- Footer -->
+<!-- ── FOOTER ── -->
 <footer>
     <div class="footer-grid">
         <div class="footer-brand">
             <h3>Discover Rwanda</h3>
             <p class="footer-description">Your gateway to extraordinary journeys through the Land of a Thousand Hills. We curate transformative experiences across Rwanda's pristine wilderness, rare wildlife encounters, and vibrant cultural tapestry.</p>
         </div>
-        
         <div class="footer-column">
             <h4>Lakes</h4>
             <ul class="footer-links">
-                <li><a href="lake-kivu.html">Lake Kivu</a></li>
-                <li><a href="twin-lakes.html">Twin Lakes</a></li>
-                <li><a href="lake-muhazi.html">Lake Muhazi</a></li>
-                <li><a href="lake-ihema.html">Lake Ihema</a></li>
+                <li><a href="#">Lake Kivu</a></li>
+                <li><a href="#">Twin Lakes</a></li>
+                <li><a href="#">Lake Muhazi</a></li>
+                <li><a href="#">Lake Ihema</a></li>
             </ul>
         </div>
-        
         <div class="footer-column">
             <h4>Destinations</h4>
             <ul class="footer-links">
-                <li><a href="towns.html">Towns</a></li>
-                <li><a href="volcanic-mountains.html">Mountains</a></li>
-                <li><a href="museums-heritage.html">Museums</a></li>
-                <li><a href="attractions.html">Attractions</a></li>
+                <li><a href="{% url 'towns' %}">Towns</a></li>
+                <li><a href="{% url 'volcanic_mountains' %}">Mountains</a></li>
+                <li><a href="{% url 'museums_heritage' %}">Museums</a></li>
+                <li><a href="{% url 'top_attractions' %}">Attractions</a></li>
             </ul>
         </div>
-        
         <div class="footer-column">
             <h4>Contact</h4>
             <ul class="footer-links">
-                <li><a href="contact.html">Get In Touch</a></li>
-                <li><a href="tel:+250788123456">+250 798 019 909</a></li>
-                <li><a href="mailto:info@discoverrwanda.com">helpdiscoverrwanda@gmail.com</a></li>
+                <li><a href="{% url 'contact' %}">Get In Touch</a></li>
+                <li><a href="tel:+250798919909">+250 798 919 909</a></li>
+                <li><a href="mailto:helpdiscoverrwanda@gmail.com">helpdiscoverrwanda@gmail.com</a></li>
             </ul>
         </div>
     </div>
-    
     <div class="footer-bottom">
         <p>&copy; 2026 Discover Rwanda. All rights reserved.</p>
     </div>
 </footer>
 
 <script>
-// Smooth scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+    anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        const target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 });
-
 
 (function () {
     const hamburger = document.getElementById('navHamburger');
@@ -1150,21 +833,15 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     const closeBtn  = document.getElementById('mobileNavClose');
 
     function openDrawer() {
-        drawer.classList.add('open');
-        overlay.classList.add('open');
-        hamburger.classList.add('open');
-        document.body.classList.add('nav-open');
+        drawer.classList.add('open'); overlay.classList.add('open');
+        hamburger.classList.add('open'); document.body.classList.add('nav-open');
     }
     function closeDrawer() {
-        drawer.classList.remove('open');
-        overlay.classList.remove('open');
-        hamburger.classList.remove('open');
-        document.body.classList.remove('nav-open');
+        drawer.classList.remove('open'); overlay.classList.remove('open');
+        hamburger.classList.remove('open'); document.body.classList.remove('nav-open');
     }
 
-    hamburger.addEventListener('click', () => {
-        drawer.classList.contains('open') ? closeDrawer() : openDrawer();
-    });
+    hamburger.addEventListener('click', () => drawer.classList.contains('open') ? closeDrawer() : openDrawer());
     closeBtn.addEventListener('click', closeDrawer);
     overlay.addEventListener('click', closeDrawer);
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });

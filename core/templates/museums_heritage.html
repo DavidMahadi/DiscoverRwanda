@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Italiana&display=swap" rel="stylesheet">
-    
 <style>
     :root {
         --black: #000000;
@@ -18,15 +17,13 @@
         --light-gray: #e5e5e5;
         --off-white: #f8f8f8;
         --white: #ffffff;
-        --gold: #c59959;
+        --green: #2d7a4f;
+        --green-deep: #1a5f3a;
+        --green-light: #4a9e6b;
     }
-    
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
         font-family: 'Inter', sans-serif;
         color: var(--charcoal);
@@ -34,934 +31,401 @@
         overflow-x: hidden;
         background: var(--white);
     }
-    
-    /* Navigation */
+
+/* ============================================
+       NAVIGATION — full index.html version (green)
+    ============================================ */
     .nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        padding: 1.5rem 6%;
-        background: var(--white);
-        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+        position: fixed; top: 0; left: 0; right: 0; z-index: 10000;
+        background: rgba(255,255,255,0.98);
+        backdrop-filter: blur(60px) saturate(200%);
+        box-shadow: 0 1px 0 rgba(45,122,79,0.1), 0 10px 40px rgba(0,0,0,0.03);
+        padding: 1rem 0;
+        transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
     }
-    
     .nav-container {
-        max-width: 1900px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        max-width: 1900px; margin: 0 auto; padding: 0 6%;
+        display: flex; justify-content: space-between; align-items: center;
     }
-    
-    .nav-brand {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        text-decoration: none;
-    }
-    
+    .nav-brand { display: flex; align-items: center; text-decoration: none; }
     .nav-logo-img {
-    width: 200px;                /* adjust size */
-    height: 100px;
-    border-radius: 50%;
-    background: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    transition: all 0.4s ease;
-}
-
-.nav-logo-img img {
-    width: 100%;                 /* fill the container */
-    height: 100%;
-    object-fit: contain;
-    transition: all 0.4s ease;
-}
-    
-    .nav-logo-text {
-        font-family: 'Italiana', serif;
-        font-size: 1.5rem;
-        color: var(--black);
-        letter-spacing: 4px;
+        width: 160px; height: 68px;
+        display: flex; align-items: center; justify-content: center;
+        overflow: hidden; transition: all 0.4s ease;
     }
-    
-    .nav-menu {
-        display: flex;
-        list-style: none;
-        gap: 4rem;
-        align-items: center;
-    }
-    
+    .nav-logo-img img { width: 100%; height: 100%; object-fit: contain; }
+    .nav-menu { display: flex; list-style: none; gap: 4rem; align-items: center; }
+    .nav-item { position: relative; }
     .nav-item a {
-        font-size: 0.8125rem;
-        font-weight: 600;
-        color: var(--charcoal);
-        text-decoration: none;
-        letter-spacing: 1.8px;
-        text-transform: uppercase;
-        transition: all 0.3s ease;
+        font-size: 0.8125rem; font-weight: 600; color: var(--charcoal);
+        text-decoration: none; letter-spacing: 1.8px; text-transform: uppercase;
+        position: relative; padding: 0.5rem 0;
+        transition: all 0.3s ease; display: block;
     }
-    
-    .nav-item a:hover {
-        color: var(--gold);
+    .nav-item a::after {
+        content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 2px;
+        background: linear-gradient(90deg, transparent, var(--green), transparent);
+        transform: translateX(-50%); transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
     }
-    
+    .nav-item a:hover { color: var(--green); }
+    .nav-item a:hover::after { width: 100%; }
+    .nav-dropdown {
+        position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+        background: white; border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        opacity: 0; visibility: hidden;
+        transition: all 0.3s ease; margin-top: 1.5rem;
+        min-width: 280px; padding: 1rem 0; z-index: 1000;
+    }
+    .nav-item:hover .nav-dropdown { opacity: 1; visibility: visible; margin-top: 1rem; }
+    .nav-dropdown::before {
+        content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+        border-left: 8px solid transparent; border-right: 8px solid transparent;
+        border-bottom: 8px solid white;
+    }
+    .nav-dropdown a {
+        display: block; padding: 0.875rem 1.75rem;
+        color: var(--charcoal); font-size: 0.75rem; font-weight: 600;
+        letter-spacing: 1.5px; text-transform: uppercase;
+        transition: all 0.3s ease; text-shadow: none;
+    }
+    .nav-dropdown a::after { display: none; }
+    .nav-dropdown a:hover { background: var(--off-white); color: var(--green); padding-left: 2rem; }
     .nav-cta {
-        background: var(--black);
-        color: var(--white) !important;
-        padding: 1rem 2.8rem !important;
-        border-radius: 50px !important;
+        background: var(--black) !important; color: var(--white) !important;
+        padding: 1rem 2.8rem !important; border-radius: 50px !important; font-weight: 700 !important;
+        transition: all 0.3s ease !important;
     }
-    
-    .nav-cta:hover {
-        background: var(--gold);
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--green) !important; color: var(--white) !important; transform: translateY(-2px); }
+    .nav-hamburger {
+        display: none; flex-direction: column; justify-content: center;
+        align-items: center; gap: 5px; width: 44px; height: 44px;
+        background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.15);
+        border-radius: 10px; cursor: pointer; z-index: 10001;
+        transition: all 0.3s ease; flex-shrink: 0;
     }
-    
-    /* Hero Section */
+    .nav-hamburger:hover { background: rgba(45,122,79,0.15); border-color: var(--green); }
+    .nav-hamburger span {
+        display: block; width: 22px; height: 2px;
+        background: var(--charcoal); border-radius: 2px;
+        transition: all 0.35s cubic-bezier(0.4,0,0.2,1); transform-origin: center;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-nav-overlay {
+        position: fixed; inset: 0; z-index: 9999;
+        background: rgba(5,24,16,0.6); backdrop-filter: blur(4px);
+        opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
+    }
+    .mobile-nav-overlay.open { opacity: 1; pointer-events: all; }
+    .mobile-nav-drawer {
+        position: fixed; top: 0; right: 0; bottom: 0; z-index: 10000;
+        width: min(360px, 88vw);
+        background: linear-gradient(160deg, #0a2f1a 0%, #051810 60%, #0a0a0a 100%);
+        transform: translateX(100%);
+        transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
+        display: flex; flex-direction: column; overflow-y: auto;
+        box-shadow: -20px 0 60px rgba(0,0,0,0.5);
+    }
+    .mobile-nav-drawer.open { transform: translateX(0); }
+    .mobile-nav-header {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid rgba(45,122,79,0.25); flex-shrink: 0;
+    }
+    .mobile-nav-logo { height: 52px; width: auto; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.9; }
+    .mobile-nav-close {
+        width: 38px; height: 38px; border-radius: 50%;
+        background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+        color: white; font-size: 16px; cursor: pointer;
+        display: flex; align-items: center; justify-content: center; transition: all 0.2s ease;
+    }
+    .mobile-nav-close:hover { background: rgba(45,122,79,0.3); border-color: var(--green); }
+    .mobile-nav-list { list-style: none; padding: 1rem 0 2rem; flex: 1; }
+    .mobile-nav-item { border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .mobile-nav-row { display: flex; align-items: center; justify-content: space-between; }
+    .mobile-nav-link {
+        display: block; flex: 1; padding: 1rem 1.5rem;
+        color: rgba(255,255,255,0.88); text-decoration: none;
+        font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+        transition: color 0.2s ease;
+    }
+    .mobile-nav-link:hover { color: var(--green-light); }
+    .mobile-nav-toggle {
+        width: 44px; height: 48px; background: none; border: none; cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        color: rgba(255,255,255,0.4); transition: all 0.3s ease;
+    }
+    .mobile-nav-toggle:hover { color: var(--green); }
+    .mobile-nav-toggle.open { color: var(--green); transform: rotate(180deg); }
+    .mobile-nav-dropdown {
+        display: none; background: rgba(0,0,0,0.25);
+        border-left: 2px solid rgba(45,122,79,0.4);
+        margin-left: 1.5rem; padding: 0.5rem 0;
+    }
+    .mobile-nav-dropdown.open { display: block; }
+    .mobile-nav-dropdown a {
+        display: block; padding: 0.7rem 1.25rem;
+        color: rgba(255,255,255,0.65); text-decoration: none;
+        font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+        transition: all 0.2s ease; border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .mobile-nav-dropdown a:last-child { border-bottom: none; }
+    .mobile-nav-dropdown a:hover { color: var(--green-light); padding-left: 1.75rem; background: rgba(45,122,79,0.08); }
+    .mobile-nav-cta {
+        margin: 1rem 1.5rem 0.5rem; display: block; padding: 1rem 2rem;
+        background: linear-gradient(135deg, var(--green-deep), var(--green), var(--green-light));
+        color: white; text-align: center; text-decoration: none;
+        font-size: 0.75rem; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase;
+        border-radius: 50px; transition: all 0.3s ease;
+        box-shadow: 0 8px 25px rgba(45,122,79,0.35);
+    }
+    .mobile-nav-cta:hover { transform: translateY(-2px); }
+    .mobile-nav-footer {
+        padding: 1.25rem 1.5rem;
+        border-top: 1px solid rgba(45,122,79,0.2); flex-shrink: 0;
+    }
+    .mobile-nav-contact { display: flex; flex-direction: column; gap: 0.6rem; }
+    .mobile-nav-contact a {
+        display: flex; align-items: center; gap: 0.75rem;
+        color: rgba(255,255,255,0.55); text-decoration: none;
+        font-size: 0.75rem; transition: color 0.2s;
+    }
+    .mobile-nav-contact a:hover { color: var(--green-light); }
+    body.nav-open { overflow: hidden; }
+
+    /* Nav logo responsive */
+    @media (min-width: 1400px) { .nav-logo-img { width: 180px; height: 76px; } }
+    @media (min-width: 1200px) and (max-width: 1399px) { .nav-logo-img { width: 160px; height: 68px; } }
+    @media (min-width: 1024px) and (max-width: 1199px) { .nav-logo-img { width: 140px; height: 60px; } .nav-menu { gap: 2rem; } }
+    @media (max-width: 1023px) { .nav-menu { display: none; } .nav-hamburger { display: flex; } .nav-logo-img { width: 130px; height: 56px; } }
+    @media (max-width: 767px) { .nav-logo-img { width: 110px; height: 48px; } }
+    @media (max-width: 575px) { .nav-logo-img { width: 96px; height: 42px; } }
+    @media (max-width: 399px) { .nav-logo-img { width: 80px; height: 36px; } .mobile-nav-drawer { width: 100vw; } }
+
+    /* ============================================
+       HERO
+    ============================================ */
     .hero-section {
-        position: relative;
-        height: 85vh;
-        min-height: 700px;
-        background: var(--black);
-        display: flex;
-        align-items: center;
-        margin-top: 88px;
-        overflow: hidden;
+        position: relative; height: 100svh; min-height: 500px; max-height: 900px;
+        background: var(--black); display: flex; align-items: center; justify-content: center;
+        margin-top: 82px; overflow: hidden;
     }
-    
     .hero-bg-pattern {
-        position: absolute;
-        inset: 0;
-        background-image: 
-            linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-        background-size: 50px 50px;
-        opacity: 0.3;
+        position: absolute; inset: 0;
+        background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+        background-size: 50px 50px; opacity: 0.3;
     }
-    
     .hero-content {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 0 6%;
-        text-align: center;
-        position: relative;
-        z-index: 2;
+        width: 100%; max-width: 1200px; margin: 0 auto; padding: 3rem 6%;
+        text-align: center; position: relative; z-index: 2;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
     }
-    
     .hero-eyebrow {
-        display: inline-block;
-        font-size: 0.75rem;
-        font-weight: 800;
-        letter-spacing: 4px;
-        text-transform: uppercase;
-        color: var(--white);
-        padding: 0.5rem 1.5rem;
-        border: 2px solid var(--white);
-        border-radius: 50px;
-        margin-bottom: 2.5rem;
-        background: rgba(255, 255, 255, 0.05);
+        display: inline-block; font-size: 0.75rem; font-weight: 800;
+        letter-spacing: 4px; text-transform: uppercase; color: var(--white);
+        padding: 0.5rem 1.5rem; border: 2px solid var(--white); border-radius: 50px;
+        margin-bottom: 2.5rem; background: rgba(255,255,255,0.05);
     }
-    
     .hero-title {
-        font-family: 'Italiana', serif;
-        font-size: clamp(3.5rem, 9vw, 6.5rem);
-        font-weight: 400;
-        color: var(--white);
-        margin-bottom: 2rem;
-        letter-spacing: 12px;
-        line-height: 1.1;
+        font-family: 'Italiana', serif; font-size: clamp(3.5rem, 9vw, 6.5rem);
+        font-weight: 400; color: var(--white); margin-bottom: 2rem; letter-spacing: 12px; line-height: 1.1;
     }
-    
     .hero-subtitle {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-        font-weight: 400;
-        color: rgba(255, 255, 255, 0.85);
-        max-width: 900px;
-        margin: 0 auto 3rem;
-        line-height: 1.8;
+        font-family: 'Cormorant Garamond', serif; font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+        font-weight: 400; color: rgba(255,255,255,0.85); max-width: 900px; margin: 0 auto 3rem; line-height: 1.8;
     }
-    
     .hero-stats {
-        display: flex;
-        justify-content: center;
-        gap: 5rem;
-        margin-top: 5rem;
+        display: flex; justify-content: center; align-items: center;
+        flex-wrap: wrap; gap: 1rem 4rem; margin-top: 3rem; width: 100%;
     }
-    
-    .stat-item {
-        text-align: center;
-    }
-    
-    .stat-number {
-        font-family: 'Italiana', serif;
-        font-size: 4rem;
-        color: var(--white);
-        display: block;
-    }
-    
-    .stat-label {
-        font-size: 0.875rem;
-        color: rgba(255, 255, 255, 0.7);
-        letter-spacing: 2px;
-        text-transform: uppercase;
-    }
-    
-    /* Introduction Section */
-    .intro-section {
-        background: var(--white);
-        padding: 10rem 6%;
-    }
-    
-    .intro-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        text-align: center;
-    }
-    
+    .stat-item { text-align: center; flex: 0 0 auto; }
+    .stat-number { font-family: 'Italiana', serif; font-size: clamp(2rem, 5vw, 4rem); color: var(--white); display: block; line-height: 1; }
+    .stat-label { font-size: clamp(0.65rem, 1.2vw, 0.875rem); color: rgba(255,255,255,0.7); letter-spacing: 2px; text-transform: uppercase; margin-top: 0.35rem; display: block; }
+
+    /* ============================================
+       INTRO
+    ============================================ */
+    .intro-section { background: var(--white); padding: 10rem 6%; }
+    .intro-container { max-width: 1200px; margin: 0 auto; text-align: center; }
     .section-eyebrow {
-        display: inline-block;
-        font-size: 0.6875rem;
-        font-weight: 800;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        color: var(--black);
-        padding: 0.4rem 1.25rem;
-        border: 2px solid var(--black);
-        border-radius: 50px;
-        margin-bottom: 2.5rem;
+        display: inline-block; font-size: 0.6875rem; font-weight: 800;
+        letter-spacing: 3px; text-transform: uppercase; color: var(--black);
+        padding: 0.4rem 1.25rem; border: 2px solid var(--black); border-radius: 50px; margin-bottom: 2.5rem;
     }
-    
     .section-title {
-        font-family: 'Italiana', serif;
-        font-size: clamp(2.5rem, 5vw, 4rem);
-        font-weight: 400;
-        color: var(--black);
-        margin-bottom: 2rem;
-        letter-spacing: 4px;
-        line-height: 1.2;
+        font-family: 'Italiana', serif; font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 400; color: var(--black); margin-bottom: 2rem; letter-spacing: 4px; line-height: 1.2;
     }
-    
-    .section-description {
-        font-size: 1.125rem;
-        font-weight: 300;
-        line-height: 1.9;
-        color: var(--mid-gray);
-        max-width: 900px;
-        margin: 0 auto;
-    }
-    
-    /* Museums Grid */
-    .museums-grid-section {
-        background: var(--off-white);
-        padding: 0;
-    }
-    
-    .museum-feature {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        min-height: 700px;
-    }
-    
-    .museum-feature:nth-child(even) {
-        direction: rtl;
-    }
-    
-    .museum-feature:nth-child(even) > * {
-        direction: ltr;
-    }
-    
-    .museum-image-container {
-        position: relative;
-        overflow: hidden;
-        background: var(--dark-gray);
-    }
-    
-    .museum-image-container img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        filter: grayscale(20%);
-    }
-    
-    .museum-feature:hover .museum-image-container img {
-        transform: scale(1.05);
-        filter: grayscale(0%);
-    }
-    
-    .museum-content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 8% 10%;
-        background: var(--white);
-    }
-    
-    .museum-feature:nth-child(even) .museum-content {
-        background: var(--black);
-        color: var(--white);
-    }
-    
-    .museum-number {
-        font-family: 'Italiana', serif;
-        font-size: 1rem;
-        color: var(--gold);
-        letter-spacing: 3px;
-        margin-bottom: 1.5rem;
-    }
-    
-    .museum-name {
-        font-family: 'Italiana', serif;
-        font-size: clamp(2rem, 3.5vw, 3rem);
-        font-weight: 400;
-        color: var(--black);
-        margin-bottom: 1rem;
-        letter-spacing: 3px;
-        line-height: 1.3;
-    }
-    
-    .museum-feature:nth-child(even) .museum-name {
-        color: var(--white);
-    }
-    
-    .museum-location {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1.125rem;
-        font-style: italic;
-        color: var(--mid-gray);
-        margin-bottom: 2.5rem;
-    }
-    
-    .museum-feature:nth-child(even) .museum-location {
-        color: rgba(255, 255, 255, 0.7);
-    }
-    
-    .museum-description {
-        font-size: 1.0625rem;
-        font-weight: 300;
-        line-height: 1.8;
-        color: var(--mid-gray);
-        margin-bottom: 2rem;
-    }
-    
-    .museum-feature:nth-child(even) .museum-description {
-        color: rgba(255, 255, 255, 0.8);
-    }
-    
-    .museum-highlights {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-        margin-bottom: 3rem;
-    }
-    
-    .highlight-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-    
-    .highlight-icon {
-        font-size: 1.5rem;
-        flex-shrink: 0;
-    }
-    
-    .highlight-text {
-        flex: 1;
-    }
-    
-    .highlight-title {
-        font-weight: 600;
-        font-size: 0.9375rem;
-        color: var(--black);
-        margin-bottom: 0.25rem;
-    }
-    
-    .museum-feature:nth-child(even) .highlight-title {
-        color: var(--white);
-    }
-    
-    .highlight-desc {
-        font-size: 0.875rem;
-        color: var(--mid-gray);
-    }
-    
-    .museum-feature:nth-child(even) .highlight-desc {
-        color: rgba(255, 255, 255, 0.6);
-    }
-    
-    .museum-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.75rem;
-        font-size: 0.875rem;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: var(--black);
-        text-decoration: none;
-        transition: all 0.3s ease;
-    }
-    
-    .museum-link:hover {
-        gap: 1.25rem;
-        color: var(--gold);
-    }
-    
-    .museum-feature:nth-child(even) .museum-link {
-        color: var(--white);
-    }
-    
-    /* Visitor Info Section */
-    .visitor-info-section {
-        background: var(--white);
-        padding: 10rem 6%;
-    }
-    
-    .visitor-info-container {
-        max-width: 1600px;
-        margin: 0 auto;
-    }
-    
-    .section-header-center {
-        text-align: center;
-        max-width: 900px;
-        margin: 0 auto 6rem;
-    }
-    
-    .info-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 3rem;
-    }
-    
-    .info-card {
-        background: var(--off-white);
-        padding: 3rem;
-        border-radius: 20px;
-        border: 1px solid var(--light-gray);
-    }
-    
-    .info-icon {
-        font-size: 3rem;
-        margin-bottom: 1.5rem;
-    }
-    
-    .info-title {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--black);
-        margin-bottom: 1rem;
-    }
-    
-    .info-text {
-        font-size: 1rem;
-        line-height: 1.7;
-        color: var(--mid-gray);
-        margin-bottom: 1.5rem;
-    }
-    
-    .info-details {
-        list-style: none;
-        padding: 0;
-    }
-    
-    .info-details li {
-        font-size: 0.9375rem;
-        line-height: 1.8;
-        color: var(--mid-gray);
-        padding: 0.5rem 0;
-        border-bottom: 1px solid var(--light-gray);
-    }
-    
-    .info-details li:last-child {
-        border-bottom: none;
-    }
-    
-    .info-details strong {
-        color: var(--black);
-    }
-    
-    /* CTA Section */
-    .cta-final {
-        background: var(--black);
-        padding: 10rem 6%;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .cta-final::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image: 
-            linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-        background-size: 50px 50px;
-        opacity: 0.3;
-    }
-    
-    .cta-content {
-        max-width: 1000px;
-        margin: 0 auto;
-        position: relative;
-        z-index: 2;
-    }
-    
-    .cta-title {
-        font-family: 'Italiana', serif;
-        font-size: clamp(2.5rem, 5vw, 4rem);
-        font-weight: 400;
-        color: var(--white);
-        margin-bottom: 2rem;
-        letter-spacing: 4px;
-    }
-    
-    .cta-text {
-        font-size: 1.25rem;
-        font-weight: 300;
-        line-height: 1.8;
-        color: rgba(255, 255, 255, 0.8);
-        margin-bottom: 3.5rem;
-    }
-    
-    .cta-button {
-        display: inline-flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 1.25rem 3.5rem;
-        background: var(--white);
-        color: var(--black);
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 0.875rem;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        border-radius: 50px;
-        transition: all 0.4s ease;
-    }
-    
-    .cta-button:hover {
-        background: var(--gold);
-        color: var(--white);
-        transform: translateY(-3px);
-        gap: 1.5rem;
-    }
-    
-    /* Footer */
-    footer {
-        background: var(--charcoal);
-        color: var(--white);
-        padding: 6rem 6% 3rem;
-    }
-    
-    .footer-grid {
-        display: grid;
-        grid-template-columns: 2fr 1fr 1fr 1fr;
-        gap: 4rem;
-        max-width: 1800px;
-        margin: 0 auto 4rem;
-    }
-    
-    .footer-brand h3 {
-        font-family: 'Italiana', serif;
-        font-size: 2rem;
-        margin-bottom: 1.5rem;
-        letter-spacing: 2px;
-    }
-    
-    .footer-description {
-        font-size: 0.9375rem;
-        line-height: 1.8;
-        color: rgba(255, 255, 255, 0.7);
-    }
-    
-    .footer-column h4 {
-        font-size: 0.875rem;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        margin-bottom: 1.5rem;
-        color: var(--gold);
-    }
-    
-    .footer-links {
-        list-style: none;
-    }
-    
-    .footer-links li {
-        margin-bottom: 0.75rem;
-    }
-    
-    .footer-links a {
-        color: rgba(255, 255, 255, 0.7);
-        text-decoration: none;
-        transition: all 0.3s ease;
-    }
-    
-    .footer-links a:hover {
-        color: var(--gold);
-    }
-    
-    .footer-bottom {
-        text-align: center;
-        padding-top: 3rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 0.875rem;
-    }
-    
-    /* ══════════════════════════════════════════
-   HAMBURGER BUTTON
-══════════════════════════════════════════ */
-.nav-hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    width: 44px; height: 44px;
-    background: rgba(0,0,0,0.04);
-    border: 1px solid rgba(0,0,0,0.15);
-    border-radius: 10px;
-    cursor: pointer;
-    z-index: 10001;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-}
-.nav-hamburger:hover { background: rgba(197,153,91,0.15); border-color: var(--gold); }
-.nav-hamburger span {
-    display: block; width: 22px; height: 2px;
-    background: var(--charcoal); border-radius: 2px;
-    transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
-    transform-origin: center;
-}
-.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .section-description { font-size: 1.125rem; font-weight: 300; line-height: 1.9; color: var(--mid-gray); max-width: 900px; margin: 0 auto; }
 
-/* ══════════════════════════════════════════
-   MOBILE NAV OVERLAY
-══════════════════════════════════════════ */
-.mobile-nav-overlay {
-    position: fixed; inset: 0; z-index: 9999;
-    background: rgba(5,24,16,0.6);
-    backdrop-filter: blur(4px);
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.35s ease;
-}
-.mobile-nav-overlay.open { opacity: 1; pointer-events: all; }
-
-/* ══════════════════════════════════════════
-   MOBILE DRAWER
-══════════════════════════════════════════ */
-.mobile-nav-drawer {
-    position: fixed; top: 0; right: 0; bottom: 0;
-    z-index: 10000;
-    width: min(360px, 88vw);
-    background: linear-gradient(160deg, #0a2f1a 0%, #051810 60%, #0a0a0a 100%);
-    transform: translateX(100%);
-    transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
-    display: flex; flex-direction: column;
-    overflow-y: auto;
-    box-shadow: -20px 0 60px rgba(0,0,0,0.5);
-}
-.mobile-nav-drawer.open { transform: translateX(0); }
-.mobile-nav-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid rgba(197,153,91,0.15);
-    flex-shrink: 0;
-}
-.mobile-nav-logo { height: 52px; width: auto; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.9; }
-.mobile-nav-close {
-    width: 38px; height: 38px; border-radius: 50%;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
-    color: white; font-size: 16px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s ease;
-}
-.mobile-nav-close:hover { background: rgba(197,153,91,0.3); border-color: var(--gold); }
-.mobile-nav-list { list-style: none; padding: 1rem 0 2rem; flex: 1; }
-.mobile-nav-item { border-bottom: 1px solid rgba(255,255,255,0.05); }
-.mobile-nav-row { display: flex; align-items: center; justify-content: space-between; }
-.mobile-nav-link {
-    display: block; flex: 1; padding: 1rem 1.5rem;
-    color: rgba(255,255,255,0.88); text-decoration: none;
-    font-size: 0.8rem; font-weight: 700;
-    letter-spacing: 2px; text-transform: uppercase;
-    transition: color 0.2s ease;
-}
-.mobile-nav-link:hover { color: var(--gold); }
-.mobile-nav-toggle {
-    width: 44px; height: 48px;
-    background: none; border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    color: rgba(255,255,255,0.4);
-    transition: all 0.3s ease;
-}
-.mobile-nav-toggle:hover { color: var(--gold); }
-.mobile-nav-toggle.open { color: var(--gold); transform: rotate(180deg); }
-.mobile-nav-dropdown {
-    display: none;
-    background: rgba(0,0,0,0.25);
-    border-left: 2px solid rgba(197,153,91,0.3);
-    margin-left: 1.5rem; padding: 0.5rem 0;
-}
-.mobile-nav-dropdown.open { display: block; }
-.mobile-nav-dropdown a {
-    display: block; padding: 0.7rem 1.25rem;
-    color: rgba(255,255,255,0.65); text-decoration: none;
-    font-size: 0.7rem; font-weight: 600;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    transition: all 0.2s ease;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-}
-.mobile-nav-dropdown a:last-child { border-bottom: none; }
-.mobile-nav-dropdown a:hover { color: var(--gold); padding-left: 1.75rem; background: rgba(197,153,91,0.06); }
-.mobile-nav-cta {
-    margin: 1rem 1.5rem 0.5rem; display: block; padding: 1rem 2rem;
-    background: linear-gradient(135deg, #a07830, var(--gold), #ddb870);
-    color: white; text-align: center; text-decoration: none;
-    font-size: 0.75rem; font-weight: 800;
-    letter-spacing: 2.5px; text-transform: uppercase;
-    border-radius: 50px; transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(197,153,91,0.35);
-}
-.mobile-nav-cta:hover { transform: translateY(-2px); }
-.mobile-nav-footer {
-    padding: 1.25rem 1.5rem;
-    border-top: 1px solid rgba(197,153,91,0.15);
-    flex-shrink: 0;
-}
-.mobile-nav-contact { display: flex; flex-direction: column; gap: 0.6rem; }
-.mobile-nav-contact a {
-    display: flex; align-items: center; gap: 0.75rem;
-    color: rgba(255,255,255,0.55); text-decoration: none;
-    font-size: 0.75rem; transition: color 0.2s;
-}
-.mobile-nav-contact a:hover { color: var(--gold); }
-body.nav-open { overflow: hidden; }
-
-/* ══════════════════════════════════════════
-   HERO — FULLY RESPONSIVE
-══════════════════════════════════════════ */
-.hero-section {
-    position: relative;
-    height: 100svh;
-    min-height: 500px;
-    max-height: 900px;
-    background: var(--black);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 82px;
-    overflow: hidden;
-}
-.hero-content {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 3rem 6%;
-    text-align: center;
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-.hero-stats {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem 4rem;
-    margin-top: 3rem;
-    width: 100%;
-}
-.stat-number {
-    font-family: 'Italiana', serif;
-    font-size: clamp(2rem, 5vw, 4rem);
-    color: var(--white);
-    display: block;
-    line-height: 1;
-}
-.stat-label {
-    font-size: clamp(0.65rem, 1.2vw, 0.875rem);
-    color: rgba(255,255,255,0.7);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-top: 0.35rem;
-    display: block;
-}
-
-/* ══════════════════════════════════════════
-   MEDIA QUERIES
-══════════════════════════════════════════ */
-
-/* 1200px — Medium Desktops */
-@media (max-width: 1200px) {
-    .nav-menu { gap: 2.5rem; }
-    .info-grid { grid-template-columns: repeat(2, 1fr); }
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
-    .museum-content { padding: 6% 8%; }
-}
-
-/* 1024px — Tablets Landscape */
-@media (max-width: 1024px) {
-    .museum-feature { grid-template-columns: 1fr; min-height: auto; }
-    .museum-feature:nth-child(even) { direction: ltr; }
+    /* ============================================
+       MUSEUMS GRID
+    ============================================ */
+    .museums-grid-section { background: var(--off-white); padding: 0; }
+    .museum-feature { display: grid; grid-template-columns: 1fr 1fr; min-height: 700px; }
+    .museum-feature:nth-child(even) { direction: rtl; }
     .museum-feature:nth-child(even) > * { direction: ltr; }
-    .museum-image-container { min-height: 420px; }
-    .museum-content { padding: 4rem 8%; }
-    .museum-highlights { grid-template-columns: repeat(2, 1fr); }
-
-    .info-grid { grid-template-columns: 1fr; }
-
-    .nav-menu { gap: 1.75rem; }
-    .nav-logo-img { width: 120px; height: 60px; }
-    .nav-logo-text { font-size: 1.1rem; }
-
-    .hero-section { margin-top: 72px; }
-}
-
-/* 900px — Tablets */
-@media (max-width: 900px) {
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
-    .nav-menu { gap: 1.25rem; }
-    .nav-logo-text { font-size: 1rem; }
-}
-
-/* 768px — Tablets Portrait */
-@media (max-width: 768px) {
-    /* Hamburger on, nav off */
-    .nav-menu { display: none; }
-    .nav-hamburger { display: flex; }
-
-    .nav { padding: 0.75rem 5%; }
-    .nav-logo-img { width: 85px; height: 46px; }
-    .nav-logo-text { font-size: 1rem; letter-spacing: 1.5px; }
-
-    /* Hero */
-    .hero-section {
-        height: auto;
-        min-height: calc(100svh - 68px);
-        margin-top: 68px;
+    .museum-image-container { position: relative; overflow: hidden; background: var(--dark-gray); }
+    .museum-image-container img {
+        width: 100%; height: 100%; object-fit: cover;
+        transition: transform 0.8s cubic-bezier(0.4,0,0.2,1); filter: grayscale(20%);
     }
-    .hero-content { padding: 3rem 5%; }
-    .hero-stats { gap: 1rem 2.5rem; margin-top: 2.5rem; }
+    .museum-feature:hover .museum-image-container img { transform: scale(1.05); filter: grayscale(0%); }
+    .museum-content { display: flex; flex-direction: column; justify-content: center; padding: 8% 10%; background: var(--white); }
+    .museum-feature:nth-child(even) .museum-content { background: var(--black); color: var(--white); }
+    .museum-number { font-family: 'Italiana', serif; font-size: 1rem; color: var(--green); letter-spacing: 3px; margin-bottom: 1.5rem; }
+    .museum-name { font-family: 'Italiana', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 400; color: var(--black); margin-bottom: 1rem; letter-spacing: 3px; line-height: 1.3; }
+    .museum-feature:nth-child(even) .museum-name { color: var(--white); }
+    .museum-location { font-family: 'Cormorant Garamond', serif; font-size: 1.125rem; font-style: italic; color: var(--mid-gray); margin-bottom: 2.5rem; }
+    .museum-feature:nth-child(even) .museum-location { color: rgba(255,255,255,0.7); }
+    .museum-description { font-size: 1.0625rem; font-weight: 300; line-height: 1.8; color: var(--mid-gray); margin-bottom: 2rem; }
+    .museum-feature:nth-child(even) .museum-description { color: rgba(255,255,255,0.8); }
+    .museum-highlights { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem; margin-bottom: 3rem; }
+    .highlight-item { display: flex; align-items: flex-start; gap: 1rem; }
+    .highlight-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .highlight-text { flex: 1; }
+    .highlight-title { font-weight: 600; font-size: 0.9375rem; color: var(--black); margin-bottom: 0.25rem; }
+    .museum-feature:nth-child(even) .highlight-title { color: var(--white); }
+    .highlight-desc { font-size: 0.875rem; color: var(--mid-gray); }
+    .museum-feature:nth-child(even) .highlight-desc { color: rgba(255,255,255,0.6); }
+    .museum-link { display: inline-flex; align-items: center; gap: 0.75rem; font-size: 0.875rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--black); text-decoration: none; transition: all 0.3s ease; }
+    .museum-link:hover { gap: 1.25rem; color: var(--green); }
+    .museum-feature:nth-child(even) .museum-link { color: var(--white); }
+    .museum-feature:nth-child(even) .museum-link:hover { color: var(--green-light); }
 
-    /* Museums */
-    .museum-image-container { min-height: 320px; }
-    .museum-content { padding: 3rem 6%; }
-    .museum-highlights { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    /* ============================================
+       VISITOR INFO
+    ============================================ */
+    .visitor-info-section { background: var(--white); padding: 10rem 6%; }
+    .visitor-info-container { max-width: 1600px; margin: 0 auto; }
+    .section-header-center { text-align: center; max-width: 900px; margin: 0 auto 6rem; }
+    .info-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 3rem; }
+    .info-card { background: var(--off-white); padding: 3rem; border-radius: 20px; border: 1px solid var(--light-gray); }
+    .info-icon { font-size: 3rem; margin-bottom: 1.5rem; }
+    .info-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--black); margin-bottom: 1rem; }
+    .info-text { font-size: 1rem; line-height: 1.7; color: var(--mid-gray); margin-bottom: 1.5rem; }
+    .info-details { list-style: none; padding: 0; }
+    .info-details li { font-size: 0.9375rem; line-height: 1.8; color: var(--mid-gray); padding: 0.5rem 0; border-bottom: 1px solid var(--light-gray); }
+    .info-details li:last-child { border-bottom: none; }
+    .info-details strong { color: var(--black); }
 
-    /* Info */
-    .info-grid { grid-template-columns: 1fr; }
-    .info-card { padding: 2rem; }
+    /* ============================================
+       CTA
+    ============================================ */
+    .cta-final { background: var(--black); padding: 10rem 6%; text-align: center; position: relative; overflow: hidden; }
+    .cta-final::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 50px 50px; opacity: 0.3; }
+    .cta-content { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+    .cta-title { font-family: 'Italiana', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 400; color: var(--white); margin-bottom: 2rem; letter-spacing: 4px; }
+    .cta-text { font-size: 1.25rem; font-weight: 300; line-height: 1.8; color: rgba(255,255,255,0.8); margin-bottom: 3.5rem; }
+    .cta-button { display: inline-flex; align-items: center; gap: 1rem; padding: 1.25rem 3.5rem; background: var(--white); color: var(--black); text-decoration: none; font-weight: 700; font-size: 0.875rem; letter-spacing: 2px; text-transform: uppercase; border-radius: 50px; transition: all 0.4s ease; }
+    .cta-button:hover { background: var(--green); color: var(--white); transform: translateY(-3px); gap: 1.5rem; }
 
-    /* Footer */
-    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
-    footer { padding: 4rem 6% 2rem; }
-}
+    /* ============================================
+       FOOTER
+    ============================================ */
+    footer { background: var(--charcoal); color: var(--white); padding: 6rem 6% 3rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; max-width: 1800px; margin: 0 auto 4rem; }
+    .footer-brand h3 { font-family: 'Italiana', serif; font-size: 2rem; margin-bottom: 1.5rem; letter-spacing: 2px; }
+    .footer-description { font-size: 0.9375rem; line-height: 1.8; color: rgba(255,255,255,0.7); }
+    .footer-column h4 { font-size: 0.875rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1.5rem; color: var(--green-light); }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 0.75rem; }
+    .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9375rem; transition: all 0.3s ease; }
+    .footer-links a:hover { color: var(--green-light); }
+    .footer-bottom { text-align: center; padding-top: 3rem; border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); font-size: 0.875rem; }
 
-/* 600px — Large Phones */
-@media (max-width: 600px) {
-    .nav { padding: 0.75rem 4%; }
-    .nav-logo-img { width: 75px; height: 42px; }
-    .nav-logo-text { font-size: 0.9rem; letter-spacing: 1px; }
-
-    .hero-section { min-height: calc(100svh - 64px); margin-top: 64px; }
-    .hero-content { padding: 2.5rem 5%; }
-    .hero-eyebrow { font-size: 0.65rem; letter-spacing: 2.5px; padding: 0.4rem 1rem; }
-    .hero-stats { gap: 0.75rem 2rem; margin-top: 2rem; }
-
-    .museum-image-container { min-height: 280px; }
-    .museum-content { padding: 2.5rem 5%; }
-
-    .cta-text { font-size: 1rem; }
-}
-
-/* 480px — Small Phones */
-@media (max-width: 480px) {
-    .nav-logo-text { display: none; }
-    .nav-logo-img { width: 70px; height: 40px; }
-    .nav { padding: 0.75rem 4%; }
-
-    .hero-section { min-height: calc(100svh - 60px); margin-top: 60px; }
-    .hero-eyebrow { display: none; }
-    .hero-content { padding: 2rem 4%; }
-    .hero-title { margin-bottom: 1rem; }
-    .hero-subtitle { font-size: clamp(0.95rem, 3.5vw, 1.1rem); }
-    .hero-stats {
-        gap: 0.75rem 1.5rem;
-        margin-top: 1.75rem;
-        padding-top: 1rem;
-        border-top: 1px solid rgba(255,255,255,0.1);
+    /* ============================================
+       RESPONSIVE
+    ============================================ */
+    @media (max-width: 1200px) { .info-grid { grid-template-columns: repeat(2,1fr); } .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; } }
+    @media (max-width: 1024px) {
+        .museum-feature { grid-template-columns: 1fr; min-height: auto; }
+        .museum-feature:nth-child(even) { direction: ltr; }
+        .museum-image-container { min-height: 420px; }
+        .museum-content { padding: 4rem 8%; }
+        .museum-highlights { grid-template-columns: repeat(2,1fr); }
+        .info-grid { grid-template-columns: 1fr; }
     }
-
-    .museum-image-container { min-height: 240px; }
-    .museum-content { padding: 2rem 5%; }
-    .museum-highlights { grid-template-columns: 1fr; gap: 0.875rem; }
-    .museum-name { letter-spacing: 1.5px; }
-
-    .info-card { padding: 1.75rem; }
-    .section-title { letter-spacing: 2px; }
-    .cta-button { padding: 1rem 2rem; font-size: 0.8rem; }
-
-    footer { padding: 3rem 5% 2rem; }
-    .footer-grid { gap: 1.75rem; }
-}
-
-/* 360px — Very Small Phones */
-@media (max-width: 360px) {
-    .hero-section { min-height: 400px; }
-    .hero-title { letter-spacing: 1px; font-size: clamp(2rem, 8vw, 3rem); }
-    .hero-subtitle { font-size: 0.95rem; line-height: 1.7; }
-    .hero-stats { gap: 0.5rem 1rem; }
-
-    .museum-image-container { min-height: 200px; }
-    .museum-content { padding: 1.75rem 4%; }
-
-    .cta-button { width: 100%; justify-content: center; }
-}
+    @media (max-width: 768px) {
+        .museum-image-container { min-height: 320px; }
+        .museum-content { padding: 3rem 6%; }
+        .museum-highlights { grid-template-columns: repeat(2,1fr); gap: 1rem; }
+        .info-card { padding: 2rem; }
+        .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+        footer { padding: 4rem 6% 2rem; }
+        .hero-section { margin-top: 68px; }
+    }
+    @media (max-width: 480px) {
+        .museum-highlights { grid-template-columns: 1fr; }
+        .museum-name { letter-spacing: 1.5px; }
+        .info-card { padding: 1.75rem; }
+        .section-title { letter-spacing: 2px; }
+        .cta-button { padding: 1rem 2rem; font-size: 0.8rem; }
+        footer { padding: 3rem 5% 2rem; }
+        .hero-section { margin-top: 60px; }
+        .hero-eyebrow { display: none; }
+    }
+    @media (max-width: 360px) {
+        .museum-image-container { min-height: 200px; }
+        .museum-content { padding: 1.75rem 4%; }
+        .cta-button { width: 100%; justify-content: center; }
+        .hero-title { letter-spacing: 1px; font-size: clamp(2rem, 8vw, 3rem); }
+    }
 </style>
 </head>
 <body>
 
-<!-- Navigation -->
+<!-- ── NAVIGATION ── -->
 <nav class="nav">
     <div class="nav-container">
         <a href="{% url 'index' %}" class="nav-brand">
             <div class="nav-logo-img">
-            <div class="logo-wrapper">
-                <img src="{% static 'logo.png' %}" alt="Logo" class="logo-img">
+                <img src="{% static 'logo.png' %}" alt="Discover Rwanda">
             </div>
-        </div>
-            <div class="nav-logo-text">Discover Rwanda</div>
         </a>
-        
         <ul class="nav-menu">
-            <li class="nav-item"><a href="{% url 'index' %}">Home</a></li>
-            <li class="nav-item"><a href="#museums">Museums</a></li>
-            <li class="nav-item"><a href="{% url 'contact' %}" class="nav-cta">Plan Visit</a></li>
+            <li class="nav-item">
+                <a href="#">Destinations</a>
+                <div class="nav-dropdown">
+                    <div class="nav-dropdown-item"><a href="{% url 'towns' %}">Towns</a></div>
+                    <div class="nav-dropdown-item"><a href="{% url 'lakes' %}">Lakes</a></div>
+                    <div class="nav-dropdown-item"><a href="{% url 'volcanic_mountains' %}">Volcanic Mountains</a></div>
+                    <div class="nav-dropdown-item"><a href="{% url 'museums_heritage' %}">Museums & Heritage Sites</a></div>
+                    <div class="nav-dropdown-item"><a href="{% url 'memorial_sites' %}">Memorial Sites</a></div>
+                    <div class="nav-dropdown-item"><a href="{% url 'cultural_villages' %}">Cultural & Art Villages</a></div>
+                    <div class="nav-dropdown-item"><a href="{% url 'top_attractions' %}">Top Tourist Attractions</a></div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="#">Experiences</a>
+                <div class="nav-dropdown">
+                    <a href="{% url 'unique_experiences' %}">Unique Experiences</a>
+                    <a href="{% url 'things_to_do' %}">Things To Do In Rwanda</a>
+                    <a href="{% url 'travel_types' %}">Travel Rwanda Your Way</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="#">Tours</a>
+                <div class="nav-dropdown">
+                    <a href="{% url 'traveling_with_pets' %}">Traveling with Pets</a>
+                    <a href="{% url 'senior_friendly' %}">Senior-Friendly Rwanda</a>
+                    <a href="{% url 'invest_rwanda' %}">Invest in Rwanda</a>
+                    <a href="{% url 'accessible_travel' %}">Accessible Travel Support</a>
+                </div>
+            </li>
+            <li class="nav-item"><a href="{% url 'gallery' %}">Gallery</a></li>
+            <li class="nav-item"><a href="{% url 'contact' %}" class="nav-cta">Begin Your Journey</a></li>
         </ul>
-
         <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </button>
     </div>
 </nav>
+
 <!-- Mobile overlay -->
 <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
 
@@ -971,11 +435,10 @@ body.nav-open { overflow: hidden; }
         <img src="{% static 'logo.png' %}" alt="Discover Rwanda" class="mobile-nav-logo">
         <button class="mobile-nav-close" id="mobileNavClose">✕</button>
     </div>
-
     <ul class="mobile-nav-list">
         <li class="mobile-nav-item">
             <div class="mobile-nav-row">
-                <a href="#about" class="mobile-nav-link">Destinations</a>
+                <a href="#" class="mobile-nav-link">Destinations</a>
                 <button class="mobile-nav-toggle" data-target="mob-destinations">
                     <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                 </button>
@@ -992,7 +455,7 @@ body.nav-open { overflow: hidden; }
         </li>
         <li class="mobile-nav-item">
             <div class="mobile-nav-row">
-                <a href="#experiences" class="mobile-nav-link">Experiences</a>
+                <a href="#" class="mobile-nav-link">Experiences</a>
                 <button class="mobile-nav-toggle" data-target="mob-experiences">
                     <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                 </button>
@@ -1005,7 +468,7 @@ body.nav-open { overflow: hidden; }
         </li>
         <li class="mobile-nav-item">
             <div class="mobile-nav-row">
-                <a href="#tours" class="mobile-nav-link">Tours</a>
+                <a href="#" class="mobile-nav-link">Tours</a>
                 <button class="mobile-nav-toggle" data-target="mob-tours">
                     <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                 </button>
@@ -1023,59 +486,43 @@ body.nav-open { overflow: hidden; }
             </div>
         </li>
     </ul>
-
     <a href="{% url 'contact' %}" class="mobile-nav-cta">Begin Your Journey</a>
-
     <div class="mobile-nav-footer">
         <div class="mobile-nav-contact">
-            <a href="mailto:helpdiscoverrwanda@gmail.com"><span class="icon">📧</span> helpdiscoverrwanda@gmail.com</a>
-            <a href="tel:+250788123456"><span class="icon">📱</span> +250 798 019 909</a>
-            <a href="#"><span class="icon">📍</span> Kigali, Rwanda</a>
+            <a href="mailto:helpdiscoverrwanda@gmail.com"><span>📧</span> helpdiscoverrwanda@gmail.com</a>
+            <a href="tel:+250798919909"><span>📱</span> +250 798 919 909</a>
+            <a href="#"><span>📍</span> Kigali, Rwanda</a>
         </div>
     </div>
 </div>
 
-<!-- Hero Section -->
+<!-- ── HERO ── -->
 <section class="hero-section">
     <div class="hero-bg-pattern"></div>
     <div class="hero-content">
         <span class="hero-eyebrow">Rwanda's Cultural Treasury</span>
         <h1 class="hero-title">MUSEUMS & HERITAGE</h1>
-        <p class="hero-subtitle">
-            Journey through Rwanda's rich history and vibrant culture—from royal palaces to powerful memorials, discover the stories that shaped this remarkable nation.
-        </p>
-        
+        <p class="hero-subtitle">Journey through Rwanda's rich history and vibrant culture—from royal palaces to powerful memorials, discover the stories that shaped this remarkable nation.</p>
         <div class="hero-stats">
-            <div class="stat-item">
-                <span class="stat-number">4</span>
-                <span class="stat-label">Major Museums</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">1,000+</span>
-                <span class="stat-label">Years of History</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">∞</span>
-                <span class="stat-label">Stories to Tell</span>
-            </div>
+            <div class="stat-item"><span class="stat-number">4</span><span class="stat-label">Major Museums</span></div>
+            <div class="stat-item"><span class="stat-number">1,000+</span><span class="stat-label">Years of History</span></div>
+            <div class="stat-item"><span class="stat-number">∞</span><span class="stat-label">Stories to Tell</span></div>
         </div>
     </div>
 </section>
 
-<!-- Introduction -->
+<!-- ── INTRO ── -->
 <section class="intro-section">
     <div class="intro-container">
         <span class="section-eyebrow">Cultural Heritage</span>
         <h2 class="section-title">Where History Comes Alive</h2>
-        <p class="section-description">
-            Rwanda's museums and heritage sites offer profound insights into the nation's journey—from its ancient royal traditions to its modern renaissance. These carefully curated spaces preserve invaluable artifacts, honor resilience, and celebrate the rich cultural tapestry that defines Rwanda today.
-        </p>
+        <p class="section-description">Rwanda's museums and heritage sites offer profound insights into the nation's journey—from its ancient royal traditions to its modern renaissance. These carefully curated spaces preserve invaluable artifacts, honor resilience, and celebrate the rich cultural tapestry that defines Rwanda today.</p>
     </div>
 </section>
 
-<!-- Museums Grid -->
+<!-- ── MUSEUMS GRID ── -->
 <section class="museums-grid-section" id="museums">
-    <!-- Ethnographic Museum -->
+
     <div class="museum-feature">
         <div class="museum-image-container">
             <img src="https://i.pinimg.com/1200x/75/b8/bf/75b8bfd7951bfcaa4fcb8555dad1f5b0.jpg" alt="Ethnographic Museum">
@@ -1084,47 +531,17 @@ body.nav-open { overflow: hidden; }
             <div class="museum-number">01</div>
             <h2 class="museum-name">ETHNOGRAPHIC MUSEUM</h2>
             <p class="museum-location">Huye • National Museum of Rwanda</p>
-            <p class="museum-description">
-                Housed in a stunning colonial-era building gifted by Belgium's King Baudouin I, the Ethnographic Museum is considered one of the finest museums in East Africa. Its seven galleries showcase Rwanda's cultural evolution through traditional clothing, hunting tools, royal artifacts, and contemporary art. The museum provides a comprehensive overview of Rwandan life from pre-colonial times to the present.
-            </p>
+            <p class="museum-description">Housed in a stunning colonial-era building gifted by Belgium's King Baudouin I, the Ethnographic Museum is considered one of the finest museums in East Africa. Its seven galleries showcase Rwanda's cultural evolution through traditional clothing, hunting tools, royal artifacts, and contemporary art.</p>
             <div class="museum-highlights">
-                <div class="highlight-item">
-                    <div class="highlight-icon">👑</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Royal Collections</div>
-                        <div class="highlight-desc">Historical royal regalia and artifacts</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">🎭</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Traditional Culture</div>
-                        <div class="highlight-desc">Extensive cultural exhibitions</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">🏺</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Ancient Artifacts</div>
-                        <div class="highlight-desc">Pre-colonial tools and pottery</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">📚</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Seven Galleries</div>
-                        <div class="highlight-desc">Comprehensive themed exhibitions</div>
-                    </div>
-                </div>
+                <div class="highlight-item"><div class="highlight-icon">👑</div><div class="highlight-text"><div class="highlight-title">Royal Collections</div><div class="highlight-desc">Historical royal regalia and artifacts</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">🎭</div><div class="highlight-text"><div class="highlight-title">Traditional Culture</div><div class="highlight-desc">Extensive cultural exhibitions</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">🏺</div><div class="highlight-text"><div class="highlight-title">Ancient Artifacts</div><div class="highlight-desc">Pre-colonial tools and pottery</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">📚</div><div class="highlight-text"><div class="highlight-title">Seven Galleries</div><div class="highlight-desc">Comprehensive themed exhibitions</div></div></div>
             </div>
-            <a href="ethnographic-museum.html" class="museum-link">
-                Explore Museum
-                <span>→</span>
-            </a>
+            <a href="#" class="museum-link">Explore Museum <span>→</span></a>
         </div>
     </div>
-    
-    <!-- Campaign Against Genocide Museum -->
+
     <div class="museum-feature">
         <div class="museum-image-container">
             <img src="https://citizentv.obs.af-south-1.myhuaweicloud.com/138297/conversions/WhatsApp-Image-2024-11-02-at-10.44.35-%281%29-og_image.webp" alt="Campaign Against Genocide Museum">
@@ -1133,47 +550,17 @@ body.nav-open { overflow: hidden; }
             <div class="museum-number">02</div>
             <h2 class="museum-name">CAMPAIGN AGAINST GENOCIDE MUSEUM</h2>
             <p class="museum-location">Kigali • Rwanda Parliament</p>
-            <p class="museum-description">
-                Located within Rwanda's Parliament building, this powerful museum documents the heroic efforts of the Rwandan Patriotic Front to stop the 1994 genocide against the Tutsi. Through photographs, military equipment, and personal testimonies, the museum tells the story of those who fought to end the violence and the subsequent journey toward national reconciliation and unity.
-            </p>
+            <p class="museum-description">Located within Rwanda's Parliament building, this powerful museum documents the heroic efforts of the Rwandan Patriotic Front to stop the 1994 genocide against the Tutsi. Through photographs, military equipment, and personal testimonies, it tells the story of those who fought to end the violence.</p>
             <div class="museum-highlights">
-                <div class="highlight-item">
-                    <div class="highlight-icon">🎖️</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Military History</div>
-                        <div class="highlight-desc">RPF campaign documentation</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">📸</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Photo Archives</div>
-                        <div class="highlight-desc">Historical photographs and records</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">🕊️</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Liberation Story</div>
-                        <div class="highlight-desc">Journey to peace and unity</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">🏛️</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Parliament Location</div>
-                        <div class="highlight-desc">Unique governmental setting</div>
-                    </div>
-                </div>
+                <div class="highlight-item"><div class="highlight-icon">🎖️</div><div class="highlight-text"><div class="highlight-title">Military History</div><div class="highlight-desc">RPF campaign documentation</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">📸</div><div class="highlight-text"><div class="highlight-title">Photo Archives</div><div class="highlight-desc">Historical photographs and records</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">🕊️</div><div class="highlight-text"><div class="highlight-title">Liberation Story</div><div class="highlight-desc">Journey to peace and unity</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">🏛️</div><div class="highlight-text"><div class="highlight-title">Parliament Location</div><div class="highlight-desc">Unique governmental setting</div></div></div>
             </div>
-            <a href="campaign-against-genocide-museum.html" class="museum-link">
-                Explore Museum
-                <span>→</span>
-            </a>
+            <a href="#" class="museum-link">Explore Museum <span>→</span></a>
         </div>
     </div>
-    
-    <!-- Nyanza Royal Palace Museum -->
+
     <div class="museum-feature">
         <div class="museum-image-container">
             <img src="https://i.pinimg.com/1200x/21/e3/d2/21e3d216b9254b517fda976cc576bcbe.jpg" alt="Nyanza Royal Palace">
@@ -1182,47 +569,17 @@ body.nav-open { overflow: hidden; }
             <div class="museum-number">03</div>
             <h2 class="museum-name">NYANZA ROYAL PALACE MUSEUM</h2>
             <p class="museum-location">Nyanza • Former Royal Capital</p>
-            <p class="museum-description">
-                Step into Rwanda's regal past at this meticulously restored royal residence. The museum features both a traditional thatched palace reconstructed in the authentic beehive style and a modern 1930s brick palace built for King Mutara III Rudahigwa. Witness traditional Inyambo cattle with their majestic horns and learn about the sophisticated monarchy that ruled Rwanda for centuries.
-            </p>
+            <p class="museum-description">Step into Rwanda's regal past at this meticulously restored royal residence. The museum features a traditional thatched palace and a modern 1930s brick palace built for King Mutara III Rudahigwa. Witness traditional Inyambo cattle and learn about the sophisticated monarchy that ruled Rwanda for centuries.</p>
             <div class="museum-highlights">
-                <div class="highlight-item">
-                    <div class="highlight-icon">🏰</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Two Palaces</div>
-                        <div class="highlight-desc">Traditional and modern residences</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">🐄</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Inyambo Cattle</div>
-                        <div class="highlight-desc">Sacred royal long-horned cattle</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">👗</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Royal Artifacts</div>
-                        <div class="highlight-desc">Original furnishings and regalia</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">🎭</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Cultural Ceremonies</div>
-                        <div class="highlight-desc">Traditional performances available</div>
-                    </div>
-                </div>
+                <div class="highlight-item"><div class="highlight-icon">🏰</div><div class="highlight-text"><div class="highlight-title">Two Palaces</div><div class="highlight-desc">Traditional and modern residences</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">🐄</div><div class="highlight-text"><div class="highlight-title">Inyambo Cattle</div><div class="highlight-desc">Sacred royal long-horned cattle</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">👗</div><div class="highlight-text"><div class="highlight-title">Royal Artifacts</div><div class="highlight-desc">Original furnishings and regalia</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">🎭</div><div class="highlight-text"><div class="highlight-title">Cultural Ceremonies</div><div class="highlight-desc">Traditional performances available</div></div></div>
             </div>
-            <a href="nyanza-royal-palace.html" class="museum-link">
-                Explore Palace
-                <span>→</span>
-            </a>
+            <a href="#" class="museum-link">Explore Palace <span>→</span></a>
         </div>
     </div>
-    
-    <!-- Kandt House Museum -->
+
     <div class="museum-feature">
         <div class="museum-image-container">
             <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/79/24/4d/caption.jpg?w=1400&h=-1&s=1" alt="Kandt House Museum">
@@ -1231,79 +588,43 @@ body.nav-open { overflow: hidden; }
             <div class="museum-number">04</div>
             <h2 class="museum-name">KANDT HOUSE MUSEUM</h2>
             <p class="museum-location">Kigali • Natural History Museum</p>
-            <p class="museum-description">
-                Named after German explorer Richard Kandt, who built Kigali's first European-style house in 1908, this museum beautifully blends colonial history with natural science. The museum houses extensive collections of Rwanda's biodiversity, including preserved specimens of endemic species, geological displays, and exhibits on Kigali's founding. The restored colonial architecture itself is a testament to Rwanda's early 20th-century history.
-            </p>
+            <p class="museum-description">Named after German explorer Richard Kandt, who built Kigali's first European-style house in 1908, this museum blends colonial history with natural science. It houses extensive collections of Rwanda's biodiversity, geological displays, and exhibits on Kigali's founding.</p>
             <div class="museum-highlights">
-                <div class="highlight-item">
-                    <div class="highlight-icon">🦋</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Natural History</div>
-                        <div class="highlight-desc">Endemic flora and fauna displays</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">🏘️</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Kigali's Origins</div>
-                        <div class="highlight-desc">City foundation history</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">🏛️</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Colonial Architecture</div>
-                        <div class="highlight-desc">Restored early 1900s building</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">🔬</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Scientific Collections</div>
-                        <div class="highlight-desc">Geology and biology exhibits</div>
-                    </div>
-                </div>
+                <div class="highlight-item"><div class="highlight-icon">🦋</div><div class="highlight-text"><div class="highlight-title">Natural History</div><div class="highlight-desc">Endemic flora and fauna displays</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">🏘️</div><div class="highlight-text"><div class="highlight-title">Kigali's Origins</div><div class="highlight-desc">City foundation history</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">🏛️</div><div class="highlight-text"><div class="highlight-title">Colonial Architecture</div><div class="highlight-desc">Restored early 1900s building</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">🔬</div><div class="highlight-text"><div class="highlight-title">Scientific Collections</div><div class="highlight-desc">Geology and biology exhibits</div></div></div>
             </div>
-            <a href="kandt-house-museum.html" class="museum-link">
-                Explore Museum
-                <span>→</span>
-            </a>
+            <a href="#" class="museum-link">Explore Museum <span>→</span></a>
         </div>
     </div>
+
 </section>
 
-<!-- Visitor Information -->
+<!-- ── VISITOR INFO ── -->
 <section class="visitor-info-section">
     <div class="visitor-info-container">
         <div class="section-header-center">
             <span class="section-eyebrow">Plan Your Visit</span>
             <h2 class="section-title">Essential Information</h2>
-            <p class="section-description">
-                Everything you need to know before visiting Rwanda's museums and heritage sites—from opening hours to tour options and photography guidelines.
-            </p>
+            <p class="section-description">Everything you need to know before visiting Rwanda's museums and heritage sites—from opening hours to tour options and photography guidelines.</p>
         </div>
-        
         <div class="info-grid">
             <div class="info-card">
                 <div class="info-icon">🕐</div>
                 <h3 class="info-title">Opening Hours & Fees</h3>
-                <p class="info-text">
-                    Most museums operate on consistent schedules, though it's advisable to confirm before visiting. Entrance fees support conservation and maintenance efforts.
-                </p>
+                <p class="info-text">Most museums operate on consistent schedules. Entrance fees support conservation and maintenance efforts.</p>
                 <ul class="info-details">
-                    <li><strong>Typical Hours:</strong> 8:00 AM - 5:00 PM daily</li>
+                    <li><strong>Typical Hours:</strong> 8:00 AM – 5:00 PM daily</li>
                     <li><strong>Closed:</strong> Varies by location</li>
-                    <li><strong>Entry Fees:</strong> RWF 6,000 - 10,000</li>
+                    <li><strong>Entry Fees:</strong> RWF 6,000 – 10,000</li>
                     <li><strong>Guided Tours:</strong> Available at most sites</li>
                 </ul>
             </div>
-            
             <div class="info-card">
                 <div class="info-icon">📸</div>
                 <h3 class="info-title">Photography & Etiquette</h3>
-                <p class="info-text">
-                    Respectful conduct is essential when visiting heritage sites. Photography policies vary by location and exhibit.
-                </p>
+                <p class="info-text">Respectful conduct is essential when visiting heritage sites. Photography policies vary by location and exhibit.</p>
                 <ul class="info-details">
                     <li><strong>Photography:</strong> Generally allowed, ask first</li>
                     <li><strong>Flash:</strong> Often prohibited inside exhibits</li>
@@ -1311,15 +632,12 @@ body.nav-open { overflow: hidden; }
                     <li><strong>Behavior:</strong> Quiet and respectful tone</li>
                 </ul>
             </div>
-            
             <div class="info-card">
                 <div class="info-icon">🎯</div>
                 <h3 class="info-title">Getting There</h3>
-                <p class="info-text">
-                    Rwanda's museums are accessible from major cities via various transportation options. Consider combining multiple sites in one trip.
-                </p>
+                <p class="info-text">Rwanda's museums are accessible from major cities. Consider combining multiple sites in one trip.</p>
                 <ul class="info-details">
-                    <li><strong>From Kigali:</strong> 1-2 hours to most museums</li>
+                    <li><strong>From Kigali:</strong> 1–2 hours to most museums</li>
                     <li><strong>Transport:</strong> Private car or tour bus</li>
                     <li><strong>Guided Tours:</strong> Recommended for depth</li>
                     <li><strong>Combined Visits:</strong> Multi-site packages available</li>
@@ -1329,72 +647,62 @@ body.nav-open { overflow: hidden; }
     </div>
 </section>
 
-<!-- CTA Section -->
+<!-- ── CTA ── -->
 <section class="cta-final">
     <div class="cta-content">
         <h2 class="cta-title">Discover Rwanda's Heritage</h2>
-        <p class="cta-text">
-            Let Discover Rwanda curate your perfect cultural journey. From guided museum tours to royal palace visits, we'll create an enriching experience that brings Rwanda's history to life.
-        </p>
-        <a href="{% url 'contact' %}" class="cta-button">
-            Plan Your Cultural Tour
-            <span>→</span>
-        </a>
+        <p class="cta-text">Let Discover Rwanda curate your perfect cultural journey. From guided museum tours to royal palace visits, we'll create an enriching experience that brings Rwanda's history to life.</p>
+        <a href="{% url 'contact' %}" class="cta-button">Plan Your Cultural Tour <span>→</span></a>
     </div>
 </section>
 
-<!-- Footer -->
+<!-- ── FOOTER ── -->
 <footer>
     <div class="footer-grid">
         <div class="footer-brand">
             <h3>Discover Rwanda</h3>
             <p class="footer-description">Your gateway to extraordinary journeys through the Land of a Thousand Hills. We curate transformative experiences across Rwanda's pristine wilderness, rare wildlife encounters, and vibrant cultural tapestry.</p>
         </div>
-        
         <div class="footer-column">
             <h4>Museums</h4>
             <ul class="footer-links">
-                <li><a href="ethnographic-museum.html">Ethnographic Museum</a></li>
-                <li><a href="campaign-against-genocide-museum.html">Campaign Museum</a></li>
-                <li><a href="nyanza-royal-palace.html">Royal Palace</a></li>
-                <li><a href="kandt-house-museum.html">Kandt House</a></li>
+                <li><a href="#">Ethnographic Museum</a></li>
+                <li><a href="#">Campaign Museum</a></li>
+                <li><a href="#">Royal Palace</a></li>
+                <li><a href="#">Kandt House</a></li>
             </ul>
         </div>
-        
         <div class="footer-column">
             <h4>Destinations</h4>
             <ul class="footer-links">
-                <li><a href="towns.html">Towns</a></li>
-                <li><a href="lakes.html">Lakes</a></li>
-                <li><a href="volcanic-mountains.html">Mountains</a></li>
-                <li><a href="attractions.html">Attractions</a></li>
+                <li><a href="{% url 'towns' %}">Towns</a></li>
+                <li><a href="{% url 'lakes' %}">Lakes</a></li>
+                <li><a href="{% url 'volcanic_mountains' %}">Mountains</a></li>
+                <li><a href="{% url 'top_attractions' %}">Attractions</a></li>
             </ul>
         </div>
-        
         <div class="footer-column">
             <h4>Contact</h4>
             <ul class="footer-links">
-                <li><a href="contact.html">Get In Touch</a></li>
-                <li><a href="tel:++250 798 019 909">+250 798 019 909</a></li>
+                <li><a href="{% url 'contact' %}">Get In Touch</a></li>
+                <li><a href="tel:+250798919909">+250 798 919 909</a></li>
                 <li><a href="mailto:helpdiscoverrwanda@gmail.com">helpdiscoverrwanda@gmail.com</a></li>
             </ul>
         </div>
     </div>
-    
     <div class="footer-bottom">
         <p>&copy; 2026 Discover Rwanda. All rights reserved.</p>
     </div>
 </footer>
 
 <script>
-// Smooth scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+    anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        const target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 });
 
@@ -1405,21 +713,15 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     const closeBtn  = document.getElementById('mobileNavClose');
 
     function openDrawer() {
-        drawer.classList.add('open');
-        overlay.classList.add('open');
-        hamburger.classList.add('open');
-        document.body.classList.add('nav-open');
+        drawer.classList.add('open'); overlay.classList.add('open');
+        hamburger.classList.add('open'); document.body.classList.add('nav-open');
     }
     function closeDrawer() {
-        drawer.classList.remove('open');
-        overlay.classList.remove('open');
-        hamburger.classList.remove('open');
-        document.body.classList.remove('nav-open');
+        drawer.classList.remove('open'); overlay.classList.remove('open');
+        hamburger.classList.remove('open'); document.body.classList.remove('nav-open');
     }
 
-    hamburger.addEventListener('click', () => {
-        drawer.classList.contains('open') ? closeDrawer() : openDrawer();
-    });
+    hamburger.addEventListener('click', () => drawer.classList.contains('open') ? closeDrawer() : openDrawer());
     closeBtn.addEventListener('click', closeDrawer);
     overlay.addEventListener('click', closeDrawer);
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
@@ -1437,8 +739,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     drawer.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => setTimeout(closeDrawer, 150));
     });
-})();   
-
+})();
 </script>
 
 </body>

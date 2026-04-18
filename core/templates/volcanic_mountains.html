@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Italiana&display=swap" rel="stylesheet">
-    
 <style>
     :root {
         --black: #000000;
@@ -18,15 +17,13 @@
         --light-gray: #e5e5e5;
         --off-white: #f8f8f8;
         --white: #ffffff;
-        --gold: #c59959;
+        --green: #2d7a4f;
+        --green-deep: #1a5f3a;
+        --green-light: #4a9e6b;
     }
-    
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
         font-family: 'Inter', sans-serif;
         color: var(--charcoal);
@@ -35,1248 +32,450 @@
         background: var(--white);
     }
 
-
-    /* ── PASTE HAMBURGER CSS HERE ── */
-.nav-hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    width: 44px; height: 44px;
-    background: rgba(0,0,0,0.04);
-    border: 1px solid rgba(0,0,0,0.15);
-    border-radius: 10px;
-    cursor: pointer;
-    z-index: 10001;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-}
-.nav-hamburger:hover { background: rgba(197,153,91,0.15); border-color: var(--gold); }
-.nav-hamburger span {
-    display: block; width: 22px; height: 2px;
-    background: var(--charcoal); border-radius: 2px;
-    transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
-    transform-origin: center;
-}
-.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-/* ── OVERLAY ── */
-.mobile-nav-overlay {
-    position: fixed; inset: 0; z-index: 9999;
-    background: rgba(5,24,16,0.6);
-    backdrop-filter: blur(4px);
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.35s ease;
-}
-.mobile-nav-overlay.open { opacity: 1; pointer-events: all; }
-
-/* ── DRAWER ── */
-.mobile-nav-drawer {
-    position: fixed; top: 0; right: 0; bottom: 0;
-    z-index: 10000;
-    width: min(360px, 88vw);
-    background: linear-gradient(160deg, #0a2f1a 0%, #051810 60%, #0a0a0a 100%);
-    transform: translateX(100%);
-    transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
-    display: flex; flex-direction: column;
-    overflow-y: auto;
-    box-shadow: -20px 0 60px rgba(0,0,0,0.5);
-}
-.mobile-nav-drawer.open { transform: translateX(0); }
-
-.mobile-nav-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid rgba(197,153,91,0.15);
-    flex-shrink: 0;
-}
-.mobile-nav-logo { height: 52px; width: auto; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.9; }
-.mobile-nav-close {
-    width: 38px; height: 38px; border-radius: 50%;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
-    color: white; font-size: 16px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s ease;
-}
-.mobile-nav-close:hover { background: rgba(197,153,91,0.3); border-color: var(--gold); }
-
-.mobile-nav-list { list-style: none; padding: 1rem 0 2rem; flex: 1; }
-.mobile-nav-item { border-bottom: 1px solid rgba(255,255,255,0.05); }
-.mobile-nav-row { display: flex; align-items: center; justify-content: space-between; }
-.mobile-nav-link {
-    display: block; flex: 1; padding: 1rem 1.5rem;
-    color: rgba(255,255,255,0.88); text-decoration: none;
-    font-size: 0.8rem; font-weight: 700;
-    letter-spacing: 2px; text-transform: uppercase;
-    transition: color 0.2s ease;
-}
-.mobile-nav-link:hover { color: var(--gold-light); }
-.mobile-nav-toggle {
-    width: 44px; height: 48px;
-    background: none; border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    color: rgba(255,255,255,0.4);
-    transition: all 0.3s ease;
-}
-.mobile-nav-toggle:hover { color: var(--gold); }
-.mobile-nav-toggle.open { color: var(--gold); transform: rotate(180deg); }
-
-.mobile-nav-dropdown {
-    display: none;
-    background: rgba(0,0,0,0.25);
-    border-left: 2px solid rgba(197,153,91,0.3);
-    margin-left: 1.5rem; padding: 0.5rem 0;
-}
-.mobile-nav-dropdown.open { display: block; }
-.mobile-nav-dropdown a {
-    display: block; padding: 0.7rem 1.25rem;
-    color: rgba(255,255,255,0.65); text-decoration: none;
-    font-size: 0.7rem; font-weight: 600;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    transition: all 0.2s ease;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-}
-.mobile-nav-dropdown a:last-child { border-bottom: none; }
-.mobile-nav-dropdown a:hover { color: var(--gold-light); padding-left: 1.75rem; background: rgba(197,153,91,0.06); }
-
-.mobile-nav-cta {
-    margin: 1rem 1.5rem 0.5rem; display: block; padding: 1rem 2rem;
-    background: linear-gradient(135deg, var(--gold-deep), var(--gold), var(--gold-light));
-    color: white; text-align: center; text-decoration: none;
-    font-size: 0.75rem; font-weight: 800;
-    letter-spacing: 2.5px; text-transform: uppercase;
-    border-radius: 50px; transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(197,153,91,0.35);
-}
-.mobile-nav-cta:hover { transform: translateY(-2px); }
-
-.mobile-nav-footer {
-    padding: 1.25rem 1.5rem;
-    border-top: 1px solid rgba(197,153,91,0.15);
-    flex-shrink: 0;
-}
-.mobile-nav-contact { display: flex; flex-direction: column; gap: 0.6rem; }
-.mobile-nav-contact a {
-    display: flex; align-items: center; gap: 0.75rem;
-    color: rgba(255,255,255,0.55); text-decoration: none;
-    font-size: 0.75rem; transition: color 0.2s;
-}
-.mobile-nav-contact a:hover { color: var(--gold-light); }
-
-body.nav-open { overflow: hidden; }
-    
-    /* Navigation */
+    /* ============================================
+       NAVIGATION — full index.html version (green)
+    ============================================ */
     .nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        padding: 1.5rem 6%;
-        background: var(--white);
-        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+        position: fixed; top: 0; left: 0; right: 0; z-index: 10000;
+        background: rgba(255,255,255,0.98);
+        backdrop-filter: blur(60px) saturate(200%);
+        box-shadow: 0 1px 0 rgba(45,122,79,0.1), 0 10px 40px rgba(0,0,0,0.03);
+        padding: 1rem 0;
+        transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
     }
-    
     .nav-container {
-        max-width: 1900px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        max-width: 1900px; margin: 0 auto; padding: 0 6%;
+        display: flex; justify-content: space-between; align-items: center;
     }
-    
-    .nav-brand {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        text-decoration: none;
-    }
-    
+    .nav-brand { display: flex; align-items: center; text-decoration: none; }
     .nav-logo-img {
-    width: 200px;                /* adjust size */
-    height: 100px;
-    border-radius: 50%;
-    background: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    transition: all 0.4s ease;
-}
-
-.nav-logo-img img {
-    width: 100%;                 /* fill the container */
-    height: 100%;
-    object-fit: contain;
-    transition: all 0.4s ease;
-}
-    
-    .nav-logo-text {
-        font-family: 'Italiana', serif;
-        font-size: 1.5rem;
-        color: var(--black);
-        letter-spacing: 4px;
+        width: 160px; height: 68px;
+        display: flex; align-items: center; justify-content: center;
+        overflow: hidden; transition: all 0.4s ease;
     }
-    
-    .nav-menu {
-        display: flex;
-        list-style: none;
-        gap: 4rem;
-        align-items: center;
-    }
-    
+    .nav-logo-img img { width: 100%; height: 100%; object-fit: contain; }
+    .nav-menu { display: flex; list-style: none; gap: 4rem; align-items: center; }
+    .nav-item { position: relative; }
     .nav-item a {
-        font-size: 0.8125rem;
-        font-weight: 600;
-        color: var(--charcoal);
-        text-decoration: none;
-        letter-spacing: 1.8px;
-        text-transform: uppercase;
-        transition: all 0.3s ease;
+        font-size: 0.8125rem; font-weight: 600; color: var(--charcoal);
+        text-decoration: none; letter-spacing: 1.8px; text-transform: uppercase;
+        position: relative; padding: 0.5rem 0;
+        transition: all 0.3s ease; display: block;
     }
-    
-    .nav-item a:hover {
-        color: var(--gold);
+    .nav-item a::after {
+        content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 2px;
+        background: linear-gradient(90deg, transparent, var(--green), transparent);
+        transform: translateX(-50%); transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
     }
-    
+    .nav-item a:hover { color: var(--green); }
+    .nav-item a:hover::after { width: 100%; }
+    .nav-dropdown {
+        position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+        background: white; border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        opacity: 0; visibility: hidden;
+        transition: all 0.3s ease; margin-top: 1.5rem;
+        min-width: 280px; padding: 1rem 0; z-index: 1000;
+    }
+    .nav-item:hover .nav-dropdown { opacity: 1; visibility: visible; margin-top: 1rem; }
+    .nav-dropdown::before {
+        content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+        border-left: 8px solid transparent; border-right: 8px solid transparent;
+        border-bottom: 8px solid white;
+    }
+    .nav-dropdown a {
+        display: block; padding: 0.875rem 1.75rem;
+        color: var(--charcoal); font-size: 0.75rem; font-weight: 600;
+        letter-spacing: 1.5px; text-transform: uppercase;
+        transition: all 0.3s ease; text-shadow: none;
+    }
+    .nav-dropdown a::after { display: none; }
+    .nav-dropdown a:hover { background: var(--off-white); color: var(--green); padding-left: 2rem; }
     .nav-cta {
-        background: var(--black);
-        color: var(--white) !important;
-        padding: 1rem 2.8rem !important;
-        border-radius: 50px !important;
+        background: var(--black) !important; color: var(--white) !important;
+        padding: 1rem 2.8rem !important; border-radius: 50px !important; font-weight: 700 !important;
+        transition: all 0.3s ease !important;
     }
-    
-    .nav-cta:hover {
-        background: var(--gold);
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--green) !important; color: var(--white) !important; transform: translateY(-2px); }
+    .nav-hamburger {
+        display: none; flex-direction: column; justify-content: center;
+        align-items: center; gap: 5px; width: 44px; height: 44px;
+        background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.15);
+        border-radius: 10px; cursor: pointer; z-index: 10001;
+        transition: all 0.3s ease; flex-shrink: 0;
     }
-    
-   /* ══════════════════════════════════════════
-   HERO SECTION — FULLY RESPONSIVE
-══════════════════════════════════════════ */
-.hero-section {
-    position: relative;
-    height: 100svh;          /* uses small viewport height — accounts for mobile browser bars */
-    min-height: 500px;
-    max-height: 900px;
-    background: var(--black);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 82px;
-    overflow: hidden;
-}
+    .nav-hamburger:hover { background: rgba(45,122,79,0.15); border-color: var(--green); }
+    .nav-hamburger span {
+        display: block; width: 22px; height: 2px;
+        background: var(--charcoal); border-radius: 2px;
+        transition: all 0.35s cubic-bezier(0.4,0,0.2,1); transform-origin: center;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-nav-overlay {
+        position: fixed; inset: 0; z-index: 9999;
+        background: rgba(5,24,16,0.6); backdrop-filter: blur(4px);
+        opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
+    }
+    .mobile-nav-overlay.open { opacity: 1; pointer-events: all; }
+    .mobile-nav-drawer {
+        position: fixed; top: 0; right: 0; bottom: 0; z-index: 10000;
+        width: min(360px, 88vw);
+        background: linear-gradient(160deg, #0a2f1a 0%, #051810 60%, #0a0a0a 100%);
+        transform: translateX(100%);
+        transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
+        display: flex; flex-direction: column; overflow-y: auto;
+        box-shadow: -20px 0 60px rgba(0,0,0,0.5);
+    }
+    .mobile-nav-drawer.open { transform: translateX(0); }
+    .mobile-nav-header {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid rgba(45,122,79,0.25); flex-shrink: 0;
+    }
+    .mobile-nav-logo { height: 52px; width: auto; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.9; }
+    .mobile-nav-close {
+        width: 38px; height: 38px; border-radius: 50%;
+        background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+        color: white; font-size: 16px; cursor: pointer;
+        display: flex; align-items: center; justify-content: center; transition: all 0.2s ease;
+    }
+    .mobile-nav-close:hover { background: rgba(45,122,79,0.3); border-color: var(--green); }
+    .mobile-nav-list { list-style: none; padding: 1rem 0 2rem; flex: 1; }
+    .mobile-nav-item { border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .mobile-nav-row { display: flex; align-items: center; justify-content: space-between; }
+    .mobile-nav-link {
+        display: block; flex: 1; padding: 1rem 1.5rem;
+        color: rgba(255,255,255,0.88); text-decoration: none;
+        font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+        transition: color 0.2s ease;
+    }
+    .mobile-nav-link:hover { color: var(--green-light); }
+    .mobile-nav-toggle {
+        width: 44px; height: 48px; background: none; border: none; cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        color: rgba(255,255,255,0.4); transition: all 0.3s ease;
+    }
+    .mobile-nav-toggle:hover { color: var(--green); }
+    .mobile-nav-toggle.open { color: var(--green); transform: rotate(180deg); }
+    .mobile-nav-dropdown {
+        display: none; background: rgba(0,0,0,0.25);
+        border-left: 2px solid rgba(45,122,79,0.4);
+        margin-left: 1.5rem; padding: 0.5rem 0;
+    }
+    .mobile-nav-dropdown.open { display: block; }
+    .mobile-nav-dropdown a {
+        display: block; padding: 0.7rem 1.25rem;
+        color: rgba(255,255,255,0.65); text-decoration: none;
+        font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+        transition: all 0.2s ease; border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .mobile-nav-dropdown a:last-child { border-bottom: none; }
+    .mobile-nav-dropdown a:hover { color: var(--green-light); padding-left: 1.75rem; background: rgba(45,122,79,0.08); }
+    .mobile-nav-cta {
+        margin: 1rem 1.5rem 0.5rem; display: block; padding: 1rem 2rem;
+        background: linear-gradient(135deg, var(--green-deep), var(--green), var(--green-light));
+        color: white; text-align: center; text-decoration: none;
+        font-size: 0.75rem; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase;
+        border-radius: 50px; transition: all 0.3s ease;
+        box-shadow: 0 8px 25px rgba(45,122,79,0.35);
+    }
+    .mobile-nav-cta:hover { transform: translateY(-2px); }
+    .mobile-nav-footer {
+        padding: 1.25rem 1.5rem;
+        border-top: 1px solid rgba(45,122,79,0.2); flex-shrink: 0;
+    }
+    .mobile-nav-contact { display: flex; flex-direction: column; gap: 0.6rem; }
+    .mobile-nav-contact a {
+        display: flex; align-items: center; gap: 0.75rem;
+        color: rgba(255,255,255,0.55); text-decoration: none;
+        font-size: 0.75rem; transition: color 0.2s;
+    }
+    .mobile-nav-contact a:hover { color: var(--green-light); }
+    body.nav-open { overflow: hidden; }
 
-.hero-bg-pattern {
-    position: absolute; inset: 0;
-    background-image:
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 50px 50px;
-    opacity: 0.3;
-}
+    /* Nav logo responsive */
+    @media (min-width: 1400px) { .nav-logo-img { width: 180px; height: 76px; } }
+    @media (min-width: 1200px) and (max-width: 1399px) { .nav-logo-img { width: 160px; height: 68px; } }
+    @media (min-width: 1024px) and (max-width: 1199px) { .nav-logo-img { width: 140px; height: 60px; } .nav-menu { gap: 2rem; } }
+    @media (max-width: 1023px) { .nav-menu { display: none; } .nav-hamburger { display: flex; } .nav-logo-img { width: 130px; height: 56px; } }
+    @media (max-width: 767px) { .nav-logo-img { width: 110px; height: 48px; } }
+    @media (max-width: 575px) { .nav-logo-img { width: 96px; height: 42px; } }
+    @media (max-width: 399px) { .nav-logo-img { width: 80px; height: 36px; } .mobile-nav-drawer { width: 100vw; } }
 
-.hero-content {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 3rem 6%;
-    text-align: center;
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.hero-eyebrow {
-    display: inline-block;
-    font-size: 0.75rem;
-    font-weight: 800;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--white);
-    padding: 0.5rem 1.5rem;
-    border: 2px solid var(--white);
-    border-radius: 50px;
-    margin-bottom: 1.75rem;
-    background: rgba(255,255,255,0.05);
-}
-
-.hero-title {
-    font-family: 'Italiana', serif;
-    font-size: clamp(2.5rem, 8vw, 7rem);
-    font-weight: 400;
-    color: var(--white);
-    margin-bottom: 1.25rem;
-    letter-spacing: clamp(4px, 2vw, 12px);
-    line-height: 1.1;
-}
-
-.hero-subtitle {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1rem, 2.2vw, 1.6rem);
-    font-weight: 400;
-    color: rgba(255,255,255,0.85);
-    max-width: 750px;
-    margin: 0 auto 0;
-    line-height: 1.8;
-}
-
-.hero-stats {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem 3rem;
-    margin-top: 3rem;
-    width: 100%;
-}
-
-.stat-item {
-    text-align: center;
-    flex: 0 0 auto;
-}
-
-.stat-number {
-    font-family: 'Italiana', serif;
-    font-size: clamp(2rem, 4vw, 4rem);
-    color: var(--white);
-    display: block;
-    line-height: 1;
-}
-
-.stat-label {
-    font-size: clamp(0.65rem, 1.2vw, 0.875rem);
-    color: rgba(255,255,255,0.7);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-top: 0.35rem;
-    display: block;
-}
-
-/* ── Hero media queries ── */
-@media (max-width: 1024px) {
-    .hero-section { margin-top: 72px; }
-}
-
-@media (max-width: 768px) {
+    /* ============================================
+       HERO
+    ============================================ */
     .hero-section {
-        height: auto;
-        min-height: calc(100svh - 68px);
-        margin-top: 68px;
-        padding: 0;
+        position: relative; height: 100svh; min-height: 500px; max-height: 900px;
+        background: var(--black); display: flex; align-items: center; justify-content: center;
+        margin-top: 82px; overflow: hidden;
     }
-    .hero-content { padding: 3rem 5%; }
-    .hero-stats { gap: 1rem 2.5rem; margin-top: 2.5rem; }
-}
-
-@media (max-width: 600px) {
-    .hero-section {
-        min-height: calc(100svh - 64px);
-        margin-top: 64px;
+    .hero-bg-pattern {
+        position: absolute; inset: 0;
+        background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+        background-size: 50px 50px; opacity: 0.3;
     }
-    .hero-content { padding: 2.5rem 5%; }
-    .hero-eyebrow { font-size: 0.65rem; letter-spacing: 2.5px; padding: 0.4rem 1rem; }
-    .hero-stats { gap: 0.75rem 2rem; margin-top: 2rem; }
-}
-
-@media (max-width: 480px) {
-    .hero-section {
-        min-height: calc(100svh - 60px);
-        margin-top: 60px;
+    .hero-content {
+        width: 100%; max-width: 1200px; margin: 0 auto; padding: 3rem 6%;
+        text-align: center; position: relative; z-index: 2;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
     }
-    .hero-content { padding: 2rem 4%; }
-    .hero-eyebrow { display: none; }
-    .hero-title { margin-bottom: 1rem; }
-    .hero-subtitle { font-size: clamp(0.95rem, 3.5vw, 1.1rem); }
+    .hero-eyebrow {
+        display: inline-block; font-size: 0.75rem; font-weight: 800;
+        letter-spacing: 4px; text-transform: uppercase; color: var(--white);
+        padding: 0.5rem 1.5rem; border: 2px solid var(--white); border-radius: 50px;
+        margin-bottom: 1.75rem; background: rgba(255,255,255,0.05);
+    }
+    .hero-title {
+        font-family: 'Italiana', serif; font-size: clamp(2.5rem, 8vw, 7rem);
+        font-weight: 400; color: var(--white);
+        margin-bottom: 1.25rem; letter-spacing: clamp(4px, 2vw, 12px); line-height: 1.1;
+    }
+    .hero-subtitle {
+        font-family: 'Cormorant Garamond', serif; font-size: clamp(1rem, 2.2vw, 1.6rem);
+        font-weight: 400; color: rgba(255,255,255,0.85);
+        max-width: 750px; margin: 0 auto; line-height: 1.8;
+    }
     .hero-stats {
-        gap: 0.75rem 1.5rem;
-        margin-top: 1.75rem;
-        padding: 1rem 1rem 0;
-        border-top: 1px solid rgba(255,255,255,0.1);
+        display: flex; justify-content: center; align-items: center;
+        flex-wrap: wrap; gap: 1rem 3rem; margin-top: 3rem; width: 100%;
     }
-}
+    .stat-item { text-align: center; flex: 0 0 auto; }
+    .stat-number { font-family: 'Italiana', serif; font-size: clamp(2rem, 4vw, 4rem); color: var(--white); display: block; line-height: 1; }
+    .stat-label { font-size: clamp(0.65rem, 1.2vw, 0.875rem); color: rgba(255,255,255,0.7); letter-spacing: 2px; text-transform: uppercase; margin-top: 0.35rem; display: block; }
 
-@media (max-width: 360px) {
-    .hero-content { padding: 1.75rem 4%; }
-    .hero-subtitle { font-size: 0.95rem; line-height: 1.7; }
-    .hero-stats { gap: 0.5rem 1.25rem; }
-}
-    
-    /* Introduction Section */
-    .intro-section {
-        background: var(--white);
-        padding: 10rem 6%;
-    }
-    
-    .intro-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        text-align: center;
-    }
-    
+    /* ============================================
+       INTRO
+    ============================================ */
+    .intro-section { background: var(--white); padding: 10rem 6%; }
+    .intro-container { max-width: 1200px; margin: 0 auto; text-align: center; }
     .section-eyebrow {
-        display: inline-block;
-        font-size: 0.6875rem;
-        font-weight: 800;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        color: var(--black);
-        padding: 0.4rem 1.25rem;
-        border: 2px solid var(--black);
-        border-radius: 50px;
-        margin-bottom: 2.5rem;
+        display: inline-block; font-size: 0.6875rem; font-weight: 800;
+        letter-spacing: 3px; text-transform: uppercase; color: var(--black);
+        padding: 0.4rem 1.25rem; border: 2px solid var(--black); border-radius: 50px; margin-bottom: 2.5rem;
     }
-    
     .section-title {
-        font-family: 'Italiana', serif;
-        font-size: clamp(2.5rem, 5vw, 4rem);
-        font-weight: 400;
-        color: var(--black);
-        margin-bottom: 2rem;
-        letter-spacing: 4px;
-        line-height: 1.2;
+        font-family: 'Italiana', serif; font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 400; color: var(--black); margin-bottom: 2rem; letter-spacing: 4px; line-height: 1.2;
     }
-    
-    .section-description {
-        font-size: 1.125rem;
-        font-weight: 300;
-        line-height: 1.9;
-        color: var(--mid-gray);
-        max-width: 900px;
-        margin: 0 auto;
-    }
-    
-    /* Mountains Grid - Alternating Full-Width Sections */
-    .mountains-grid-section {
-        background: var(--off-white);
-        padding: 0;
-    }
-    
-    .mountain-feature {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        min-height: 700px;
-    }
-    
-    .mountain-feature:nth-child(even) {
-        direction: rtl;
-    }
-    
-    .mountain-feature:nth-child(even) > * {
-        direction: ltr;
-    }
-    
-    .mountain-image-container {
-        position: relative;
-        overflow: hidden;
-        background: var(--dark-gray);
-    }
-    
-    .mountain-image-container img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        filter: grayscale(20%);
-    }
-    
-    .mountain-feature:hover .mountain-image-container img {
-        transform: scale(1.05);
-        filter: grayscale(0%);
-    }
-    
-    .mountain-content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 8% 10%;
-        background: var(--white);
-    }
-    
-    .mountain-feature:nth-child(even) .mountain-content {
-        background: var(--black);
-        color: var(--white);
-    }
-    
-    .mountain-number {
-        font-family: 'Italiana', serif;
-        font-size: 1rem;
-        color: var(--gold);
-        letter-spacing: 3px;
-        margin-bottom: 1.5rem;
-    }
-    
-    .mountain-name {
-        font-family: 'Italiana', serif;
-        font-size: clamp(2.5rem, 4vw, 3.5rem);
-        font-weight: 400;
-        color: var(--black);
-        margin-bottom: 1rem;
-        letter-spacing: 4px;
-        line-height: 1.2;
-    }
-    
-    .mountain-feature:nth-child(even) .mountain-name {
-        color: var(--white);
-    }
-    
-    .mountain-elevation {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1.125rem;
-        font-style: italic;
-        color: var(--mid-gray);
-        margin-bottom: 2.5rem;
-    }
-    
-    .mountain-feature:nth-child(even) .mountain-elevation {
-        color: rgba(255, 255, 255, 0.7);
-    }
-    
-    .mountain-description {
-        font-size: 1.0625rem;
-        font-weight: 300;
-        line-height: 1.8;
-        color: var(--mid-gray);
-        margin-bottom: 2rem;
-    }
-    
-    .mountain-feature:nth-child(even) .mountain-description {
-        color: rgba(255, 255, 255, 0.8);
-    }
-    
-    .mountain-highlights {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-        margin-bottom: 3rem;
-    }
-    
-    .highlight-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-    
-    .highlight-icon {
-        font-size: 1.5rem;
-        flex-shrink: 0;
-    }
-    
-    .highlight-text {
-        flex: 1;
-    }
-    
-    .highlight-title {
-        font-weight: 600;
-        font-size: 0.9375rem;
-        color: var(--black);
-        margin-bottom: 0.25rem;
-    }
-    
-    .mountain-feature:nth-child(even) .highlight-title {
-        color: var(--white);
-    }
-    
-    .highlight-desc {
-        font-size: 0.875rem;
-        color: var(--mid-gray);
-    }
-    
-    .mountain-feature:nth-child(even) .highlight-desc {
-        color: rgba(255, 255, 255, 0.6);
-    }
-    
-    .mountain-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.75rem;
-        font-size: 0.875rem;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: var(--black);
-        text-decoration: none;
-        transition: all 0.3s ease;
-    }
-    
-    .mountain-link:hover {
-        gap: 1.25rem;
-        color: var(--gold);
-    }
-    
-    .mountain-feature:nth-child(even) .mountain-link {
-        color: var(--white);
-    }
-    
-    
-    /* Info Section - White Background */
-    .info-section {
-        background: var(--white);
-        padding: 10rem 6%;
-    }
-    
-    .info-container {
-        max-width: 1600px;
-        margin: 0 auto;
-    }
-    
-    .section-header-center {
-        text-align: center;
-        max-width: 900px;
-        margin: 0 auto 6rem;
-    }
-    
-    .info-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 3rem;
-    }
-    
-    .info-card {
-        background: var(--off-white);
-        padding: 3rem;
-        border-radius: 20px;
-        border: 1px solid var(--light-gray);
-    }
-    
-    .info-icon {
-        font-size: 3rem;
-        margin-bottom: 1.5rem;
-    }
-    
-    .info-title {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--black);
-        margin-bottom: 1rem;
-    }
-    
-    .info-text {
-        font-size: 1rem;
-        line-height: 1.7;
-        color: var(--mid-gray);
-        margin-bottom: 1.5rem;
-    }
-    
-    .info-list {
-        list-style: none;
-        padding: 0;
-    }
-    
-    .info-list li {
-        font-size: 0.9375rem;
-        line-height: 1.8;
-        color: var(--mid-gray);
-        padding: 0.5rem 0;
-        border-bottom: 1px solid var(--light-gray);
-    }
-    
-    .info-list li:last-child {
-        border-bottom: none;
-    }
-    
-    .info-list strong {
-        color: var(--black);
-    }
-    
-    /* Wildlife Section - Black Background */
-    .wildlife-section {
-        background: var(--black);
-        padding: 10rem 6%;
-        position: relative;
-    }
-    
-    .wildlife-section::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image: 
-            linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-        background-size: 50px 50px;
-        opacity: 0.3;
-    }
-    
-    .wildlife-container {
-        max-width: 1600px;
-        margin: 0 auto;
-        position: relative;
-        z-index: 2;
-    }
-    
-    .wildlife-split {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 6rem;
-        align-items: center;
-    }
-    
-    .section-eyebrow-white {
-        display: inline-block;
-        font-size: 0.6875rem;
-        font-weight: 800;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        color: var(--white);
-        padding: 0.4rem 1.25rem;
-        border: 2px solid var(--white);
-        border-radius: 50px;
-        margin-bottom: 2rem;
-    }
-    
-    .section-title-white {
-        font-family: 'Italiana', serif;
-        font-size: clamp(2.5rem, 5vw, 4rem);
-        font-weight: 400;
-        color: var(--white);
-        margin-bottom: 2rem;
-        letter-spacing: 4px;
-        line-height: 1.2;
-    }
-    
-    .wildlife-description {
-        font-size: 1.125rem;
-        font-weight: 300;
-        line-height: 1.9;
-        color: rgba(255, 255, 255, 0.8);
-        margin-bottom: 3rem;
-    }
-    
-    .wildlife-highlights {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 2rem;
-        margin-bottom: 3rem;
-    }
-    
-    .wildlife-item {
-        text-align: center;
-        padding: 2rem 1rem;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .wildlife-number {
-        font-family: 'Italiana', serif;
-        font-size: 2.5rem;
-        color: var(--gold);
-        margin-bottom: 0.5rem;
-    }
-    
-    .wildlife-label {
-        font-size: 0.875rem;
-        color: rgba(255, 255, 255, 0.7);
-        letter-spacing: 1px;
-    }
-    
-    .wildlife-species h4 {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.25rem;
-        color: var(--white);
-        margin-bottom: 1.5rem;
-    }
-    
-    .wildlife-species ul {
-        list-style: none;
-        padding: 0;
-    }
-    
-    .wildlife-species li {
-        font-size: 1rem;
-        line-height: 2;
-        color: rgba(255, 255, 255, 0.8);
-        padding: 0.5rem 0;
-    }
-    
-    .wildlife-image {
-        height: 600px;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
-    }
-    
-    .wildlife-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        filter: grayscale(20%);
-    }
-    
-    /* Tips Section - Off-White Background */
-    .tips-section {
-        background: var(--off-white);
-        padding: 10rem 6%;
-    }
-    
-    .tips-container {
-        max-width: 1600px;
-        margin: 0 auto;
-    }
-    
-    .tips-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 3rem;
-        margin-top: 5rem;
-    }
-    
-    .tip-card {
-        background: var(--white);
-        padding: 3rem;
-        border-radius: 20px;
-        border: 1px solid var(--light-gray);
-        transition: all 0.4s ease;
-    }
-    
-    .tip-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-    }
-    
-    .tip-number {
-        font-family: 'Italiana', serif;
-        font-size: 3rem;
-        color: var(--gold);
-        margin-bottom: 1rem;
-        opacity: 0.3;
-    }
-    
-    .tip-title {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: var(--black);
-        margin-bottom: 1rem;
-    }
-    
-    .tip-text {
-        font-size: 1rem;
-        line-height: 1.7;
-        color: var(--mid-gray);
-    }
-    
-    /* Conservation Section - White Background */
-    .conservation-section {
-        background: var(--white);
-        padding: 10rem 6%;
-    }
-    
-    .conservation-container {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-    
-    .conservation-content {
-        text-align: center;
-    }
-    
-    .conservation-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 3rem;
-        margin: 4rem 0;
-        text-align: left;
-    }
-    
-    .conservation-point {
-        display: flex;
-        gap: 1.5rem;
-        align-items: flex-start;
-        padding: 2rem;
-        background: var(--off-white);
-        border-radius: 12px;
-    }
-    
-    .conservation-icon {
-        font-size: 2.5rem;
-        flex-shrink: 0;
-    }
-    
-    .conservation-point h4 {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.125rem;
-        font-weight: 700;
-        color: var(--black);
-        margin-bottom: 0.5rem;
-    }
-    
-    .conservation-point p {
-        font-size: 0.9375rem;
-        line-height: 1.7;
-        color: var(--mid-gray);
-    }
-    
-    .impact-note {
-        background: linear-gradient(135deg, var(--gold), #d4a574);
-        padding: 2.5rem 3rem;
-        border-radius: 16px;
-        margin-top: 3rem;
-    }
-    
-    .impact-note p {
-        font-size: 1.125rem;
-        line-height: 1.8;
-        color: var(--white);
-        margin: 0;
-    }
-    
-    .impact-note strong {
-        font-weight: 700;
-    }
-    
-    /* Responsive Updates */
-    @media (max-width: 1024px) {
-        .info-grid,
-        .tips-grid {
-            grid-template-columns: 1fr;
-        }
-        
-        .wildlife-split {
-            grid-template-columns: 1fr;
-        }
-        
-        .wildlife-highlights {
-            grid-template-columns: 1fr;
-        }
-        
-        .conservation-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-    
-    /* CTA Section */
-    .cta-final {
-        background: var(--black);
-        padding: 10rem 6%;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .cta-final::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image: 
-            linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-        background-size: 50px 50px;
-        opacity: 0.3;
-    }
-    
-    .cta-content {
-        max-width: 1000px;
-        margin: 0 auto;
-        position: relative;
-        z-index: 2;
-    }
-    
-    .cta-title {
-        font-family: 'Italiana', serif;
-        font-size: clamp(2.5rem, 5vw, 4rem);
-        font-weight: 400;
-        color: var(--white);
-        margin-bottom: 2rem;
-        letter-spacing: 4px;
-    }
-    
-    .cta-text {
-        font-size: 1.25rem;
-        font-weight: 300;
-        line-height: 1.8;
-        color: rgba(255, 255, 255, 0.8);
-        margin-bottom: 3.5rem;
-    }
-    
-    .cta-button {
-        display: inline-flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 1.25rem 3.5rem;
-        background: var(--white);
-        color: var(--black);
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 0.875rem;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        border-radius: 50px;
-        transition: all 0.4s ease;
-    }
-    
-    .cta-button:hover {
-        background: var(--gold);
-        color: var(--white);
-        transform: translateY(-3px);
-        gap: 1.5rem;
-    }
-    
-    /* Footer */
-    footer {
-        background: var(--charcoal);
-        color: var(--white);
-        padding: 6rem 6% 3rem;
-    }
-    
-    .footer-grid {
-        display: grid;
-        grid-template-columns: 2fr 1fr 1fr 1fr;
-        gap: 4rem;
-        max-width: 1800px;
-        margin: 0 auto 4rem;
-    }
-    
-    .footer-brand h3 {
-        font-family: 'Italiana', serif;
-        font-size: 2rem;
-        margin-bottom: 1.5rem;
-        letter-spacing: 2px;
-    }
-    
-    .footer-description {
-        font-size: 0.9375rem;
-        line-height: 1.8;
-        color: rgba(255, 255, 255, 0.7);
-    }
-    
-    .footer-column h4 {
-        font-size: 0.875rem;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        margin-bottom: 1.5rem;
-        color: var(--gold);
-    }
-    
-    .footer-links {
-        list-style: none;
-    }
-    
-    .footer-links li {
-        margin-bottom: 0.75rem;
-    }
-    
-    .footer-links a {
-        color: rgba(255, 255, 255, 0.7);
-        text-decoration: none;
-        transition: all 0.3s ease;
-    }
-    
-    .footer-links a:hover {
-        color: var(--gold);
-    }
-    
-    .footer-bottom {
-        text-align: center;
-        padding-top: 3rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 0.875rem;
-    }
-    
-   /* ══════════════════════════════════════════
-   RESPONSIVE — 1400px (Large Desktops)
-══════════════════════════════════════════ */
-@media (max-width: 1400px) {
-    .nav { padding: 1rem 5%; }
-    .mountain-content { padding: 5% 7%; }
-    .wildlife-split { gap: 4rem; }
-    .footer-grid { gap: 2.5rem; }
-}
+    .section-description { font-size: 1.125rem; font-weight: 300; line-height: 1.9; color: var(--mid-gray); max-width: 900px; margin: 0 auto; }
 
-/* ══════════════════════════════════════════
-   RESPONSIVE — 1200px (Medium Desktops)
-══════════════════════════════════════════ */
-@media (max-width: 1200px) {
-    .nav-menu { gap: 2rem; }
-    .info-grid { grid-template-columns: repeat(2, 1fr); }
-    .tips-grid { grid-template-columns: repeat(2, 1fr); }
-    .wildlife-split { gap: 3rem; }
-    .wildlife-image { height: 460px; }
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
-    .mountain-content { padding: 4% 6%; }
-}
-
-/* ══════════════════════════════════════════
-   RESPONSIVE — 1024px (Tablets Landscape)
-══════════════════════════════════════════ */
-@media (max-width: 1024px) {
-    .mountain-feature { grid-template-columns: 1fr; min-height: auto; }
-    .mountain-feature:nth-child(even) { direction: ltr; }
+    /* ============================================
+       MOUNTAINS GRID
+    ============================================ */
+    .mountains-grid-section { background: var(--off-white); padding: 0; }
+    .mountain-feature { display: grid; grid-template-columns: 1fr 1fr; min-height: 700px; }
+    .mountain-feature:nth-child(even) { direction: rtl; }
     .mountain-feature:nth-child(even) > * { direction: ltr; }
-    .mountain-image-container { min-height: 420px; }
-    .mountain-content { padding: 4rem 8%; }
-    .mountain-highlights { grid-template-columns: repeat(2, 1fr); }
+    .mountain-image-container { position: relative; overflow: hidden; background: var(--dark-gray); }
+    .mountain-image-container img {
+        width: 100%; height: 100%; object-fit: cover;
+        transition: transform 0.8s cubic-bezier(0.4,0,0.2,1); filter: grayscale(20%);
+    }
+    .mountain-feature:hover .mountain-image-container img { transform: scale(1.05); filter: grayscale(0%); }
+    .mountain-content { display: flex; flex-direction: column; justify-content: center; padding: 8% 10%; background: var(--white); }
+    .mountain-feature:nth-child(even) .mountain-content { background: var(--black); color: var(--white); }
+    .mountain-number { font-family: 'Italiana', serif; font-size: 1rem; color: var(--green); letter-spacing: 3px; margin-bottom: 1.5rem; }
+    .mountain-name { font-family: 'Italiana', serif; font-size: clamp(2.5rem, 4vw, 3.5rem); font-weight: 400; color: var(--black); margin-bottom: 1rem; letter-spacing: 4px; line-height: 1.2; }
+    .mountain-feature:nth-child(even) .mountain-name { color: var(--white); }
+    .mountain-elevation { font-family: 'Cormorant Garamond', serif; font-size: 1.125rem; font-style: italic; color: var(--mid-gray); margin-bottom: 2.5rem; }
+    .mountain-feature:nth-child(even) .mountain-elevation { color: rgba(255,255,255,0.7); }
+    .mountain-description { font-size: 1.0625rem; font-weight: 300; line-height: 1.8; color: var(--mid-gray); margin-bottom: 2rem; }
+    .mountain-feature:nth-child(even) .mountain-description { color: rgba(255,255,255,0.8); }
+    .mountain-highlights { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem; margin-bottom: 3rem; }
+    .highlight-item { display: flex; align-items: flex-start; gap: 1rem; }
+    .highlight-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .highlight-text { flex: 1; }
+    .highlight-title { font-weight: 600; font-size: 0.9375rem; color: var(--black); margin-bottom: 0.25rem; }
+    .mountain-feature:nth-child(even) .highlight-title { color: var(--white); }
+    .highlight-desc { font-size: 0.875rem; color: var(--mid-gray); }
+    .mountain-feature:nth-child(even) .highlight-desc { color: rgba(255,255,255,0.6); }
+    .mountain-link { display: inline-flex; align-items: center; gap: 0.75rem; font-size: 0.875rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--black); text-decoration: none; transition: all 0.3s ease; }
+    .mountain-link:hover { gap: 1.25rem; color: var(--green); }
+    .mountain-feature:nth-child(even) .mountain-link { color: var(--white); }
+    .mountain-feature:nth-child(even) .mountain-link:hover { color: var(--green-light); }
 
-    .wildlife-split { grid-template-columns: 1fr; gap: 3rem; }
-    .wildlife-image { height: 400px; }
+    /* ============================================
+       INFO SECTION
+    ============================================ */
+    .info-section { background: var(--white); padding: 10rem 6%; }
+    .info-container { max-width: 1600px; margin: 0 auto; }
+    .section-header-center { text-align: center; max-width: 900px; margin: 0 auto 6rem; }
+    .info-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 3rem; }
+    .info-card { background: var(--off-white); padding: 3rem; border-radius: 20px; border: 1px solid var(--light-gray); }
+    .info-icon { font-size: 3rem; margin-bottom: 1.5rem; }
+    .info-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--black); margin-bottom: 1rem; }
+    .info-text { font-size: 1rem; line-height: 1.7; color: var(--mid-gray); margin-bottom: 1.5rem; }
+    .info-list { list-style: none; padding: 0; }
+    .info-list li { font-size: 0.9375rem; line-height: 1.8; color: var(--mid-gray); padding: 0.5rem 0; border-bottom: 1px solid var(--light-gray); }
+    .info-list li:last-child { border-bottom: none; }
+    .info-list strong { color: var(--black); }
 
-    .conservation-grid { grid-template-columns: 1fr; }
+    /* ============================================
+       WILDLIFE SECTION
+    ============================================ */
+    .wildlife-section { background: var(--black); padding: 10rem 6%; position: relative; }
+    .wildlife-section::before {
+        content: ''; position: absolute; inset: 0;
+        background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+        background-size: 50px 50px; opacity: 0.3;
+    }
+    .wildlife-container { max-width: 1600px; margin: 0 auto; position: relative; z-index: 2; }
+    .wildlife-split { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+    .section-eyebrow-white { display: inline-block; font-size: 0.6875rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--white); padding: 0.4rem 1.25rem; border: 2px solid var(--white); border-radius: 50px; margin-bottom: 2rem; }
+    .section-title-white { font-family: 'Italiana', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 400; color: var(--white); margin-bottom: 2rem; letter-spacing: 4px; line-height: 1.2; }
+    .wildlife-description { font-size: 1.125rem; font-weight: 300; line-height: 1.9; color: rgba(255,255,255,0.8); margin-bottom: 3rem; }
+    .wildlife-highlights { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; margin-bottom: 3rem; }
+    .wildlife-item { text-align: center; padding: 2rem 1rem; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); }
+    .wildlife-number { font-family: 'Italiana', serif; font-size: 2.5rem; color: var(--green-light); margin-bottom: 0.5rem; }
+    .wildlife-label { font-size: 0.875rem; color: rgba(255,255,255,0.7); letter-spacing: 1px; }
+    .wildlife-species h4 { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--white); margin-bottom: 1.5rem; }
+    .wildlife-species ul { list-style: none; padding: 0; }
+    .wildlife-species li { font-size: 1rem; line-height: 2; color: rgba(255,255,255,0.8); padding: 0.5rem 0; }
+    .wildlife-image { height: 600px; border-radius: 20px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
+    .wildlife-image img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%); }
 
-    .nav-menu { gap: 1.75rem; }
-    .nav-logo-img { width: 100px; height: 52px; }
-    .nav-logo-text { font-size: 1.1rem; letter-spacing: 2px; }
-}
+    /* ============================================
+       TIPS SECTION
+    ============================================ */
+    .tips-section { background: var(--off-white); padding: 10rem 6%; }
+    .tips-container { max-width: 1600px; margin: 0 auto; }
+    .tips-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 3rem; margin-top: 5rem; }
+    .tip-card { background: var(--white); padding: 3rem; border-radius: 20px; border: 1px solid var(--light-gray); transition: all 0.4s ease; }
+    .tip-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+    .tip-number { font-family: 'Italiana', serif; font-size: 3rem; color: var(--green); margin-bottom: 1rem; opacity: 0.4; }
+    .tip-title { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--black); margin-bottom: 1rem; }
+    .tip-text { font-size: 1rem; line-height: 1.7; color: var(--mid-gray); }
 
-/* ══════════════════════════════════════════
-   RESPONSIVE — 900px (Tablets)
-══════════════════════════════════════════ */
-@media (max-width: 900px) {
-    .info-grid { grid-template-columns: 1fr; }
-    .tips-grid { grid-template-columns: repeat(2, 1fr); }
-    .wildlife-highlights { grid-template-columns: repeat(3, 1fr); }
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
-    .nav-menu { gap: 1.5rem; }
-    .nav-logo-text { font-size: 1rem; }
-}
+    /* ============================================
+       CONSERVATION SECTION
+    ============================================ */
+    .conservation-section { background: var(--white); padding: 10rem 6%; }
+    .conservation-container { max-width: 1200px; margin: 0 auto; }
+    .conservation-content { text-align: center; }
+    .conservation-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 3rem; margin: 4rem 0; text-align: left; }
+    .conservation-point { display: flex; gap: 1.5rem; align-items: flex-start; padding: 2rem; background: var(--off-white); border-radius: 12px; }
+    .conservation-icon { font-size: 2.5rem; flex-shrink: 0; }
+    .conservation-point h4 { font-family: 'Playfair Display', serif; font-size: 1.125rem; font-weight: 700; color: var(--black); margin-bottom: 0.5rem; }
+    .conservation-point p { font-size: 0.9375rem; line-height: 1.7; color: var(--mid-gray); }
+    .impact-note { background: linear-gradient(135deg, var(--green-deep), var(--green)); padding: 2.5rem 3rem; border-radius: 16px; margin-top: 3rem; }
+    .impact-note p { font-size: 1.125rem; line-height: 1.8; color: var(--white); margin: 0; }
+    .impact-note strong { font-weight: 700; }
 
-/* ══════════════════════════════════════════
-   RESPONSIVE — 768px (Tablets Portrait)
-══════════════════════════════════════════ */
-@media (max-width: 768px) {
-    /* Hamburger */
-    .nav-menu { display: none; }
-    .nav-hamburger { display: flex; }
+    /* ============================================
+       CTA
+    ============================================ */
+    .cta-final { background: var(--black); padding: 10rem 6%; text-align: center; position: relative; overflow: hidden; }
+    .cta-final::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 50px 50px; opacity: 0.3; }
+    .cta-content { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+    .cta-title { font-family: 'Italiana', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 400; color: var(--white); margin-bottom: 2rem; letter-spacing: 4px; }
+    .cta-text { font-size: 1.25rem; font-weight: 300; line-height: 1.8; color: rgba(255,255,255,0.8); margin-bottom: 3.5rem; }
+    .cta-button { display: inline-flex; align-items: center; gap: 1rem; padding: 1.25rem 3.5rem; background: var(--white); color: var(--black); text-decoration: none; font-weight: 700; font-size: 0.875rem; letter-spacing: 2px; text-transform: uppercase; border-radius: 50px; transition: all 0.4s ease; }
+    .cta-button:hover { background: var(--green); color: var(--white); transform: translateY(-3px); gap: 1.5rem; }
 
-    .nav { padding: 0.75rem 5%; }
-    .nav-logo-img { width: 85px; height: 46px; }
-    .nav-logo-text { font-size: 1rem; letter-spacing: 1.5px; }
+    /* ============================================
+       FOOTER
+    ============================================ */
+    footer { background: var(--charcoal); color: var(--white); padding: 6rem 6% 3rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; max-width: 1800px; margin: 0 auto 4rem; }
+    .footer-brand h3 { font-family: 'Italiana', serif; font-size: 2rem; margin-bottom: 1.5rem; letter-spacing: 2px; }
+    .footer-description { font-size: 0.9375rem; line-height: 1.8; color: rgba(255,255,255,0.7); }
+    .footer-column h4 { font-size: 0.875rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1.5rem; color: var(--green-light); }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 0.75rem; }
+    .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9375rem; transition: all 0.3s ease; }
+    .footer-links a:hover { color: var(--green-light); }
+    .footer-bottom { text-align: center; padding-top: 3rem; border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); font-size: 0.875rem; }
 
-    .hero-section { margin-top: 68px; min-height: 520px; }
-    .hero-stats { flex-wrap: wrap; gap: 1.5rem 3rem; margin-top: 2.5rem; }
-
-    .mountain-image-container { min-height: 320px; }
-    .mountain-content { padding: 3rem 6%; }
-    .mountain-highlights { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-
-    .info-grid { grid-template-columns: 1fr; }
-    .info-card { padding: 2rem; }
-
-    .wildlife-split { grid-template-columns: 1fr; }
-    .wildlife-highlights { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-    .wildlife-image { height: 320px; }
-
-    .tips-grid { grid-template-columns: 1fr; }
-    .tip-card { padding: 2rem; }
-
-    .conservation-grid { grid-template-columns: 1fr; }
-    .impact-note { padding: 1.75rem 2rem; }
-
-    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
-    footer { padding: 4rem 6% 2rem; }
-}
-
-/* ══════════════════════════════════════════
-   RESPONSIVE — 600px (Large Phones)
-══════════════════════════════════════════ */
-@media (max-width: 600px) {
-    .nav { padding: 0.75rem 4%; }
-    .nav-logo-img { width: 75px; height: 42px; }
-    .nav-logo-text { font-size: 0.9rem; letter-spacing: 1px; }
-
-    .hero-section { margin-top: 64px; min-height: 480px; }
-    .hero-eyebrow { font-size: 0.65rem; letter-spacing: 2.5px; padding: 0.4rem 1rem; }
-    .hero-stats { gap: 1.25rem 2rem; }
-    .stat-label { font-size: 0.7rem; letter-spacing: 1.5px; }
-
-    .mountain-image-container { min-height: 280px; }
-    .mountain-content { padding: 2.5rem 5%; }
-
-    .wildlife-highlights { grid-template-columns: 1fr; }
-    .wildlife-image { height: 280px; }
-
-    .tips-grid { grid-template-columns: 1fr; }
-}
-
-/* ══════════════════════════════════════════
-   RESPONSIVE — 480px (Small Phones)
-══════════════════════════════════════════ */
-@media (max-width: 480px) {
-    .nav-logo-text { display: none; }
-    .nav-logo-img { width: 70px; height: 40px; }
-    .nav { padding: 0.75rem 4%; }
-
-    .hero-section { margin-top: 60px; min-height: 440px; }
-    .hero-eyebrow { display: none; }
-    .hero-stats { flex-wrap: wrap; justify-content: center; gap: 1rem 2rem; }
-    .stat-number { font-size: 2rem; }
-    .stat-label { font-size: 0.65rem; letter-spacing: 1px; }
-
-    .mountain-image-container { min-height: 240px; }
-    .mountain-content { padding: 2rem 5%; }
-    .mountain-highlights { grid-template-columns: 1fr; gap: 0.875rem; }
-    .mountain-name { letter-spacing: 2px; }
-
-    .wildlife-highlights { grid-template-columns: 1fr; }
-    .wildlife-image { height: 240px; }
-    .wildlife-species li { font-size: 0.875rem; }
-
-    .conservation-point { flex-direction: column; gap: 0.75rem; padding: 1.5rem; }
-    .impact-note { padding: 1.5rem; }
-    .impact-note p { font-size: 0.9375rem; }
-
-    .info-card { padding: 1.75rem; }
-    .tip-card { padding: 1.75rem; }
-
-    .section-title { letter-spacing: 2px; }
-    .section-title-white { letter-spacing: 2px; }
-
-    .cta-button { padding: 1rem 2rem; font-size: 0.8rem; letter-spacing: 1.5px; }
-
-    footer { padding: 3rem 5% 2rem; }
-    .footer-grid { gap: 1.75rem; }
-}
-
-/* ══════════════════════════════════════════
-   RESPONSIVE — 360px (Very Small Phones)
-══════════════════════════════════════════ */
-@media (max-width: 360px) {
-    .hero-section { min-height: 400px; }
-    .hero-title { letter-spacing: 2px; }
-    .hero-subtitle { font-size: 1rem; }
-
-    .mountain-image-container { min-height: 200px; }
-    .mountain-content { padding: 1.75rem 4%; }
-
-    .wildlife-image { height: 200px; }
-    .cta-button { width: 100%; justify-content: center; }
-}
+    /* ============================================
+       RESPONSIVE
+    ============================================ */
+    @media (max-width: 1200px) { .info-grid { grid-template-columns: repeat(2,1fr); } .tips-grid { grid-template-columns: repeat(2,1fr); } .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; } }
+    @media (max-width: 1024px) {
+        .mountain-feature { grid-template-columns: 1fr; min-height: auto; }
+        .mountain-feature:nth-child(even) { direction: ltr; }
+        .mountain-image-container { min-height: 420px; }
+        .mountain-content { padding: 4rem 8%; }
+        .wildlife-split { grid-template-columns: 1fr; gap: 3rem; }
+        .wildlife-image { height: 400px; }
+        .conservation-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+        .info-grid { grid-template-columns: 1fr; }
+        .tips-grid { grid-template-columns: 1fr; }
+        .wildlife-highlights { grid-template-columns: 1fr; }
+        .wildlife-image { height: 320px; }
+        .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+        footer { padding: 4rem 6% 2rem; }
+        .mountain-content { padding: 3rem 6%; }
+        .mountain-highlights { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 480px) {
+        .mountain-highlights { grid-template-columns: 1fr; }
+        .mountain-name { letter-spacing: 2px; }
+        .conservation-point { flex-direction: column; }
+        .impact-note { padding: 1.5rem; }
+        .cta-button { padding: 1rem 2rem; font-size: 0.8rem; }
+        footer { padding: 3rem 5% 2rem; }
+    }
+    @media (max-width: 768px) { .hero-section { margin-top: 68px; } }
+    @media (max-width: 480px) { .hero-section { margin-top: 60px; } .hero-eyebrow { display: none; } }
 </style>
 </head>
 <body>
 
-<!-- Navigation -->
+<!-- ── NAVIGATION ── -->
 <nav class="nav">
     <div class="nav-container">
         <a href="{% url 'index' %}" class="nav-brand">
             <div class="nav-logo-img">
-            <div class="logo-wrapper">
-                <img src="{% static 'logo.png' %}" alt="Logo" class="logo-img">
+                <img src="{% static 'logo.png' %}" alt="Discover Rwanda">
             </div>
-        </div>
-            <div class="nav-logo-text">DISCOVER RWANDA</div>
         </a>
-        
         <ul class="nav-menu">
-            <li class="nav-item"><a href="{% url 'index' %}">Home</a></li>
-            <li class="nav-item"><a href="#mountains">Mountains</a></li>
-            <li class="nav-item"><a href="{% url 'contact' %}" class="nav-cta">Plan Visit</a></li>
+            <li class="nav-item">
+                <a href="#">Destinations</a>
+                <div class="nav-dropdown">
+                    <div class="nav-dropdown-item"><a href="{% url 'towns' %}">Towns</a></div>
+                    <div class="nav-dropdown-item"><a href="{% url 'lakes' %}">Lakes</a></div>
+                    <div class="nav-dropdown-item"><a href="{% url 'volcanic_mountains' %}">Volcanic Mountains</a></div>
+                    <div class="nav-dropdown-item"><a href="{% url 'museums_heritage' %}">Museums & Heritage Sites</a></div>
+                    <div class="nav-dropdown-item"><a href="{% url 'memorial_sites' %}">Memorial Sites</a></div>
+                    <div class="nav-dropdown-item"><a href="{% url 'cultural_villages' %}">Cultural & Art Villages</a></div>
+                    <div class="nav-dropdown-item"><a href="{% url 'top_attractions' %}">Top Tourist Attractions</a></div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="#">Experiences</a>
+                <div class="nav-dropdown">
+                    <a href="{% url 'unique_experiences' %}">Unique Experiences</a>
+                    <a href="{% url 'things_to_do' %}">Things To Do In Rwanda</a>
+                    <a href="{% url 'travel_types' %}">Travel Rwanda Your Way</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="#">Tours</a>
+                <div class="nav-dropdown">
+                    <a href="{% url 'traveling_with_pets' %}">Traveling with Pets</a>
+                    <a href="{% url 'senior_friendly' %}">Senior-Friendly Rwanda</a>
+                    <a href="{% url 'invest_rwanda' %}">Invest in Rwanda</a>
+                    <a href="{% url 'accessible_travel' %}">Accessible Travel Support</a>
+                </div>
+            </li>
+            <li class="nav-item"><a href="{% url 'gallery' %}">Gallery</a></li>
+            <li class="nav-item"><a href="{% url 'contact' %}" class="nav-cta">Begin Your Journey</a></li>
         </ul>
         <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </button>
     </div>
 </nav>
+
 <!-- Mobile overlay -->
 <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
 
@@ -1286,11 +485,10 @@ body.nav-open { overflow: hidden; }
         <img src="{% static 'logo.png' %}" alt="Discover Rwanda" class="mobile-nav-logo">
         <button class="mobile-nav-close" id="mobileNavClose">✕</button>
     </div>
-
     <ul class="mobile-nav-list">
         <li class="mobile-nav-item">
             <div class="mobile-nav-row">
-                <a href="#about" class="mobile-nav-link">Destinations</a>
+                <a href="#" class="mobile-nav-link">Destinations</a>
                 <button class="mobile-nav-toggle" data-target="mob-destinations">
                     <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                 </button>
@@ -1307,7 +505,7 @@ body.nav-open { overflow: hidden; }
         </li>
         <li class="mobile-nav-item">
             <div class="mobile-nav-row">
-                <a href="#experiences" class="mobile-nav-link">Experiences</a>
+                <a href="#" class="mobile-nav-link">Experiences</a>
                 <button class="mobile-nav-toggle" data-target="mob-experiences">
                     <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                 </button>
@@ -1320,7 +518,7 @@ body.nav-open { overflow: hidden; }
         </li>
         <li class="mobile-nav-item">
             <div class="mobile-nav-row">
-                <a href="#tours" class="mobile-nav-link">Tours</a>
+                <a href="#" class="mobile-nav-link">Tours</a>
                 <button class="mobile-nav-toggle" data-target="mob-tours">
                     <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                 </button>
@@ -1338,107 +536,62 @@ body.nav-open { overflow: hidden; }
             </div>
         </li>
     </ul>
-
     <a href="{% url 'contact' %}" class="mobile-nav-cta">Begin Your Journey</a>
-
     <div class="mobile-nav-footer">
         <div class="mobile-nav-contact">
-            <a href="mailto:helpdiscoverrwanda@gmail.com"><span class="icon">📧</span> helpdiscoverrwanda@gmail.com</a>
-            <a href="tel:+250788123456"><span class="icon">📱</span> +250 798 019 909</a>
-            <a href="#"><span class="icon">📍</span> Kigali, Rwanda</a>
+            <a href="mailto:helpdiscoverrwanda@gmail.com"><span>📧</span> helpdiscoverrwanda@gmail.com</a>
+            <a href="tel:+250798919909"><span>📱</span> +250 798 919 909</a>
+            <a href="#"><span>📍</span> Kigali, Rwanda</a>
         </div>
     </div>
 </div>
-<!-- Hero Section -->
+
+<!-- ── HERO ── -->
 <section class="hero-section">
     <div class="hero-bg-pattern"></div>
     <div class="hero-content">
         <span class="hero-eyebrow">The Virunga Volcanoes</span>
         <h1 class="hero-title">VOLCANIC MOUNTAINS</h1>
-        <p class="hero-subtitle">
-            Stand at the summits where mountain gorillas roam and volcanic peaks pierce the clouds—experience Rwanda's most dramatic landscapes and legendary wildlife encounters.
-        </p>
-        
+        <p class="hero-subtitle">Stand at the summits where mountain gorillas roam and volcanic peaks pierce the clouds—experience Rwanda's most dramatic landscapes and legendary wildlife encounters.</p>
         <div class="hero-stats">
-            <div class="stat-item">
-                <span class="stat-number">5</span>
-                <span class="stat-label">Volcanic Peaks</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">4,507m</span>
-                <span class="stat-label">Highest Summit</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">∞</span>
-                <span class="stat-label">Adventures</span>
-            </div>
+            <div class="stat-item"><span class="stat-number">5</span><span class="stat-label">Volcanic Peaks</span></div>
+            <div class="stat-item"><span class="stat-number">4,507m</span><span class="stat-label">Highest Summit</span></div>
+            <div class="stat-item"><span class="stat-number">∞</span><span class="stat-label">Adventures</span></div>
         </div>
     </div>
 </section>
 
-<!-- Introduction -->
+<!-- ── INTRO ── -->
 <section class="intro-section">
     <div class="intro-container">
         <span class="section-eyebrow">Volcanic Majesty</span>
         <h2 class="section-title">Where Giants Touch the Sky</h2>
-        <p class="section-description">
-            The Virunga Volcanoes stand as sentinels along Rwanda's northern border, creating one of Africa's most spectacular mountain ranges. These ancient volcanic peaks are home to over half the world's remaining mountain gorillas and offer trekkers unforgettable journeys through bamboo forests, alpine meadows, and crater lakes.
-        </p>
+        <p class="section-description">The Virunga Volcanoes stand as sentinels along Rwanda's northern border, creating one of Africa's most spectacular mountain ranges. These ancient volcanic peaks are home to over half the world's remaining mountain gorillas and offer trekkers unforgettable journeys through bamboo forests, alpine meadows, and crater lakes.</p>
     </div>
 </section>
 
-<!-- Mountains Grid -->
+<!-- ── MOUNTAINS GRID ── -->
 <section class="mountains-grid-section" id="mountains">
-    <!-- Mount Karisimbi -->
+
     <div class="mountain-feature">
         <div class="mountain-image-container">
-            <img src="https://images.unsplash.com/photo-1535646472233-262b9b905091?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Mount Karisimbi">
+            <img src="https://images.unsplash.com/photo-1535646472233-262b9b905091?q=80&w=800&auto=format&fit=crop" alt="Mount Karisimbi">
         </div>
         <div class="mountain-content">
             <div class="mountain-number">01</div>
             <h2 class="mountain-name">MOUNT KARISIMBI</h2>
             <p class="mountain-elevation">4,507 meters • Rwanda's Highest Peak</p>
-            <p class="mountain-description">
-                Standing as Rwanda's tallest mountain and the highest peak in the Virunga range, Mount Karisimbi offers one of Africa's most rewarding high-altitude treks. Named after the Kinyarwanda word for "white shell" due to its snow-capped summit, this dormant stratovolcano provides breathtaking panoramic views and challenging two-day expeditions through diverse ecosystems.
-            </p>
+            <p class="mountain-description">Standing as Rwanda's tallest mountain, Mount Karisimbi offers one of Africa's most rewarding high-altitude treks. Named for its snow-capped summit, this dormant stratovolcano provides breathtaking panoramic views and challenging two-day expeditions through diverse ecosystems.</p>
             <div class="mountain-highlights">
-                <div class="highlight-item">
-                    <div class="highlight-icon">⛰️</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Two-Day Trek</div>
-                        <div class="highlight-desc">Summit requires overnight camping</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">🌡️</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Alpine Climate</div>
-                        <div class="highlight-desc">Snow and frost at summit</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">👁️</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">360° Views</div>
-                        <div class="highlight-desc">See five volcanoes from top</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">🌿</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Five Ecosystems</div>
-                        <div class="highlight-desc">Bamboo to alpine meadows</div>
-                    </div>
-                </div>
+                <div class="highlight-item"><div class="highlight-icon">⛰️</div><div class="highlight-text"><div class="highlight-title">Two-Day Trek</div><div class="highlight-desc">Summit requires overnight camping</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">🌡️</div><div class="highlight-text"><div class="highlight-title">Alpine Climate</div><div class="highlight-desc">Snow and frost at summit</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">👁️</div><div class="highlight-text"><div class="highlight-title">360° Views</div><div class="highlight-desc">See five volcanoes from top</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">🌿</div><div class="highlight-text"><div class="highlight-title">Five Ecosystems</div><div class="highlight-desc">Bamboo to alpine meadows</div></div></div>
             </div>
-            <a href="mount-karisimbi.html" class="mountain-link">
-                Explore Karisimbi
-                <span>→</span>
-            </a>
+            <a href="#" class="mountain-link">Explore Karisimbi <span>→</span></a>
         </div>
     </div>
-    
-    <!-- Mount Muhabura -->
+
     <div class="mountain-feature">
         <div class="mountain-image-container">
             <img src="https://i.pinimg.com/736x/39/8b/76/398b762321725ffed776f7a3598b11c5.jpg" alt="Mount Muhabura">
@@ -1447,47 +600,17 @@ body.nav-open { overflow: hidden; }
             <div class="mountain-number">02</div>
             <h2 class="mountain-name">MOUNT MUHABURA</h2>
             <p class="mountain-elevation">4,127 meters • The Guide</p>
-            <p class="mountain-description">
-                Known as "The Guide" because its distinctive conical shape serves as a landmark for travelers, Mount Muhabura marks the border between Rwanda, Uganda, and the Democratic Republic of Congo. This perfectly formed stratovolcano features a stunning crater lake at its summit, rewarding climbers with views across three countries and the entire Virunga chain.
-            </p>
+            <p class="mountain-description">Known as "The Guide" for its landmark conical shape, Mount Muhabura marks the tri-border of Rwanda, Uganda, and the DRC. This perfectly formed stratovolcano features a stunning crater lake at its summit, rewarding climbers with views across three countries.</p>
             <div class="mountain-highlights">
-                <div class="highlight-item">
-                    <div class="highlight-icon">🏞️</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Summit Crater Lake</div>
-                        <div class="highlight-desc">Beautiful lake at the peak</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">🗺️</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Three Countries</div>
-                        <div class="highlight-desc">Tri-border meeting point</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">⏱️</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">One-Day Climb</div>
-                        <div class="highlight-desc">8-10 hours round trip</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">📸</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Perfect Cone</div>
-                        <div class="highlight-desc">Classic volcanic shape</div>
-                    </div>
-                </div>
+                <div class="highlight-item"><div class="highlight-icon">🏞️</div><div class="highlight-text"><div class="highlight-title">Summit Crater Lake</div><div class="highlight-desc">Beautiful lake at the peak</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">🗺️</div><div class="highlight-text"><div class="highlight-title">Three Countries</div><div class="highlight-desc">Tri-border meeting point</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">⏱️</div><div class="highlight-text"><div class="highlight-title">One-Day Climb</div><div class="highlight-desc">8–10 hours round trip</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">📸</div><div class="highlight-text"><div class="highlight-title">Perfect Cone</div><div class="highlight-desc">Classic volcanic shape</div></div></div>
             </div>
-            <a href="mount-muhabura.html" class="mountain-link">
-                Explore Muhabura
-                <span>→</span>
-            </a>
+            <a href="#" class="mountain-link">Explore Muhabura <span>→</span></a>
         </div>
     </div>
-    
-    <!-- Mount Sabyinyo -->
+
     <div class="mountain-feature">
         <div class="mountain-image-container">
             <img src="https://i.pinimg.com/1200x/20/09/aa/2009aa280c75924e87696f9b781419ca.jpg" alt="Mount Sabyinyo">
@@ -1496,96 +619,36 @@ body.nav-open { overflow: hidden; }
             <div class="mountain-number">03</div>
             <h2 class="mountain-name">MOUNT SABYINYO</h2>
             <p class="mountain-elevation">3,669 meters • Old Man's Teeth</p>
-            <p class="mountain-description">
-                Mount Sabyinyo's jagged summit ridge resembles worn teeth, earning it the nickname "Old Man's Teeth." This ancient volcano sits at the intersection of Rwanda, Uganda, and the Democratic Republic of Congo, offering the unique experience of standing in three countries simultaneously. The challenging climb features ladder sections and rewards adventurers with spectacular gorilla habitats below.
-            </p>
+            <p class="mountain-description">Mount Sabyinyo's jagged summit resembles worn teeth, earning its nickname. This ancient volcano sits at the Rwanda–Uganda–DRC intersection, offering the unique experience of standing in three countries simultaneously. Ladder sections and prime gorilla habitats make it unforgettable.</p>
             <div class="mountain-highlights">
-                <div class="highlight-item">
-                    <div class="highlight-icon">🦍</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Gorilla Territory</div>
-                        <div class="highlight-desc">Prime mountain gorilla habitat</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">🪜</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Ladder Climb</div>
-                        <div class="highlight-desc">Thrilling technical sections</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">🌍</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Triple Point</div>
-                        <div class="highlight-desc">Stand in three nations at once</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">⚡</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Challenging Trek</div>
-                        <div class="highlight-desc">Most technical Virunga climb</div>
-                    </div>
-                </div>
+                <div class="highlight-item"><div class="highlight-icon">🦍</div><div class="highlight-text"><div class="highlight-title">Gorilla Territory</div><div class="highlight-desc">Prime mountain gorilla habitat</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">🪜</div><div class="highlight-text"><div class="highlight-title">Ladder Climb</div><div class="highlight-desc">Thrilling technical sections</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">🌍</div><div class="highlight-text"><div class="highlight-title">Triple Point</div><div class="highlight-desc">Stand in three nations at once</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">⚡</div><div class="highlight-text"><div class="highlight-title">Challenging Trek</div><div class="highlight-desc">Most technical Virunga climb</div></div></div>
             </div>
-            <a href="mount-sabyinyo.html" class="mountain-link">
-                Explore Sabyinyo
-                <span>→</span>
-            </a>
+            <a href="#" class="mountain-link">Explore Sabyinyo <span>→</span></a>
         </div>
     </div>
-    
-    <!-- Mount Bisoke -->
+
     <div class="mountain-feature">
         <div class="mountain-image-container">
-            <img src="https://www.nkuringosafaris.com/wp-content/uploads/2024/06/kilimanjaro__mountain_tanzania.jpg" alt="Mount Bisoke">
+            <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=1174&auto=format&fit=crop" alt="Mount Bisoke">
         </div>
         <div class="mountain-content">
             <div class="mountain-number">04</div>
             <h2 class="mountain-name">MOUNT BISOKE</h2>
             <p class="mountain-elevation">3,711 meters • The Beautiful Peak</p>
-            <p class="mountain-description">
-                Mount Bisoke features one of the most beautiful crater lakes in the Virunga range, perched at its summit like a jewel in the clouds. This active volcano last erupted in 1957 and offers an accessible yet rewarding day hike through bamboo forests and giant lobelias. The emerald-green crater lake at the top is surrounded by alpine vegetation, creating an otherworldly landscape.
-            </p>
+            <p class="mountain-description">Mount Bisoke features one of the most beautiful crater lakes in the Virunga range. This active volcano offers an accessible day hike through bamboo forests and giant lobelias to an emerald-green crater lake perched in the clouds.</p>
             <div class="mountain-highlights">
-                <div class="highlight-item">
-                    <div class="highlight-icon">💎</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Crater Lake</div>
-                        <div class="highlight-desc">Stunning emerald summit lake</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">🎋</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Bamboo Forest</div>
-                        <div class="highlight-desc">Dense bamboo zone trek</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">🌺</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Giant Lobelias</div>
-                        <div class="highlight-desc">Unique alpine flora</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">✅</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Popular Trek</div>
-                        <div class="highlight-desc">Most accessible summit</div>
-                    </div>
-                </div>
+                <div class="highlight-item"><div class="highlight-icon">💎</div><div class="highlight-text"><div class="highlight-title">Crater Lake</div><div class="highlight-desc">Stunning emerald summit lake</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">🎋</div><div class="highlight-text"><div class="highlight-title">Bamboo Forest</div><div class="highlight-desc">Dense bamboo zone trek</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">🌺</div><div class="highlight-text"><div class="highlight-title">Giant Lobelias</div><div class="highlight-desc">Unique alpine flora</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">✅</div><div class="highlight-text"><div class="highlight-title">Popular Trek</div><div class="highlight-desc">Most accessible summit</div></div></div>
             </div>
-            <a href="mount-bisoke.html" class="mountain-link">
-                Explore Bisoke
-                <span>→</span>
-            </a>
+            <a href="#" class="mountain-link">Explore Bisoke <span>→</span></a>
         </div>
     </div>
-    
-    <!-- Mount Gahinga -->
+
     <div class="mountain-feature">
         <div class="mountain-image-container">
             <img src="https://i.pinimg.com/736x/28/14/2e/28142ec60796b17666ae6d9d7803ece1.jpg" alt="Mount Gahinga">
@@ -1594,96 +657,57 @@ body.nav-open { overflow: hidden; }
             <div class="mountain-number">05</div>
             <h2 class="mountain-name">MOUNT GAHINGA</h2>
             <p class="mountain-elevation">3,474 meters • Pile of Stones</p>
-            <p class="mountain-description">
-                The smallest of the Virunga volcanoes, Mount Gahinga gets its name from the Kinyarwanda word meaning "pile of volcanic stones" scattered on its slopes. Despite its modest height, this volcano offers a relatively gentle climb through bamboo and hagenia forests to a swampy crater at the summit. The mountain is known for golden monkey sightings and serves as a perfect introduction to volcanic hiking.
-            </p>
+            <p class="mountain-description">The smallest of the Virunga volcanoes, Gahinga offers a gentle climb through bamboo and hagenia forests to a swampy crater at the summit. Known for golden monkey sightings, it makes a perfect introduction to volcanic hiking.</p>
             <div class="mountain-highlights">
-                <div class="highlight-item">
-                    <div class="highlight-icon">🐒</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Golden Monkeys</div>
-                        <div class="highlight-desc">Endangered species habitat</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">🥾</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Gentle Slope</div>
-                        <div class="highlight-desc">Easier climb for beginners</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">💧</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Swamp Crater</div>
-                        <div class="highlight-desc">Unique wetland summit</div>
-                    </div>
-                </div>
-                <div class="highlight-item">
-                    <div class="highlight-icon">🌲</div>
-                    <div class="highlight-text">
-                        <div class="highlight-title">Forest Trek</div>
-                        <div class="highlight-desc">Lush bamboo and hagenia</div>
-                    </div>
-                </div>
+                <div class="highlight-item"><div class="highlight-icon">🐒</div><div class="highlight-text"><div class="highlight-title">Golden Monkeys</div><div class="highlight-desc">Endangered species habitat</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">🥾</div><div class="highlight-text"><div class="highlight-title">Gentle Slope</div><div class="highlight-desc">Easier climb for beginners</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">💧</div><div class="highlight-text"><div class="highlight-title">Swamp Crater</div><div class="highlight-desc">Unique wetland summit</div></div></div>
+                <div class="highlight-item"><div class="highlight-icon">🌲</div><div class="highlight-text"><div class="highlight-title">Forest Trek</div><div class="highlight-desc">Lush bamboo and hagenia</div></div></div>
             </div>
-            <a href="mount-gahinga.html" class="mountain-link">
-                Explore Gahinga
-                <span>→</span>
-            </a>
+            <a href="#" class="mountain-link">Explore Gahinga <span>→</span></a>
         </div>
     </div>
+
 </section>
 
-<!-- Trekking Information Section -->
+<!-- ── INFO SECTION ── -->
 <section class="info-section">
     <div class="info-container">
         <div class="section-header-center">
             <span class="section-eyebrow">Essential Information</span>
             <h2 class="section-title">Plan Your Volcanic Trek</h2>
-            <p class="section-description">
-                Everything you need to know before embarking on your Virunga mountain adventure—from the best seasons to trek to essential gear and fitness requirements.
-            </p>
+            <p class="section-description">Everything you need to know before embarking on your Virunga mountain adventure—from the best seasons to trek to essential gear and fitness requirements.</p>
         </div>
-        
         <div class="info-grid">
             <div class="info-card">
                 <div class="info-icon">🗓️</div>
                 <h3 class="info-title">Best Time to Visit</h3>
-                <p class="info-text">
-                    The dry seasons from June to September and December to February offer the best trekking conditions with clearer trails and better visibility. However, the mountains can be climbed year-round with proper preparation.
-                </p>
+                <p class="info-text">The dry seasons offer the best trekking conditions with clearer trails and better visibility. Mountains can be climbed year-round with proper preparation.</p>
                 <ul class="info-list">
-                    <li><strong>Dry Season:</strong> June-September, December-February</li>
-                    <li><strong>Green Season:</strong> March-May, October-November</li>
+                    <li><strong>Dry Season:</strong> June–September, December–February</li>
+                    <li><strong>Green Season:</strong> March–May, October–November</li>
                     <li><strong>Temperature Range:</strong> 10°C to 25°C (varies by altitude)</li>
                 </ul>
             </div>
-            
             <div class="info-card">
                 <div class="info-icon">⏱️</div>
                 <h3 class="info-title">Trek Duration & Difficulty</h3>
-                <p class="info-text">
-                    Each volcano offers unique challenges and time requirements. Choose your adventure based on fitness level and available time.
-                </p>
+                <p class="info-text">Each volcano offers unique challenges and time requirements. Choose based on fitness level and available time.</p>
                 <ul class="info-list">
                     <li><strong>Karisimbi:</strong> 2 days (very challenging)</li>
-                    <li><strong>Muhabura:</strong> 8-10 hours (challenging)</li>
+                    <li><strong>Muhabura:</strong> 8–10 hours (challenging)</li>
                     <li><strong>Sabyinyo:</strong> 8 hours (very challenging)</li>
-                    <li><strong>Bisoke:</strong> 6-7 hours (moderate)</li>
+                    <li><strong>Bisoke:</strong> 6–7 hours (moderate)</li>
                     <li><strong>Gahinga:</strong> 6 hours (moderate)</li>
                 </ul>
             </div>
-            
             <div class="info-card">
                 <div class="info-icon">🎒</div>
                 <h3 class="info-title">What to Bring</h3>
-                <p class="info-text">
-                    Proper preparation is essential for a safe and enjoyable mountain trek. Here's what you'll need for your volcanic adventure.
-                </p>
+                <p class="info-text">Proper preparation is essential for a safe and enjoyable mountain trek.</p>
                 <ul class="info-list">
-                    <li><strong>Footwear:</strong> Waterproof hiking boots with good ankle support</li>
-                    <li><strong>Clothing:</strong> Layered clothing, rain jacket, warm jacket</li>
+                    <li><strong>Footwear:</strong> Waterproof hiking boots with ankle support</li>
+                    <li><strong>Clothing:</strong> Layers, rain jacket, warm jacket</li>
                     <li><strong>Essentials:</strong> Water, snacks, sunscreen, hat, gloves</li>
                     <li><strong>Equipment:</strong> Walking stick (provided), camera, binoculars</li>
                 </ul>
@@ -1692,155 +716,69 @@ body.nav-open { overflow: hidden; }
     </div>
 </section>
 
-<!-- Wildlife & Nature Section -->
+<!-- ── WILDLIFE SECTION ── -->
 <section class="wildlife-section">
     <div class="wildlife-container">
         <div class="wildlife-split">
             <div class="wildlife-content">
                 <span class="section-eyebrow-white">Biodiversity Hotspot</span>
                 <h2 class="section-title-white">Wildlife of the Virungas</h2>
-                <p class="wildlife-description">
-                    The Virunga Volcanoes are home to some of Africa's rarest and most iconic wildlife. These mountains protect over half of the world's remaining mountain gorillas and harbor unique species found nowhere else on Earth.
-                </p>
-                
+                <p class="wildlife-description">The Virunga Volcanoes are home to some of Africa's rarest wildlife. These mountains protect over half of the world's remaining mountain gorillas and harbor unique species found nowhere else.</p>
                 <div class="wildlife-highlights">
-                    <div class="wildlife-item">
-                        <div class="wildlife-number">350+</div>
-                        <div class="wildlife-label">Mountain Gorillas</div>
-                    </div>
-                    <div class="wildlife-item">
-                        <div class="wildlife-number">480+</div>
-                        <div class="wildlife-label">Bird Species</div>
-                    </div>
-                    <div class="wildlife-item">
-                        <div class="wildlife-number">4,000+</div>
-                        <div class="wildlife-label">Golden Monkeys</div>
-                    </div>
+                    <div class="wildlife-item"><div class="wildlife-number">350+</div><div class="wildlife-label">Mountain Gorillas</div></div>
+                    <div class="wildlife-item"><div class="wildlife-number">480+</div><div class="wildlife-label">Bird Species</div></div>
+                    <div class="wildlife-item"><div class="wildlife-number">4,000+</div><div class="wildlife-label">Golden Monkeys</div></div>
                 </div>
-                
                 <div class="wildlife-species">
                     <h4>Notable Species</h4>
                     <ul>
-                        <li>🦍 <strong>Mountain Gorillas</strong> - Critically endangered primates in bamboo forests</li>
-                        <li>🐒 <strong>Golden Monkeys</strong> - Endangered species unique to the Virungas</li>
-                        <li>🦌 <strong>Forest Elephants</strong> - Occasionally spotted in lower elevations</li>
-                        <li>🐆 <strong>African Leopards</strong> - Elusive predators of the mountains</li>
-                        <li>🦅 <strong>Rwenzori Turaco</strong> - Vibrant endemic bird species</li>
-                        <li>🦎 <strong>Three-horned Chameleon</strong> - Unique reptile species</li>
+                        <li>🦍 <strong>Mountain Gorillas</strong> — Critically endangered primates</li>
+                        <li>🐒 <strong>Golden Monkeys</strong> — Endangered, unique to the Virungas</li>
+                        <li>🦌 <strong>Forest Elephants</strong> — Occasionally spotted at lower elevations</li>
+                        <li>🐆 <strong>African Leopards</strong> — Elusive mountain predators</li>
+                        <li>🦅 <strong>Rwenzori Turaco</strong> — Vibrant endemic bird species</li>
+                        <li>🦎 <strong>Three-horned Chameleon</strong> — Unique reptile species</li>
                     </ul>
                 </div>
             </div>
             <div class="wildlife-image">
-                <img src="https://www.istockphoto.com/photo/mountain-gorilla-gm1257695164-368671191" alt="Mountain Gorilla">
+                <img src="https://assets.worldwildlife.org/www-prd/images/shutterstock_355160669.width-800.format-webp.webp" alt="Mountain Gorilla">
             </div>
         </div>
     </div>
 </section>
 
-<!-- Practical Tips Section -->
+<!-- ── TIPS SECTION ── -->
 <section class="tips-section">
     <div class="tips-container">
         <div class="section-header-center">
             <span class="section-eyebrow">Expert Advice</span>
             <h2 class="section-title">Trekking Tips & Guidelines</h2>
         </div>
-        
         <div class="tips-grid">
-            <div class="tip-card">
-                <div class="tip-number">01</div>
-                <h3 class="tip-title">Physical Preparation</h3>
-                <p class="tip-text">
-                    Start training 4-6 weeks before your trek. Focus on cardiovascular fitness, leg strength, and hiking with a backpack. Acclimatize to altitude by spending a day in Musanze before climbing.
-                </p>
-            </div>
-            
-            <div class="tip-card">
-                <div class="tip-number">02</div>
-                <h3 class="tip-title">Permits & Booking</h3>
-                <p class="tip-text">
-                    Volcano trekking permits must be booked in advance through Rwanda Development Board or authorized tour operators. Permits include park entry, guides, and porter services.
-                </p>
-            </div>
-            
-            <div class="tip-card">
-                <div class="tip-number">03</div>
-                <h3 class="tip-title">Safety Guidelines</h3>
-                <p class="tip-text">
-                    Always trek with certified guides, stay with your group, and follow all instructions. Weather can change rapidly at altitude—be prepared for rain, cold, and sun in a single day.
-                </p>
-            </div>
-            
-            <div class="tip-card">
-                <div class="tip-number">04</div>
-                <h3 class="tip-title">Respect Nature</h3>
-                <p class="tip-text">
-                    Practice Leave No Trace principles. Stay on marked trails, don't disturb wildlife, take all trash with you, and maintain a 7-meter distance from gorillas if encountered.
-                </p>
-            </div>
-            
-            <div class="tip-card">
-                <div class="tip-number">05</div>
-                <h3 class="tip-title">Porter Services</h3>
-                <p class="tip-text">
-                    Hiring a porter supports local communities and makes your trek easier. They carry gear, assist on difficult sections, and provide valuable insights about the mountains.
-                </p>
-            </div>
-            
-            <div class="tip-card">
-                <div class="tip-number">06</div>
-                <h3 class="tip-title">Health Precautions</h3>
-                <p class="tip-text">
-                    Ensure vaccinations are current, bring altitude sickness medication, stay hydrated, and inform guides of any health conditions. Travel insurance covering high-altitude trekking is essential.
-                </p>
-            </div>
+            <div class="tip-card"><div class="tip-number">01</div><h3 class="tip-title">Physical Preparation</h3><p class="tip-text">Start training 4–6 weeks before your trek. Focus on cardiovascular fitness, leg strength, and hiking with a backpack. Acclimatize to altitude by spending a day in Musanze before climbing.</p></div>
+            <div class="tip-card"><div class="tip-number">02</div><h3 class="tip-title">Permits & Booking</h3><p class="tip-text">Volcano trekking permits must be booked in advance through Rwanda Development Board or authorized tour operators. Permits include park entry, guides, and porter services.</p></div>
+            <div class="tip-card"><div class="tip-number">03</div><h3 class="tip-title">Safety Guidelines</h3><p class="tip-text">Always trek with certified guides, stay with your group, and follow all instructions. Weather can change rapidly at altitude—be prepared for rain, cold, and sun in a single day.</p></div>
+            <div class="tip-card"><div class="tip-number">04</div><h3 class="tip-title">Respect Nature</h3><p class="tip-text">Practice Leave No Trace principles. Stay on marked trails, don't disturb wildlife, take all trash with you, and maintain a 7-meter distance from gorillas if encountered.</p></div>
+            <div class="tip-card"><div class="tip-number">05</div><h3 class="tip-title">Porter Services</h3><p class="tip-text">Hiring a porter supports local communities and makes your trek easier. They carry gear, assist on difficult sections, and provide valuable insights about the mountains.</p></div>
+            <div class="tip-card"><div class="tip-number">06</div><h3 class="tip-title">Health Precautions</h3><p class="tip-text">Ensure vaccinations are current, bring altitude sickness medication, stay hydrated, and inform guides of any health conditions. Travel insurance covering high-altitude trekking is essential.</p></div>
         </div>
     </div>
 </section>
 
-<!-- Conservation Section -->
+<!-- ── CONSERVATION SECTION ── -->
 <section class="conservation-section">
     <div class="conservation-container">
         <div class="conservation-content">
             <span class="section-eyebrow">Protecting Paradise</span>
             <h2 class="section-title">Conservation Efforts</h2>
-            <p class="section-description">
-                The Virunga Volcanoes represent one of Africa's greatest conservation success stories. Through dedicated protection efforts, mountain gorilla populations have increased by 25% over the past decade, and the ecosystem continues to thrive.
-            </p>
-            
+            <p class="section-description">The Virunga Volcanoes represent one of Africa's greatest conservation success stories. Through dedicated protection, mountain gorilla populations have increased by 25% over the past decade.</p>
             <div class="conservation-grid">
-                <div class="conservation-point">
-                    <div class="conservation-icon">🛡️</div>
-                    <div>
-                        <h4>24/7 Protection</h4>
-                        <p>Armed rangers patrol the parks around the clock to prevent poaching and illegal activities.</p>
-                    </div>
-                </div>
-                
-                <div class="conservation-point">
-                    <div class="conservation-icon">👨‍👩‍👧‍👦</div>
-                    <div>
-                        <h4>Community Programs</h4>
-                        <p>Revenue from trekking permits directly benefits local communities through education and healthcare.</p>
-                    </div>
-                </div>
-                
-                <div class="conservation-point">
-                    <div class="conservation-icon">🔬</div>
-                    <div>
-                        <h4>Research & Monitoring</h4>
-                        <p>Scientists continuously study and monitor gorilla populations and ecosystem health.</p>
-                    </div>
-                </div>
-                
-                <div class="conservation-point">
-                    <div class="conservation-icon">🌱</div>
-                    <div>
-                        <h4>Habitat Restoration</h4>
-                        <p>Reforestation programs restore degraded areas and expand protected wildlife corridors.</p>
-                    </div>
-                </div>
+                <div class="conservation-point"><div class="conservation-icon">🛡️</div><div><h4>24/7 Protection</h4><p>Armed rangers patrol the parks around the clock to prevent poaching and illegal activities.</p></div></div>
+                <div class="conservation-point"><div class="conservation-icon">👨‍👩‍👧‍👦</div><div><h4>Community Programs</h4><p>Revenue from trekking permits directly benefits local communities through education and healthcare.</p></div></div>
+                <div class="conservation-point"><div class="conservation-icon">🔬</div><div><h4>Research & Monitoring</h4><p>Scientists continuously study and monitor gorilla populations and ecosystem health.</p></div></div>
+                <div class="conservation-point"><div class="conservation-icon">🌱</div><div><h4>Habitat Restoration</h4><p>Reforestation programs restore degraded areas and expand protected wildlife corridors.</p></div></div>
             </div>
-            
             <div class="impact-note">
                 <p><strong>Your visit makes a difference:</strong> Tourism revenue provides 50% of Volcanoes National Park's conservation budget, directly supporting gorilla protection and community development initiatives.</p>
             </div>
@@ -1848,76 +786,65 @@ body.nav-open { overflow: hidden; }
     </div>
 </section>
 
-<!-- CTA Section -->
+<!-- ── CTA ── -->
 <section class="cta-final">
     <div class="cta-content">
         <h2 class="cta-title">Conquer Rwanda's Peaks</h2>
-        <p class="cta-text">
-            Let Discover Rwanda guide you to the summits of the Virunga Volcanoes. From gentle slopes to challenging climbs, we'll create your perfect mountain adventure with expert guides and seamless logistics.
-        </p>
-        <a href="contact.html" class="cta-button">
-            Plan Your Mountain Trek
-            <span>→</span>
-        </a>
+        <p class="cta-text">Let Discover Rwanda guide you to the summits of the Virunga Volcanoes. From gentle slopes to challenging climbs, we'll create your perfect mountain adventure with expert guides and seamless logistics.</p>
+        <a href="{% url 'contact' %}" class="cta-button">Plan Your Mountain Trek <span>→</span></a>
     </div>
 </section>
 
-<!-- Footer -->
+<!-- ── FOOTER ── -->
 <footer>
     <div class="footer-grid">
         <div class="footer-brand">
             <h3>Discover Rwanda</h3>
             <p class="footer-description">Your gateway to extraordinary journeys through the Land of a Thousand Hills. We curate transformative experiences across Rwanda's pristine wilderness, rare wildlife encounters, and vibrant cultural tapestry.</p>
         </div>
-        
         <div class="footer-column">
             <h4>Mountains</h4>
             <ul class="footer-links">
-                <li><a href="mount-karisimbi.html">Mount Karisimbi</a></li>
-                <li><a href="mount-muhabura.html">Mount Muhabura</a></li>
-                <li><a href="mount-sabyinyo.html">Mount Sabyinyo</a></li>
-                <li><a href="mount-bisoke.html">Mount Bisoke</a></li>
-                <li><a href="mount-gahinga.html">Mount Gahinga</a></li>
+                <li><a href="#">Mount Karisimbi</a></li>
+                <li><a href="#">Mount Muhabura</a></li>
+                <li><a href="#">Mount Sabyinyo</a></li>
+                <li><a href="#">Mount Bisoke</a></li>
+                <li><a href="#">Mount Gahinga</a></li>
             </ul>
         </div>
-        
         <div class="footer-column">
             <h4>Destinations</h4>
             <ul class="footer-links">
-                <li><a href="towns.html">Towns</a></li>
-                <li><a href="lakes.html">Lakes</a></li>
-                <li><a href="museums-heritage.html">Museums</a></li>
-                <li><a href="attractions.html">Attractions</a></li>
+                <li><a href="{% url 'towns' %}">Towns</a></li>
+                <li><a href="{% url 'lakes' %}">Lakes</a></li>
+                <li><a href="{% url 'museums_heritage' %}">Museums</a></li>
+                <li><a href="{% url 'top_attractions' %}">Attractions</a></li>
             </ul>
         </div>
-        
         <div class="footer-column">
             <h4>Contact</h4>
             <ul class="footer-links">
-                <li><a href="contact.html">Get In Touch</a></li>
-                <li><a href="tel:+250787931403">+250 798 019 909</a></li>
-                <li><a href="mailto:info@discoverrwanda.com">helpdiscoverrwanda@gmail.com</a></li>
+                <li><a href="{% url 'contact' %}">Get In Touch</a></li>
+                <li><a href="tel:+250798919909">+250 798 919 909</a></li>
+                <li><a href="mailto:helpdiscoverrwanda@gmail.com">helpdiscoverrwanda@gmail.com</a></li>
             </ul>
         </div>
     </div>
-    
     <div class="footer-bottom">
         <p>&copy; 2026 Discover Rwanda. All rights reserved.</p>
     </div>
 </footer>
 
 <script>
-// Smooth scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+    anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        const target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 });
-
 
 (function () {
     const hamburger = document.getElementById('navHamburger');
@@ -1926,21 +853,15 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     const closeBtn  = document.getElementById('mobileNavClose');
 
     function openDrawer() {
-        drawer.classList.add('open');
-        overlay.classList.add('open');
-        hamburger.classList.add('open');
-        document.body.classList.add('nav-open');
+        drawer.classList.add('open'); overlay.classList.add('open');
+        hamburger.classList.add('open'); document.body.classList.add('nav-open');
     }
     function closeDrawer() {
-        drawer.classList.remove('open');
-        overlay.classList.remove('open');
-        hamburger.classList.remove('open');
-        document.body.classList.remove('nav-open');
+        drawer.classList.remove('open'); overlay.classList.remove('open');
+        hamburger.classList.remove('open'); document.body.classList.remove('nav-open');
     }
 
-    hamburger.addEventListener('click', () => {
-        drawer.classList.contains('open') ? closeDrawer() : openDrawer();
-    });
+    hamburger.addEventListener('click', () => drawer.classList.contains('open') ? closeDrawer() : openDrawer());
     closeBtn.addEventListener('click', closeDrawer);
     overlay.addEventListener('click', closeDrawer);
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
