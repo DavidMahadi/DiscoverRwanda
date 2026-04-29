@@ -1391,7 +1391,7 @@ input[type="range"]::-moz-range-thumb{
                 </div>
                 <div class="progress-step">
                     <div class="step-circle">4</div>
-                    <div class="step-circle">Finalize</div>
+                    <div class="step-label">Finalize</div>
                 </div>
             </div>
         </div>
@@ -1866,35 +1866,81 @@ categoryButtons.forEach(button => {
     });
 });
 
-// Progress Bar Animation (scroll-based)
-window.addEventListener('scroll', function() {
-    const sections = document.querySelectorAll('.form-section');
-    const progressSteps = document.querySelectorAll('.progress-step');
-    const progressFill = document.querySelector('.progress-line-fill');
-    
-    let currentSection = 0;
-    const scrollPosition = window.scrollY + window.innerHeight / 2;
-    
-    sections.forEach((section, index) => {
-        const sectionTop = section.offsetTop;
-        const sectionBottom = sectionTop + section.offsetHeight;
-        
-        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-            currentSection = Math.min(index, 3); // Max 4 steps (0-3)
+// ══════════════════════════════════════════════
+// PROGRESS BAR — SCROLL-BASED, SECTION-MAPPED
+//
+// 4 steps map to 7 form sections:
+//   Step 1 "Personal"     → sections 0–1  (Personal Info, Travel Style)
+//   Step 2 "Dates"        → section  2    (Travel Dates)
+//   Step 3 "Preferences"  → sections 3–5  (Activities, Accommodation, Budget)
+//   Step 4 "Finalize"     → section  6    (Special Requests)
+// ══════════════════════════════════════════════
+
+(function () {
+    const sections      = Array.from(document.querySelectorAll('.form-section'));
+    const progressSteps = Array.from(document.querySelectorAll('.progress-step'));
+    const progressFill  = document.querySelector('.progress-line-fill');
+
+    if (!sections.length || !progressSteps.length || !progressFill) return;
+
+    // Map each section index → which step (0-based) it belongs to
+    const sectionToStep = [
+        0, // 01 Personal Information  → Step 1
+        0, // 02 Travel Style          → Step 1
+        1, // 03 Travel Dates          → Step 2
+        2, // 04 Activities            → Step 3
+        2, // 05 Accommodation         → Step 3
+        2, // 06 Budget Range          → Step 3
+        3, // 07 Special Requests      → Step 4
+    ];
+
+    function updateProgress() {
+        // Use top 40% of viewport as trigger point — feels natural on scroll
+        const triggerY = window.scrollY + window.innerHeight * 0.40;
+
+        let activeStep = 0;
+
+        sections.forEach((section, i) => {
+            const top = section.getBoundingClientRect().top + window.scrollY;
+            if (triggerY >= top) {
+                activeStep = Math.max(activeStep, sectionToStep[i] ?? 0);
+            }
+        });
+
+        // Clamp to valid range
+        activeStep = Math.min(activeStep, progressSteps.length - 1);
+
+        // Update step circles
+        progressSteps.forEach((step, i) => {
+            if (i <= activeStep) {
+                step.classList.add('active');
+            } else {
+                step.classList.remove('active');
+            }
+        });
+
+        // Animate fill line (0% at step 0, 100% at last step)
+        const fillPct = progressSteps.length > 1
+            ? (activeStep / (progressSteps.length - 1)) * 100
+            : 0;
+        progressFill.style.width = fillPct + '%';
+    }
+
+    // Throttle scroll for performance
+    let ticking = false;
+    window.addEventListener('scroll', function () {
+        if (!ticking) {
+            requestAnimationFrame(function () {
+                updateProgress();
+                ticking = false;
+            });
+            ticking = true;
         }
-    });
-    
-    progressSteps.forEach((step, index) => {
-        if (index <= currentSection) {
-            step.classList.add('active');
-        } else {
-            step.classList.remove('active');
-        }
-    });
-    
-    const fillPercentage = (currentSection / (progressSteps.length - 1)) * 100;
-    progressFill.style.width = fillPercentage + '%';
-});
+    }, { passive: true });
+
+    // Run on load
+    updateProgress();
+})();
 
 // Form Section Animations
 const observerOptions = {
@@ -2022,30 +2068,214 @@ document.querySelectorAll('input, select, textarea').forEach(el => {
     el.setAttribute('required', 'required');
 });
 
-// Duration calculator
-const start = document.querySelector('#id_start_date');
-const end = document.querySelector('#id_end_date');
-const duration = document.querySelector('#id_duration');
+// ══════════════════════════════════════════════
+// SMART DATE LOGIC
+// - Start date: cannot be in the past (today or later)
+// - End date: cannot be before start date
+// - Duration: auto-calculates and shows human-friendly text
+// - Date flexibility: labels replaced with professional descriptions
+// ══════════════════════════════════════════════
 
-function calcDuration() {
-    if (start && end && duration) {
-        if (start.value && end.value) {
-            const s = new Date(start.value);
-            const e = new Date(end.value);
+(function () {
+    const startInput   = document.querySelector('#id_start_date');
+    const endInput     = document.querySelector('#id_end_date');
+    const durationInput = document.querySelector('#id_duration');
+    const flexSelect   = document.querySelector('#id_date_flexibility');
 
-            if (e >= s) {
-                let diff = (e - s) / (1000 * 60 * 60 * 24);
-                if (diff === 0) diff = 1;
-                duration.value = diff;
+    if (!startInput || !endInput) return;
+
+    // ── 1. Set today as minimum for start date ──────────────────────
+    const today = new Date();
+    const todayStr = today.toISOString().split('T')[0];
+    startInput.setAttribute('min', todayStr);
+
+    // ── 2. Update end date minimum whenever start date changes ──────
+    function syncEndMin() {
+        if (startInput.value) {
+            endInput.setAttribute('min', startInput.value);
+
+            // If end date is now before start, clear it and show message
+            if (endInput.value && endInput.value < startInput.value) {
+                endInput.value = '';
+                showDateError(endInput, 'End date must be after your start date');
+                if (durationInput) {
+                    durationInput.value = '';
+                    updateDurationDisplay('');
+                }
+            } else {
+                clearDateError(endInput);
             }
+        } else {
+            endInput.setAttribute('min', todayStr);
         }
     }
-}
 
-if (start && end) {
-    start.addEventListener('change', calcDuration);
-    end.addEventListener('change', calcDuration);
-}
+    // ── 3. Calculate and display duration ───────────────────────────
+    function calcDuration() {
+        if (!durationInput) return;
+
+        const s = startInput.value ? new Date(startInput.value) : null;
+        const e = endInput.value   ? new Date(endInput.value)   : null;
+
+        if (!s || !e) {
+            durationInput.value = '';
+            updateDurationDisplay('');
+            return;
+        }
+
+        if (e < s) {
+            showDateError(endInput, 'End date must be after your start date');
+            durationInput.value = '';
+            updateDurationDisplay('');
+            return;
+        }
+
+        clearDateError(endInput);
+
+        const diffMs   = e - s;
+        const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
+        const nights   = diffDays;
+        const days     = diffDays + 1; // travel days inclusive
+
+        // Store the numeric day count for form submission
+        durationInput.value = days;
+
+        // Human-friendly label
+        let label = '';
+        if (nights === 0) {
+            label = '1 day (same-day trip)';
+        } else if (nights === 1) {
+            label = '2 days / 1 night';
+        } else if (nights < 7) {
+            label = `${days} days / ${nights} nights`;
+        } else {
+            const weeks      = Math.floor(nights / 7);
+            const remDays    = nights % 7;
+            const weekLabel  = weeks === 1 ? '1 week' : `${weeks} weeks`;
+            const dayLabel   = remDays === 0 ? '' : ` + ${remDays} day${remDays > 1 ? 's' : ''}`;
+            label = `${days} days / ${nights} nights (${weekLabel}${dayLabel})`;
+        }
+
+        updateDurationDisplay(label);
+    }
+
+    // ── 4. Inject a display span next to duration input ─────────────
+    let durationDisplay = document.querySelector('#duration-display');
+    if (durationInput && !durationDisplay) {
+        durationDisplay = document.createElement('div');
+        durationDisplay.id = 'duration-display';
+        durationDisplay.style.cssText = `
+            margin-top: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #1a7a4a;
+            letter-spacing: 0.3px;
+            min-height: 20px;
+            transition: all 0.3s ease;
+        `;
+        durationInput.parentNode.insertBefore(durationDisplay, durationInput.nextSibling);
+    }
+
+    function updateDurationDisplay(text) {
+        if (!durationDisplay) return;
+        durationDisplay.textContent = text ? `✓  ${text}` : '';
+    }
+
+    // ── 5. Error helpers ─────────────────────────────────────────────
+    function showDateError(input, message) {
+        let err = input.parentNode.querySelector('.date-error-msg');
+        if (!err) {
+            err = document.createElement('div');
+            err.className = 'date-error-msg';
+            err.style.cssText = `
+                margin-top: 6px;
+                font-size: 12px;
+                font-weight: 600;
+                color: #d63031;
+                letter-spacing: 0.3px;
+            `;
+            input.parentNode.appendChild(err);
+        }
+        err.textContent = '⚠  ' + message;
+        input.style.borderColor = '#d63031';
+        input.style.boxShadow   = '0 0 0 3px rgba(214,48,49,0.12)';
+    }
+
+    function clearDateError(input) {
+        const err = input.parentNode.querySelector('.date-error-msg');
+        if (err) err.textContent = '';
+        input.style.borderColor = '';
+        input.style.boxShadow   = '';
+    }
+
+    // ── 6. Wire up events ────────────────────────────────────────────
+    startInput.addEventListener('change', function () {
+        syncEndMin();
+        calcDuration();
+    });
+
+    endInput.addEventListener('change', function () {
+        if (startInput.value && endInput.value < startInput.value) {
+            showDateError(endInput, 'End date must be after your start date');
+            endInput.value = '';
+            if (durationInput) {
+                durationInput.value = '';
+                updateDurationDisplay('');
+            }
+        } else {
+            clearDateError(endInput);
+            calcDuration();
+        }
+    });
+
+    // Run on load in case form is pre-filled
+    syncEndMin();
+    calcDuration();
+
+
+    // ── 7. Date Flexibility — replace option labels with professional descriptions ──
+    if (flexSelect) {
+        const flexLabels = {
+            // Common Django form value patterns → professional label
+            'exact':          'Fixed Dates — I need these exact dates',
+            'fixed':          'Fixed Dates — I need these exact dates',
+            'flexible_week':  '± 1 Week Flexible — within a week either side',
+            'flexible_2week': '± 2 Weeks Flexible — within two weeks either side',
+            'flexible_month': '± 1 Month Flexible — within a month either side',
+            'flexible':       'Planning Ahead — flexible on specific dates',
+            'very_flexible':  'Very Flexible — open to best available timing',
+            'tbd':            'Dates TBD — exploring options, not yet decided',
+            // Also handle if values come through as the original verbose labels
+            'Exact dates':                      'Fixed Dates — I need these exact dates',
+            'Flexible by a week':               '± 1 Week Flexible — within a week either side',
+            'Flexible by 2 weeks':              '± 2 Weeks Flexible — within two weeks either side',
+            'Flexible by a month':              '± 1 Month Flexible — within a month either side',
+            'Flexible - planning months in advance': 'Planning Ahead — flexible, not decided yet',
+            'Very flexible':                    'Very Flexible — open to best available timing',
+            'To be determined':                 'Dates TBD — exploring options, not yet decided',
+        };
+
+        Array.from(flexSelect.options).forEach(opt => {
+            const val = opt.value.trim();
+            const txt = opt.text.trim();
+
+            if (flexLabels[val]) {
+                opt.text = flexLabels[val];
+            } else if (flexLabels[txt]) {
+                opt.text = flexLabels[txt];
+            } else {
+                // Auto-clean any remaining verbose labels
+                let clean = txt
+                    .replace(/Flexible\s*-\s*planning months in advance/i, 'Planning Ahead — flexible, not decided yet')
+                    .replace(/Very flexible/i,   'Very Flexible — open to best available timing')
+                    .replace(/Exact dates?/i,     'Fixed Dates — I need these exact dates')
+                    .replace(/To be determined/i, 'Dates TBD — exploring options, not yet decided');
+                opt.text = clean;
+            }
+        });
+    }
+
+})();
 
 
 

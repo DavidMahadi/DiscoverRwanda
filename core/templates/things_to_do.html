@@ -213,63 +213,64 @@
     /* iPad Pro landscape / large tablet (900px–1023px) */
     @media (min-width: 900px) and (max-width: 1023px) {
         .nav-menu { display: none; }
-        .nav-hamburger { display: flex; }
+        .nav-hamburger { display: flex; margin-left: auto; }
         .nav-container { padding: 0 5%; }
         .nav-logo-img { width: 100px; height: 54px; }
-        .nav-logo-text { font-size: 1.2rem; letter-spacing: 2px; }
+        .nav-logo-text { font-size: 1.2rem; letter-spacing: 2px; margin-right: 1.5rem; }
     }
 
     /* iPad Air portrait / tablet (768px–899px) */
     @media (min-width: 768px) and (max-width: 899px) {
         .nav-menu { display: none; }
-        .nav-hamburger { display: flex; }
+        .nav-hamburger { display: flex; margin-left: auto; }
         .nav-container { padding: 0 5%; }
         .nav-logo-img { width: 92px; height: 50px; }
-        .nav-logo-text { font-size: 1.1rem; letter-spacing: 2px; }
+        .nav-logo-text { font-size: 1.1rem; letter-spacing: 2px; margin-right: 1.25rem; }
         .nav { padding: 0.875rem 0; }
     }
 
     /* iPad Air portrait precision fix (810px–840px) */
     @media (min-width: 810px) and (max-width: 840px) {
         .nav-logo-img { width: 88px; height: 48px; }
-        .nav-hamburger { display: flex; }
+        .nav-hamburger { display: flex; margin-left: auto; }
         .nav-menu { display: none; }
+        .nav-logo-text { margin-right: 1.25rem; }
     }
 
     /* Large phones (600px–767px) */
     @media (min-width: 600px) and (max-width: 767px) {
         .nav-menu { display: none; }
-        .nav-hamburger { display: flex; }
+        .nav-hamburger { display: flex; margin-left: auto; }
         .nav-container { padding: 0 5%; }
         .nav-logo-img { width: 80px; height: 44px; }
-        .nav-logo-text { font-size: 1rem; letter-spacing: 1.5px; }
+        .nav-logo-text { font-size: 1rem; letter-spacing: 1.5px; margin-right: 1.25rem; }
         .nav { padding: 0.75rem 0; }
     }
 
     /* Phones (480px–599px) */
     @media (min-width: 480px) and (max-width: 599px) {
         .nav-menu { display: none; }
-        .nav-hamburger { display: flex; }
+        .nav-hamburger { display: flex; margin-left: auto; }
         .nav-container { padding: 0 4%; }
         .nav-logo-img { width: 72px; height: 42px; }
-        .nav-logo-text { font-size: 0.9rem; letter-spacing: 1px; }
+        .nav-logo-text { font-size: 0.9rem; letter-spacing: 1px; margin-right: 1rem; }
         .nav { padding: 0.75rem 0; }
     }
 
     /* Small phones (400px–479px) */
     @media (min-width: 400px) and (max-width: 479px) {
         .nav-menu { display: none; }
-        .nav-hamburger { display: flex; }
+        .nav-hamburger { display: flex; margin-left: auto; }
         .nav-container { padding: 0 4%; }
         .nav-logo-img { width: 65px; height: 38px; }
-        .nav-logo-text { font-size: 0.85rem; letter-spacing: 0.5px; }
+        .nav-logo-text { font-size: 0.85rem; letter-spacing: 0.5px; margin-right: 0.875rem; }
         .nav { padding: 0.65rem 0; }
     }
 
     /* Very small phones (below 400px) */
     @media (max-width: 399px) {
         .nav-menu { display: none; }
-        .nav-hamburger { display: flex; }
+        .nav-hamburger { display: flex; margin-left: auto; }
         .nav-container { padding: 0 4%; }
         .nav-logo-img { width: 58px; height: 34px; }
         .nav-logo-text { display: none; }
@@ -281,8 +282,10 @@
     @media (max-width: 900px) and (orientation: landscape) {
         .nav { padding: 0.5rem 0; }
         .nav-logo-img { width: 75px; height: 40px; }
-        .nav-logo-text { font-size: 0.9rem; }
+        .nav-logo-text { font-size: 0.9rem; margin-right: 0.875rem; }
+        .nav-hamburger { margin-left: auto; }
     }
+
 :root {
     --black: #000;
     --charcoal: #1a1a1a;
@@ -296,15 +299,12 @@
 body { font-family: 'Inter', sans-serif; color: var(--charcoal); background: var(--white); overflow-x: hidden; }
 
 /* ══════════════════════════════════════════
-   NAV
+   NAV — base selector reset
+   Real nav styles live in .nav + .nav-container
+   This rule previously duplicated position/padding
+   and caused hamburger spacing conflicts
 ══════════════════════════════════════════ */
-nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 100; background: var(--white);
-    box-shadow: 0 2px 20px rgba(0,0,0,0.07);
-    padding: 0.875rem 6%;
-    display: flex; justify-content: space-between; align-items: center;
-}
+nav { /* intentionally blank */ }
 /* ══════════════════════════════════════════
    HAMBURGER BUTTON
 ══════════════════════════════════════════ */
@@ -560,150 +560,231 @@ footer { background: var(--charcoal); color: var(--white); padding: 5rem 6% 2.5r
 }
 
 /* ══════════════════════════════════════════
-   RESPONSIVE — 1200px
+   RESPONSIVE — ALL SCREEN SIZES
 ══════════════════════════════════════════ */
-@media (max-width: 1200px) {
-    .f-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+
+/* 4K / Ultra-wide (2560px+) */
+@media (min-width: 2560px) {
+    .inner { max-width: 2000px; }
+    .cat { padding: 9rem 8%; }
+    .layout { gap: 6rem; }
+    .photos { gap: 1rem; }
+    .xp { padding: 2.25rem 0; }
+    .xp-name { font-size: 1.3rem; }
+    .xp-desc { font-size: 1rem; }
+    .stats { justify-content: center; }
+    .stat { padding: 2.75rem 3.5rem; }
+    .f-grid { max-width: 2400px; gap: 5rem; }
+    footer { padding: 7rem 8% 3rem; }
+    .strip { padding: 0 8%; }
+    .strip a { padding: 1.25rem 2rem; font-size: 0.75rem; }
+}
+
+/* 2K / QHD (1921px–2559px) */
+@media (min-width: 1921px) and (max-width: 2559px) {
+    .inner { max-width: 1800px; }
+    .cat { padding: 8rem 7%; }
+    .layout { gap: 5rem; }
+    .f-grid { max-width: 2100px; gap: 4rem; }
+    footer { padding: 6rem 7% 3rem; }
+    .strip { padding: 0 7%; }
+}
+
+/* Large desktop (1600px–1920px) */
+@media (min-width: 1600px) and (max-width: 1920px) {
+    .inner { max-width: 1550px; }
+    .cat { padding: 7rem 6%; }
+    .layout { gap: 4.5rem; }
+    .f-grid { max-width: 1900px; }
+}
+
+/* Standard desktop (1400px–1599px) */
+@media (min-width: 1400px) and (max-width: 1599px) {
+    .layout { gap: 4rem; }
+}
+
+/* Laptop (1200px–1399px) */
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .cat { padding: 5.5rem 5%; }
+    .layout { gap: 3rem; }
+    .f-grid { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2.5rem; }
     .photos { gap: 0.5rem; }
 }
 
-/* ══════════════════════════════════════════
-   RESPONSIVE — 1024px
-══════════════════════════════════════════ */
-@media (max-width: 1024px) {
-    .layout { grid-template-columns: 1fr; gap: 3rem; }
-    .layout.flip { direction: ltr; }
-    .layout.flip > * { direction: ltr; }
-
-    .stats { flex-wrap: wrap; }
-    .stat { min-width: 50%; }
-
-    .hero-split { height: calc(100svh - 68px); min-height: 440px; margin-top: 68px; }
-    .strip { top: 68px; }
-
-/* ══════════════════════════════════════════
-   RESPONSIVE — 900px
-══════════════════════════════════════════ */
-@media (max-width: 900px) {
-    .photos { grid-template-columns: repeat(3, 1fr); }
-    .f-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
-    .stat { min-width: 50%; }
+/* Small laptop (1024px–1199px) */
+@media (min-width: 1024px) and (max-width: 1199px) {
+    .cat { padding: 5rem 5%; }
+    .layout { gap: 2.5rem; }
+    .photos { gap: 0.5rem; }
+    .f-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    .strip a { padding: 1rem 1.25rem; font-size: 0.6rem; letter-spacing: 2px; }
 }
 
-/* ══════════════════════════════════════════
-   RESPONSIVE — 768px  ← HAMBURGER ACTIVATES
-══════════════════════════════════════════ */
-@media (max-width: 768px) {
-    /* Hero: stack images vertically */
-    .hero-split {
-        flex-direction: column;
-        height: calc(100svh - 64px);
-        min-height: 500px;
-        margin-top: 64px;
-    }
+/* iPad Pro landscape / large tablet (900px–1023px) */
+@media (min-width: 900px) and (max-width: 1023px) {
+    .layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .layout.flip { direction: ltr; }
+    .layout.flip > * { direction: ltr; }
+    .photos { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+    .cat { padding: 4.5rem 5%; }
+    .cat-head { gap: 1.5rem; }
+    .stats { flex-wrap: wrap; }
+    .stat { min-width: 50%; }
+    .f-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .f-brand { grid-column: 1 / -1; }
+    footer { padding: 4.5rem 5% 2rem; }
+    .strip { top: 68px; }
+}
+
+/* iPad Air portrait / tablet (768px–899px) */
+@media (min-width: 768px) and (max-width: 899px) {
+    .layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .layout.flip { direction: ltr; }
+    .layout.flip > * { direction: ltr; }
+    .hero-split { flex-direction: column; min-height: 480px; }
     .hero-split img { width: 100%; height: 50%; }
-    .hero-text h1 { font-size: clamp(3rem, 12vw, 5rem); letter-spacing: 6px; }
-    .side-text { right: 5%; bottom: 5%; font-size: clamp(0.9rem, 3vw, 1.2rem); max-width: 240px; }
-
+    .hero-text h1 { font-size: clamp(3rem, 10vw, 5rem); letter-spacing: 6px; }
+    .side-text { right: 5%; bottom: 5%; font-size: clamp(0.875rem, 2.5vw, 1.1rem); max-width: 220px; }
     .strip { display: none; }
-
-    /* Content */
     .photos { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
     .cat { padding: 4rem 5%; }
     .cat-head { gap: 1.25rem; }
-
-    /* Stats */
     .stats { flex-wrap: wrap; }
     .stat { min-width: 50%; padding: 1.5rem; }
-
-    /* Footer */
-    .f-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .f-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .f-brand { grid-column: 1 / -1; }
     footer { padding: 4rem 5% 2rem; }
 }
 
-/* ══════════════════════════════════════════
-   RESPONSIVE — 600px
-══════════════════════════════════════════ */
-@media (max-width: 600px) {
-    nav { padding: 0.75rem 4%; }
-    .hero-split {
-        height: calc(100svh - 60px);
-        min-height: 460px;
-        margin-top: 60px;
-    }
-    .hero-text h1 { font-size: clamp(2.5rem, 11vw, 4rem); letter-spacing: 4px; }
-    .side-text { font-size: 0.875rem; max-width: 200px; right: 4%; bottom: 4%; }
+/* iPad Air portrait precision (810px–840px) */
+@media (min-width: 810px) and (max-width: 840px) {
+    .photos { grid-template-columns: repeat(3, 1fr); }
+    .layout { grid-template-columns: 1fr; }
+}
 
+/* Large phones (600px–767px) */
+@media (min-width: 600px) and (max-width: 767px) {
+    .hero-split { flex-direction: column; min-height: 460px; }
+    .hero-split img { width: 100%; height: 50%; }
+    .hero-text h1 { font-size: clamp(2.75rem, 10vw, 4.5rem); letter-spacing: 5px; }
+    .side-text { right: 4%; bottom: 4%; font-size: clamp(0.875rem, 2.5vw, 1.1rem); max-width: 210px; }
+    .strip { display: none; }
+    .layout { grid-template-columns: 1fr; gap: 2rem; }
+    .layout.flip { direction: ltr; }
+    .layout.flip > * { direction: ltr; }
+    .photos { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+    .photo { aspect-ratio: 3/4; }
+    .cat { padding: 3.5rem 5%; }
+    .cat-head { gap: 1.25rem; }
+    .cat-num { font-size: 3rem; }
+    .cat-title { letter-spacing: 2px; }
+    .stats { flex-wrap: wrap; }
+    .stat { min-width: 50%; padding: 1.25rem; }
+    .stat-val { font-size: 1.875rem; }
+    .cta h2 { letter-spacing: 4px; }
+    .cta p { font-size: 1.1rem; }
+    .f-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .f-brand { grid-column: 1 / -1; }
+    footer { padding: 4rem 5% 2rem; }
+}
+
+/* Phones (480px–599px) */
+@media (min-width: 480px) and (max-width: 599px) {
+    .hero-split { flex-direction: column; min-height: 440px; }
+    .hero-split img { width: 100%; height: 50%; }
+    .hero-text h1 { font-size: clamp(2.5rem, 11vw, 4rem); letter-spacing: 4px; }
+    .side-text { right: 4%; bottom: 4%; font-size: 0.875rem; max-width: 200px; }
+    .strip { display: none; }
+    .layout { grid-template-columns: 1fr; gap: 2rem; }
+    .layout.flip { direction: ltr; }
+    .layout.flip > * { direction: ltr; }
     .photos { grid-template-columns: 1fr; }
     .photo { aspect-ratio: 4/3; }
-
     .cat { padding: 3.5rem 4%; }
     .cat-num { font-size: 3rem; }
     .cat-title { letter-spacing: 2px; }
-
+    .xp { gap: 1.25rem; padding: 1.5rem 0; }
+    .xp-name { font-size: 1rem; }
+    .stats { flex-wrap: wrap; }
     .stat { min-width: 50%; padding: 1.25rem; }
     .stat-val { font-size: 1.75rem; }
-
-    .cta h2 { letter-spacing: 4px; }
+    .cta h2 { letter-spacing: 3px; }
     .cta p { font-size: 1.1rem; }
+    .cta-btn { padding: 1rem 2.5rem; font-size: 0.75rem; }
+    .f-grid { grid-template-columns: 1fr; gap: 2rem; }
+    footer { padding: 3.5rem 4% 2rem; }
 }
 
-/* ══════════════════════════════════════════
-   RESPONSIVE — 480px
-══════════════════════════════════════════ */
-@media (max-width: 480px) {
-    .hero-split {
-        height: calc(100svh - 58px);
-        min-height: 420px;
-        margin-top: 58px;
-    }
+/* Small phones (400px–479px) */
+@media (min-width: 400px) and (max-width: 479px) {
+    .hero-split { flex-direction: column; min-height: 420px; }
+    .hero-split img { width: 100%; height: 50%; }
     .hero-text h1 { font-size: clamp(2.2rem, 10vw, 3.5rem); letter-spacing: 3px; }
     .side-text { font-size: 0.8rem; max-width: 170px; }
-
+    .strip { display: none; }
+    .layout { grid-template-columns: 1fr; gap: 1.75rem; }
+    .layout.flip { direction: ltr; }
+    .layout.flip > * { direction: ltr; }
+    .photos { grid-template-columns: 1fr; }
+    .photo { aspect-ratio: 4/3; }
     .cat { padding: 3rem 4%; }
     .cat-head { flex-direction: column; gap: 0.5rem; padding-bottom: 1.5rem; margin-bottom: 2rem; }
     .cat-num { font-size: 2.5rem; }
-
     .xp { gap: 1rem; padding: 1.25rem 0; }
     .xp-name { font-size: 1rem; }
-
     .stats { flex-direction: column; }
     .stat { min-width: 100%; padding: 1.25rem 2rem; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
     .stat:last-child { border-bottom: none; }
-
     .cta-btn { width: 100%; justify-content: center; }
-
-    .f-grid { gap: 1.5rem; }
+    .f-grid { grid-template-columns: 1fr; gap: 1.5rem; }
     footer { padding: 3rem 4% 2rem; }
 }
 
-/* ══════════════════════════════════════════
-   RESPONSIVE — 360px
-══════════════════════════════════════════ */
-@media (max-width: 360px) {
-    .hero-split { min-height: 380px; }
+/* Very small phones (below 400px) */
+@media (max-width: 399px) {
+    .hero-split { flex-direction: column; min-height: 380px; }
+    .hero-split img { width: 100%; height: 50%; }
     .hero-text h1 { font-size: 2rem; letter-spacing: 2px; }
     .side-text { display: none; }
+    .strip { display: none; }
+    .layout { grid-template-columns: 1fr; gap: 1.5rem; }
+    .layout.flip { direction: ltr; }
+    .layout.flip > * { direction: ltr; }
+    .photos { grid-template-columns: 1fr; }
+    .photo { aspect-ratio: 4/3; }
+    .cat { padding: 2.5rem 4%; }
+    .cat-head { flex-direction: column; gap: 0.5rem; padding-bottom: 1.25rem; margin-bottom: 1.75rem; }
     .cat-num { font-size: 2rem; }
     .cat-title { font-size: 1.5rem; letter-spacing: 1px; }
+    .cat-label { font-size: 0.575rem; letter-spacing: 3px; }
+    .xp { gap: 0.875rem; padding: 1.125rem 0; }
     .xp-name { font-size: 0.9375rem; }
-    .book-link { font-size: 0.65rem; }
+    .xp-desc { font-size: 0.8125rem; }
+    .book-link { font-size: 0.65rem; margin-top: 1.5rem; }
+    .stats { flex-direction: column; }
+    .stat { min-width: 100%; padding: 1.125rem 1.5rem; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .stat:last-child { border-bottom: none; }
+    .stat-val { font-size: 1.625rem; }
+    .cta h2 { letter-spacing: 2px; }
+    .cta p { font-size: 1rem; }
+    .cta-btn { width: 100%; justify-content: center; font-size: 0.72rem; padding: 0.9rem 1.5rem; }
+    .f-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .f-brand h3 { font-size: 1.5rem; }
+    footer { padding: 2.5rem 4% 1.75rem; }
 }
 
-/* ══════════════════════════════════════════
-   LANDSCAPE PHONES
-══════════════════════════════════════════ */
+/* Landscape phones (max 900px, landscape) */
 @media (max-width: 900px) and (orientation: landscape) {
-    .hero-split {
-        flex-direction: row;
-        height: 100svh;
-        min-height: 300px;
-        margin-top: 56px;
-    }
+    .hero-split { flex-direction: row; height: 100svh; min-height: 300px; }
     .hero-split img { width: 50%; height: 100%; }
     .hero-text h1 { font-size: clamp(2.5rem, 7vw, 4rem); letter-spacing: 4px; }
     .side-text { font-size: 0.9rem; max-width: 200px; bottom: 6%; }
+    .strip { display: none; }
     .cat { padding: 3rem 5%; }
+    .layout { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .photos { grid-template-columns: repeat(3, 1fr); }
+    .stats { flex-wrap: wrap; }
+    .stat { min-width: 25%; }
 }
 
     /* ── HERO MARGIN-TOP: matches nav height at every breakpoint ── */

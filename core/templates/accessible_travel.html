@@ -470,95 +470,241 @@ footer { background: #000; color: #fff; padding: 5rem 6% 2.5rem; border-top: 1px
 .footer-bottom { text-align: center; padding-top: 2.5rem; border-top: 1px solid #333; color: rgba(255,255,255,0.5); font-size: 0.875rem; }
 
 /* ══════════════════════════════════════════
-   MEDIA QUERIES
+   MEDIA QUERIES — ALL SCREEN SIZES
 ══════════════════════════════════════════ */
 
-/* 1200px */
-@media (max-width: 1200px) {
+/* 4K / Ultra-wide (2560px+) */
+@media (min-width: 2560px) {
+    .hero-content { max-width: 1600px; }
+    .section { padding: 11rem 8%; }
+    .section-container { max-width: 1900px; }
+    .intro-section { padding: 10rem 8%; }
+    .intro-content { max-width: 1400px; }
+    .support-cards { grid-template-columns: repeat(3, 1fr); gap: 3rem; }
+    .support-card { padding: 3.5rem; }
+    .support-icon { font-size: 4.5rem; }
+    .support-card h3 { font-size: 1.875rem; }
+    .activities-grid { grid-template-columns: repeat(4, 1fr); gap: 2.5rem; }
+    .activity-item { padding: 2.5rem; }
+    .content-grid { grid-template-columns: repeat(2, 1fr); gap: 3.5rem; }
+    .content-card { padding: 3.5rem; }
+    .footer-grid { max-width: 2200px; }
+    .cta { padding: 10rem 8%; }
+}
+
+/* 2K / QHD (1921px–2559px) */
+@media (min-width: 1921px) and (max-width: 2559px) {
+    .hero-content { max-width: 1400px; }
+    .section { padding: 9rem 7%; }
+    .section-container { max-width: 1700px; }
+    .intro-section { padding: 8rem 7%; }
+    .support-cards { grid-template-columns: repeat(3, 1fr); gap: 2.75rem; }
+    .activities-grid { grid-template-columns: repeat(4, 1fr); gap: 2.25rem; }
+    .footer-grid { max-width: 2000px; }
+}
+
+/* Large desktop (1600px–1920px) */
+@media (min-width: 1600px) and (max-width: 1920px) {
+    .section-container { max-width: 1500px; }
+    .support-cards { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+    .activities-grid { grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+}
+
+/* Standard desktop (1400px–1599px) */
+@media (min-width: 1400px) and (max-width: 1599px) {
+    .support-cards { grid-template-columns: repeat(3, 1fr); gap: 2.25rem; }
+    .activities-grid { grid-template-columns: repeat(4, 1fr); gap: 1.75rem; }
+}
+
+/* Laptop (1200px–1399px) */
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .section { padding: 7rem 5%; }
+    .intro-section { padding: 6rem 5%; }
+    .support-cards { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .activities-grid { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    .content-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
+}
+
+/* Small laptop (1024px–1199px) */
+@media (min-width: 1024px) and (max-width: 1199px) {
+    .section { padding: 6rem 5%; }
+    .intro-section { padding: 5.5rem 5%; }
     .support-cards { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-    .content-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .activities-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    .support-card { padding: 2.5rem; }
+    .activities-grid { grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+    .activity-item { padding: 1.75rem; }
+    .content-grid { grid-template-columns: repeat(2, 1fr); gap: 2.25rem; }
+    .content-card { padding: 2.5rem; }
+    .footer-grid { grid-template-columns: 2fr 1fr 1fr; gap: 3rem; }
+    .footer-grid .footer-column:last-child { grid-column: 1 / -1; }
 }
 
-/* iPad Air portrait 769–900px */
-@media (min-width: 769px) and (max-width: 900px) {
-    .hero { margin-top: 68px; min-height: calc(100svh - 68px); }
-    .hero-content { padding: 3.5rem 6%; }
-
-    .support-cards { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-    .content-grid { grid-template-columns: 1fr; gap: 1.75rem; }
-    .activities-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
-    footer { padding: 4.5rem 5% 2rem; }
-    .content-card { padding: 2.25rem; }
+/* iPad Pro landscape / large tablet (900px–1023px) */
+@media (min-width: 900px) and (max-width: 1023px) {
+    .section { padding: 5.5rem 5%; }
+    .intro-section { padding: 5rem 5%; }
+    .support-cards { grid-template-columns: repeat(2, 1fr); gap: 1.75rem; }
     .support-card { padding: 2.25rem; }
+    .support-icon { font-size: 3rem; }
+    .activities-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .activity-item { padding: 1.75rem; }
+    .content-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .content-card { padding: 2.5rem; }
+    .highlight-box { margin: 3.5rem 0; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    .footer-brand { grid-column: 1 / -1; }
+    footer { padding: 5rem 5% 2.5rem; }
+    .cta-buttons { gap: 1.25rem; }
 }
 
-/* 600px */
-@media (max-width: 600px) {
-    .hero { margin-top: 62px; min-height: calc(100svh - 62px); }
-    .hero-content { padding: 2.5rem 4%; }
-    .hero-eyebrow { font-size: 0.65rem; padding: 0.5rem 1.25rem; }
+/* iPad Air portrait / tablet (768px–899px) */
+@media (min-width: 768px) and (max-width: 899px) {
+    .section { padding: 5rem 5%; }
+    .intro-section { padding: 4.5rem 5%; }
+    .hero-content { padding: 3.5rem 5%; }
+    .support-cards { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .support-card { padding: 2.25rem; }
+    .support-icon { font-size: 2.75rem; }
+    .activities-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    .activity-item { padding: 1.5rem; }
+    .content-grid { grid-template-columns: 1fr; gap: 1.75rem; }
+    .content-card { padding: 2.25rem; }
+    .highlight-box { margin: 3rem 0; padding: 2.5rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .footer-brand { grid-column: 1 / -1; }
+    footer { padding: 4.5rem 5% 2rem; }
+    .section-subtitle { margin-bottom: 3rem; }
+}
 
+/* iPad Air portrait precision (810px–840px) */
+@media (min-width: 810px) and (max-width: 840px) {
+    .activities-grid { grid-template-columns: repeat(2, 1fr); }
+    .support-cards { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Large phones (600px–767px) */
+@media (min-width: 600px) and (max-width: 767px) {
+    .section { padding: 4rem 5%; }
+    .intro-section { padding: 4rem 5%; }
+    .hero-content { padding: 3rem 5%; }
+    .hero-eyebrow { font-size: 0.7rem; padding: 0.6rem 1.5rem; }
+    .support-cards { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    .support-card { padding: 2rem; }
+    .support-icon { font-size: 2.5rem; margin-bottom: 1.25rem; }
     .activities-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
     .activity-item { padding: 1.5rem; }
     .activity-icon { font-size: 2rem; }
-
-    .highlight-box { padding: 2rem; margin: 3rem 0; }
-    .content-card { padding: 1.75rem; }
-    .support-card { padding: 1.75rem; }
-
-    footer { padding: 3.5rem 4% 2rem; }
-    .footer-grid { gap: 1.75rem; }
-    .section { padding: 3.5rem 4%; }
+    .content-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .content-card { padding: 2rem; }
+    .highlight-box { padding: 2.25rem; margin: 2.5rem 0; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .footer-brand { grid-column: 1 / -1; }
+    footer { padding: 4rem 5% 2rem; }
+    .cta-buttons { gap: 1rem; }
+    .cta-button { padding: 1rem 2.25rem; font-size: 0.8125rem; }
+    .section-subtitle { margin-bottom: 2.5rem; }
 }
 
-/* 480px */
-@media (max-width: 480px) {
-    .hero { margin-top: 58px; min-height: calc(100svh - 58px); }
+/* Phones (480px–599px) */
+@media (min-width: 480px) and (max-width: 599px) {
+    .section { padding: 3.5rem 4%; }
+    .intro-section { padding: 3.5rem 4%; }
+    .hero-content { padding: 2.5rem 4%; }
+    .hero-eyebrow { font-size: 0.65rem; padding: 0.5rem 1.25rem; }
+    .support-cards { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .support-card { padding: 1.75rem; }
+    .support-icon { font-size: 2.25rem; margin-bottom: 1rem; }
+    .support-card h3 { font-size: 1.25rem; }
+    .activities-grid { grid-template-columns: repeat(2, 1fr); gap: 0.875rem; }
+    .activity-item { padding: 1.375rem; }
+    .activity-icon { font-size: 1.875rem; }
+    .content-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+    .content-card { padding: 1.75rem; }
+    .content-card h3 { font-size: 1.5rem; }
+    .highlight-box { padding: 2rem; margin: 2.5rem 0; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    footer { padding: 3.5rem 4% 2rem; }
+    .footer-grid { gap: 1.75rem; }
+    .cta-buttons { flex-direction: column; align-items: center; gap: 1rem; }
+    .cta-button { width: 100%; max-width: 320px; justify-content: center; padding: 1rem 2rem; font-size: 0.8rem; }
+    .section-subtitle { margin-bottom: 2.25rem; }
+}
+
+/* Small phones (400px–479px) */
+@media (min-width: 400px) and (max-width: 479px) {
+    .section { padding: 3rem 4%; }
+    .intro-section { padding: 3rem 4%; }
     .hero-content { padding: 2rem 4%; }
     .hero-eyebrow { display: none; }
     .hero-subtitle { font-size: clamp(1rem, 4vw, 1.2rem); }
-
-    .activities-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .support-cards { grid-template-columns: 1fr; gap: 1rem; }
+    .support-card { padding: 1.75rem; text-align: left; display: flex; gap: 1.25rem; align-items: flex-start; }
+    .support-icon { font-size: 2rem; flex-shrink: 0; margin-bottom: 0; }
+    .activities-grid { grid-template-columns: 1fr; gap: 0.875rem; }
     .activity-item { padding: 1.25rem; display: flex; gap: 1rem; text-align: left; align-items: flex-start; }
     .activity-icon { font-size: 1.75rem; flex-shrink: 0; margin-bottom: 0; }
-
-    .support-card { padding: 1.5rem; }
+    .content-grid { grid-template-columns: 1fr; gap: 1.25rem; }
     .content-card { padding: 1.5rem; }
     .content-card h3 { font-size: 1.375rem; }
     .content-card li { font-size: 0.9375rem; }
-
-    .highlight-box { padding: 1.75rem; }
+    .highlight-box { padding: 1.75rem; margin: 2rem 0; }
     .highlight-box h3 { font-size: 1.375rem; }
-
     .section-title { letter-spacing: 2px; }
-    .section { padding: 3rem 4%; }
-
-    .cta-button { padding: 1rem 2rem; font-size: 0.8rem; }
-    footer { padding: 3rem 4% 2rem; }
-    .footer-grid { gap: 1.5rem; }
+    .section-subtitle { font-size: 0.9375rem; margin-bottom: 2rem; }
+    .footer-grid { grid-template-columns: 1fr; gap: 1.75rem; }
     .footer-brand h3 { font-size: 1.625rem; }
+    footer { padding: 3rem 4% 2rem; }
+    .cta-buttons { flex-direction: column; align-items: center; gap: 1rem; }
+    .cta-button { width: 100%; max-width: 300px; justify-content: center; padding: 1rem 2rem; font-size: 0.8rem; }
 }
 
-/* 360px */
-@media (max-width: 360px) {
-    .hero { min-height: 420px; }
-    .hero-title { font-size: clamp(2rem, 8vw, 3rem); letter-spacing: 2px; }
+/* Very small phones (below 400px) */
+@media (max-width: 399px) {
+    .section { padding: 2.5rem 4%; }
+    .intro-section { padding: 2.5rem 4%; }
+    .hero-content { padding: 2rem 4%; }
+    .hero-eyebrow { display: none; }
+    .hero-title { letter-spacing: 2px; }
     .hero-subtitle { font-size: 1rem; }
+    .support-cards { grid-template-columns: 1fr; gap: 0.875rem; }
     .support-card { padding: 1.25rem; }
+    .support-icon { font-size: 1.875rem; margin-bottom: 0.875rem; }
+    .support-card h3 { font-size: 1.125rem; }
+    .support-card p { font-size: 0.9375rem; }
+    .activities-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+    .activity-item { padding: 1.125rem; display: flex; gap: 0.875rem; text-align: left; align-items: flex-start; }
+    .activity-icon { font-size: 1.625rem; flex-shrink: 0; margin-bottom: 0; }
+    .activity-item h4 { font-size: 1rem; }
+    .activity-item p { font-size: 0.875rem; }
+    .content-grid { grid-template-columns: 1fr; gap: 1rem; }
     .content-card { padding: 1.25rem; }
-    .cta-button { font-size: 0.75rem; padding: 0.875rem 1.5rem; }
+    .content-card h3 { font-size: 1.25rem; }
+    .content-card p, .content-card li { font-size: 0.9rem; }
+    .highlight-box { padding: 1.5rem; margin: 1.75rem 0; }
+    .highlight-box h3 { font-size: 1.25rem; }
+    .section-title { letter-spacing: 1.5px; }
+    .section-subtitle { font-size: 0.9rem; margin-bottom: 1.75rem; }
+    .intro-title { font-size: 1.5rem; }
+    .intro-text { font-size: 0.9375rem; }
+    .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .footer-brand h3 { font-size: 1.4rem; }
+    .footer-description { font-size: 0.875rem; }
+    footer { padding: 2.5rem 4% 1.75rem; }
+    .cta-buttons { flex-direction: column; align-items: center; gap: 0.875rem; }
+    .cta-button { width: 100%; justify-content: center; font-size: 0.75rem; padding: 0.875rem 1.5rem; }
 }
 
-/* Landscape phones */
+/* Landscape phones (max 900px, landscape) */
 @media (max-width: 900px) and (orientation: landscape) {
-    .hero { min-height: 100svh; margin-top: 56px; }
+    .hero { min-height: 100svh; }
     .hero-content { padding: 1.5rem 5%; }
     .hero-title { font-size: clamp(2.5rem, 6vw, 4rem); letter-spacing: 4px; margin-bottom: 1rem; }
     .hero-subtitle { font-size: clamp(0.9rem, 1.8vw, 1.2rem); }
     .hero-eyebrow { margin-bottom: 1rem; }
+    .section { padding: 3.5rem 5%; }
+    .support-cards { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .activities-grid { grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .content-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
 }
 
     /* ── HERO MARGIN-TOP: matches nav height at every breakpoint ── */

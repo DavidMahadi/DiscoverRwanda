@@ -751,223 +751,269 @@
         font-size: 0.9375rem;
     }
     
-    /* Responsive */
-    @media (max-width: 1200px) {
-        .photo-grid-5 {
-            grid-template-columns: repeat(3, 1fr);
-        }
-        
-        .photo-grid-4 {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        
-        .feature-cards {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        
-        .description-grid {
-            grid-template-columns: 1fr;
-            gap: 3rem;
-        }
-    }
-    
-    @media (max-width: 768px) {
-        .photo-grid-3,
-        .photo-grid-4,
-        .photo-grid-5,
-        .feature-cards,
-        .description-grid {
-            grid-template-columns: 1fr;
-        }
-        
-        .footer-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-
     /* ══════════════════════════════════════════
-   HAMBURGER BUTTON
-══════════════════════════════════════════ */
-/* ══════════════════════════════════════════
-   MOBILE NAV OVERLAY
-══════════════════════════════════════════ */
-/* ══════════════════════════════════════════
-   MOBILE DRAWER
-══════════════════════════════════════════ */
-/* ══════════════════════════════════════════
-   COMPLETE MEDIA QUERIES — ALL SCREENS
-══════════════════════════════════════════ */
+       RESPONSIVE — ALL SCREEN SIZES
+    ══════════════════════════════════════════ */
 
-/* ── 1400px Large Desktops ── */
-@media (max-width: 1400px) {
-    .section-container { padding: 0 2%; }
-    .photo-grid-5 { grid-template-columns: repeat(4, 1fr); }
-}
+    /* 4K / Ultra-wide (2560px+) */
+    @media (min-width: 2560px) {
+        .hero-content { max-width: 1800px; }
+        .section-container { max-width: 2400px; }
+        .travel-section { padding: 14rem 8%; }
+        .section-header { margin-bottom: 8rem; }
+        .photo-grid-5 { grid-template-columns: repeat(5, 1fr); gap: 2rem; }
+        .photo-grid-4 { grid-template-columns: repeat(4, 1fr); gap: 2.5rem; }
+        .photo-grid-3 { grid-template-columns: repeat(3, 1fr); gap: 3rem; }
+        .description-content { max-width: 1600px; }
+        .description-block h3 { font-size: 2.25rem; }
+        .feature-cards { gap: 4rem; }
+        .feature-card { padding: 4rem; }
+        .feature-card-title { font-size: 2.25rem; }
+        .cta-section { padding: 14rem 8%; }
+        .footer-grid { max-width: 2400px; gap: 7rem; }
+        footer { padding: 10rem 8% 4rem; }
+    }
 
-/* ── 1200px Medium Desktops ── */
-@media (max-width: 1200px) {
-    .photo-grid-5 { grid-template-columns: repeat(3, 1fr); }
-    .photo-grid-4 { grid-template-columns: repeat(2, 1fr); }
+    /* 2K / QHD (1921px–2559px) */
+    @media (min-width: 1921px) and (max-width: 2559px) {
+        .hero-content { max-width: 1600px; }
+        .section-container { max-width: 2100px; }
+        .travel-section { padding: 13rem 7%; }
+        .photo-grid-5 { grid-template-columns: repeat(5, 1fr); gap: 1.75rem; }
+        .photo-grid-4 { grid-template-columns: repeat(4, 1fr); gap: 2.25rem; }
+        .description-content { max-width: 1400px; }
+        .feature-cards { gap: 3.5rem; }
+        .feature-card { padding: 3.5rem; }
+        .footer-grid { max-width: 2100px; gap: 6rem; }
+        footer { padding: 9rem 7% 3.5rem; }
+        .cta-section { padding: 13rem 7%; }
+    }
 
-    .feature-cards { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-    .description-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    /* Large desktop (1600px–1920px) */
+    @media (min-width: 1600px) and (max-width: 1920px) {
+        .section-container { max-width: 1900px; }
+        .travel-section { padding: 12rem 6%; }
+        .photo-grid-5 { grid-template-columns: repeat(5, 1fr); }
+        .photo-grid-4 { grid-template-columns: repeat(4, 1fr); }
+        .feature-cards { gap: 3rem; }
+        .footer-grid { max-width: 1900px; }
+    }
 
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
-    .travel-section { padding: 8rem 6%; }
-}
+    /* Standard desktop (1400px–1599px) */
+    @media (min-width: 1400px) and (max-width: 1599px) {
+        .photo-grid-5 { grid-template-columns: repeat(5, 1fr); gap: 1.25rem; }
+        .photo-grid-4 { grid-template-columns: repeat(4, 1fr); gap: 1.75rem; }
+        .feature-cards { gap: 2.5rem; }
+    }
 
-/* ── 1024px Tablets Landscape ── */
-@media (max-width: 1024px) {
-    .hero-section { margin-top: 74px; min-height: calc(100svh - 74px); height: auto; }
-    .hero-content { padding: 4rem 6%; }
+    /* Laptop (1200px–1399px) */
+    @media (min-width: 1200px) and (max-width: 1399px) {
+        .travel-section { padding: 9rem 5%; }
+        .photo-grid-5 { grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+        .photo-grid-4 { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+        .photo-grid-3 { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .feature-cards { gap: 2rem; }
+        .description-content { max-width: 1100px; }
+        .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3.5rem; }
+        footer { padding: 7rem 5% 3rem; }
+        .cta-section { padding: 9rem 5%; }
+    }
 
-    .travel-section { padding: 7rem 5%; }
-    .section-title { font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: 4px; }
-    .section-intro { font-size: 1.125rem; }
+    /* Small laptop / iPad Pro landscape (1024px–1199px) */
+    @media (min-width: 1024px) and (max-width: 1199px) {
+        .travel-section { padding: 8rem 5%; }
+        .section-title { font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: 4px; }
+        .section-intro { font-size: 1.125rem; }
+        .photo-grid-5 { grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+        .photo-grid-4 { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .photo-grid-3 { grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
+        .description-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+        .description-content { max-width: 1000px; }
+        .feature-cards { grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
+        .feature-card { padding: 2.5rem; }
+        .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+        footer { padding: 6rem 5% 2.5rem; }
+        .cta-section { padding: 8rem 5%; }
+    }
 
-    .photo-grid-5 { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-    .photo-grid-4 { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-    .photo-grid-3 { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    /* iPad Pro landscape / large tablet (900px–1023px) */
+    @media (min-width: 900px) and (max-width: 1023px) {
+        .travel-section { padding: 7rem 5%; }
+        .section-header { margin-bottom: 4.5rem; }
+        .section-title { font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: 4px; }
+        .section-intro { font-size: 1.1rem; }
+        .photo-grid-5 { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+        .photo-grid-4 { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        .photo-grid-3 { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        .description-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+        .description-block h3 { font-size: 1.625rem; }
+        .feature-cards { grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 4rem; }
+        .feature-card { padding: 2.5rem; }
+        .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+        .footer-brand { grid-column: 1 / -1; }
+        footer { padding: 5.5rem 5% 2.5rem; }
+        .cta-section { padding: 7rem 5%; }
+        .cta-title { font-size: clamp(2.5rem, 5vw, 4rem); }
+    }
 
-    .description-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .feature-cards { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    /* iPad Air portrait / tablet (768px–899px) */
+    @media (min-width: 768px) and (max-width: 899px) {
+        .travel-section { padding: 6rem 5%; }
+        .section-header { margin-bottom: 4rem; }
+        .section-title { font-size: clamp(2.5rem, 6vw, 4rem); letter-spacing: 4px; }
+        .section-intro { font-size: 1.1rem; line-height: 1.9; }
+        .hero-title { font-size: clamp(3.5rem, 8vw, 5.5rem); letter-spacing: 8px; }
+        .hero-subtitle { font-size: clamp(1.1rem, 2vw, 1.4rem); max-width: 640px; }
+        .hero-eyebrow { font-size: 0.7rem; letter-spacing: 3px; }
+        .photo-grid-5 { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        .photo-grid-4 { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+        .photo-grid-3 { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+        .description-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+        .description-block h3 { font-size: 1.625rem; }
+        .feature-cards { grid-template-columns: repeat(2, 1fr); gap: 1.75rem; margin-top: 4rem; }
+        .feature-card { padding: 2.5rem; }
+        .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+        .footer-brand { grid-column: 1 / -1; }
+        footer { padding: 5rem 5% 2.5rem; }
+        .cta-section { padding: 6rem 5%; }
+        .cta-title { font-size: clamp(2.5rem, 5vw, 4rem); }
+    }
 
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
-    footer { padding: 6rem 6% 2.5rem; }
-}
+    /* iPad Air portrait precision (810px–840px) */
+    @media (min-width: 810px) and (max-width: 840px) {
+        .photo-grid-5 { grid-template-columns: repeat(3, 1fr); }
+        .photo-grid-4 { grid-template-columns: repeat(2, 1fr); }
+        .feature-cards { grid-template-columns: repeat(2, 1fr); }
+        .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
 
-/* ══════════════════════════════════════════
-   iPad Air  820px × 1180px
-   iPad Mini 768px × 1024px
-   iPad Pro  1024px × 1366px  (covered above)
-══════════════════════════════════════════ */
-@media (min-width: 769px) and (max-width: 900px) {
-    /* Hero */
-    .hero-section { margin-top: 70px; min-height: calc(100svh - 70px); height: auto; padding: 0; }
-    .hero-content { padding: 4rem 6%; }
-    .hero-title { font-size: clamp(3.5rem, 8vw, 5.5rem); letter-spacing: 8px; }
-    .hero-subtitle { font-size: clamp(1.1rem, 2vw, 1.4rem); max-width: 640px; }
-    .hero-eyebrow { font-size: 0.7rem; letter-spacing: 3px; }
+    /* Large phones (600px–767px) */
+    @media (min-width: 600px) and (max-width: 767px) {
+        .travel-section { padding: 5rem 5%; }
+        .section-header { margin-bottom: 3rem; }
+        .section-title { letter-spacing: 3px; }
+        .section-intro { font-size: 1.0625rem; }
+        .hero-eyebrow { font-size: 0.65rem; letter-spacing: 2.5px; padding: 0.4rem 1rem; }
+        .hero-title { letter-spacing: 5px; }
+        .photo-grid-5 { grid-template-columns: repeat(2, 1fr); gap: 0.875rem; }
+        .photo-grid-4 { grid-template-columns: repeat(2, 1fr); gap: 0.875rem; }
+        .photo-grid-3 { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        .description-grid { grid-template-columns: 1fr; gap: 2rem; }
+        .description-block h3 { font-size: 1.5rem; }
+        .feature-cards { grid-template-columns: 1fr; gap: 1.5rem; margin-top: 3rem; }
+        .feature-card { padding: 2rem; }
+        .feature-card-title { font-size: 1.5rem; }
+        .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .footer-brand { grid-column: 1 / -1; }
+        footer { padding: 4rem 5% 2rem; }
+        .cta-section { padding: 5rem 5%; }
+        .cta-button { width: 100%; justify-content: center; }
+        .cta-title { letter-spacing: 4px; }
+    }
 
-    /* Travel sections */
-    .travel-section { padding: 6rem 5%; }
-    .section-header { margin-bottom: 4rem; }
-    .section-title { font-size: clamp(2.5rem, 6vw, 4rem); letter-spacing: 4px; }
-    .section-intro { font-size: 1.1rem; line-height: 1.9; }
+    /* Phones (480px–599px) */
+    @media (min-width: 480px) and (max-width: 599px) {
+        .travel-section { padding: 4rem 4%; }
+        .section-header { margin-bottom: 2.5rem; }
+        .section-title { letter-spacing: 2px; }
+        .section-intro { font-size: 1rem; }
+        .section-number { font-size: 0.875rem; }
+        .hero-eyebrow { font-size: 0.65rem; letter-spacing: 2.5px; padding: 0.4rem 1rem; }
+        .hero-title { letter-spacing: 4px; }
+        .photo-grid-5 { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+        .photo-grid-4 { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+        .photo-grid-3 { grid-template-columns: 1fr; gap: 0.875rem; }
+        .description-grid { grid-template-columns: 1fr; gap: 2rem; }
+        .description-block h3 { font-size: 1.375rem; }
+        .description-block p { font-size: 0.9375rem; }
+        .description-list li { font-size: 0.9375rem; }
+        .feature-cards { grid-template-columns: 1fr; gap: 1.25rem; margin-top: 2.5rem; }
+        .feature-card { padding: 1.75rem; }
+        .feature-card-title { font-size: 1.375rem; }
+        .feature-card-text { font-size: 0.9375rem; }
+        .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+        footer { padding: 3.5rem 4% 2rem; }
+        .cta-section { padding: 4.5rem 4%; }
+        .cta-title { letter-spacing: 2px; }
+        .cta-text { font-size: 1.125rem; }
+        .cta-button { width: 100%; justify-content: center; padding: 1.25rem 2rem; }
+    }
 
-    /* Photo grids */
-    .photo-grid-5 { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-    .photo-grid-4 { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
-    .photo-grid-3 { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    /* Small phones (400px–479px) */
+    @media (min-width: 400px) and (max-width: 479px) {
+        .travel-section { padding: 3.5rem 4%; }
+        .section-header { margin-bottom: 2rem; }
+        .section-title { letter-spacing: 2px; }
+        .section-intro { font-size: 1rem; }
+        .hero-eyebrow { display: none; }
+        .hero-title { letter-spacing: 3px; margin-bottom: 1.25rem; }
+        .hero-subtitle { font-size: clamp(0.95rem, 3.5vw, 1.1rem); }
+        .photo-grid-5 { grid-template-columns: 1fr; gap: 0.75rem; }
+        .photo-grid-4 { grid-template-columns: 1fr; gap: 0.75rem; }
+        .photo-grid-3 { grid-template-columns: 1fr; gap: 0.875rem; }
+        .description-grid { grid-template-columns: 1fr; gap: 1.75rem; }
+        .description-block h3 { font-size: 1.375rem; }
+        .description-block p { font-size: 0.9375rem; }
+        .description-list li { font-size: 0.9375rem; }
+        .feature-cards { grid-template-columns: 1fr; gap: 1.125rem; margin-top: 2.25rem; }
+        .feature-card { padding: 1.5rem; }
+        .feature-card-title { font-size: 1.375rem; }
+        .feature-card-text { font-size: 0.9375rem; }
+        .footer-grid { grid-template-columns: 1fr; gap: 1.75rem; }
+        .footer-brand h3 { font-size: 1.75rem; }
+        footer { padding: 3rem 4% 2rem; }
+        .cta-section { padding: 4rem 4%; }
+        .cta-title { letter-spacing: 2px; }
+        .cta-text { font-size: 1.125rem; }
+        .cta-button { width: 100%; justify-content: center; padding: 1.125rem 2rem; }
+    }
 
-    /* Description */
-    .description-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .description-block h3 { font-size: 1.625rem; }
+    /* Very small phones (below 400px) */
+    @media (max-width: 399px) {
+        .travel-section { padding: 3rem 4%; }
+        .section-header { margin-bottom: 1.75rem; }
+        .section-title { font-size: clamp(1.75rem, 7vw, 2.5rem); letter-spacing: 1px; }
+        .section-intro { font-size: 0.9375rem; }
+        .section-number { font-size: 0.8125rem; }
+        .hero-eyebrow { display: none; }
+        .hero-title { font-size: clamp(2rem, 8vw, 3rem); letter-spacing: 2px; }
+        .hero-subtitle { font-size: 0.9rem; }
+        .photo-grid-5 { grid-template-columns: 1fr; gap: 0.625rem; }
+        .photo-grid-4 { grid-template-columns: 1fr; gap: 0.625rem; }
+        .photo-grid-3 { grid-template-columns: 1fr; gap: 0.75rem; }
+        .description-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+        .description-block h3 { font-size: 1.25rem; }
+        .description-block p, .description-list li { font-size: 0.9rem; }
+        .feature-cards { grid-template-columns: 1fr; gap: 1rem; margin-top: 2rem; }
+        .feature-card { padding: 1.25rem; }
+        .feature-card-title { font-size: 1.25rem; }
+        .feature-card-text { font-size: 0.9rem; }
+        .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+        .footer-brand h3 { font-size: 1.5rem; }
+        .footer-description { font-size: 0.875rem; }
+        footer { padding: 2.5rem 4% 1.75rem; }
+        .cta-section { padding: 3.5rem 4%; }
+        .cta-title { letter-spacing: 1px; }
+        .cta-text { font-size: 1rem; margin-bottom: 2.5rem; }
+        .cta-button { width: 100%; justify-content: center; padding: 1rem 1.5rem; font-size: 0.8rem; }
+    }
 
-    /* Feature cards: 2 columns on iPad Air */
-    .feature-cards { grid-template-columns: repeat(2, 1fr); gap: 1.75rem; margin-top: 4rem; }
-    .feature-card { padding: 2.5rem; }
-
-    /* Footer */
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
-    footer { padding: 5rem 5% 2.5rem; }
-
-    /* CTA */
-    .cta-section { padding: 8rem 5%; }
-    .cta-title { font-size: clamp(2.5rem, 5vw, 4rem); }
-}
-
-/* ── 600px Large Phones ── */
-@media (max-width: 600px) {
-    .hero-section { margin-top: 62px; min-height: calc(100svh - 62px); }
-    .hero-content { padding: 2.5rem 5%; }
-    .hero-eyebrow { font-size: 0.65rem; letter-spacing: 2.5px; padding: 0.4rem 1rem; }
-    .hero-title { letter-spacing: 4px; }
-
-    .travel-section { padding: 4rem 4%; }
-    .section-number { font-size: 0.875rem; }
-
-    .photo-grid-5 { grid-template-columns: 1fr; gap: 0.875rem; }
-    .photo-grid-4 { grid-template-columns: 1fr; gap: 0.875rem; }
-
-    .feature-card { padding: 1.75rem; }
-    .feature-card-title { font-size: 1.5rem; }
-
-    .cta-section { padding: 5rem 5%; }
-    .cta-button { width: 100%; justify-content: center; }
-
-    footer { padding: 3.5rem 5% 2rem; }
-    .footer-grid { gap: 1.75rem; }
-}
-
-/* ── 480px Small Phones ── */
-@media (max-width: 480px) {
-    .hero-section { margin-top: 58px; min-height: calc(100svh - 58px); }
-    .hero-content { padding: 2rem 4%; }
-    .hero-eyebrow { display: none; }
-    .hero-title { letter-spacing: 3px; margin-bottom: 1.25rem; }
-    .hero-subtitle { font-size: clamp(0.95rem, 3.5vw, 1.1rem); }
-
-    .travel-section { padding: 3.5rem 4%; }
-    .section-title { letter-spacing: 2px; }
-    .section-intro { font-size: 1rem; }
-    .section-header { margin-bottom: 2.5rem; }
-
-    .description-block h3 { font-size: 1.375rem; }
-    .description-block p { font-size: 0.9375rem; }
-    .description-list li { font-size: 0.9375rem; }
-
-    .feature-card { padding: 1.5rem; }
-    .feature-card-title { font-size: 1.375rem; }
-    .feature-card-text { font-size: 0.9375rem; }
-
-    .cta-section { padding: 4rem 4%; }
-    .cta-title { letter-spacing: 2px; }
-
-    footer { padding: 3rem 4% 2rem; }
-    .footer-grid { gap: 1.5rem; }
-    .footer-brand h3 { font-size: 1.75rem; }
-}
-
-/* ── 360px Very Small Phones ── */
-@media (max-width: 360px) {
-    .hero-section { min-height: 400px; }
-    .hero-title { font-size: clamp(2rem, 8vw, 3rem); letter-spacing: 2px; }
-    .hero-subtitle { font-size: 0.9rem; }
-
-    .travel-section { padding: 3rem 4%; }
-    .section-title { font-size: clamp(1.75rem, 7vw, 2.5rem); letter-spacing: 1px; }
-    .section-intro { font-size: 0.9375rem; }
-
-    .feature-card { padding: 1.25rem; }
-    .cta-button { padding: 1rem 2rem; font-size: 0.8rem; }
-}
-
-/* ── Landscape Phones ── */
-@media (max-width: 900px) and (orientation: landscape) {
-    .hero-section { min-height: 100svh; margin-top: 56px; }
-    .hero-content { padding: 1.5rem 6%; }
-    .hero-title { font-size: clamp(2.5rem, 6vw, 4rem); letter-spacing: 4px; margin-bottom: 1rem; }
-    .hero-subtitle { font-size: clamp(0.9rem, 1.8vw, 1.2rem); }
-    .hero-eyebrow { margin-bottom: 1rem; }
-    .travel-section { padding: 3.5rem 5%; }
-}
-
-/* ── iPad Air Portrait — Specific fix ── */
-@media (min-width: 810px) and (max-width: 840px) {
-    .hero-section { margin-top: 70px; min-height: calc(100svh - 70px); }
-    .photo-grid-5 { grid-template-columns: repeat(3, 1fr); }
-    .photo-grid-4 { grid-template-columns: repeat(2, 1fr); }
-    .feature-cards { grid-template-columns: repeat(2, 1fr); }
-    .footer-grid { grid-template-columns: 1fr 1fr; }
-}
-
-/* ── iPad Air Landscape ── */
-@media (min-width: 1100px) and (max-width: 1200px) {
-    .photo-grid-5 { grid-template-columns: repeat(4, 1fr); }
-    .feature-cards { grid-template-columns: repeat(3, 1fr); }
-    .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; }
-}
+    /* Landscape phones (max 900px, landscape) */
+    @media (max-width: 900px) and (orientation: landscape) {
+        .hero-section { min-height: 100svh; }
+        .hero-content { padding: 1.5rem 6%; }
+        .hero-title { font-size: clamp(2.5rem, 6vw, 4rem); letter-spacing: 4px; margin-bottom: 1rem; }
+        .hero-subtitle { font-size: clamp(0.9rem, 1.8vw, 1.2rem); }
+        .hero-eyebrow { margin-bottom: 1rem; }
+        .travel-section { padding: 3.5rem 5%; }
+        .section-header { margin-bottom: 2.5rem; }
+        .photo-grid-5 { grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+        .photo-grid-4 { grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+        .photo-grid-3 { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        .feature-cards { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .description-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        .cta-section { padding: 4rem 5%; }
+    }
 
     /* ── HERO MARGIN-TOP: matches nav height at every breakpoint ── */
     @media (min-width: 2560px) {

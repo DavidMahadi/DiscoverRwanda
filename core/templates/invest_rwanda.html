@@ -477,103 +477,365 @@ footer { background: #1a1a1a; color: #fff; padding: 5rem 6% 2.5rem; }
 .footer-bottom { text-align: center; padding-top: 2.5rem; border-top: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.5); font-size: 0.8125rem; }
 
 /* ══════════════════════════════════════════
-   MEDIA QUERIES
+   INVEST PAGE — BASE STYLES FOR PAGE COMPONENTS
+   (these classes have no definitions above)
 ══════════════════════════════════════════ */
 
-/* 1200px */
-@media (max-width: 1200px) {
-    .info-cards { grid-template-columns: repeat(2, 1fr); }
+.intro-section { padding: clamp(3rem, 6vw, 5rem) 6%; background: #fafafa; border-top: 1px solid #e5e5e5; }
+.intro-content { max-width: 900px; margin: 0 auto; text-align: center; }
+.intro-title { font-family: 'Playfair Display', serif; font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 700; color: #000; margin-bottom: 1.75rem; line-height: 1.25; }
+.intro-text { font-size: 1.0625rem; line-height: 1.85; color: #555; margin-bottom: 1.25rem; }
+.intro-text:last-child { margin-bottom: 0; }
+
+.stats-banner { background: #000; color: #fff; padding: clamp(2.5rem, 5vw, 4rem) 6%; }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; max-width: 1300px; margin: 0 auto; text-align: center; }
+.stat-item h3 { font-family: 'Italiana', serif; font-size: clamp(2.5rem, 5vw, 3.75rem); font-weight: 400; color: #fff; margin-bottom: 0.5rem; letter-spacing: 1px; }
+.stat-item p { font-size: 0.875rem; color: rgba(255,255,255,0.75); text-transform: uppercase; letter-spacing: 1.5px; line-height: 1.5; }
+
+.section-title { font-family: 'Italiana', serif; font-size: clamp(2rem, 4.5vw, 3.25rem); font-weight: 400; color: #000; margin-bottom: 1.25rem; letter-spacing: 1px; text-align: center; }
+.section-subtitle { font-size: 1.0625rem; line-height: 1.8; color: #555; text-align: center; max-width: 850px; margin: 0 auto 3.5rem; }
+
+.benefits-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin: 3rem 0; }
+.benefit-card { background: #fff; border: 2px solid #e5e5e5; border-radius: 8px; padding: 2.5rem; transition: all 0.35s ease; }
+.benefit-card:hover { border-color: #000; box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+.benefit-card h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: #000; margin-bottom: 1rem; line-height: 1.35; }
+.benefit-card p { font-size: 1rem; line-height: 1.8; color: #555; margin-bottom: 1.25rem; }
+.benefit-card ul { list-style: none; }
+.benefit-card li { font-size: 0.9375rem; padding-left: 1.75rem; position: relative; margin-bottom: 0.75rem; color: #333; line-height: 1.6; }
+.benefit-card li::before { content: '→'; position: absolute; left: 0; color: #000; font-weight: 600; }
+
+.highlight-box h3 { font-family: 'Playfair Display', serif; font-size: 1.375rem; font-weight: 700; color: #000; margin-bottom: 1rem; }
+
+.opportunity-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 3rem 0; }
+.opportunity-card { background: #fff; border: 2px solid #e5e5e5; border-radius: 8px; padding: 2.5rem; transition: all 0.35s ease; }
+.opportunity-card:hover { border-color: #000; box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+.opportunity-icon { font-size: 2.5rem; margin-bottom: 1.25rem; display: block; }
+.opportunity-card h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: #000; margin-bottom: 1rem; }
+.opportunity-card p { font-size: 1rem; line-height: 1.8; color: #555; margin-bottom: 1.25rem; }
+.opportunity-card ul { list-style: none; }
+.opportunity-card li { font-size: 0.9375rem; padding-left: 1.75rem; position: relative; margin-bottom: 0.75rem; color: #333; line-height: 1.6; }
+.opportunity-card li::before { content: '→'; position: absolute; left: 0; color: #000; font-weight: 600; }
+
+.cta-buttons { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; margin-top: 0.5rem; }
+.cta-button.secondary { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.5); }
+.cta-button.secondary:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+
+/* ══════════════════════════════════════════
+   MEDIA QUERIES — ALL SCREEN SIZES
+══════════════════════════════════════════ */
+
+/* 4K / Ultra-wide (2560px+) */
+@media (min-width: 2560px) {
+    .hero-content { max-width: 1400px; }
+    .section { padding: 10rem 8%; }
+    .section-container { max-width: 1800px; }
+    .intro-section { padding: 8rem 8%; }
+    .intro-content { max-width: 1300px; }
+    .stats-banner { padding: 6rem 8%; }
+    .stats-grid { max-width: 2000px; gap: 3rem; }
+    .stat-item h3 { font-size: 5rem; }
+    .benefits-grid { gap: 3rem; }
+    .benefit-card { padding: 3.5rem; }
+    .opportunity-cards { grid-template-columns: repeat(3, 1fr); gap: 3rem; }
+    .opportunity-card { padding: 3.5rem; }
+    .footer-grid { max-width: 2200px; gap: 5rem; }
+    footer { padding: 7rem 8% 3rem; }
+    .cta { padding: 10rem 8%; }
+}
+
+/* 2K / QHD (1921px–2559px) */
+@media (min-width: 1921px) and (max-width: 2559px) {
+    .hero-content { max-width: 1200px; }
+    .section { padding: 8rem 7%; }
+    .section-container { max-width: 1600px; }
+    .intro-section { padding: 7rem 7%; }
+    .stats-banner { padding: 5rem 7%; }
+    .stats-grid { max-width: 1800px; gap: 2.5rem; }
+    .stat-item h3 { font-size: 4.5rem; }
+    .benefits-grid { gap: 2.75rem; }
+    .benefit-card { padding: 3rem; }
+    .opportunity-cards { gap: 2.75rem; }
+    .opportunity-card { padding: 3rem; }
+    .footer-grid { max-width: 1900px; gap: 4.5rem; }
+    footer { padding: 6rem 7% 3rem; }
+}
+
+/* Large desktop (1600px–1920px) */
+@media (min-width: 1600px) and (max-width: 1920px) {
+    .section-container { max-width: 1450px; }
+    .stats-grid { max-width: 1500px; }
+    .benefits-grid { gap: 2.5rem; }
+    .opportunity-cards { gap: 2.25rem; }
+    .footer-grid { max-width: 1700px; gap: 4rem; }
+}
+
+/* Standard desktop (1400px–1599px) */
+@media (min-width: 1400px) and (max-width: 1599px) {
+    .benefits-grid { gap: 2.25rem; }
+    .opportunity-cards { gap: 2rem; }
+}
+
+/* Laptop (1200px–1399px) */
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .section { padding: 6rem 5%; }
+    .intro-section { padding: 5rem 5%; }
+    .stats-banner { padding: 3.5rem 5%; }
+    .section-container { max-width: 1200px; }
+    .benefits-grid { gap: 2rem; }
+    .benefit-card { padding: 2.25rem; }
+    .opportunity-cards { gap: 1.75rem; }
+    .opportunity-card { padding: 2.25rem; }
+    .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2.5rem; }
+}
+
+/* Small laptop (1024px–1199px) */
+@media (min-width: 1024px) and (max-width: 1199px) {
+    .section { padding: 5.5rem 5%; }
+    .intro-section { padding: 4.5rem 5%; }
+    .stats-banner { padding: 3rem 5%; }
+    .stats-grid { gap: 1.5rem; }
+    .stat-item h3 { font-size: 3rem; }
+    .benefits-grid { gap: 1.75rem; }
+    .benefit-card { padding: 2rem; }
+    .opportunity-cards { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .opportunity-card { padding: 2rem; }
+    .section-container { max-width: 1100px; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    footer { padding: 5rem 5% 2.5rem; }
 }
 
-/* 1024px */
-@media (max-width: 1024px) {
-    .two-column { grid-template-columns: 1fr; gap: 2rem; }
-    .checklist-grid { grid-template-columns: 1fr; }
-    .facts-grid { grid-template-columns: repeat(3, 1fr); }
-    .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
-    .hero { margin-top: 70px; min-height: calc(100svh - 70px); }
-}
-
-/* iPad Air portrait 769–900px */
-@media (min-width: 769px) and (max-width: 900px) {
-    .hero { margin-top: 68px; min-height: calc(100svh - 68px); }
-    .hero-content { padding: 3rem 6%; }
-
-    .two-column { grid-template-columns: 1fr; gap: 1.75rem; }
+/* iPad Pro landscape / large tablet (900px–1023px) */
+@media (min-width: 900px) and (max-width: 1023px) {
+    .section { padding: 5rem 5%; }
+    .intro-section { padding: 4rem 5%; }
+    .hero-content { padding: 3rem 5%; }
+    .stats-banner { padding: 3rem 5%; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    .stat-item h3 { font-size: 3rem; }
+    .benefits-grid { grid-template-columns: 1fr; gap: 1.75rem; }
+    .benefit-card { padding: 2.25rem; }
+    .opportunity-cards { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .opportunity-card { padding: 2.25rem; }
     .info-cards { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-    .facts-grid { grid-template-columns: repeat(3, 1fr); }
-    .checklist-grid { grid-template-columns: 1fr; }
     .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
-
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.25rem; }
+    .footer-brand { grid-column: 1 / -1; }
     footer { padding: 4.5rem 5% 2rem; }
-    .column { padding: 2rem; }
-    .checklist { padding: 2rem; }
+    .section-subtitle { margin-bottom: 2.5rem; }
 }
 
-/* 600px */
-@media (max-width: 600px) {
-    .hero { margin-top: 62px; min-height: calc(100svh - 62px); }
+/* iPad Air portrait / tablet (768px–899px) */
+@media (min-width: 768px) and (max-width: 899px) {
+    .section { padding: 4.5rem 5%; }
+    .intro-section { padding: 4rem 5%; }
+    .hero-content { padding: 3rem 5%; }
+    .stats-banner { padding: 2.75rem 5%; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.75rem; }
+    .stat-item h3 { font-size: 2.75rem; }
+    .benefits-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .benefit-card { padding: 2rem; }
+    .opportunity-cards { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    .opportunity-card { padding: 2rem; }
+    .info-cards { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    .two-column { grid-template-columns: 1fr; gap: 1.75rem; }
+    .column { padding: 2rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .footer-brand { grid-column: 1 / -1; }
+    footer { padding: 4.5rem 5% 2rem; }
+    .section-subtitle { margin-bottom: 2rem; }
+}
+
+/* iPad Air portrait precision (810px–840px) */
+@media (min-width: 810px) and (max-width: 840px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .benefits-grid { grid-template-columns: 1fr; }
+    .opportunity-cards { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Large phones (600px–767px) */
+@media (min-width: 600px) and (max-width: 767px) {
+    .section { padding: 3.5rem 5%; }
+    .intro-section { padding: 3.5rem 5%; }
+    .hero-content { padding: 2.5rem 5%; }
+    .hero-eyebrow { font-size: 0.625rem; padding: 0.4rem 1rem; }
+    .stats-banner { padding: 2.5rem 5%; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .stat-item h3 { font-size: 2.5rem; }
+    .stat-item p { font-size: 0.8rem; }
+    .benefits-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+    .benefit-card { padding: 1.75rem; }
+    .benefit-card h3 { font-size: 1.125rem; }
+    .opportunity-cards { grid-template-columns: 1fr; gap: 1.25rem; }
+    .opportunity-card { padding: 1.75rem; }
+    .opportunity-card h3 { font-size: 1.125rem; }
+    .info-cards { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    .two-column { grid-template-columns: 1fr; gap: 1.5rem; }
+    .column { padding: 1.75rem; }
+    .highlight-box { padding: 1.75rem; margin: 2.5rem 0; }
+    .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .section-subtitle { font-size: 1rem; margin-bottom: 2rem; }
+    .cta-buttons { flex-direction: column; align-items: center; gap: 1rem; }
+    .cta-button { width: 100%; max-width: 320px; justify-content: center; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .footer-brand { grid-column: 1 / -1; }
+    footer { padding: 3.5rem 5% 2rem; }
+}
+
+/* Phones (480px–599px) */
+@media (min-width: 480px) and (max-width: 599px) {
+    .section { padding: 3.5rem 4%; }
+    .intro-section { padding: 3rem 4%; }
     .hero-content { padding: 2.5rem 4%; }
     .hero-eyebrow { font-size: 0.6rem; padding: 0.35rem 0.875rem; }
-
-    .facts-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-    .fact-number { font-size: 2.25rem; }
-    .quick-facts { padding: 2.5rem; }
-
-    .section { padding: 3.5rem 4%; }
+    .stats-banner { padding: 2.5rem 4%; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    .stat-item h3 { font-size: 2.25rem; }
+    .stat-item p { font-size: 0.8rem; }
+    .benefits-grid { grid-template-columns: 1fr; gap: 1.125rem; }
+    .benefit-card { padding: 1.5rem; }
+    .benefit-card h3 { font-size: 1.0625rem; }
+    .opportunity-cards { grid-template-columns: 1fr; gap: 1.125rem; }
+    .opportunity-card { padding: 1.5rem; }
+    .opportunity-card h3 { font-size: 1.0625rem; }
+    .info-cards { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .info-card { padding: 1.75rem 1.5rem; }
+    .two-column { grid-template-columns: 1fr; gap: 1.25rem; }
     .column { padding: 1.5rem; }
     .checklist { padding: 1.5rem; }
-    .highlight-box { padding: 1.75rem; }
-
-    .cta-button { width: 100%; justify-content: center; }
+    .highlight-box { padding: 1.5rem; margin: 2rem 0; }
+    .photo-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .section-title { letter-spacing: 0.5px; }
+    .section-subtitle { font-size: 0.9375rem; }
+    .quick-facts { padding: 2.5rem; }
+    .facts-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .fact-number { font-size: 2.25rem; }
+    .cta-buttons { flex-direction: column; align-items: center; gap: 1rem; }
+    .cta-button { width: 100%; max-width: 300px; justify-content: center; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
     footer { padding: 3.5rem 4% 2rem; }
-    .footer-grid { gap: 1.75rem; }
 }
 
-/* 480px */
-@media (max-width: 480px) {
-    .hero { margin-top: 58px; min-height: calc(100svh - 58px); }
+/* Small phones (400px–479px) */
+@media (min-width: 400px) and (max-width: 479px) {
+    .section { padding: 3rem 4%; }
+    .intro-section { padding: 2.75rem 4%; }
     .hero-content { padding: 2rem 4%; }
     .hero-eyebrow { display: none; }
     .hero-subtitle { font-size: clamp(0.9375rem, 3.5vw, 1.0625rem); }
-
-    .section { padding: 3rem 4%; }
-    .intro-box { padding: 1.75rem; }
-    .intro-box h2 { font-size: clamp(1.375rem, 4vw, 1.875rem); }
-
-    .column h3 { font-size: 1.25rem; }
+    .stats-banner { padding: 2.25rem 4%; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .stat-item h3 { font-size: 2rem; }
+    .stat-item p { font-size: 0.75rem; }
+    .intro-title { font-size: clamp(1.5rem, 5vw, 2rem); }
+    .intro-text { font-size: 0.9375rem; }
+    .section-title { font-size: clamp(1.625rem, 6vw, 2.25rem); letter-spacing: 0.5px; }
+    .section-subtitle { font-size: 0.9375rem; margin-bottom: 1.75rem; }
+    .benefits-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .benefit-card { padding: 1.375rem; }
+    .benefit-card h3 { font-size: 1rem; }
+    .benefit-card p, .benefit-card li { font-size: 0.9rem; }
+    .opportunity-cards { grid-template-columns: 1fr; gap: 1rem; }
+    .opportunity-card { padding: 1.375rem; }
+    .opportunity-card h3 { font-size: 1rem; }
+    .opportunity-icon { font-size: 2rem; }
+    .info-cards { grid-template-columns: 1fr; gap: 1rem; }
+    .info-card { padding: 1.5rem; }
+    .two-column { grid-template-columns: 1fr; gap: 1rem; }
     .column { padding: 1.25rem; }
+    .column h3 { font-size: 1.125rem; }
     .checklist { padding: 1.25rem; }
-    .checklist h3 { font-size: 1.25rem; }
-
-    .info-card { padding: 1.75rem 1.5rem; }
+    .checklist h3 { font-size: 1.125rem; }
+    .checklist-grid { grid-template-columns: 1fr; }
+    .highlight-box { padding: 1.375rem; margin: 1.75rem 0; }
+    .photo-grid { grid-template-columns: 1fr; gap: 0.875rem; }
     .quick-facts { padding: 2rem; }
     .quick-facts h3 { font-size: 1.5rem; letter-spacing: 2px; }
-
-    footer { padding: 3rem 4% 2rem; }
-    .footer-grid { gap: 1.5rem; }
+    .facts-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+    .fact-number { font-size: 2rem; }
+    .cta-buttons { flex-direction: column; align-items: center; gap: 0.875rem; }
+    .cta-button { width: 100%; justify-content: center; padding: 1rem 2rem; font-size: 0.8rem; }
+    .footer-grid { grid-template-columns: 1fr; gap: 1.75rem; }
     .footer-brand h3 { font-size: 1.625rem; }
+    footer { padding: 3rem 4% 2rem; }
 }
 
-/* 360px */
-@media (max-width: 360px) {
-    .hero { min-height: 420px; }
+/* Very small phones (below 400px) */
+@media (max-width: 399px) {
+    .section { padding: 2.5rem 4%; }
+    .intro-section { padding: 2.5rem 4%; }
+    .hero-content { padding: 2rem 4%; }
+    .hero-eyebrow { display: none; }
     .hero-title { font-size: clamp(2rem, 8vw, 3rem); letter-spacing: 2px; }
     .hero-subtitle { font-size: 0.9rem; }
-    .section { padding: 2.5rem 4%; }
+    .stats-banner { padding: 2rem 4%; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 0.875rem; }
+    .stat-item h3 { font-size: 1.875rem; }
+    .stat-item p { font-size: 0.7rem; letter-spacing: 1px; }
+    .intro-title { font-size: clamp(1.375rem, 5.5vw, 1.875rem); }
+    .intro-text { font-size: 0.9rem; }
+    .section-title { font-size: clamp(1.5rem, 6vw, 2rem); letter-spacing: 0; }
+    .section-subtitle { font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .benefits-grid { grid-template-columns: 1fr; gap: 0.875rem; }
+    .benefit-card { padding: 1.25rem; }
+    .benefit-card h3 { font-size: 0.9375rem; }
+    .benefit-card p, .benefit-card li { font-size: 0.875rem; }
+    .opportunity-cards { grid-template-columns: 1fr; gap: 0.875rem; }
+    .opportunity-card { padding: 1.25rem; }
+    .opportunity-card h3 { font-size: 0.9375rem; }
+    .opportunity-card p, .opportunity-card li { font-size: 0.875rem; }
+    .opportunity-icon { font-size: 1.875rem; }
+    .info-cards { grid-template-columns: 1fr; gap: 0.875rem; }
+    .info-card { padding: 1.375rem; }
+    .info-card-icon { font-size: 2rem; }
+    .info-card-title { font-size: 1.0625rem; }
+    .info-card-text { font-size: 0.875rem; }
+    .two-column { grid-template-columns: 1fr; gap: 0.875rem; }
     .column { padding: 1rem; }
-    .cta-button { padding: 1rem 1.5rem; font-size: 0.75rem; }
+    .column h3 { font-size: 1rem; }
+    .column p, .column li { font-size: 0.875rem; }
+    .checklist { padding: 1.125rem; margin: 2rem 0; }
+    .checklist h3 { font-size: 1rem; margin-bottom: 1.25rem; }
+    .checklist-grid { grid-template-columns: 1fr; gap: 0.5rem; }
+    .checklist-grid li { font-size: 0.875rem; }
+    .highlight-box { padding: 1.25rem; margin: 1.5rem 0; }
+    .highlight-box h3 { font-size: 1rem; }
+    .highlight-box h4 { font-size: 1rem; }
+    .highlight-box p { font-size: 0.875rem; }
+    .photo-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+    .quick-facts { padding: 1.75rem; margin: 3rem 0; }
+    .quick-facts h3 { font-size: 1.375rem; letter-spacing: 1.5px; margin-bottom: 2rem; }
+    .facts-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .fact-number { font-size: 1.875rem; }
+    .fact-label { font-size: 0.8rem; }
+    .cta-buttons { flex-direction: column; align-items: center; gap: 0.875rem; }
+    .cta-button { width: 100%; justify-content: center; padding: 1rem 1.5rem; font-size: 0.75rem; }
+    .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .footer-brand h3 { font-size: 1.5rem; }
+    .footer-description { font-size: 0.875rem; }
+    footer { padding: 2.5rem 4% 1.75rem; }
 }
 
-/* Landscape phones */
+/* Landscape phones (max 900px, landscape) */
 @media (max-width: 900px) and (orientation: landscape) {
-    .hero { min-height: 100svh; margin-top: 56px; }
+    .hero { min-height: 100svh; }
     .hero-content { padding: 1.5rem 5%; }
     .hero-title { font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: 3px; margin-bottom: 1rem; }
     .hero-subtitle { font-size: clamp(0.875rem, 1.8vw, 1rem); }
     .hero-eyebrow { margin-bottom: 0.875rem; }
+    .section { padding: 3rem 5%; }
+    .intro-section { padding: 3rem 5%; }
+    .stats-banner { padding: 2rem 5%; }
+    .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    .stat-item h3 { font-size: 2.5rem; }
+    .benefits-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .opportunity-cards { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .info-cards { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .photo-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .two-column { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .cta-buttons { flex-direction: row; gap: 1rem; }
+    footer { padding: 3.5rem 5% 2rem; }
+    .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
 }
 
     /* ── HERO MARGIN-TOP: matches nav height at every breakpoint ── */

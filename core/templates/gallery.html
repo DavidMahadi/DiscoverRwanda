@@ -354,55 +354,207 @@
         .footer-links a:hover { color: #fff; padding-left: 5px; }
         .footer-bottom { text-align: center; padding-top: 3rem; border-top: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.5); font-size: 0.875rem; }
         
-        @media (max-width: 1200px) {
-            .photo-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 768px) {
-            .photo-grid { grid-template-columns: 1fr; }
-            .photo-item:nth-child(n) { aspect-ratio: 4/3; }
-            .stats-grid, .footer-grid { grid-template-columns: 1fr; }
-            .filter-container { gap: 1rem; }
-            .filter-btn { padding: 0.625rem 1.5rem; font-size: 0.75rem; }
-        }
-
-
         /* ══════════════════════════════════════════
-   HAMBURGER BUTTON
-══════════════════════════════════════════ */
-/* ══════════════════════════════════════════
-   MOBILE NAV OVERLAY
-══════════════════════════════════════════ */
-/* ══════════════════════════════════════════
-   MOBILE DRAWER
-══════════════════════════════════════════ */
-/* ══════════════════════════════════════════
-   SHOW HAMBURGER AT 768px
-══════════════════════════════════════════ */
-@media (max-width: 768px) {
-    .hero { margin-top: 64px; min-height: 420px; height: auto; padding: 4rem 0; }
-    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .filter-container { gap: 0.75rem; }
-    .filter-btn { padding: 0.6rem 1.25rem; font-size: 0.75rem; }
-    .photo-grid { grid-template-columns: 1fr; gap: 1.25rem; }
-    .photo-item:nth-child(n) { aspect-ratio: 4/3; }
-}
+           GALLERY PAGE — FULL RESPONSIVE MEDIA QUERIES
+           Covers all breakpoints: 4K → small phones
+        ══════════════════════════════════════════ */
 
-@media (max-width: 480px) {
-    .hero { margin-top: 58px; }
-    .hero-eyebrow { display: none; }
-    .hero-title { letter-spacing: 4px; }
+        /* 4K / Ultra-wide (2560px+) */
+        @media (min-width: 2560px) {
+            .hero-content { max-width: 1400px; }
+            .gallery-section { padding: 9rem 8%; }
+            .gallery-container { max-width: 2200px; }
+            .photo-grid { grid-template-columns: repeat(4, 1fr); gap: 2.5rem; }
+            .section-title { font-size: 5rem; }
+            .stats-grid { grid-template-columns: repeat(4, 1fr); max-width: 1900px; }
+            .stat-item h3 { font-size: 5rem; }
+            .stat-item p { font-size: 1.1rem; }
+            .footer-grid { max-width: 2200px; }
+            .cta { padding: 9rem 8%; }
+        }
 
-    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-    .stat-item h3 { font-size: 2.5rem; }
+        /* 2K / QHD (1921px–2559px) */
+        @media (min-width: 1921px) and (max-width: 2559px) {
+            .photo-grid { grid-template-columns: repeat(4, 1fr); gap: 2.25rem; }
+            .gallery-section { padding: 8rem 7%; }
+            .gallery-container { max-width: 1900px; }
+            .stats-grid { max-width: 1700px; }
+        }
 
-    .filter-btn { padding: 0.5rem 1rem; font-size: 0.7rem; letter-spacing: 1px; }
-    .section-title { letter-spacing: 3px; }
+        /* Large desktop (1600px–1920px) */
+        @media (min-width: 1600px) and (max-width: 1920px) {
+            .photo-grid { grid-template-columns: repeat(3, 1fr); gap: 2.25rem; }
+            .gallery-section { padding: 7.5rem 6%; }
+        }
 
-    footer { padding: 4rem 5% 2rem; }
-    .footer-grid { gap: 1.75rem; }
-}
+        /* Standard desktop (1400px–1599px) */
+        @media (min-width: 1400px) and (max-width: 1599px) {
+            .photo-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        }
+
+        /* Laptop (1200px–1399px) */
+        @media (min-width: 1200px) and (max-width: 1399px) {
+            .photo-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.75rem; }
+            .gallery-section { padding: 6rem 5%; }
+        }
+
+        /* Small laptop (1024px–1199px) */
+        @media (min-width: 1024px) and (max-width: 1199px) {
+            .photo-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+            .gallery-section { padding: 5.5rem 5%; }
+            .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 2.5rem; }
+            .section-title { letter-spacing: 4px; }
+            .footer-grid { grid-template-columns: 2fr 1fr 1fr; gap: 3rem; }
+            .footer-grid .footer-column:last-child { grid-column: 1 / -1; }
+        }
+
+        /* iPad Pro landscape / large tablet (900px–1023px) */
+        @media (min-width: 900px) and (max-width: 1023px) {
+            .hero { min-height: 480px; }
+            .hero-content { padding: 0 5%; }
+            .gallery-section { padding: 5rem 5%; }
+            .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+            .photo-item:nth-child(n) { aspect-ratio: 3/4; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 3rem; }
+            .stat-item h3 { font-size: 3rem; }
+            .filter-section { padding: 2.5rem 5%; }
+            .filter-container { gap: 1rem; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+            .footer-brand { grid-column: 1 / -1; }
+            .section-header { margin-bottom: 3rem; }
+        }
+
+        /* iPad Air portrait / tablet (768px–899px) */
+        @media (min-width: 768px) and (max-width: 899px) {
+            .hero { min-height: 440px; }
+            .hero-content { padding: 0 5%; }
+            .gallery-section { padding: 4.5rem 5%; }
+            .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+            .photo-item:nth-child(n) { aspect-ratio: 4/3; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
+            .stat-item h3 { font-size: 2.75rem; }
+            .filter-section { padding: 2rem 5%; }
+            .filter-container { gap: 0.875rem; }
+            .filter-btn { padding: 0.65rem 1.5rem; font-size: 0.8rem; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+            .footer-brand { grid-column: 1 / -1; }
+            .section-title { letter-spacing: 4px; }
+            .section-header { margin-bottom: 2.5rem; }
+        }
+
+        /* iPad Air portrait precision (810px–840px) */
+        @media (min-width: 810px) and (max-width: 840px) {
+            .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+        }
+
+        /* Large phones (600px–767px) */
+        @media (min-width: 600px) and (max-width: 767px) {
+            .hero { min-height: 400px; height: auto; padding: 4rem 0; }
+            .hero-content { padding: 0 5%; }
+            .gallery-section { padding: 4rem 5%; }
+            .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+            .photo-item:nth-child(n) { aspect-ratio: 4/3; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+            .stat-item h3 { font-size: 2.5rem; }
+            .filter-section { padding: 1.75rem 5%; }
+            .filter-container { gap: 0.75rem; }
+            .filter-btn { padding: 0.6rem 1.25rem; font-size: 0.75rem; letter-spacing: 1px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+            .footer-brand { grid-column: 1 / -1; }
+            .cta { padding: 5rem 5%; }
+            .section-title { letter-spacing: 3px; }
+            .section-header { margin-bottom: 2.25rem; }
+            .section-description { font-size: 1rem; }
+        }
+
+        /* Phones (480px–599px) */
+        @media (min-width: 480px) and (max-width: 599px) {
+            .hero { min-height: 380px; height: auto; padding: 3.5rem 0; }
+            .hero-content { padding: 0 5%; }
+            .gallery-section { padding: 3.5rem 5%; }
+            .photo-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .photo-item:nth-child(n) { aspect-ratio: 4/3; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.75rem; }
+            .stat-item h3 { font-size: 2.5rem; }
+            .filter-section { padding: 1.5rem 5%; }
+            .filter-container { gap: 0.625rem; }
+            .filter-btn { padding: 0.55rem 1.125rem; font-size: 0.72rem; letter-spacing: 1px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .cta { padding: 4.5rem 5%; }
+            .cta-button { padding: 1rem 2.5rem; font-size: 0.8rem; }
+            .section-title { letter-spacing: 3px; }
+            .section-header { margin-bottom: 2rem; }
+            .section-description { font-size: 0.9375rem; }
+            footer { padding: 4.5rem 5% 2rem; }
+        }
+
+        /* Small phones (400px–479px) */
+        @media (min-width: 400px) and (max-width: 479px) {
+            .hero { min-height: 340px; height: auto; padding: 3rem 0; }
+            .hero-content { padding: 0 5%; }
+            .hero-eyebrow { font-size: 0.6rem; letter-spacing: 2px; padding: 0.35rem 1rem; }
+            .gallery-section { padding: 3rem 4%; }
+            .photo-grid { grid-template-columns: 1fr; gap: 0.875rem; }
+            .photo-item:nth-child(n) { aspect-ratio: 4/3; }
+            .stats-banner { padding: 3.5rem 5%; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+            .stat-item h3 { font-size: 2.25rem; }
+            .stat-item p { font-size: 0.8rem; letter-spacing: 1px; }
+            .filter-section { padding: 1.5rem 4%; }
+            .filter-container { gap: 0.5rem; }
+            .filter-btn { padding: 0.5rem 1rem; font-size: 0.7rem; letter-spacing: 0.5px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 1.75rem; }
+            .footer-brand h3 { font-size: 1.6rem; }
+            .cta { padding: 4rem 5%; }
+            .cta-title { letter-spacing: 3px; }
+            .cta-text { font-size: 1rem; }
+            .cta-button { padding: 0.9rem 2rem; font-size: 0.75rem; letter-spacing: 1.5px; }
+            .section-title { letter-spacing: 2px; }
+            .section-header { margin-bottom: 1.75rem; }
+            .section-description { font-size: 0.9rem; }
+            footer { padding: 4rem 5% 2rem; }
+            .footer-grid { gap: 1.5rem; }
+        }
+
+        /* Very small phones (below 400px) */
+        @media (max-width: 399px) {
+            .hero { min-height: 300px; height: auto; padding: 2.5rem 0; }
+            .hero-content { padding: 0 5%; }
+            .hero-eyebrow { display: none; }
+            .hero-title { letter-spacing: 4px; }
+            .hero-subtitle { font-size: 0.9375rem; }
+            .gallery-section { padding: 2.5rem 4%; }
+            .photo-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+            .photo-item:nth-child(n) { aspect-ratio: 4/3; }
+            .stats-banner { padding: 3rem 4%; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+            .stat-item h3 { font-size: 2rem; }
+            .stat-item p { font-size: 0.75rem; letter-spacing: 0.5px; }
+            .filter-section { padding: 1.25rem 4%; }
+            .filter-container { gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+            .filter-btn { padding: 0.45rem 0.875rem; font-size: 0.675rem; letter-spacing: 0.5px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .footer-brand h3 { font-size: 1.4rem; }
+            .footer-description { font-size: 0.875rem; }
+            .cta { padding: 3.5rem 4%; }
+            .cta-title { letter-spacing: 2px; }
+            .cta-text { font-size: 0.9375rem; }
+            .cta-button { padding: 0.85rem 1.75rem; font-size: 0.72rem; letter-spacing: 1px; width: 100%; justify-content: center; }
+            .section-title { letter-spacing: 1.5px; }
+            .section-header { margin-bottom: 1.5rem; }
+            .section-description { font-size: 0.875rem; }
+            footer { padding: 3.5rem 4% 1.75rem; }
+        }
+
+        /* Landscape phones (max 900px, landscape) */
+        @media (max-width: 900px) and (orientation: landscape) {
+            .hero { min-height: 280px; height: auto; padding: 2.5rem 0; }
+            .photo-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+            .photo-item:nth-child(n) { aspect-ratio: 4/3; }
+            .filter-section { padding: 1.25rem 5%; }
+            .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+            .gallery-section { padding: 3rem 5%; }
+        }
 
     /* ── HERO MARGIN-TOP: matches nav height at every breakpoint ── */
     @media (min-width: 2560px) {

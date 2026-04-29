@@ -3563,6 +3563,168 @@ body.nav-open { overflow: hidden; }
     .experience-luxury-card:hover .experience-number-badge { transform: none; }
     .social-icon-link:hover { transform: translateY(-4px); }
 }
+
+/* ══════════════════════════════════════════
+   GREEN TEXT VISIBILITY — DARK SECTIONS
+   Ensures section labels, headings, and
+   intro text remain legible on dark bg
+══════════════════════════════════════════ */
+
+/* On dark sections, .section-header-dark already sets heading to white.
+   Ensure section-label border and text use the lighter gold-light
+   so it's clearly visible against dark backgrounds */
+.section-header-dark .section-label {
+    color: var(--gold-light) !important;
+    border-color: var(--gold-light) !important;
+}
+
+/* section-heading on dark background must be white */
+.section-header-dark .section-heading {
+    color: #ffffff !important;
+}
+
+/* section-intro on dark background must be legible */
+.section-header-dark .section-intro {
+    color: rgba(255, 255, 255, 0.82) !important;
+}
+
+/* gallery-immersive: any .section-label inside must be visible */
+.gallery-immersive .section-label,
+.gallery-preview .section-label {
+    color: var(--gold-light) !important;
+    border-color: var(--gold-light) !important;
+}
+
+/* Explicitly keep green heading text visible on light sections */
+.about-luxury .section-heading,
+.tours-signature .section-heading,
+.why-luxury .section-heading,
+.blog-luxury .section-heading,
+.travel-essentials .section-heading,
+.testimonials-luxury .section-heading {
+    color: var(--emerald-rich);
+}
+
+/* ══════════════════════════════════════════
+   GALLERY BENTO GRID — RESPONSIVE
+   The 24-col bento grid needs to simplify
+   on smaller screens
+══════════════════════════════════════════ */
+
+/* Tablet and below — switch to simple 2-col grid */
+@media (max-width: 1023px) {
+    .gallery-bento-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 240px;
+        gap: 1.5rem;
+    }
+    .gallery-piece:nth-child(n) {
+        grid-column: span 1 !important;
+        grid-row: span 1 !important;
+    }
+    .gallery-piece:nth-child(1),
+    .gallery-piece:nth-child(2) {
+        grid-column: span 2 !important;
+        grid-row: span 1 !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .gallery-bento-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 260px;
+        gap: 1.25rem;
+    }
+    .gallery-piece:nth-child(n) {
+        grid-column: span 1 !important;
+        grid-row: span 1 !important;
+    }
+    .gallery-label-luxury { font-size: 1.5rem; bottom: 1.75rem; left: 1.75rem; right: 1.75rem; }
+}
+
+@media (max-width: 575px) {
+    .gallery-bento-grid {
+        grid-auto-rows: 220px;
+        gap: 1rem;
+    }
+    .gallery-label-luxury { font-size: 1.25rem; bottom: 1.25rem; left: 1.25rem; right: 1.25rem; }
+}
+
+/* ══════════════════════════════════════════
+   PARTNERS LOGOS — UPPER RANGE
+══════════════════════════════════════════ */
+@media (min-width: 2560px) {
+    .partners-logos { grid-template-columns: repeat(6, 1fr); gap: 7rem; }
+    .partners-heading { font-size: 0.875rem; letter-spacing: 5px; }
+}
+@media (min-width: 1921px) and (max-width: 2559px) {
+    .partners-logos { grid-template-columns: repeat(6, 1fr); gap: 6rem; }
+}
+@media (min-width: 1600px) and (max-width: 1920px) {
+    .partners-logos { grid-template-columns: repeat(6, 1fr); gap: 5.5rem; }
+}
+
+/* ══════════════════════════════════════════
+   LANDSCAPE PHONES
+   (max-width 900px in landscape orientation)
+══════════════════════════════════════════ */
+@media (max-width: 900px) and (orientation: landscape) {
+    .hero { min-height: 100svh; }
+    .hero-content-wrapper { padding: 1rem 5%; }
+    .hero-headline { font-size: clamp(2.5rem, 6vw, 4rem); letter-spacing: 3px; margin-bottom: 1.5rem; }
+    .hero-description { font-size: clamp(0.875rem, 1.8vw, 1rem); margin-bottom: 2rem; }
+    .hero-eyebrow { margin-bottom: 1.5rem; font-size: 0.5rem; }
+    .hero-cta-group { gap: 1rem; }
+    .cta-btn { padding: 1rem 2.5rem; font-size: 0.75rem; }
+    .hero-scroll-indicator { bottom: 2rem; }
+    .scroll-line { height: 35px; }
+
+    .intro-compact { padding: 2.5rem 5%; }
+    .intro-highlights { grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+
+    .about-luxury,
+    .tours-signature,
+    .why-luxury,
+    .blog-luxury,
+    .travel-essentials,
+    .experiences-premium { padding: 4rem 5%; }
+    .testimonials-luxury,
+    .gallery-preview { padding: 3.5rem 5%; }
+    .travel-your-way { padding: 4rem 5%; background-attachment: scroll; }
+
+    .section-header-dark { margin-bottom: 3rem; }
+
+    .experiences-showcase { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .experience-luxury-card { height: 380px; }
+    .experience-info-box { padding: 2rem; }
+
+    .tours-grid-luxury { gap: 1.5rem; }
+    .tour-editorial-card { flex: 0 0 calc(50% - 0.75rem); }
+    .tour-hero-image { height: 260px; }
+    .tour-content-box { padding: 1.5rem; }
+
+    .why-benefits-grid { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    .benefit-luxury-card { padding: 2rem 1.5rem; }
+
+    .testimonials-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+    .travel-ways-grid { grid-template-columns: repeat(4, 1fr); }
+    .travel-way-card { padding: 2rem 1.5rem; }
+
+    .gallery-preview-grid { grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .gallery-preview-item { height: 180px; }
+
+    .cta-split-container { grid-template-columns: 1fr 1fr; }
+    .cta-images-carousel { height: auto; min-height: 300px; }
+
+    .blog-articles-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .article-featured-image { height: 240px; }
+
+    .partners-logos { grid-template-columns: repeat(6, 1fr); gap: 2rem; }
+
+    footer { padding: 5rem 5% 3rem; }
+    .footer-grid-luxury { grid-template-columns: repeat(2, 1fr); gap: 3rem; }
+}
 </style>
 </head>
 <body>
