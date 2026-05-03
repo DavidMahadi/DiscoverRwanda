@@ -1401,5 +1401,234 @@
     });
 })();
 </script>
+
+<!-- ══════════════ ATTRACTION MODAL ══════════════ -->
+<div id="attractionModal" class="atr-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="atrModalTitle">
+  <div class="atr-modal">
+    <button class="atr-modal-close" id="atrModalClose" aria-label="Close">✕</button>
+    <div class="atr-modal-hero">
+      <img id="atrModalImg" src="" alt="">
+      <div class="atr-modal-hero-overlay"></div>
+      <span class="atr-modal-badge" id="atrModalBadge"></span>
+    </div>
+    <div class="atr-modal-body">
+      <h2 class="atr-modal-title" id="atrModalTitle"></h2>
+      <p class="atr-modal-desc" id="atrModalDesc"></p>
+      <div class="atr-modal-columns">
+        <div>
+          <h4 class="atr-modal-col-heading">Highlights</h4>
+          <ul class="atr-modal-list" id="atrModalHighlights"></ul>
+        </div>
+        <div>
+          <h4 class="atr-modal-col-heading">Quick Facts</h4>
+          <ul class="atr-modal-list atr-modal-facts" id="atrModalFacts"></ul>
+        </div>
+      </div>
+      <div class="atr-modal-footer">
+        <a href="/contact" class="atr-modal-cta">Plan My Visit →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* MODAL */
+.atr-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.72);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+.atr-modal-overlay.open { display: flex; animation: atrFadeIn 0.3s ease; }
+@keyframes atrFadeIn { from { opacity:0 } to { opacity:1 } }
+
+.atr-modal {
+  background: #fff;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 760px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: atrSlideUp 0.35s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+}
+@keyframes atrSlideUp { from { opacity:0; transform:translateY(30px) } to { opacity:1; transform:translateY(0) } }
+
+.atr-modal-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.95);
+  color: #111;
+  font-size: 15px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  transition: background 0.2s, transform 0.2s;
+}
+.atr-modal-close:hover { background: #111; color: #fff; transform: scale(1.08); }
+
+.atr-modal-hero {
+  position: relative;
+  height: 260px;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+}
+.atr-modal-hero img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.atr-modal-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.45));
+}
+.atr-modal-badge {
+  position: absolute;
+  bottom: 18px; left: 22px;
+  background: rgba(255,255,255,0.95);
+  color: #111;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 3px;
+}
+
+.atr-modal-body {
+  padding: 32px 36px 36px;
+}
+.atr-modal-title {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: #0a0a0a;
+  margin-bottom: 14px;
+  line-height: 1.25;
+}
+.atr-modal-desc {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 28px;
+}
+.atr-modal-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-bottom: 32px;
+}
+.atr-modal-col-heading {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.atr-modal-list {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.atr-modal-list li {
+  font-size: 13px;
+  color: #333;
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.5;
+}
+.atr-modal-list li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 7px;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #2d7a4f;
+}
+.atr-modal-facts li::before { background: #c59959; }
+
+.atr-modal-footer {
+  padding-top: 24px;
+  border-top: 1px solid #f0f0f0;
+}
+.atr-modal-cta {
+  display: inline-block;
+  padding: 13px 32px;
+  background: #0a0a0a;
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  transition: background 0.2s, transform 0.2s;
+}
+.atr-modal-cta:hover { background: #2d7a4f; transform: translateY(-1px); }
+
+@media (max-width: 600px) {
+  .atr-modal-body { padding: 24px 20px 28px; }
+  .atr-modal-columns { grid-template-columns: 1fr; gap: 20px; }
+  .atr-modal-hero { height: 200px; }
+  .atr-modal-title { font-size: 22px; }
+}
+</style>
+
+<script>
+(function() {
+  const DATA = [{"href": "volcanoes-park.html", "title": "Volcanoes National Park", "badge": "Iconic", "img": "https://www.explorerwandatours.com/wp-content/uploads/2021/12/History-of-Volcanoes-National.jpg", "desc": "Volcanoes National Park is Rwanda's most celebrated protected area, home to five majestic volcanoes and the endangered mountain gorilla. Situated in the Virunga Mountains bordering Uganda and DRC, this 160 km\u00b2 park is among the world's most biodiverse and dramatically beautiful landscapes.", "facts": ["Located in Musanze District, NW Rwanda", "Elevation: 2,400\u20134,507m (Mt. Karisimbi)", "Best time: June\u2013September & December\u2013February", "Permits: $1,500 USD per person per trek"], "highlights": ["Mountain gorilla trekking", "Five volcanic peaks", "Golden monkey tracking", "Dian Fossey research center", "Twin Lakes Burera & Ruhondo nearby"]}, {"href": "akagera-park.html", "title": "Akagera National Park", "badge": "Big Five", "img": "https://i.pinimg.com/1200x/a8/92/87/a892878d5917b95dab293af2edf8fa6c.jpg", "desc": "Akagera National Park is Africa's largest protected wetland and Rwanda's only savanna park. Home to the Big Five \u2014 lions, leopards, elephants, buffaloes, and rhinos \u2014 it offers classic safari experiences along a mosaic of savanna, woodland, and lakes along the Tanzania border.", "facts": ["Located in eastern Rwanda", "Size: 1,122 km\u00b2", "Best time: June\u2013September", "Managed by African Parks since 2010"], "highlights": ["Lions, elephants, rhinos & leopards", "Savanna game drives", "Boat safaris on Lake Ihema", "480+ bird species", "Night game drives available"]}, {"href": "nyungwe-park.html", "title": "Nyungwe Forest Park", "badge": "Rainforest", "img": "https://i.pinimg.com/736x/5f/fb/f0/5ffbf0e6de5ac565a1ce229426563282.jpg", "desc": "Nyungwe Forest National Park is one of Africa's oldest and most biodiverse rainforests, covering 1,019 km\u00b2 in southwest Rwanda. With 13 primate species and over 310 bird species, it is a paradise for wildlife lovers and hikers seeking pristine equatorial wilderness.", "facts": ["Size: 1,019 km\u00b2", "Age: One of Africa's oldest rainforests", "Altitude: 1,600\u20132,950m", "Best time: June\u2013September & December\u2013January"], "highlights": ["Chimpanzee tracking", "Canopy walkway 50m high", "13 primate species", "310+ bird species", "200km of hiking trails"]}, {"href": "gishwati-park.html", "title": "Gishwati-Mukura Park", "badge": "Conservation", "img": "https://visitrwanda.com/wp-content/uploads/fly-images/1336/Visit-Rwanda-NH_OO_Activities_Chimpanzee_Trek_6853_MASTER-1920x1280.jpg", "desc": "Gishwati-Mukura National Park is Rwanda's newest national park, established in 2015 as a remarkable conservation success story. Once nearly destroyed, the forest has been meticulously restored and now teems with chimpanzees, golden monkeys, and a rich array of birdlife.", "facts": ["Established: 2015", "Rwanda's 4th national park", "Located in Western Province", "Best time: June\u2013September"], "highlights": ["Restored rainforest ecosystem", "Chimpanzees & golden monkeys", "230+ bird species", "Conservation success story", "Guided forest walks"]}, {"href": "lake-kivu.html", "title": "Lake Kivu", "badge": "Popular", "img": "https://www.queenelizabethparkuganda.com/wp-content/uploads/2025/01/4-Days-Rwanda-Gorillas-and-Lake-Kivu-Safari-1200x600-1.jpg", "desc": "Lake Kivu is one of Africa's Great Lakes, stretching 89 km along the western border of Rwanda and DRC. Surrounded by steep green hills and dotted with islands, it is the country's premier leisure destination \u2014 perfect for beach stays, boat trips, and sunset dinners.", "facts": ["Size: 2,700 km\u00b2", "Altitude: 1,463m above sea level", "Main towns: Rubavu (Gisenyi) & Rusizi (Cyangugu)", "Best time: Year-round"], "highlights": ["Sandy beaches & luxury resorts", "Kayaking & boat tours", "Island exploration", "Stunning sunset views", "Fresh Tilapia cuisine"]}, {"href": "musanze-caves.html", "title": "Musanze Caves", "badge": "History", "img": "https://www.silverbackgorillatours.com/wp-content/uploads/2018/11/musanze-caves.jpg", "desc": "The Musanze Caves are a fascinating network of ancient lava tubes carved over millions of years by volcanic activity beneath the Virunga Mountains. Stretching over 2km underground, the caves served as a refuge for local communities during times of conflict and are among Rwanda's most unique geological sites.", "facts": ["Length: 2km+ underground network", "Location: Musanze District", "Formed by: ancient lava flows", "Best combined with: Volcanoes NP visit"], "highlights": ["Ancient lava tube caves", "2km underground network", "Historical refuge site", "Guided cave tours", "Unique geological formations"]}, {"href": "twin-lakes.html", "title": "Burera & Ruhondo Twin Lakes", "badge": "Scenic", "img": "https://rwandaecocompany.com/wp-content/uploads/2021/05/twin-lakes.jpg", "desc": "Lakes Burera and Ruhondo are twin volcanic lakes sitting at over 1,800m altitude in northern Rwanda, framed by the dramatic silhouette of the Virunga volcanoes. Among the most scenic spots in the country, they offer terraced hillsides, fishing villages, and some of the finest panoramic views Rwanda has to offer.", "facts": ["Altitude: ~1,800m above sea level", "Location: Burera District, Northern Province", "Near: Volcanoes National Park", "Best time: Dry season (June\u2013September)"], "highlights": ["Volcanic mountain backdrop", "Terraced hillsides", "Canoeing adventures", "Birdwatching paradise", "Fishing communities", "Panoramic views"]}, {"href": "lake-muhazi.html", "title": "Lake Muhazi", "badge": "Day Trip", "img": "https://images.squarespace-cdn.com/content/v1/60f41bfb9496217336cd6dfd/6076b9da-af0e-48a9-977d-9d9a58050c23/Lounge+at+Night.jpg?format=2500w", "desc": "Lake Muhazi is a long serpentine lake stretching 60km through the Eastern Province, just one hour from Kigali. A popular weekend escape for Kigali residents, the lake offers water sports, lakeside resorts, and fresh fish restaurants in a peaceful rural setting.", "facts": ["Length: 60km", "Distance from Kigali: 1 hour", "Location: Eastern Province", "Best time: Year-round"], "highlights": ["60km serpentine lake", "Water sports & swimming", "Lakeside resorts", "Fresh fish restaurants", "Easy day trip from Kigali"]}, {"href": "kings-palace.html", "title": "King's Palace Museum", "badge": "Culture", "img": "https://i.pinimg.com/736x/05/4c/f0/054cf0ea526fc1e4f5c0dfd31dc1e882.jpg", "desc": "The King's Palace Museum in Nyanza offers a rare window into Rwanda's royal past. The beautifully reconstructed traditional palace \u2014 shaped like an inverted beehive \u2014 was home to the last Rwandan king, Mutara III Rudahigwa. The sacred Inyambo cattle that graze the grounds are living symbols of Rwanda's aristocratic heritage.", "facts": ["Location: Nyanza, Southern Province", "Entry fee: ~$6 USD", "Guided tours available", "Combine with: Ethnographic Museum"], "highlights": ["Traditional beehive palace", "Sacred Inyambo cattle", "Royal artifacts & regalia", "Cultural dance performances", "Beautiful palace gardens"]}, {"href": "ibyiwacu.html", "title": "Iby'Iwacu Cultural Village", "badge": "Cultural", "img": "https://i.pinimg.com/1200x/e8/2f/f1/e82ff197b1f70c7c8b76527f28eb3b38.jpg", "desc": "Iby'Iwacu Cultural Village near Volcanoes National Park offers an authentic and immersive encounter with traditional Rwandan culture. Founded as a community initiative for former poachers, the village showcases traditional dances, crafts, and ceremonies while contributing to wildlife conservation.", "facts": ["Location: Near Volcanoes NP, Kinigi", "Founded as a poacher reform initiative", "Entry fee: ~$30 USD per person", "Duration: 1.5\u20132 hours"], "highlights": ["Intore dance performances", "Traditional archery", "Banana beer brewing", "Basket weaving workshops", "Community-run conservation project"]}, {"href": "ethnographic.html", "title": "Ethnographic Museum", "badge": "Museum", "img": "https://rentcarrwanda.com//storage/blog-content-dir/vF7SGc6KlyOsJWNJuidQtfpwwz7a89xwk3FrTNYH.png", "desc": "The National Museum of Rwanda (Ethnographic Museum) in Huye is the country's largest and most comprehensive museum. Its seven themed galleries trace Rwandan life from pre-colonial times through to the modern era, housing an extraordinary collection of traditional artefacts, royal objects, and contemporary art.", "facts": ["Location: Huye (Butare), Southern Province", "Galleries: 7 themed exhibitions", "Entry fee: ~$6 USD", "Duration: 1.5\u20132 hours"], "highlights": ["Seven themed galleries", "Pre-colonial artifacts", "Traditional clothing exhibits", "Contemporary Rwandan art", "Colonial era collection"]}, {"href": "volcano-hiking.html", "title": "Volcano Hiking", "badge": "Trekking", "img": "https://i.pinimg.com/1200x/6e/00/be/6e00beec0a3e6008b2b86da5bb8dc4ca.jpg", "desc": "Rwanda's Virunga volcanoes offer some of Central Africa's most rewarding high-altitude treks. From the accessible day-hike up Mount Bisoke (3,711m) to the demanding 2-day Karisimbi summit (4,507m), there is a volcano for every level of trekker \u2014 all within a spectacular landscape of bamboo forest and alpine moorland.", "facts": ["Highest peak: Karisimbi at 4,507m", "Best one-day hike: Mt. Bisoke (3,711m)", "Starting point: Kinigi Park HQ", "Best time: June\u2013September"], "highlights": ["Mount Bisoke day hike", "Karisimbi 2-day summit trek", "Crater lake views", "Alpine & bamboo ecosystems", "Guided ranger-led treks"]}, {"href": "canopy-walk.html", "title": "Canopy Walkway", "badge": "Adventure", "img": "https://i.pinimg.com/736x/13/55/18/1355183aa4fc29574a19a4fbbc945661.jpg", "desc": "Nyungwe Forest's canopy walkway is the only one of its kind in East Africa \u2014 a 160-metre suspension bridge suspended 50 metres above the ancient rainforest floor. The experience offers a breathtaking bird's-eye perspective of the forest canopy and extraordinary wildlife spotting opportunities.", "facts": ["Height: 50m above forest floor", "Length: 160m suspension bridge", "Location: Uwinka Sector, Nyungwe NP", "Combined with: Igishigishigi Trail"], "highlights": ["50m above rainforest floor", "160m suspension bridge", "Bird's-eye canopy views", "Primate spotting", "Most iconic experience in Nyungwe"]}, {"href": "tea-tours.html", "title": "Tea Plantation Tours", "badge": "Experience", "img": "https://www.insidevolcanoesnationalpark.com/wp-content/uploads/2025/05/PFunda-Tea-Plantation-Tour.jpg", "desc": "Rwanda's tea plantations \u2014 particularly those around Gisakura near Nyungwe \u2014 create some of the most visually stunning landscapes in Africa. Touring the plantations reveals the full story of Rwanda's world-class tea industry, from hand-picking the leaves to observing the factory processing and tasting a freshly brewed cup.", "facts": ["Best plantations: Gisakura & Pfunda", "Location: Near Nyungwe Forest", "Duration: 2\u20133 hours", "Entry: Free or small fee depending on estate"], "highlights": ["Rolling emerald green hills", "Tea leaf picking experience", "Factory processing tours", "Fresh tea tasting", "Scenic photography locations"]}];
+  const modal    = document.getElementById('attractionModal');
+  const closeBtn = document.getElementById('atrModalClose');
+
+  function openModal(href) {
+    const d = DATA.find(c => c.href === href);
+    if (!d) return;
+    document.getElementById('atrModalImg').src       = d.img;
+    document.getElementById('atrModalImg').alt       = d.title;
+    document.getElementById('atrModalBadge').textContent = d.badge;
+    document.getElementById('atrModalTitle').textContent = d.title;
+    document.getElementById('atrModalDesc').textContent  = d.desc;
+    document.getElementById('atrModalHighlights').innerHTML =
+      d.highlights.map(h => `<li>${h}</li>`).join('');
+    document.getElementById('atrModalFacts').innerHTML =
+      d.facts.map(f => `<li>${f}</li>`).join('');
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Intercept all explore links
+  document.querySelectorAll('.photo-card-link, .large-photo-content .photo-card-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const href = this.getAttribute('href');
+      openModal(href);
+    });
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+})();
+</script>
 </body>
 </html>

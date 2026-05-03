@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Bodoni+Moda:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Bodoni+Moda:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
     /* ═══ NAVIGATION ═══ */
     .nav {
@@ -851,80 +851,174 @@ textarea{
 }
 
 /* === BUDGET SLIDER === */
-.budget-box{
-    margin-top: 30px;
+/* ══════════════════════════════════════
+   BUDGET TIER SELECTOR
+══════════════════════════════════════ */
+.budget-box { margin-top: 10px; }
+
+/* Hide the Django range input — we drive it via JS */
+input[type="range"] { display: none; }
+.budget-markers { display: none; }
+.budget-display  { display: none; }
+.budget-amount   {}
+.budget-label    {}
+
+/* Tier grid */
+.budget-tiers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 24px;
 }
 
-.budget-display{
-    text-align: center;
-    margin-bottom: 30px;
+.budget-tier {
+    position: relative;
+    border: 2px solid #e8e8e8;
+    border-radius: 16px;
+    padding: 22px 18px 20px;
+    cursor: pointer;
+    background: #fff;
+    transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: left;
+    overflow: hidden;
 }
-
-.budget-amount{
-    font-family: 'Playfair Display', serif;
-    font-size: 48px;
-    font-weight: 600;
-    color: var(--primary-black);
+.budget-tier::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #000 0%, #222 100%);
+    opacity: 0;
+    transition: opacity 0.28s ease;
+    z-index: 0;
 }
+.budget-tier:hover {
+    border-color: #bbb;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.09);
+}
+.budget-tier.selected {
+    border-color: #000;
+    box-shadow: 0 10px 32px rgba(0,0,0,0.14);
+    transform: translateY(-3px);
+}
+.budget-tier.selected::after { opacity: 1; }
 
-.budget-label{
-    font-size: 13px;
-    color: #777;
+.budget-tier-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 5px;
-}
-
-input[type="range"]{
-    -webkit-appearance: none;
-    width: 100%;
-    height: 8px;
-    border-radius: 5px;
-    background: linear-gradient(to right, #000000 0%, #666666 100%);
-    outline: none;
-    opacity: 0.8;
-    transition: opacity 0.3s;
-}
-
-input[type="range"]:hover{
-    opacity: 1;
-}
-
-input[type="range"]::-webkit-slider-thumb{
-    -webkit-appearance: none;
-    appearance: none;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: white;
-    border: 3px solid var(--primary-black);
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-}
-
-input[type="range"]::-webkit-slider-thumb:hover{
-    transform: scale(1.2);
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
-}
-
-input[type="range"]::-moz-range-thumb{
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: white;
-    border: 3px solid var(--primary-black);
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.budget-markers{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-    font-size: 12px;
     color: #999;
-    font-weight: 500;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+    transition: color 0.28s;
+}
+.budget-tier.selected .budget-tier-badge { color: rgba(255,255,255,0.6); }
+
+.budget-tier-range {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #111;
+    line-height: 1.1;
+    position: relative;
+    z-index: 1;
+    transition: color 0.28s;
+}
+.budget-tier.selected .budget-tier-range { color: #fff; }
+
+.budget-tier-desc {
+    font-size: 11px;
+    color: #999;
+    margin-top: 6px;
+    line-height: 1.4;
+    position: relative;
+    z-index: 1;
+    transition: color 0.28s;
+}
+.budget-tier.selected .budget-tier-desc { color: rgba(255,255,255,0.65); }
+
+/* Selected checkmark */
+.budget-tier-check {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    border: 1.5px solid rgba(255,255,255,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.28s ease;
+}
+.budget-tier.selected .budget-tier-check { opacity: 1; }
+.budget-tier-check svg { display: block; }
+
+/* Custom amount row */
+.budget-custom-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 20px;
+    border: 2px solid #e8e8e8;
+    border-radius: 14px;
+    background: #fafafa;
+    transition: border-color 0.25s ease;
+}
+.budget-custom-row.active {
+    border-color: #000;
+    background: #fff;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+}
+.budget-custom-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #888;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.budget-custom-prefix {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    flex-shrink: 0;
+}
+.budget-custom-input {
+    flex: 1;
+    border: none !important;
+    border-bottom: 2px solid #e0e0e0 !important;
+    border-radius: 0 !important;
+    padding: 4px 0 !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #111 !important;
+    min-width: 0;
+    transition: border-color 0.2s ease !important;
+}
+.budget-custom-input:focus {
+    border-bottom-color: #000 !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+.budget-custom-input::placeholder { color: #bbb; font-weight: 400; }
+
+/* Responsive */
+@media (max-width: 640px) {
+    .budget-tiers { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 420px) {
+    .budget-tiers { grid-template-columns: 1fr; }
 }
 
 /* === SUBMIT SECTION === */
@@ -974,114 +1068,168 @@ input[type="range"]::-moz-range-thumb{
 }
 
 /* === TRUST BAR === */
-.trust-bar{
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-    color: white;
-    padding: 70px 30px;
-    margin-top: 100px;
-    position: relative;
-    overflow: hidden;
+.trust-bar {
+    background: #0d0d0d;
+    padding: 80px 6%;
+    margin-top: 0;
 }
 
-.trust-bar::before{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
-    opacity: 0.3;
-}
-
-.trust-grid{
-    max-width: 1200px;
+.trust-grid {
+    max-width: 1100px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 50px;
+    gap: 36px;
     text-align: center;
-    position: relative;
-    z-index: 1;
 }
 
-.trust-item{
-    padding: 30px;
+.trust-item { color: white; }
+
+.trust-img-wrap {
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 22px;
+}
+.trust-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.82);
+    transition: transform 0.5s ease, filter 0.4s ease;
+}
+.trust-item:hover .trust-img {
+    transform: scale(1.06);
+    filter: brightness(1);
 }
 
-.trust-item .icon{
-    font-size: 48px;
-    margin-bottom: 20px;
-    display: inline-block;
-    opacity: 0.9;
-}
-
-.trust-item h4{
-    font-size: 20px;
+.trust-item h4 {
+    font-size: 16px;
     font-weight: 700;
-    margin-bottom: 12px;
-    font-family: 'Playfair Display', serif;
+    margin-bottom: 10px;
+    color: #fff;
+    letter-spacing: 0.3px;
 }
-
-.trust-item p{
+.trust-item p {
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255,255,255,0.55);
     line-height: 1.7;
+    max-width: 280px;
+    margin: 0 auto;
 }
 
 /* === FOOTER === */
-.footer{
-    background: #0a0a0a;
+/* ════════════════════════════════════════════
+   FOOTER — DARK PREMIUM
+════════════════════════════════════════════ */
+.footer {
+    background: #111;
     color: #ccc;
-    padding: 80px 30px 40px;
+    font-family: 'Inter', sans-serif;
+    padding: 72px 8% 0;
 }
-
-.footer-grid{
-    max-width: 1200px;
-    margin: 0 auto;
+.footer-top {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 50px;
-    margin-bottom: 60px;
+    gap: 60px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
 }
-
-.footer-col h4{
-    color: white;
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 20px;
+.footer-logo {
     font-family: 'Playfair Display', serif;
-    letter-spacing: 0.5px;
+    font-size: 26px;
+    font-weight: 500;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
 }
-
-.footer-col p{
-    font-size: 14px;
+.footer-brand-desc {
+    font-size: 13px;
     line-height: 1.8;
-    color: #999;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 28px;
+    max-width: 340px;
 }
-
-.footer-col a{
+.footer-contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+.footer-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.footer-contact-item:hover { color: #fff; }
+.footer-socials {
+    display: flex;
+    gap: 10px;
+}
+.footer-social {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.footer-social:hover {
+    border-color: rgba(255,255,255,0.5);
+    color: #fff;
+    background: rgba(255,255,255,0.07);
+}
+.footer-col-heading {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 22px;
+}
+.footer-link {
     display: block;
-    color: #aaa;
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
     text-decoration: none;
     margin-bottom: 12px;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    padding-left: 0;
+    transition: color 0.2s;
 }
-
-.footer-col a:hover{
-    color: #ffffff;
-    padding-left: 8px;
+.footer-link:hover { color: #fff; }
+.footer-partner-note {
+    display: block;
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 16px;
+    line-height: 1.5;
 }
-
-.footer-bottom{
-    text-align: center;
-    padding-top: 40px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    color: #777;
-    font-size: 13px;
+.footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 0;
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
 }
+.footer-bottom-links {
+    display: flex;
+    gap: 28px;
+}
+.footer-bottom-links a {
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.footer-bottom-links a:hover { color: rgba(255,255,255,0.7); }
 
 /* === RESPONSIVE === */
 @media(max-width: 968px){
@@ -1106,11 +1254,6 @@ input[type="range"]::-moz-range-thumb{
     }
     
     .trust-grid{
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-    
-    .footer-grid{
         grid-template-columns: 1fr;
         gap: 40px;
     }
@@ -1229,6 +1372,458 @@ input[type="range"]::-moz-range-thumb{
     @media (max-width: 900px) and (orientation: landscape) {
         .hero, .hero-section, .hero-split, .booking-hero { margin-top: 54px !important; }
     }
+
+/* ════════════════════════════════════════════
+   BOOKING WIZARD — SPLIT SCREEN
+════════════════════════════════════════════ */
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #fff;
+    color: #1a1a1a;
+    overflow-x: hidden;
+}
+
+/* Shell */
+.bwiz-shell {
+    display: flex;
+    min-height: 100vh;
+    padding-top: 72px; /* nav height */
+}
+
+/* LEFT IMAGE PANEL */
+.bwiz-img-panel {
+    position: sticky;
+    top: 72px;
+    width: 42%;
+    height: calc(100vh - 72px);
+    flex-shrink: 0;
+    overflow: hidden;
+}
+.bwiz-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.6s ease;
+}
+.bwiz-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%);
+}
+.bwiz-img-caption {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    right: 40px;
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.5;
+    transition: opacity 0.5s ease;
+}
+
+/* RIGHT FORM PANEL */
+.bwiz-form-panel {
+    flex: 1;
+    min-height: calc(100vh - 72px);
+    display: flex;
+    align-items: center;
+    padding: 60px 8% 60px 7%;
+    background: #fff;
+}
+.bwiz-form { width: 100%; max-width: 520px; }
+
+/* STEPS */
+.bwiz-step { display: none; }
+.bwiz-step.active { display: block; animation: stepIn 0.45s cubic-bezier(0.4,0,0.2,1) forwards; }
+
+@keyframes stepIn {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.bwiz-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 16px;
+}
+
+.bwiz-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 500;
+    line-height: 1.25;
+    color: #0f0f0f;
+    margin-bottom: 40px;
+    font-style: italic;
+}
+
+.bwiz-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 14px;
+}
+
+/* PILL BUTTONS */
+.bwiz-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 32px;
+}
+.bwiz-pill {
+    padding: 11px 22px;
+    border: 1.5px solid #d8d8d8;
+    border-radius: 4px;
+    background: transparent;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.bwiz-pill:hover {
+    border-color: #333;
+    color: #000;
+}
+.bwiz-pill.selected {
+    background: #000;
+    border-color: #000;
+    color: #fff;
+}
+
+/* TRAVELLER ROW */
+.bwiz-traveler-row {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    animation: stepIn 0.3s ease forwards;
+}
+.bwiz-num-input {
+    width: 80px;
+    padding: 10px 14px;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    color: #111;
+    background: #fff;
+    -moz-appearance: textfield;
+    transition: border-color 0.2s;
+}
+.bwiz-num-input::-webkit-outer-spin-button,
+.bwiz-num-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+.bwiz-num-input:focus { outline: none; border-color: #000; }
+
+/* Stepper */
+.bwiz-stepper {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid #d8d8d8;
+    border-radius: 4px;
+    overflow: hidden;
+    width: fit-content;
+}
+.bwiz-stepper-btn {
+    width: 44px;
+    height: 44px;
+    background: #f5f5f5;
+    border: none;
+    font-size: 20px;
+    font-weight: 400;
+    color: #333;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 1;
+}
+.bwiz-stepper-btn:hover { background: #000; color: #fff; }
+.bwiz-stepper-btn:disabled { opacity: 0.3; cursor: not-allowed; background: #f5f5f5; color: #999; }
+.bwiz-stepper .bwiz-num-input {
+    width: 64px;
+    text-align: center;
+    border: none;
+    border-left: 1.5px solid #e0e0e0;
+    border-right: 1.5px solid #e0e0e0;
+    border-radius: 0;
+    padding: 10px 4px;
+    font-size: 16px;
+    font-weight: 600;
+    pointer-events: none;
+}
+
+.bwiz-solo-note {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #2d7a4f;
+    margin-bottom: 24px;
+    animation: stepIn 0.3s ease forwards;
+}
+
+/* FIELD GROUPS */
+.bwiz-fields { display: flex; flex-direction: column; gap: 22px; }
+.bwiz-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.bwiz-field-group { display: flex; flex-direction: column; gap: 8px; }
+.bwiz-field-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #777;
+}
+
+/* Override Django-rendered inputs inside wizard */
+.bwiz-form input[type="text"],
+.bwiz-form input[type="email"],
+.bwiz-form input[type="tel"],
+.bwiz-form input[type="date"],
+.bwiz-form input[type="number"],
+.bwiz-form select,
+.bwiz-form textarea {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1.5px solid #d8d8d8;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    color: #111;
+    background: #fff;
+    transition: border-color 0.2s ease;
+    box-shadow: none;
+}
+.bwiz-form input:focus,
+.bwiz-form select:focus,
+.bwiz-form textarea:focus {
+    outline: none;
+    border-color: #000;
+    box-shadow: none;
+    transform: none;
+}
+.bwiz-form textarea { min-height: 48px; height: 48px; resize: none; overflow: hidden; transition: height 0.2s ease; }
+
+.bwiz-duration-hint {
+    font-size: 13px;
+    font-weight: 500;
+    color: #2d7a4f;
+    margin-top: -12px;
+    min-height: 20px;
+}
+
+/* BUDGET ROWS */
+.bwiz-budget-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 36px; }
+.bwiz-budget-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    border: 1.5px solid #e8e8e8;
+    border-top: none;
+    background: #fff;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+.bwiz-budget-row:first-child { border-top: 1.5px solid #e8e8e8; border-radius: 4px 4px 0 0; }
+.bwiz-budget-row:last-child  { border-radius: 0 0 4px 4px; }
+.bwiz-budget-row:hover { background: #fafafa; border-color: #bbb; z-index: 1; position: relative; }
+.bwiz-budget-row.selected {
+    background: #000;
+    border-color: #000;
+    z-index: 2;
+    position: relative;
+}
+.bwiz-budget-range {
+    font-size: 15px;
+    font-weight: 500;
+    color: #111;
+    transition: color 0.2s;
+}
+.bwiz-budget-row.selected .bwiz-budget-range { color: #fff; }
+.bwiz-budget-tier {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: #aaa;
+    transition: color 0.2s;
+}
+.bwiz-budget-row.selected .bwiz-budget-tier { color: rgba(255,255,255,0.55); }
+
+/* ACTIVITY GRID */
+.bwiz-activity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 36px;
+}
+.bwiz-act {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 14px;
+    border: 1.5px solid #e8e8e8;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: #333;
+    background: #fff;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+.bwiz-act:hover { border-color: #aaa; }
+.bwiz-act input[type="checkbox"] { display: none; }
+.bwiz-act.checked {
+    background: #000;
+    border-color: #000;
+    color: #fff;
+}
+
+/* NAV BUTTONS */
+.bwiz-nav {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 40px;
+}
+.bwiz-btn-next, .bwiz-btn-submit {
+    padding: 14px 36px;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.bwiz-btn-next:hover, .bwiz-btn-submit:hover {
+    background: #222;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+}
+.bwiz-btn-back {
+    padding: 14px 0;
+    background: transparent;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #999;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+}
+.bwiz-btn-back:hover { color: #333; }
+
+.bwiz-privacy {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #bbb;
+    line-height: 1.6;
+}
+
+/* Required marker */
+.bwiz-req { color: #e53e3e; margin-left: 2px; font-style: normal; }
+
+/* Phone input with dial code */
+/* Phone split row */
+.phone-split-row {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+}
+.phone-split-field {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    width: 80px;
+}
+.phone-split-field.phone-split-number {
+    flex: 1;
+    width: auto;
+}
+
+.phone-sub-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #aaa;
+}
+
+.phone-code-input {
+    width: 100%;
+    height: 100%;
+    padding: 13px 8px;
+    border: 1.5px solid #d8d8d8;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    color: #111;
+    background: #fff;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+    box-sizing: border-box;
+}
+.phone-code-input::-webkit-calendar-picker-indicator { display: none !important; }
+.phone-code-input:focus { outline: none; border-color: #000; }
+
+.phone-split-number input[type="tel"] {
+    width: 100%;
+}
+
+/* Country combobox — plain text input with datalist */
+.bwiz-country-select {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1.5px solid #d8d8d8;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    color: #111;
+    background: #fff;
+    transition: border-color 0.2s;
+}
+.bwiz-country-select:focus { outline: none; border-color: #000; box-shadow: none; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .bwiz-shell { flex-direction: column; padding-top: 64px; }
+    .bwiz-img-panel { position: relative; top: 0; width: 100%; height: 50vw; min-height: 260px; }
+    .bwiz-form-panel { padding: 48px 6% 60px; min-height: unset; align-items: flex-start; }
+    .bwiz-form { max-width: 100%; }
+}
+@media (max-width: 540px) {
+    .bwiz-activity-grid { grid-template-columns: 1fr; }
+    .bwiz-field-row { grid-template-columns: 1fr; }
+    .bwiz-heading { font-size: 28px; }
+    .bwiz-img-panel { height: 55vw; }
+}
 </style>
 </head>
 <body>
@@ -1356,20 +1951,304 @@ input[type="range"]::-moz-range-thumb{
 </div>
 
 
-<!-- Hero Section -->
-<section class="booking-hero">
-    <div class="hero-background"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-        <div class="hero-badge">Bespoke Rwanda Experiences</div>
-        <h1>Plan Your Journey</h1>
-        <p>Let us craft a personalized itinerary tailored to your dreams. From gorilla trekking to luxury safaris, every detail curated for an unforgettable African adventure.</p>
-    </div>
+<!-- Booking Wizard -->
+<section class="bwiz-shell">
+
+  <!-- LEFT — sticky image panel -->
+  <div class="bwiz-img-panel" id="bwizImgPanel">
+    <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?q=80&w=1200&auto=format&fit=crop" alt="Rwanda landscape" class="bwiz-img" id="bwizImg">
+    <div class="bwiz-img-overlay"></div>
+    <div class="bwiz-img-caption" id="bwizCaption">Rwanda awaits</div>
+  </div>
+
+  <!-- RIGHT — scrolling form panel -->
+  <div class="bwiz-form-panel">
+    <form method="POST" action="{% url 'contact' %}" class="bwiz-form" id="bwizForm">
+      {% csrf_token %}
+
+      <!-- Hidden Django fields -->
+      <div style="display:none;">
+        {{ form.travel_type }}
+        {{ form.accommodation }}
+        {{ form.budget }}
+      </div>
+      <input type="hidden" name="travelers"    id="hidTravelers"    value="1">
+      <input type="hidden" name="budget_value" id="hidBudget"       value="">
+
+      <!-- ── STEP 1: Journey Type ── -->
+      <div class="bwiz-step active" data-step="1" data-caption="Every great adventure begins with a choice">
+        <p class="bwiz-eyebrow">Step 1 of 5</p>
+        <h2 class="bwiz-heading">How would you like<br>to explore Rwanda?</h2>
+        <div class="bwiz-pills" id="travelTypePills">
+          <button type="button" class="bwiz-pill" data-val="solo"   data-travelers="1">Solo Explorer</button>
+          <button type="button" class="bwiz-pill" data-val="couple" data-travelers="2">Romantic Escape</button>
+          <button type="button" class="bwiz-pill" data-val="family" data-travelers="4">Family Journey</button>
+          <button type="button" class="bwiz-pill" data-val="group"  data-travelers="8">Group Adventure</button>
+        </div>
+
+        <!-- Traveller count — hidden until non-solo selected -->
+        <div class="bwiz-traveler-row" id="travelerRow" style="display:none;">
+          <label class="bwiz-field-label" for="travelerNumInput">Number of travellers</label>
+          <div class="bwiz-stepper">
+            <button type="button" class="bwiz-stepper-btn" id="travelerMinus" aria-label="Decrease">−</button>
+            <input type="number" id="travelerNumInput" class="bwiz-num-input" min="1" max="99" value="2" autocomplete="off" readonly>
+            <button type="button" class="bwiz-stepper-btn" id="travelerPlus" aria-label="Increase">+</button>
+          </div>
+        </div>
+        <div class="bwiz-solo-note" id="soloNote" style="display:none;">
+          <svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" stroke="#2d7a4f" stroke-width="1.5" fill="none"/><polyline points="4,7 6,9.5 10,4.5" stroke="#2d7a4f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          Solo traveller — 1 person confirmed
+        </div>
+
+        <div class="bwiz-nav">
+          <button type="button" class="bwiz-btn-next" onclick="bwizNext()">Next →</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 2: Dates ── -->
+      <div class="bwiz-step" data-step="2" data-caption="Rwanda is beautiful year-round">
+        <p class="bwiz-eyebrow">Step 2 of 5</p>
+        <h2 class="bwiz-heading">When would you like<br>to travel?</h2>
+
+        <div class="bwiz-fields">
+          <div class="bwiz-field-group">
+            <label class="bwiz-field-label">Departure date <span class="bwiz-req">*</span></label>
+            {{ form.start_date }}
+          </div>
+          <div class="bwiz-field-group">
+            <label class="bwiz-field-label">Return date <span class="bwiz-req">*</span></label>
+            {{ form.end_date }}
+          </div>
+          <div class="bwiz-field-group">
+            <label class="bwiz-field-label">Date flexibility <span class="bwiz-req">*</span></label>
+            {{ form.date_flexibility }}
+          </div>
+          <div class="bwiz-field-group" style="display:none;">
+            {{ form.duration }}
+          </div>
+        </div>
+        <div id="bwiz-duration-display" class="bwiz-duration-hint"></div>
+
+        <div class="bwiz-nav">
+          <button type="button" class="bwiz-btn-back" onclick="bwizBack()">← Back</button>
+          <button type="button" class="bwiz-btn-next" onclick="bwizNext()">Next →</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 3: Budget ── -->
+      <div class="bwiz-step" data-step="3" data-caption="We tailor every journey to your investment">
+        <p class="bwiz-eyebrow">Step 3 of 5</p>
+        <h2 class="bwiz-heading">How much would you like<br>to spend per person?</h2>
+
+        <div class="bwiz-budget-list" id="budgetList">
+          <button type="button" class="bwiz-budget-row" data-val="500">  <span class="bwiz-budget-range">USD 500 – 1,000</span>  <span class="bwiz-budget-tier">Entry</span></button>
+          <button type="button" class="bwiz-budget-row" data-val="1000"> <span class="bwiz-budget-range">USD 1,000 – 3,000</span> <span class="bwiz-budget-tier">Comfort</span></button>
+          <button type="button" class="bwiz-budget-row" data-val="3000"> <span class="bwiz-budget-range">USD 3,000 – 6,000</span> <span class="bwiz-budget-tier">Premium</span></button>
+          <button type="button" class="bwiz-budget-row" data-val="6000"> <span class="bwiz-budget-range">USD 6,000 – 10,000</span><span class="bwiz-budget-tier">Luxury</span></button>
+          <button type="button" class="bwiz-budget-row" data-val="10000"><span class="bwiz-budget-range">USD 10,000+</span>       <span class="bwiz-budget-tier">Ultra</span></button>
+        </div>
+
+        <div class="bwiz-nav">
+          <button type="button" class="bwiz-btn-back" onclick="bwizBack()">← Back</button>
+          <button type="button" class="bwiz-btn-next" onclick="bwizNext()">Next →</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 4: Accommodation + Activities ── -->
+      <div class="bwiz-step" data-step="4" data-caption="Your comfort, your adventure">
+        <p class="bwiz-eyebrow">Step 4 of 5</p>
+        <h2 class="bwiz-heading">Your preferences</h2>
+
+        <p class="bwiz-section-label">Accommodation style</p>
+        <div class="bwiz-pills" id="accommPills">
+          <button type="button" class="bwiz-pill" data-val="luxury">5-Star Luxury</button>
+          <button type="button" class="bwiz-pill" data-val="boutique">Boutique Lodges</button>
+          <button type="button" class="bwiz-pill" data-val="mid-range">Mid-Range</button>
+          <button type="button" class="bwiz-pill" data-val="budget">Budget-Friendly</button>
+        </div>
+
+        <p class="bwiz-section-label" style="margin-top:36px;">Experiences that interest you</p>
+        <div class="bwiz-activity-grid">
+          <label class="bwiz-act"><input type="checkbox" name="activities" value="gorilla-trekking"><span>Gorilla Trekking</span></label>
+          <label class="bwiz-act"><input type="checkbox" name="activities" value="golden-monkey"><span>Golden Monkey</span></label>
+          <label class="bwiz-act"><input type="checkbox" name="activities" value="chimpanzee"><span>Chimpanzee Trek</span></label>
+          <label class="bwiz-act"><input type="checkbox" name="activities" value="big-five"><span>Big Five Safari</span></label>
+          <label class="bwiz-act"><input type="checkbox" name="activities" value="bird-watching"><span>Bird Watching</span></label>
+          <label class="bwiz-act"><input type="checkbox" name="activities" value="boat-safari"><span>Boat Safari</span></label>
+          <label class="bwiz-act"><input type="checkbox" name="activities" value="volcano-hiking"><span>Volcano Hiking</span></label>
+          <label class="bwiz-act"><input type="checkbox" name="activities" value="canopy-walk"><span>Canopy Walk</span></label>
+          <label class="bwiz-act"><input type="checkbox" name="activities" value="waterfall-hikes"><span>Waterfall Hikes</span></label>
+          <label class="bwiz-act"><input type="checkbox" name="activities" value="kayaking"><span>Kayaking</span></label>
+          <label class="bwiz-act"><input type="checkbox" name="activities" value="sunset-cruise"><span>Sunset Cruise</span></label>
+          <label class="bwiz-act"><input type="checkbox" name="activities" value="cultural-villages"><span>Cultural Villages</span></label>
+          <label class="bwiz-act"><input type="checkbox" name="activities" value="genocide-memorial"><span>Genocide Memorial</span></label>
+          <label class="bwiz-act"><input type="checkbox" name="activities" value="kigali-tour"><span>Kigali City Tour</span></label>
+          <label class="bwiz-act"><input type="checkbox" name="activities" value="coffee-tours"><span>Coffee Tours</span></label>
+          <label class="bwiz-act"><input type="checkbox" name="activities" value="cooking-classes"><span>Cooking Classes</span></label>
+          <label class="bwiz-act"><input type="checkbox" name="activities" value="fine-dining"><span>Fine Dining</span></label>
+          <label class="bwiz-act"><input type="checkbox" name="activities" value="spa-wellness"><span>Spa &amp; Wellness</span></label>
+        </div>
+
+        <div class="bwiz-nav">
+          <button type="button" class="bwiz-btn-back" onclick="bwizBack()">← Back</button>
+          <button type="button" class="bwiz-btn-next" onclick="bwizNext()">Next →</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 5: Personal Details ── -->
+      <div class="bwiz-step" data-step="5" data-caption="Almost there — we'd love to know you">
+        <p class="bwiz-eyebrow">Step 5 of 5</p>
+        <h2 class="bwiz-heading">Your details</h2>
+
+        <div class="bwiz-fields">
+          <div class="bwiz-field-row">
+            <div class="bwiz-field-group">
+              <label class="bwiz-field-label">First name <span class="bwiz-req">*</span></label>
+              {{ form.first_name }}
+            </div>
+            <div class="bwiz-field-group">
+              <label class="bwiz-field-label">Last name <span class="bwiz-req">*</span></label>
+              {{ form.last_name }}
+            </div>
+          </div>
+          <div class="bwiz-field-group">
+            <label class="bwiz-field-label">Email address <span class="bwiz-req">*</span></label>
+            {{ form.email }}
+          </div>
+          <div class="bwiz-field-row">
+            <div class="bwiz-field-group">
+              <label class="bwiz-field-label">Phone number <span class="bwiz-req">*</span></label>
+              <div class="phone-split-row">
+                <div class="phone-split-field">
+                  <input type="text" id="phoneDialInput" name="dial_code" class="phone-code-input" placeholder="+250" value="+250" autocomplete="off" list="dialCodeList">
+                  <datalist id="dialCodeList">
+                    <option value="+1">USA +1</option><option value="+1">Canada +1</option>
+                    <option value="+7">Russia +7</option><option value="+20">Egypt +20</option>
+                    <option value="+27">South Africa +27</option><option value="+30">Greece +30</option>
+                    <option value="+31">Netherlands +31</option><option value="+32">Belgium +32</option>
+                    <option value="+33">France +33</option><option value="+34">Spain +34</option>
+                    <option value="+39">Italy +39</option><option value="+41">Switzerland +41</option>
+                    <option value="+43">Austria +43</option><option value="+44">United Kingdom +44</option>
+                    <option value="+45">Denmark +45</option><option value="+46">Sweden +46</option>
+                    <option value="+47">Norway +47</option><option value="+48">Poland +48</option>
+                    <option value="+49">Germany +49</option><option value="+51">Peru +51</option>
+                    <option value="+52">Mexico +52</option><option value="+54">Argentina +54</option>
+                    <option value="+55">Brazil +55</option><option value="+56">Chile +56</option>
+                    <option value="+57">Colombia +57</option><option value="+60">Malaysia +60</option>
+                    <option value="+61">Australia +61</option><option value="+62">Indonesia +62</option>
+                    <option value="+63">Philippines +63</option><option value="+64">New Zealand +64</option>
+                    <option value="+65">Singapore +65</option><option value="+66">Thailand +66</option>
+                    <option value="+81">Japan +81</option><option value="+82">South Korea +82</option>
+                    <option value="+84">Vietnam +84</option><option value="+86">China +86</option>
+                    <option value="+90">Turkey +90</option><option value="+91">India +91</option>
+                    <option value="+92">Pakistan +92</option><option value="+94">Sri Lanka +94</option>
+                    <option value="+98">Iran +98</option><option value="+212">Morocco +212</option>
+                    <option value="+213">Algeria +213</option><option value="+216">Tunisia +216</option>
+                    <option value="+221">Senegal +221</option><option value="+225">Ivory Coast +225</option>
+                    <option value="+233">Ghana +233</option><option value="+234">Nigeria +234</option>
+                    <option value="+237">Cameroon +237</option><option value="+243">Congo DRC +243</option>
+                    <option value="+244">Angola +244</option><option value="+250">Rwanda +250</option>
+                    <option value="+251">Ethiopia +251</option><option value="+254">Kenya +254</option>
+                    <option value="+255">Tanzania +255</option><option value="+256">Uganda +256</option>
+                    <option value="+257">Burundi +257</option><option value="+260">Zambia +260</option>
+                    <option value="+263">Zimbabwe +263</option><option value="+264">Namibia +264</option>
+                    <option value="+966">Saudi Arabia +966</option><option value="+971">UAE +971</option>
+                    <option value="+972">Israel +972</option><option value="+974">Qatar +974</option>
+                    <option value="+977">Nepal +977</option>
+                  </datalist>
+                </div>
+                <div class="phone-split-field phone-split-number">
+                  {{ form.phone }}
+                </div>
+              </div>
+            </div>
+            <div class="bwiz-field-group">
+              <label class="bwiz-field-label">Country of residence <span class="bwiz-req">*</span></label>
+              <input type="text" name="country" id="countrySelect" class="bwiz-country-select" placeholder="Type or select your country…" autocomplete="off" list="countryList">
+              <datalist id="countryList">
+                <option>Afghanistan</option><option>Albania</option><option>Algeria</option><option>Andorra</option><option>Angola</option>
+                <option>Antigua &amp; Barbuda</option><option>Argentina</option><option>Armenia</option><option>Australia</option><option>Austria</option>
+                <option>Azerbaijan</option><option>Bahamas</option><option>Bahrain</option><option>Bangladesh</option><option>Barbados</option>
+                <option>Belarus</option><option>Belgium</option><option>Belize</option><option>Benin</option><option>Bhutan</option>
+                <option>Bolivia</option><option>Bosnia &amp; Herzegovina</option><option>Botswana</option><option>Brazil</option><option>Brunei</option>
+                <option>Bulgaria</option><option>Burkina Faso</option><option>Burundi</option><option>Cabo Verde</option><option>Cambodia</option>
+                <option>Cameroon</option><option>Canada</option><option>Central African Republic</option><option>Chad</option><option>Chile</option>
+                <option>China</option><option>Colombia</option><option>Comoros</option><option>Congo (DRC)</option><option>Congo (Republic)</option>
+                <option>Costa Rica</option><option>Croatia</option><option>Cuba</option><option>Cyprus</option><option>Czech Republic</option>
+                <option>Denmark</option><option>Djibouti</option><option>Dominica</option><option>Dominican Republic</option><option>Ecuador</option>
+                <option>Egypt</option><option>El Salvador</option><option>Equatorial Guinea</option><option>Eritrea</option><option>Estonia</option>
+                <option>Eswatini</option><option>Ethiopia</option><option>Fiji</option><option>Finland</option><option>France</option>
+                <option>Gabon</option><option>Gambia</option><option>Georgia</option><option>Germany</option><option>Ghana</option>
+                <option>Greece</option><option>Grenada</option><option>Guatemala</option><option>Guinea</option><option>Guinea-Bissau</option>
+                <option>Guyana</option><option>Haiti</option><option>Honduras</option><option>Hungary</option><option>Iceland</option>
+                <option>India</option><option>Indonesia</option><option>Iran</option><option>Iraq</option><option>Ireland</option>
+                <option>Israel</option><option>Italy</option><option>Ivory Coast</option><option>Jamaica</option><option>Japan</option>
+                <option>Jordan</option><option>Kazakhstan</option><option>Kenya</option><option>Kosovo</option><option>Kuwait</option>
+                <option>Kyrgyzstan</option><option>Laos</option><option>Latvia</option><option>Lebanon</option><option>Lesotho</option>
+                <option>Liberia</option><option>Libya</option><option>Liechtenstein</option><option>Lithuania</option><option>Luxembourg</option>
+                <option>Madagascar</option><option>Malawi</option><option>Malaysia</option><option>Maldives</option><option>Mali</option>
+                <option>Malta</option><option>Marshall Islands</option><option>Mauritania</option><option>Mauritius</option><option>Mexico</option>
+                <option>Moldova</option><option>Monaco</option><option>Mongolia</option><option>Montenegro</option><option>Morocco</option>
+                <option>Mozambique</option><option>Myanmar</option><option>Namibia</option><option>Nepal</option><option>Netherlands</option>
+                <option>New Zealand</option><option>Nicaragua</option><option>Niger</option><option>Nigeria</option><option>North Korea</option>
+                <option>North Macedonia</option><option>Norway</option><option>Oman</option><option>Pakistan</option><option>Palestine</option>
+                <option>Panama</option><option>Papua New Guinea</option><option>Paraguay</option><option>Peru</option><option>Philippines</option>
+                <option>Poland</option><option>Portugal</option><option>Qatar</option><option>Romania</option><option>Russia</option>
+                <option>Rwanda</option><option>Saint Kitts &amp; Nevis</option><option>Saint Lucia</option><option>Saint Vincent</option>
+                <option>Saudi Arabia</option><option>Senegal</option><option>Serbia</option><option>Seychelles</option><option>Sierra Leone</option>
+                <option>Singapore</option><option>Slovakia</option><option>Slovenia</option><option>Solomon Islands</option><option>Somalia</option>
+                <option>South Africa</option><option>South Korea</option><option>South Sudan</option><option>Spain</option><option>Sri Lanka</option>
+                <option>Sudan</option><option>Suriname</option><option>Sweden</option><option>Switzerland</option><option>Syria</option>
+                <option>Taiwan</option><option>Tajikistan</option><option>Tanzania</option><option>Thailand</option><option>Timor-Leste</option>
+                <option>Togo</option><option>Tonga</option><option>Trinidad &amp; Tobago</option><option>Tunisia</option><option>Turkey</option>
+                <option>Turkmenistan</option><option>Tuvalu</option><option>Uganda</option><option>Ukraine</option><option>United Arab Emirates</option>
+                <option>United Kingdom</option><option>United States</option><option>Uruguay</option><option>Uzbekistan</option>
+                <option>Vanuatu</option><option>Venezuela</option><option>Vietnam</option><option>Yemen</option>
+                <option>Zambia</option><option>Zimbabwe</option>
+              </datalist>
+            </div>
+          </div>
+          <div class="bwiz-field-group">
+            <label class="bwiz-field-label">Special requests or notes <span style="font-weight:400; text-transform:none; letter-spacing:0; color:#bbb;">(optional)</span></label>
+            {{ form.special_requests }}
+          </div>
+        </div>
+
+        <div class="bwiz-nav" style="margin-top:40px;">
+          <button type="button" class="bwiz-btn-back" onclick="bwizBack()">← Back</button>
+          <button type="submit" class="bwiz-btn-submit">Send My Request</button>
+        </div>
+        <p class="bwiz-privacy">We'll respond within 24 hours with your personalised itinerary. No obligation.</p>
+      </div>
+
+    </form>
+  </div><!-- /bwiz-form-panel -->
+
 </section>
 
-<!-- Booking Section -->
-<section class="booking-section">
-    <div class="booking-container">
+<!-- Trust Bar -->
+<div class="trust-bar">
+    <div class="trust-grid">
+        <div class="trust-item">
+            <div class="trust-img-wrap"><img src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?q=80&w=600&auto=format&fit=crop" alt="Quick Response" class="trust-img"></div>
+            <h4>Quick Response</h4>
+            <p>We respond within 24 hours with a personalized itinerary proposal crafted by our expert team.</p>
+        </div>
+        <div class="trust-item">
+            <div class="trust-img-wrap"><img src="https://images.unsplash.com/photo-1612178991541-b48cc8e92a4d?q=80&w=600&auto=format&fit=crop" alt="Expert Planning" class="trust-img"></div>
+            <h4>Expert Planning</h4>
+            <p>Over 10 years of experience crafting unforgettable Rwanda adventures with local insights.</p>
+        </div>
+        <div class="trust-item">
+            <div class="trust-img-wrap"><img src="https://images.unsplash.com/photo-1504432842672-1a79f78e4084?q=80&w=600&auto=format&fit=crop" alt="No Obligation" class="trust-img"></div>
+            <h4>No Obligation</h4>
+            <p>Completely free consultation. Book only when you're ready and confident in your itinerary.</p>
+        </div>
+    </div>
+</div>
+
+<!-- DO NOT REMOVE — old booking section closing tags replaced -->
+<div style="display:none;"><div class="booking-section"><div class="booking-container">
         
         <!-- Progress Bar -->
         <div class="progress-bar">
@@ -1426,10 +2305,6 @@ input[type="range"]::-moz-range-thumb{
                         {{ form.country.label_tag }}
                         {{ form.country }}
                     </div>
-                    <div class="form-group">
-                        {{ form.travelers.label_tag }}
-                        {{ form.travelers }}
-                    </div>
                 </div>
             </div>
 
@@ -1460,7 +2335,33 @@ input[type="range"]::-moz-range-thumb{
                         <div class="desc">Friends & parties</div>
                     </div>
                 </div>
-                {{ form.travel_type }}
+
+                <!-- Hidden inputs — never visible -->
+                <div style="display:none;">{{ form.travel_type }}</div>
+                <input type="hidden" name="travelers" id="travelerHiddenInput" value="1">
+
+                <!-- Inline traveler count — revealed after a card is selected -->
+                <div class="inline-traveler-row" id="travelerCountSection" style="display:none;">
+                    <div class="inline-traveler-inner">
+                        <div class="inline-traveler-label" id="travelerLabel">How many travellers?</div>
+                        <div class="inline-traveler-controls" id="travelerControls">
+                            <input
+                                type="number"
+                                id="travelerNumInput"
+                                class="traveler-num-input"
+                                min="1"
+                                max="99"
+                                value="1"
+                                autocomplete="off"
+                            >
+                            <span class="traveler-num-suffix" id="travelerSuffix">person</span>
+                        </div>
+                    </div>
+                    <p class="solo-inline-note" id="soloNote" style="display:none;">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.5" stroke="#2d7a4f" stroke-width="1.4"/><polyline points="4,7 6.2,9.2 10,5" stroke="#2d7a4f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        Solo traveller — confirmed as 1 person
+                    </p>
+                </div>
             </div>
 
             <!-- Travel Dates -->
@@ -1707,26 +2608,82 @@ input[type="range"]::-moz-range-thumb{
                         <div class="price">Under $100 per night</div>
                     </div>
                 </div>
-                {{ form.accommodation }}
+                <div style="display:none;">{{ form.accommodation }}</div>
             </div>
 
             <!-- Budget -->
             <div class="form-section">
                 <div class="section-number">06</div>
                 <h3 class="form-section-title">Budget Range</h3>
-                <p class="form-section-subtitle">What's your estimated budget per person (USD)?</p>
+                <p class="form-section-subtitle">Select your estimated budget per person (USD)</p>
                 <div class="budget-box">
-                    <div class="budget-display">
-                        <div class="budget-amount" id="budgetDisplay">$5,000</div>
-                        <div class="budget-label">Per Person</div>
+                    <!-- Hidden Django field — driven by JS -->
+                    <div style="display:none;">{{ form.budget }}</div>
+                    <input type="hidden" name="budget_value" id="budgetHidden" value="500">
+
+                    <!-- Tier cards -->
+                    <div class="budget-tiers">
+
+                        <div class="budget-tier" data-min="500" data-max="999" data-val="500">
+                            <div class="budget-tier-check"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.8,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                            <div class="budget-tier-badge">Entry</div>
+                            <div class="budget-tier-range">$500 – $999</div>
+                            <div class="budget-tier-desc">Essential experiences on a considered budget</div>
+                        </div>
+
+                        <div class="budget-tier" data-min="1000" data-max="2499" data-val="1000">
+                            <div class="budget-tier-check"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.8,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                            <div class="budget-tier-badge">Comfort</div>
+                            <div class="budget-tier-range">$1,000 – $2,499</div>
+                            <div class="budget-tier-desc">Quality lodges and curated experiences</div>
+                        </div>
+
+                        <div class="budget-tier" data-min="2500" data-max="4999" data-val="2500">
+                            <div class="budget-tier-check"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.8,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                            <div class="budget-tier-badge">Premium</div>
+                            <div class="budget-tier-range">$2,500 – $4,999</div>
+                            <div class="budget-tier-desc">Boutique lodges, private guides, premium access</div>
+                        </div>
+
+                        <div class="budget-tier" data-min="5000" data-max="9999" data-val="5000">
+                            <div class="budget-tier-check"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.8,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                            <div class="budget-tier-badge">Luxury</div>
+                            <div class="budget-tier-range">$5,000 – $9,999</div>
+                            <div class="budget-tier-desc">5-star properties and exclusive experiences</div>
+                        </div>
+
+                        <div class="budget-tier" data-min="10000" data-max="14999" data-val="10000">
+                            <div class="budget-tier-check"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.8,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                            <div class="budget-tier-badge">Ultra</div>
+                            <div class="budget-tier-range">$10,000 – $14,999</div>
+                            <div class="budget-tier-desc">Private camps, helicopter transfers, VIP access</div>
+                        </div>
+
+                        <div class="budget-tier" data-min="15000" data-max="999999" data-val="15000">
+                            <div class="budget-tier-check"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.8,7 9,1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                            <div class="budget-tier-badge">No Limit</div>
+                            <div class="budget-tier-range">$15,000+</div>
+                            <div class="budget-tier-desc">Fully bespoke — we craft around your vision</div>
+                        </div>
+
                     </div>
-                    {{ form.budget }}
-                    <div class="budget-markers">
-                        <span>$1,000</span>
-                        <span>$5,000</span>
-                        <span>$10,000</span>
-                        <span>$15,000+</span>
+
+                    <!-- Custom amount -->
+                    <div class="budget-custom-row" id="budgetCustomRow">
+                        <span class="budget-custom-label">Custom amount</span>
+                        <span class="budget-custom-prefix">$</span>
+                        <input
+                            type="number"
+                            id="budgetCustomInput"
+                            class="budget-custom-input"
+                            placeholder="Enter exact amount"
+                            min="500"
+                            step="100"
+                            autocomplete="off"
+                        >
+                        <span class="budget-custom-label" style="color:#bbb; font-size:10px; letter-spacing:1px;">USD / person</span>
                     </div>
+
                 </div>
             </div>
 
@@ -1752,53 +2709,95 @@ input[type="range"]::-moz-range-thumb{
 <div class="trust-bar">
     <div class="trust-grid">
         <div class="trust-item">
-            <div class="icon">⚡</div>
+            <div class="trust-img-wrap">
+                <img src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?q=80&w=600&auto=format&fit=crop" alt="Quick Response" class="trust-img">
+            </div>
             <h4>Quick Response</h4>
             <p>We respond within 24 hours with a personalized itinerary proposal crafted by our expert team.</p>
         </div>
         <div class="trust-item">
-            <div class="icon">🎯</div>
+            <div class="trust-img-wrap">
+                <img src="https://images.unsplash.com/photo-1612178991541-b48cc8e92a4d?q=80&w=600&auto=format&fit=crop" alt="Expert Planning" class="trust-img">
+            </div>
             <h4>Expert Planning</h4>
             <p>Over 10 years of experience crafting unforgettable Rwanda adventures with local insights.</p>
         </div>
         <div class="trust-item">
-            <div class="icon">💯</div>
+            <div class="trust-img-wrap">
+                <img src="https://images.unsplash.com/photo-1504432842672-1a79f78e4084?q=80&w=600&auto=format&fit=crop" alt="No Obligation" class="trust-img">
+            </div>
             <h4>No Obligation</h4>
             <p>Completely free consultation. Book only when you're ready and confident in your itinerary.</p>
         </div>
     </div>
 </div>
-
-<!-- Footer -->
 <footer class="footer">
-    <div class="footer-grid">
-        <div class="footer-col">
-            <h4>Discover Rwanda</h4>
-            <p>We curate transformative experiences across Rwanda's pristine wilderness, rare wildlife encounters, and vibrant culture. Let us turn your African dream into reality.</p>
+    <div class="footer-top">
+        <div class="footer-brand-col">
+            <div class="footer-logo">Discover Rwanda</div>
+            <p class="footer-brand-desc">Your gateway to extraordinary journeys through the Land of a Thousand Hills. We curate transformative experiences across Rwanda's pristine wilderness, rare wildlife encounters, and vibrant cultural tapestry.</p>
+            <div class="footer-contact-list">
+                <a href="mailto:helpdiscoverrwanda@gmail.com" class="footer-contact-item">
+                    <span class="footer-contact-icon">✉</span> helpdiscoverrwanda@gmail.com
+                </a>
+                <a href="tel:+250798919909" class="footer-contact-item">
+                    <span class="footer-contact-icon">📞</span> +250 798 919 909
+                </a>
+                <span class="footer-contact-item">
+                    <span class="footer-contact-icon">📍</span> Kigali, Rwanda
+                </span>
+            </div>
+            <div class="footer-socials">
+                <a href="#" class="footer-social" aria-label="Facebook">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+                </a>
+                <a href="#" class="footer-social" aria-label="X / Twitter">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="#" class="footer-social" aria-label="LinkedIn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+                </a>
+                <a href="#" class="footer-social" aria-label="Instagram">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                </a>
+            </div>
         </div>
-        <div class="footer-col">
-            <h4>Explore</h4>
-            <a href="{% url 'index' %}">Home</a>
-            <a href="{% url 'things_to_do' %}">Things to Do</a>
-            <a href="{% url 'travel_types' %}">Travel Types</a>
-            <a href="{% url 'contact' %}">Book Now</a>
+
+        <div class="footer-links-col">
+            <h5 class="footer-col-heading">Discover</h5>
+            <a href="{% url 'index' %}" class="footer-link">Destinations</a>
+            <a href="{% url 'things_to_do' %}" class="footer-link">Wildlife</a>
+            <a href="{% url 'cultural_villages' %}" class="footer-link">Culture</a>
+            <a href="{% url 'travel_types' %}" class="footer-link">Itineraries</a>
+            <a href="{% url 'top_attractions' %}" class="footer-link">Top Attractions</a>
         </div>
-        <div class="footer-col">
-            <h4>Support</h4>
-            <a href="#">FAQ</a>
-            <a href="#">Travel Guide</a>
-            <a href="#">Visa Information</a>
-            <a href="#">Terms & Conditions</a>
+
+        <div class="footer-links-col">
+            <h5 class="footer-col-heading">Resources</h5>
+            <a href="{% url 'index' %}" class="footer-link">About Rwanda</a>
+            <a href="#" class="footer-link">Photo Gallery</a>
+            <a href="#" class="footer-link">Travel Guide</a>
+            <a href="#" class="footer-link">Blog &amp; Stories</a>
+            <a href="#" class="footer-link">FAQs</a>
         </div>
-        <div class="footer-col">
-            <h4>Contact</h4>
-            <a href="mailto:helpdiscoverrwanda@gmail.com">helpdiscoverrwanda@gmail.com</a>
-            <a href="tel:+250 798 919 909">+250 798 919 909</a>
-            <a href="#">Kigali, Rwanda</a>
+
+        <div class="footer-links-col">
+            <h5 class="footer-col-heading">Partners</h5>
+            <span class="footer-partner-note">Trusted by leading organisations</span>
+            <span class="footer-link footer-partner">UNESCO</span>
+            <span class="footer-link footer-partner">National Geographic</span>
+            <span class="footer-link footer-partner">Virtuoso</span>
+            <span class="footer-link footer-partner">African Parks</span>
         </div>
     </div>
+
     <div class="footer-bottom">
-        © 2026 Discover Rwanda. All rights reserved. Crafted with love for Africa.
+        <span>© 2026 Discover Rwanda. All rights reserved.</span>
+        <div class="footer-bottom-links">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Cookies</a>
+        </div>
     </div>
 </footer>
 
@@ -1806,19 +2805,390 @@ input[type="range"]::-moz-range-thumb{
 // Navigation scroll effect
 window.addEventListener('scroll', function() {
     const nav = document.querySelector('.nav');
-    if (window.scrollY > 50) {
-        nav.classList.add('scrolled');
-    } else {
-        nav.classList.remove('scrolled');
-    }
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 50);
 });
 
-// Travel Type Selection
-function selectTravelType(card, type) {
-    document.querySelectorAll('.travel-type-card').forEach(c => c.classList.remove('selected'));
-    card.classList.add('selected');
-    document.querySelector('[name="travel_type"]').value = type;
-}
+// ══════════════════════════════════════════
+// BOOKING WIZARD
+// ══════════════════════════════════════════
+(function () {
+
+    // ── State ────────────────────────────────
+    let currentStep = 1;
+    const TOTAL_STEPS = 5;
+
+    const IMAGES = {
+        1: 'https://images.unsplash.com/photo-1523805009345-7448845a9e53?q=80&w=1200&auto=format&fit=crop',
+        2: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?q=80&w=1200&auto=format&fit=crop',
+        3: 'https://images.unsplash.com/photo-1559625374-ca48ad7a4f3c?q=80&w=1200&auto=format&fit=crop',
+        4: 'https://images.unsplash.com/photo-1611348524140-53c9a25263d6?q=80&w=1200&auto=format&fit=crop',
+        5: 'https://images.unsplash.com/photo-1602088113235-229c19758e9f?q=80&w=1200&auto=format&fit=crop',
+    };
+
+    // ── Helpers ──────────────────────────────
+    function goTo(step) {
+        const steps = document.querySelectorAll('.bwiz-step');
+        steps.forEach(s => s.classList.remove('active'));
+        const target = document.querySelector(`.bwiz-step[data-step="${step}"]`);
+        if (!target) return;
+        target.classList.add('active');
+        currentStep = step;
+
+        // Caption
+        const caption = target.dataset.caption || '';
+        const capEl = document.getElementById('bwizCaption');
+        if (capEl) { capEl.style.opacity = '0'; setTimeout(() => { capEl.textContent = caption; capEl.style.opacity = '1'; }, 300); }
+
+        // Image swap
+        const imgEl = document.getElementById('bwizImg');
+        if (imgEl && IMAGES[step]) {
+            imgEl.style.opacity = '0';
+            setTimeout(() => { imgEl.src = IMAGES[step]; imgEl.onload = () => { imgEl.style.opacity = '1'; }; }, 300);
+        }
+
+        // Scroll form panel to top
+        const panel = document.querySelector('.bwiz-form-panel');
+        if (panel) panel.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ── Validation helpers ───────────────────
+    function showError(msg) {
+        let el = document.getElementById('bwiz-error');
+        if (!el) {
+            el = document.createElement('div');
+            el.id = 'bwiz-error';
+            el.style.cssText = 'margin-top:18px;padding:12px 16px;background:#fff0f0;border:1.5px solid #e53e3e;border-radius:6px;font-size:13px;font-weight:600;color:#c53030;letter-spacing:0.2px;';
+            document.querySelector('.bwiz-form').prepend(el);
+        }
+        el.textContent = '⚠  ' + msg;
+        el.style.display = 'block';
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => { if (el) el.style.display = 'none'; }, 4000);
+    }
+    function clearError() {
+        const el = document.getElementById('bwiz-error');
+        if (el) el.style.display = 'none';
+    }
+
+    function validateStep(step) {
+        if (step === 1) {
+            const selected = document.querySelector('#travelTypePills .bwiz-pill.selected');
+            if (!selected) { showError('Please choose a travel style to continue.'); return false; }
+        }
+        if (step === 2) {
+            const start = document.querySelector('[name="start_date"]');
+            const end   = document.querySelector('[name="end_date"]');
+            const flex  = document.querySelector('[name="date_flexibility"]');
+            if (!start || !start.value) { showError('Please select your departure date.'); start && start.focus(); return false; }
+            if (!end   || !end.value)   { showError('Please select your return date.');    end   && end.focus();   return false; }
+            if (flex && !flex.value)    { showError('Please select your date flexibility.'); return false; }
+        }
+        if (step === 3) {
+            const selected = document.querySelector('#budgetList .bwiz-budget-row.selected');
+            if (!selected) { showError('Please select a budget range to continue.'); return false; }
+        }
+        if (step === 4) {
+            const accomm = document.querySelector('#accommPills .bwiz-pill.selected');
+            if (!accomm) { showError('Please choose an accommodation style.'); return false; }
+            const activities = document.querySelectorAll('.bwiz-act.checked');
+            if (activities.length === 0) { showError('Please select at least one experience.'); return false; }
+        }
+        return true;
+    }
+
+    window.bwizNext = function () {
+        clearError();
+        if (!validateStep(currentStep)) return;
+        if (currentStep < TOTAL_STEPS) goTo(currentStep + 1);
+    };
+
+    window.bwizBack = function () {
+        clearError();
+        if (currentStep > 1) goTo(currentStep - 1);
+    };
+
+    // ── Step 1: Travel Type + Travellers ─────
+    const DEFAULTS = { solo: 1, couple: 2, family: 4, group: 8 };
+    const MINIMUMS = { solo: 1, couple: 2, family: 2, group: 3 };
+
+    document.querySelectorAll('#travelTypePills .bwiz-pill').forEach(pill => {
+        pill.addEventListener('click', function () {
+            document.querySelectorAll('#travelTypePills .bwiz-pill').forEach(p => p.classList.remove('selected'));
+            this.classList.add('selected');
+
+            const type = this.dataset.val;
+            const isSolo = type === 'solo';
+
+            // Set hidden travel_type
+            const ttInput = document.querySelector('[name="travel_type"]');
+            if (ttInput) ttInput.value = type;
+
+            const travelerRow  = document.getElementById('travelerRow');
+            const soloNote     = document.getElementById('soloNote');
+            const numInput     = document.getElementById('travelerNumInput');
+            const hidTravelers = document.getElementById('hidTravelers');
+
+            if (isSolo) {
+                travelerRow.style.display  = 'none';
+                soloNote.style.display     = 'flex';
+                if (hidTravelers) hidTravelers.value = 1;
+            } else {
+                soloNote.style.display     = 'none';
+                travelerRow.style.display  = 'flex';
+                numInput.min   = MINIMUMS[type] || 1;
+                numInput.value = DEFAULTS[type] || 2;
+                if (hidTravelers) hidTravelers.value = numInput.value;
+                updateStepper();
+            }
+        });
+    });
+
+    const numInput = document.getElementById('travelerNumInput');
+    const minusBtn = document.getElementById('travelerMinus');
+    const plusBtn  = document.getElementById('travelerPlus');
+
+    function updateStepper() {
+        if (!numInput) return;
+        const val = parseInt(numInput.value) || 1;
+        const min = parseInt(numInput.min) || 1;
+        const hid = document.getElementById('hidTravelers');
+        if (hid) hid.value = val;
+        if (minusBtn) minusBtn.disabled = val <= min;
+        if (plusBtn)  plusBtn.disabled  = val >= 99;
+    }
+
+    if (minusBtn) minusBtn.addEventListener('click', function () {
+        const min = parseInt(numInput.min) || 1;
+        if (parseInt(numInput.value) > min) { numInput.value = parseInt(numInput.value) - 1; updateStepper(); }
+    });
+    if (plusBtn) plusBtn.addEventListener('click', function () {
+        if (parseInt(numInput.value) < 99) { numInput.value = parseInt(numInput.value) + 1; updateStepper(); }
+    });
+
+    // ── Step 3: Budget ───────────────────────
+    document.querySelectorAll('#budgetList .bwiz-budget-row').forEach(row => {
+        row.addEventListener('click', function () {
+            document.querySelectorAll('#budgetList .bwiz-budget-row').forEach(r => r.classList.remove('selected'));
+            this.classList.add('selected');
+            const hid = document.getElementById('hidBudget');
+            if (hid) hid.value = this.dataset.val;
+        });
+    });
+
+    // ── Step 4: Accommodation pills ──────────
+    document.querySelectorAll('#accommPills .bwiz-pill').forEach(pill => {
+        pill.addEventListener('click', function () {
+            document.querySelectorAll('#accommPills .bwiz-pill').forEach(p => p.classList.remove('selected'));
+            this.classList.add('selected');
+            const acInput = document.querySelector('[name="accommodation"]');
+            if (acInput) acInput.value = this.dataset.val;
+        });
+    });
+
+    // ── Step 4: Activity checkboxes ──────────
+    document.querySelectorAll('.bwiz-act').forEach(label => {
+        label.addEventListener('click', function (e) {
+            e.preventDefault();
+            const cb = this.querySelector('input[type="checkbox"]');
+            cb.checked = !cb.checked;
+            this.classList.toggle('checked', cb.checked);
+        });
+    });
+
+    // ── Step 2: Date duration calc ───────────
+    (function () {
+        const startInput    = document.querySelector('[name="start_date"]');
+        const endInput      = document.querySelector('[name="end_date"]');
+        const durationInput = document.querySelector('[name="duration"]');
+        const display       = document.getElementById('bwiz-duration-display');
+        if (!startInput || !endInput) return;
+
+        // Min date = today
+        const todayStr = new Date().toISOString().split('T')[0];
+        startInput.min = todayStr;
+
+        function calc() {
+            if (!startInput.value || !endInput.value) { if (display) display.textContent = ''; return; }
+            const s = new Date(startInput.value), e = new Date(endInput.value);
+            if (e < s) { if (display) display.textContent = '⚠ End date must be after start date'; return; }
+            const nights = Math.round((e - s) / 86400000);
+            const days = nights + 1;
+            let label = nights === 0 ? '1 day (same-day)' : nights === 1 ? '2 days / 1 night' : `${days} days / ${nights} nights`;
+            if (durationInput) durationInput.value = days;
+            if (display) display.textContent = '✓  ' + label;
+        }
+
+        startInput.addEventListener('change', function () {
+            endInput.min = this.value;
+            calc();
+        });
+        endInput.addEventListener('change', calc);
+    })();
+
+    // ── Textarea auto-expand ─────────────────
+    document.querySelectorAll('.bwiz-form textarea').forEach(function(ta) {
+        ta.addEventListener('input', function() {
+            this.style.height = '48px';
+            this.style.height = this.scrollHeight + 'px';
+        });
+    });
+
+    // ── Step 5 form submit validation ────────
+    const form = document.getElementById('bwizForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            const fields = [
+                { name: 'first_name', label: 'First name' },
+                { name: 'last_name',  label: 'Last name' },
+                { name: 'email',      label: 'Email address' },
+                { name: 'phone',      label: 'Phone number' },
+            ];
+            for (const f of fields) {
+                const el = form.querySelector(`[name="${f.name}"]`);
+                if (el) el.classList.remove('field-error');
+                if (!el || !el.value.trim()) {
+                    e.preventDefault();
+                    if (el) { el.classList.add('field-error'); el.focus(); }
+                    showError(`${f.label} is required.`);
+                    return;
+                }
+            }
+            // Country check
+            const countryEl = document.getElementById('countrySelect');
+            if (countryEl) countryEl.classList.remove('field-error');
+            if (!countryEl || !countryEl.value) {
+                e.preventDefault();
+                if (countryEl) { countryEl.classList.add('field-error'); countryEl.focus(); }
+                showError('Country of residence is required.');
+                return;
+            }
+            // Email format check
+            const emailEl = form.querySelector('[name="email"]');
+            if (emailEl && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) {
+                e.preventDefault();
+                emailEl.classList.add('field-error');
+                emailEl.focus();
+                showError('Please enter a valid email address.');
+                return;
+            }
+            // Budget check
+            if (!document.getElementById('hidBudget').value) {
+                e.preventDefault();
+                showError('Please go back and select a budget range.');
+                return;
+            }
+            // Submit button loading state
+            const btn = form.querySelector('.bwiz-btn-submit');
+            if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
+        });
+    }
+
+    // ── Init ─────────────────────────────────
+    goTo(1);
+
+})();
+</script>
+
+<script>
+(function () {
+    const hamburger = document.getElementById('navHamburger');
+    const drawer    = document.getElementById('mobileNavDrawer');
+    const overlay   = document.getElementById('mobileNavOverlay');
+    const closeBtn  = document.getElementById('mobileNavClose');
+    if (!hamburger) return;
+    function openDrawer() {
+        drawer.classList.add('open'); overlay.classList.add('open');
+        hamburger.classList.add('open'); document.body.classList.add('nav-open');
+    }
+    function closeDrawer() {
+        drawer.classList.remove('open'); overlay.classList.remove('open');
+        hamburger.classList.remove('open'); document.body.classList.remove('nav-open');
+    }
+    hamburger.addEventListener('click', () => drawer.classList.contains('open') ? closeDrawer() : openDrawer());
+    closeBtn.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+    document.querySelectorAll('.mobile-nav-toggle').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const panel  = document.getElementById(btn.getAttribute('data-target'));
+            const isOpen = panel.classList.contains('open');
+            document.querySelectorAll('.mobile-nav-dropdown').forEach(p => p.classList.remove('open'));
+            document.querySelectorAll('.mobile-nav-toggle').forEach(b => b.classList.remove('open'));
+            if (!isOpen) { panel.classList.add('open'); btn.classList.add('open'); }
+        });
+    });
+    drawer.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => setTimeout(closeDrawer, 150));
+    });
+})();
+</script>
+</body>
+</html>
+
+// ── Travel Type Selection + Inline Traveller Count ────────────────────────
+(function () {
+    const DEFAULTS = { solo: 1, couple: 2, family: 4, group: 8 };
+    const MINIMUMS = { solo: 1, couple: 2, family: 2, group: 3 };
+    const SUFFIXES = { solo: 'person', couple: 'people', family: 'people', group: 'people' };
+    const LABELS   = {
+        solo:   'Travelling solo',
+        couple: 'Number of travellers',
+        family: 'Number of travellers',
+        group:  'Number of travellers'
+    };
+
+    const section    = document.getElementById('travelerCountSection');
+    const numInput   = document.getElementById('travelerNumInput');
+    const hiddenEl   = document.getElementById('travelerHiddenInput');
+    const soloNote   = document.getElementById('soloNote');
+    const suffix     = document.getElementById('travelerSuffix');
+    const labelEl    = document.getElementById('travelerLabel');
+
+    function syncHidden() {
+        if (hiddenEl) hiddenEl.value = numInput ? numInput.value : 1;
+    }
+
+    function showForType(type) {
+        const isSolo = (type === 'solo');
+        const def    = DEFAULTS[type] || 1;
+        const min    = MINIMUMS[type] || 1;
+
+        if (section) section.style.display = 'block';
+
+        if (numInput) {
+            numInput.min     = min;
+            numInput.value   = def;
+            numInput.disabled = isSolo;
+        }
+        if (suffix)   suffix.textContent  = SUFFIXES[type] || 'people';
+        if (labelEl)  labelEl.textContent = LABELS[type]   || 'Number of travellers';
+        if (soloNote) soloNote.style.display = isSolo ? 'flex' : 'none';
+
+        syncHidden();
+    }
+
+    window.selectTravelType = function (card, type) {
+        document.querySelectorAll('.travel-type-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        const travelTypeInput = document.querySelector('[name="travel_type"]');
+        if (travelTypeInput) travelTypeInput.value = type;
+        showForType(type);
+    };
+
+    // Keep hidden in sync as user types
+    if (numInput) {
+        numInput.addEventListener('input', function () {
+            const min = parseInt(this.min) || 1;
+            if (this.value !== '' && parseInt(this.value) < min) this.value = min;
+            if (parseInt(this.value) > 99) this.value = 99;
+            syncHidden();
+        });
+        numInput.addEventListener('blur', function () {
+            if (!this.value || parseInt(this.value) < 1) this.value = parseInt(this.min) || 1;
+            syncHidden();
+        });
+    }
+})();
 
 // Accommodation Selection
 function selectAccommodation(card, type) {
@@ -1827,16 +3197,48 @@ function selectAccommodation(card, type) {
     document.querySelector('[name="accommodation"]').value = type;
 }
 
-// Budget Slider
-const budgetSlider = document.querySelector('[name="budget"]');
-const budgetDisplay = document.getElementById('budgetDisplay');
+// ── Budget Tier Selector ──────────────────────────────────────────────────
+(function () {
+    const tiers       = document.querySelectorAll('.budget-tier');
+    const hidden      = document.getElementById('budgetHidden');
+    const customInput = document.getElementById('budgetCustomInput');
+    const customRow   = document.getElementById('budgetCustomRow');
+    let   activeTier  = null;
 
-if (budgetSlider) {
-    budgetSlider.addEventListener('input', function() {
-        const value = parseInt(this.value);
-        budgetDisplay.textContent = '$' + value.toLocaleString();
+    function selectTier(tile) {
+        tiers.forEach(t => t.classList.remove('selected'));
+        tile.classList.add('selected');
+        activeTier = tile;
+        const val = tile.dataset.val;
+        if (hidden) hidden.value = val;
+        // Clear custom if a tile is chosen
+        if (customInput) { customInput.value = ''; }
+        if (customRow)   { customRow.classList.remove('active'); }
+    }
+
+    tiers.forEach(tile => {
+        tile.addEventListener('click', () => selectTier(tile));
     });
-}
+
+    // Custom input — clears tile selection
+    if (customInput) {
+        customInput.addEventListener('input', function () {
+            const v = parseInt(this.value);
+            if (this.value !== '') {
+                tiers.forEach(t => t.classList.remove('selected'));
+                activeTier = null;
+                if (hidden) hidden.value = isNaN(v) ? '' : v;
+                customRow && customRow.classList.add('active');
+            } else {
+                customRow && customRow.classList.remove('active');
+            }
+        });
+        customInput.addEventListener('blur', function () {
+            const v = parseInt(this.value);
+            if (!isNaN(v) && v < 500) { this.value = 500; if (hidden) hidden.value = 500; }
+        });
+    }
+})();
 
 // Category Filter for Activities
 const categoryButtons = document.querySelectorAll('.category-btn');
