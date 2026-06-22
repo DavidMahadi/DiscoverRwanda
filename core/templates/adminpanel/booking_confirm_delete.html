@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirm Delete — Discover Rwanda Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 2.5rem;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 10px 40px rgba(0,0,0,.12);
+      text-align: center;
+    }
+
+    .icon-wrap {
+      width: 70px; height: 70px;
+      border-radius: 50%;
+      background: rgba(239,68,68,.1);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+
+    .icon-wrap i { font-size: 2rem; color: #ef4444; }
+
+    h1 { font-size: 1.5rem; font-weight: 700; color: #111; margin-bottom: 0.75rem; }
+
+    p { font-size: 0.9375rem; color: #6b7280; line-height: 1.6; margin-bottom: 0.5rem; }
+
+    .booking-info {
+      background: #fafafa;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 1rem;
+      margin: 1.5rem 0;
+      text-align: left;
+    }
+
+    .booking-info div { font-size: 0.875rem; color: #374151; padding: 4px 0; }
+    .booking-info strong { color: #111; }
+
+    .btn-row { display: flex; gap: 0.75rem; justify-content: center; margin-top: 1.5rem; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      border-radius: 10px;
+      font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; border: none; text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-cancel {
+      background: #f3f4f6; color: #374151;
+      border: 1.5px solid #e5e7eb;
+    }
+    .btn-cancel:hover { background: #e5e7eb; }
+
+    .btn-delete { background: #ef4444; color: #fff; }
+    .btn-delete:hover { background: #dc2626; transform: translateY(-1px); }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon-wrap">
+      <i class="fas fa-trash-alt"></i>
+    </div>
+
+    <h1>Delete Booking?</h1>
+    <p>This action is permanent and cannot be undone.</p>
+
+    <div class="booking-info">
+      <div><strong>Booking:</strong> {{ booking.get_booking_id }}</div>
+      <div><strong>Customer:</strong> {{ booking.get_full_name }}</div>
+      <div><strong>Email:</strong> {{ booking.email }}</div>
+      <div><strong>Status:</strong> {{ booking.get_status_display }}</div>
+    </div>
+
+    <div class="btn-row">
+      <a href="{% url 'booking_view' booking.pk %}" class="btn btn-cancel">
+        <i class="fas fa-arrow-left"></i> Cancel
+      </a>
+      <form method="POST" action="{% url 'booking_delete' booking.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-delete">
+          <i class="fas fa-trash"></i> Yes, Delete
+        </button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

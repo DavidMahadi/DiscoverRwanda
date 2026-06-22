@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login — Discover Rwanda</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Italiana&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      background: #0a0a0a;
+      overflow: hidden;
+    }
+
+    /* ── Left panel — brand / illustration ── */
+    .left-panel {
+      flex: 1;
+      background: linear-gradient(160deg, #0a2f1a 0%, #051810 60%, #000 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .left-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=1200&q=60') center/cover;
+      opacity: 0.12;
+    }
+
+    .brand-block {
+      position: relative;
+      text-align: center;
+      color: #fff;
+    }
+
+    .brand-leaf {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .brand-name {
+      font-family: 'Italiana', serif;
+      font-size: 2.5rem;
+      letter-spacing: 6px;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+
+    .brand-tagline {
+      font-size: 0.8125rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .brand-divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, #2d7a4f, #c9a961);
+      margin: 2rem auto;
+      border-radius: 2px;
+    }
+
+    .brand-quote {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.7;
+      max-width: 320px;
+      font-style: italic;
+    }
+
+    /* Stats row */
+    .brand-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+
+    .brand-stat {
+      text-align: center;
+    }
+
+    .brand-stat-value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #c9a961;
+    }
+
+    .brand-stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-top: 4px;
+    }
+
+    /* ── Right panel — login form ── */
+    .right-panel {
+      width: 480px;
+      min-width: 380px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 3.5rem;
+    }
+
+    .login-header {
+      margin-bottom: 2.5rem;
+    }
+
+    .login-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 0.5rem;
+    }
+
+    .login-subtitle {
+      font-size: 0.9rem;
+      color: #6b7280;
+    }
+
+    /* Error alert */
+    .alert-error {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-left: 4px solid #ef4444;
+      border-radius: 8px;
+      padding: 0.875rem 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.875rem;
+      color: #991b1b;
+    }
+
+    /* Form */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.3px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.875rem 1rem 0.875rem 2.75rem;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 10px;
+      font-size: 0.9375rem;
+      font-family: 'Inter', sans-serif;
+      color: #111;
+      background: #fafafa;
+      transition: all 0.25s;
+      outline: none;
+    }
+
+    .form-input:focus {
+      border-color: #111;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+    }
+
+    .form-input:focus + i,
+    .input-wrapper:focus-within i {
+      color: #111;
+    }
+
+    /* Password toggle */
+    .pw-toggle {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #9ca3af;
+      font-size: 0.875rem;
+      padding: 0;
+      transition: color 0.2s;
+    }
+    .pw-toggle:hover { color: #111; }
+
+    /* Remember + forgot */
+    .form-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.75rem;
+    }
+
+    .remember-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: #6b7280;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .remember-label input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: #111;
+      cursor: pointer;
+    }
+
+    .forgot-link {
+      font-size: 0.85rem;
+      color: #111;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .forgot-link:hover { text-decoration: underline; }
+
+    /* Submit button */
+    .btn-login {
+      width: 100%;
+      padding: 1rem;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.25s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .btn-login:hover {
+      background: #1a1a1a;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    .btn-login:active { transform: translateY(0); }
+
+    /* Loading state */
+    .btn-login.loading .btn-text { display: none; }
+    .btn-login .spinner { display: none; }
+    .btn-login.loading .spinner { display: block; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    /* Footer note */
+    .login-footer {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #f3f4f6;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .login-footer a {
+      color: #6b7280;
+      text-decoration: none;
+    }
+
+    .login-footer a:hover { color: #111; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .left-panel { display: none; }
+      .right-panel { width: 100%; padding: 3rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="brand-block">
+      <span class="brand-leaf">🌿</span>
+      <div class="brand-name">RWANDA</div>
+      <div class="brand-tagline">Land of a Thousand Hills</div>
+      <div class="brand-divider"></div>
+      <p class="brand-quote">
+        "Manage your travellers, track every booking, and deliver extraordinary experiences — all from one place."
+      </p>
+      <div class="brand-stats">
+        <div class="brand-stat">
+          <div class="brand-stat-value">1K+</div>
+          <div class="brand-stat-label">Hills</div>
+        </div>
+        <div class="brand-stat">
+          <div class="brand-stat-value">5★</div>
+          <div class="brand-stat-label">Rated</div>
+        </div>
+        <div class="brand-stat">
+          <div class="brand-stat-value">24h</div>
+          <div class="brand-stat-label">Response</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="login-header">
+      <h1 class="login-title">Admin Sign In</h1>
+      <p class="login-subtitle">Enter your credentials to access the dashboard</p>
+    </div>
+
+    {% if error %}
+    <div class="alert-error">
+      <i class="fas fa-exclamation-circle"></i>
+      {{ error }}
+    </div>
+    {% endif %}
+
+    <form method="POST" action="{% url 'admin_login' %}" id="loginForm" autocomplete="on">
+      {% csrf_token %}
+      {% if request.GET.next %}
+        <input type="hidden" name="next" value="{{ request.GET.next }}">
+      {% endif %}
+
+      <div class="form-group">
+        <label class="form-label" for="username">Username</label>
+        <div class="input-wrapper">
+          <input
+            class="form-input"
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Enter your username"
+            autocomplete="username"
+            autofocus
+            required
+          >
+          <i class="fas fa-user"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <div class="input-wrapper">
+          <input
+            class="form-input"
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          >
+          <i class="fas fa-lock"></i>
+          <button type="button" class="pw-toggle" id="pwToggle" aria-label="Toggle password visibility">
+            <i class="fas fa-eye" id="pwIcon"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label class="remember-label">
+          <input type="checkbox" name="remember">
+          Remember me
+        </label>
+        <a href="/admin/password_reset/" class="forgot-link">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="btn-login" id="loginBtn">
+        <span class="btn-text"><i class="fas fa-sign-in-alt"></i> &nbsp;Sign In</span>
+        <div class="spinner"></div>
+      </button>
+    </form>
+
+    <div class="login-footer">
+      <p>← <a href="{% url 'index' %}">Back to website</a></p>
+    </div>
+  </div>
+
+  <script>
+    // Password visibility toggle
+    document.getElementById('pwToggle').addEventListener('click', function () {
+      const pw = document.getElementById('password');
+      const icon = document.getElementById('pwIcon');
+      if (pw.type === 'password') {
+        pw.type = 'text';
+        icon.className = 'fas fa-eye-slash';
+      } else {
+        pw.type = 'password';
+        icon.className = 'fas fa-eye';
+      }
+    });
+
+    // Loading state on submit
+    document.getElementById('loginForm').addEventListener('submit', function () {
+      document.getElementById('loginBtn').classList.add('loading');
+    });
+  </script>
+</body>
+</html>

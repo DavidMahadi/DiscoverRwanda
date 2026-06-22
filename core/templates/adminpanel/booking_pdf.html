@@ -1,196 +1,427 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Booking PDF</title>
+  <meta charset="utf-8">
+  <title>Booking {{ booking.get_booking_id }} — Discover Rwanda</title>
+  <style>
+    @page {
+      margin: 1.2cm 1.5cm;
+      size: A4;
+    }
 
-    <style>
-        body {
-            font-family: "Helvetica", Arial, sans-serif;
-            background: #f7f9fb;
-            padding: 40px;
-            color: #1f2937;
-        }
+    * { margin: 0; padding: 0; }
 
-        .pdf-container {
-            background: #ffffff;
-            border-radius: 14px;
-            padding: 40px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-            max-width: 900px;
-            margin: auto;
-        }
+    body {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 10.5px;
+      color: #1a1a1a;
+      background: #ffffff;
+      line-height: 1.5;
+    }
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #e5e7eb;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
+    a { color: inherit; text-decoration: none; }
 
-        .brand {
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: 2px;
-        }
+    /* ══ HEADER ══════════════════════════════ */
+    table.header-table {
+      width: 100%;
+      background-color: #000000;
+      border-collapse: collapse;
+    }
+    .header-inner {
+      text-align: center;
+      padding: 24px 20px 18px;
+    }
+    .h-brand {
+      color: #ffffff;
+      font-size: 17px;
+      font-weight: bold;
+      letter-spacing: 5px;
+    }
+    .h-tagline {
+      color: #888888;
+      font-size: 8px;
+      letter-spacing: 2.5px;
+      margin-top: 3px;
+    }
+    .h-chip {
+      margin-top: 12px;
+      display: inline-block;
+      background-color: #222222;
+      color: #ffffff;
+      font-size: 8px;
+      font-weight: bold;
+      letter-spacing: 1.5px;
+      padding: 4px 14px;
+      border: 1px solid #444444;
+    }
 
-        .brand span {
-            color: #16a34a;
-        }
+    /* ══ STATUS BLOCK ═════════════════════════ */
+    .status-block {
+      text-align: center;
+      padding: 18px 20px 12px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+    .status-title {
+      font-size: 19px;
+      font-weight: bold;
+      color: #000000;
+    }
+    .status-sub {
+      font-size: 9.5px;
+      color: #666666;
+      margin-top: 5px;
+      line-height: 1.6;
+    }
 
-        .booking-id {
-            font-size: 14px;
-            color: #6b7280;
-        }
+    /* ══ REF BLOCK ════════════════════════════ */
+    .ref-wrap {
+      border-left: 4px solid #000000;
+      background-color: #f9f9f9;
+      padding: 10px 14px;
+      margin: 14px 0 0 0;
+    }
+    .ref-lbl {
+      font-size: 8px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #aaaaaa;
+      margin-bottom: 2px;
+    }
+    .ref-id {
+      font-size: 17px;
+      font-weight: bold;
+      color: #000000;
+    }
+    .ref-date {
+      font-size: 8.5px;
+      color: #888888;
+      margin-top: 2px;
+    }
 
-        h2 {
-            margin-top: 0;
-            border-left: 6px solid #16a34a;
-            padding-left: 12px;
-        }
+    /* ══ SECTIONS ═════════════════════════════ */
+    .sec-title {
+      font-size: 11.5px;
+      font-weight: bold;
+      color: #000000;
+      border-bottom: 2px solid #eeeeee;
+      padding-bottom: 5px;
+      margin-top: 16px;
+      margin-bottom: 10px;
+    }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
-            margin-bottom: 25px;
-        }
+    /* ══ INFO TABLE ═══════════════════════════ */
+    table.info {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table.info td {
+      width: 50%;
+      padding: 5px 0;
+      vertical-align: top;
+    }
+    .lbl {
+      font-size: 8px;
+      font-weight: bold;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: #aaaaaa;
+      margin-bottom: 2px;
+    }
+    .val {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #333333;
+    }
+    .val-accent {
+      font-size: 12px;
+      font-weight: bold;
+      color: #000000;
+    }
 
-        .box {
-            background: #f9fafb;
-            padding: 14px 16px;
-            border-radius: 10px;
-            border: 1px solid #e5e7eb;
-        }
+    /* ══ DIVIDER ══════════════════════════════ */
+    .hr {
+      border: none;
+      border-top: 1px solid #eeeeee;
+      margin: 12px 0;
+    }
 
-        .label {
-            font-size: 12px;
-            color: #6b7280;
-            margin-bottom: 4px;
-        }
+    /* ══ ACTIVITY TAGS ════════════════════════ */
+    table.acts { width: 100%; border-collapse: collapse; }
+    table.acts td { padding: 2px 6px 4px 0; vertical-align: top; }
+    .act-tag {
+      font-size: 9px;
+      font-weight: bold;
+      color: #065f46;
+      background-color: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      padding: 3px 9px;
+    }
 
-        .value {
-            font-weight: 600;
-            font-size: 15px;
-        }
+    /* ══ SPECIAL REQUESTS ═════════════════════ */
+    .special-box {
+      border-left: 3px solid #c9a961;
+      background-color: #fafafa;
+      padding: 9px 12px;
+      font-size: 10px;
+      color: #444444;
+      line-height: 1.7;
+    }
 
-        .activities {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+    /* ══ NEXT STEPS BOX ═══════════════════════ */
+    .ns-box {
+      border: 1.5px solid #e8e8e8;
+      background-color: #fafafa;
+      padding: 14px 16px;
+      margin-top: 16px;
+    }
+    .ns-title {
+      font-size: 11px;
+      font-weight: bold;
+      color: #000000;
+      margin-bottom: 8px;
+    }
+    .ns-row {
+      padding: 5px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .ns-row:last-child { border-bottom: none; }
+    .ns-t {
+      font-size: 9.5px;
+      font-weight: bold;
+      color: #000000;
+    }
+    .ns-d {
+      font-size: 9px;
+      color: #666666;
+      margin-top: 1px;
+    }
 
-        .activity {
-            background: #ecfdf5;
-            color: #065f46;
-            padding: 6px 12px;
-            border-radius: 999px;
-            font-size: 13px;
-            font-weight: 600;
-        }
+    /* ══ CONTACT BLOCK ════════════════════════ */
+    table.contact-outer {
+      width: 100%;
+      background-color: #000000;
+      border-collapse: collapse;
+      margin-top: 14px;
+    }
+    .contact-inner {
+      padding: 16px 20px;
+      text-align: center;
+    }
+    .ct-title {
+      color: #ffffff;
+      font-size: 10.5px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    table.ct-items {
+      width: 60%;
+      border-collapse: collapse;
+      margin: 0 auto;
+    }
+    table.ct-items td {
+      text-align: center;
+      padding: 0 16px;
+    }
+    .ct-lbl {
+      font-size: 7.5px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #777777;
+      margin-bottom: 2px;
+    }
+    .ct-val {
+      font-size: 9.5px;
+      font-weight: bold;
+      color: #ffffff;
+    }
 
-        .footer {
-            margin-top: 40px;
-            text-align: center;
-            font-size: 12px;
-            color: #6b7280;
-            border-top: 1px solid #e5e7eb;
-            padding-top: 20px;
-        }
-    </style>
+    /* ══ FOOTER ═══════════════════════════════ */
+    .footer {
+      text-align: center;
+      padding: 12px 0 2px;
+      border-top: 1px solid #eeeeee;
+      margin-top: 14px;
+    }
+    .ft-brand { font-size: 11px; font-weight: bold; color: #000000; }
+    .ft-sub   { font-size: 8.5px; color: #888888; margin-top: 2px; }
+    .ft-note  { font-size: 7.5px; color: #cccccc; margin-top: 6px; }
+  </style>
 </head>
-
 <body>
-    <div class="pdf-container">
 
-        <div class="header">
-            <div class="brand">DISCOVER <span>RWANDA</span></div>
-            <div class="booking-id">Booking ID: {{ booking.get_booking_id }}</div>
-        </div>
+<!-- ══ HEADER ══ -->
+<table class="header-table">
+  <tr>
+    <td class="header-inner">
+      <div class="h-brand">DISCOVER RWANDA</div>
+      <div class="h-tagline">LAND OF A THOUSAND HILLS</div>
+      <div class="h-chip">&#10003;&nbsp; BOOKING SUMMARY</div>
+    </td>
+  </tr>
+</table>
 
-        <h2>Customer Information</h2>
-        <div class="grid">
-            <div class="box">
-                <div class="label">Full Name</div>
-                <div class="value">{{ booking.get_full_name }}</div>
-            </div>
-            <div class="box">
-                <div class="label">Email</div>
-                <div class="value">{{ booking.email }}</div>
-            </div>
-            <div class="box">
-                <div class="label">Phone</div>
-                <div class="value">{{ booking.phone }}</div>
-            </div>
-            <div class="box">
-                <div class="label">Country</div>
-                <div class="value">{{ booking.country }}</div>
-            </div>
-        </div>
+<!-- ══ STATUS ══ -->
+<div class="status-block">
+  <div class="status-title">Booking Details</div>
+  <div class="status-sub">
+    This document contains the full details of the booking request<br>
+    submitted through Discover Rwanda.
+  </div>
+</div>
 
-        <h2>Travel Details</h2>
-        <div class="grid">
-            <div class="box">
-                <div class="label">Travel Type</div>
-                <div class="value">{{ booking.get_travel_type_display }}</div>
-            </div>
-            <div class="box">
-                <div class="label">Travelers</div>
-                <div class="value">{{ booking.get_travelers_display }}</div>
-            </div>
-            <div class="box">
-                <div class="label">Start Date</div>
-                <div class="value">{{ booking.start_date }}</div>
-            </div>
-            <div class="box">
-                <div class="label">End Date</div>
-                <div class="value">{{ booking.end_date }}</div>
-            </div>
-            <div class="box">
-                <div class="label">Flexibility</div>
-                <div class="value">{{ booking.get_date_flexibility_display }}</div>
-            </div>
-            <div class="box">
-                <div class="label">Duration</div>
-                <div class="value">{{ booking.duration }} days</div>
-            </div>
-        </div>
+<!-- ══ REFERENCE ══ -->
+<div class="ref-wrap">
+  <div class="ref-lbl">Booking Reference</div>
+  <div class="ref-id">{{ booking.get_booking_id }}</div>
+  <div class="ref-date">Submitted on {{ booking.created_at|date:"F d, Y \a\t g:i A" }}</div>
+</div>
 
-        <h2>Activities</h2>
-        <div class="box">
-            <div class="activities">
-                {% for activity in booking.get_activities_list %}
-                    <div class="activity">{{ activity }}</div>
-                {% empty %}
-                    <span>No activities selected</span>
-                {% endfor %}
-            </div>
-        </div>
+<!-- ══ PERSONAL INFORMATION ══ -->
+<div class="sec-title">Personal Information</div>
+<table class="info">
+  <tr>
+    <td>
+      <div class="lbl">Full Name</div>
+      <div class="val">{{ booking.get_full_name }}</div>
+    </td>
+    <td>
+      <div class="lbl">Number of Travellers</div>
+      <div class="val">{{ booking.travelers }}</div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="lbl">Email Address</div>
+      <div class="val">{{ booking.email }}</div>
+    </td>
+    <td>
+      <div class="lbl">Phone Number</div>
+      <div class="val">{{ booking.phone }}</div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="lbl">Country</div>
+      <div class="val">{{ booking.country }}</div>
+    </td>
+    <td>
+      <div class="lbl">Travel Style</div>
+      <div class="val">{{ booking.get_travel_type_display }}</div>
+    </td>
+  </tr>
+</table>
 
-        <h2>Accommodation & Budget</h2>
-        <div class="grid">
-            <div class="box">
-                <div class="label">Accommodation</div>
-                <div class="value">{{ booking.get_accommodation_display }}</div>
-            </div>
-            <div class="box">
-                <div class="label">Budget</div>
-                <div class="value">${{ booking.budget }}</div>
-            </div>
-        </div>
+<div class="hr"></div>
 
-        <h2>Special Requests</h2>
-        <div class="box">
-            <div class="value">{{ booking.special_requests|default:"None" }}</div>
-        </div>
+<!-- ══ TRAVEL DETAILS ══ -->
+<div class="sec-title">Travel Details</div>
+<table class="info">
+  <tr>
+    <td>
+      <div class="lbl">Start Date</div>
+      <div class="val">{% if booking.start_date %}{{ booking.start_date|date:"F d, Y" }}{% else %}Flexible{% endif %}</div>
+    </td>
+    <td>
+      <div class="lbl">End Date</div>
+      <div class="val">{% if booking.end_date %}{{ booking.end_date|date:"F d, Y" }}{% else %}Flexible{% endif %}</div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="lbl">Duration</div>
+      <div class="val">{{ booking.duration }} days</div>
+    </td>
+    <td>
+      <div class="lbl">Date Flexibility</div>
+      <div class="val">{{ booking.get_date_flexibility_display }}</div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="lbl">Accommodation</div>
+      <div class="val">{{ booking.get_accommodation_display }}</div>
+    </td>
+    <td>
+      <div class="lbl">Budget Range (per person)</div>
+      <div class="val-accent">{{ booking.get_budget_range_display }}</div>
+    </td>
+  </tr>
+</table>
 
-        <div class="footer">
-            DISCOVER RWANDA — Luxury Travel Experiences<br>
-            Generated on {{ booking.created_at }}
-        </div>
+<div class="hr"></div>
 
-    </div>
+<!-- ══ ACTIVITIES ══ -->
+<div class="sec-title">Selected Activities &amp; Experiences</div>
+<table class="acts">
+  <tr>
+    {% for activity in activities %}
+      <td style="white-space:nowrap; padding:2px 6px 4px 0;">
+        <span class="act-tag">{{ activity }}</span>
+      </td>
+      {% if forloop.counter|divisibleby:4 %}</tr><tr>{% endif %}
+    {% empty %}
+      <td><span style="color:#aaaaaa; font-style:italic; font-size:9.5px;">No activities selected</span></td>
+    {% endfor %}
+  </tr>
+</table>
+
+{% if booking.special_requests %}
+<div class="hr"></div>
+<div class="sec-title">Special Requests</div>
+<div class="special-box">{{ booking.special_requests }}</div>
+{% endif %}
+
+<!-- ══ NEXT STEPS ══ -->
+<div class="ns-box">
+  <div class="ns-title">What Happens Next?</div>
+  <div class="ns-row">
+    <div class="ns-t">&#10003; Expert Review</div>
+    <div class="ns-d">Our Rwanda travel specialists will carefully review this request.</div>
+  </div>
+  <div class="ns-row">
+    <div class="ns-t">&#10003; Personalised Itinerary</div>
+    <div class="ns-d">A custom itinerary will be delivered within 24 hours.</div>
+  </div>
+  <div class="ns-row">
+    <div class="ns-t">&#10003; Complete Details</div>
+    <div class="ns-d">Includes accommodation options, activities, and transparent pricing.</div>
+  </div>
+  <div class="ns-row">
+    <div class="ns-t">&#10003; Perfect Your Trip</div>
+    <div class="ns-d">Modify freely until it is exactly what you dreamed of.</div>
+  </div>
+</div>
+
+<!-- ══ CONTACT ══ -->
+<table class="contact-outer">
+  <tr>
+    <td class="contact-inner">
+      <div class="ct-title">Questions? We are Here to Help</div>
+      <table class="ct-items">
+        <tr>
+          <td>
+            <div class="ct-lbl">Email</div>
+            <div class="ct-val">helpdiscoverrwanda@gmail.com</div>
+          </td>
+          <td>
+            <div class="ct-lbl">Phone</div>
+            <div class="ct-val">+250 798 919 909</div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<!-- ══ FOOTER ══ -->
+<div class="footer">
+  <div class="ft-brand">Discover Rwanda</div>
+  <div class="ft-sub">Your gateway to extraordinary African adventures</div>
+  <div class="ft-note">
+    &copy; 2026 Discover Rwanda &nbsp;&middot;&nbsp; Generated on {{ booking.created_at|date:"F d, Y" }}
+  </div>
+</div>
+
 </body>
 </html>

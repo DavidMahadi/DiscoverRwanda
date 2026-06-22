@@ -67,7 +67,7 @@ class TravelBooking(models.Model):
 
     # Accommodation & Budget
     accommodation = models.CharField(max_length=20, choices=ACCOMMODATION_CHOICES, blank=True, null=True)
-    budget = models.IntegerField(validators=[MinValueValidator(1000), MaxValueValidator(15000)], default=5000)
+    budget = models.IntegerField(validators=[MinValueValidator(500), MaxValueValidator(50000)], default=5000)
 
     # Special Requests
     special_requests = models.TextField(blank=True)
@@ -116,6 +116,23 @@ class TravelBooking(models.Model):
     def cancel_booking(self):
         self.status = 'cancelled'
         self.save(update_fields=['status'])
+
+    def get_budget_range_display(self):
+        """Return the human-readable budget range label based on the saved value."""
+        b = self.budget
+        if b is None:
+            return 'Not specified'
+        if b < 1000:
+            return 'USD 500 – 1,000'
+        elif b < 3000:
+            return 'USD 1,000 – 3,000'
+        elif b < 6000:
+            return 'USD 3,000 – 6,000'
+        elif b < 10000:
+            return 'USD 6,000 – 10,000'
+        else:
+            return 'USD 10,000+'
+
 
     
             

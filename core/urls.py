@@ -18,17 +18,22 @@ from .views import (
     gallery,
     contact_form_view,
     success,
+    # Admin auth
+    admin_login,
+    admin_logout,
+    # Dashboard
     dashboard,
     booking_view,
     booking_edit,
     booking_delete,
     booking_pdf,
+    booking_mark_processed,
+    booking_mark_confirmed,
+    booking_cancel,
 )
 
-
-
-
 urlpatterns = [
+    # ── Public pages ──────────────────────────────────────────
     path("", index, name="index"),
     path("towns", towns, name="towns"),
     path("lakes", lakes, name="lakes"),
@@ -47,10 +52,18 @@ urlpatterns = [
     path("gallery", gallery, name="gallery"),
     path("contact", contact_form_view, name="contact"),
     path("success", success, name="success"),
-    path('dashboard/', dashboard, name='dashboard'),
-    path('dashboard/booking/<int:pk>/', booking_view, name='booking_view'),
-    path('dashboard/booking/<int:pk>/edit/', booking_edit, name='booking_edit'),
-    path('dashboard/booking/<int:pk>/delete/', booking_delete, name='booking_delete'),
-    path('dashboard/booking/<int:pk>/download/', booking_pdf, name='booking_pdf'),
-    
+
+    # ── Admin auth ────────────────────────────────────────────
+    path("dashboard/login/", admin_login, name="admin_login"),
+    path("dashboard/logout/", admin_logout, name="admin_logout"),
+
+    # ── Dashboard ─────────────────────────────────────────────
+    path("dashboard/", dashboard, name="dashboard"),
+    path("dashboard/booking/<int:pk>/", booking_view, name="booking_view"),
+    path("dashboard/booking/<int:pk>/edit/", booking_edit, name="booking_edit"),
+    path("dashboard/booking/<int:pk>/delete/", booking_delete, name="booking_delete"),
+    path("dashboard/booking/<int:pk>/download/", booking_pdf, name="booking_pdf"),
+    path("dashboard/booking/<int:pk>/mark-processed/", booking_mark_processed, name="booking_mark_processed"),
+    path("dashboard/booking/<int:pk>/mark-confirmed/", booking_mark_confirmed, name="booking_mark_confirmed"),
+    path("dashboard/booking/<int:pk>/cancel/", booking_cancel, name="booking_cancel"),
 ]

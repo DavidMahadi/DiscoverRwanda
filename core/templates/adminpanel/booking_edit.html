@@ -1,236 +1,535 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Booking - Rwanda Dashboard</title>
-    <style>
-        /* Sidebar & Dashboard Styles */
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            background-color: #f8f9fa;
-            display: flex;
-        }
-        .sidebar {
-            width: 250px;
-            background-color: #1b1b1b;
-            color: white;
-            height: 100vh;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .sidebar h2 {
-            font-size: 24px;
-            margin-bottom: 40px;
-        }
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-        .sidebar ul li {
-            margin: 20px 0;
-        }
-        .sidebar ul li a {
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-        .sidebar ul li a:hover {
-            color: #4fceac;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit {{ booking.get_booking_id }} — Discover Rwanda Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Italiana&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* Main Content */
-        .main {
-            flex: 1;
-            padding: 40px;
-        }
-        .main h1 {
-            margin-bottom: 30px;
-            font-size: 28px;
-        }
+    :root {
+      --sidebar-w: 220px; --topbar-h: 56px;
+      --primary: #000; --green: #2d8659; --gold: #c9a961;
+      --success: #10b981; --warning: #f59e0b; --danger: #ef4444; --info: #3b82f6;
+      --g50: #fafafa; --g100: #f5f5f5; --g200: #e5e5e5;
+      --g400: #a3a3a3; --g500: #737373; --g600: #525252; --g700: #404040; --g900: #171717;
+      --white: #fff; --sh: 0 1px 3px rgba(0,0,0,.08); --r: 10px;
+    }
 
-        /* Card Form */
-        .card {
-            background-color: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            max-width: 800px;
-            margin: auto;
-        }
-        .card h2 {
-            margin-bottom: 20px;
-            font-size: 22px;
-        }
+    body { font-family: 'Inter', sans-serif; background: var(--g100); color: var(--g900); font-size: 13px; }
 
-        /* Form Fields */
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        .form-group input,
-        .form-group select,
-        .form-group button {
-            width: 100%;
-            padding: 10px 15px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-        .form-group button {
-            background-color: #4fceac;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        .form-group button:hover {
-            background-color: #45b896;
-        }
+    /* SIDEBAR — identical */
+    .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: var(--sidebar-w); background: #0f0f0f; display: flex; flex-direction: column; z-index: 200; }
+    .sb-logo { display: flex; align-items: center; gap: .6rem; padding: 1.1rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,.07); text-decoration: none; }
+    .sb-logo-icon { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg,var(--green),var(--gold)); display: flex; align-items: center; justify-content: center; font-size: .8rem; color: #fff; flex-shrink: 0; }
+    .sb-logo-text { font-family: 'Italiana', serif; font-size: 1rem; letter-spacing: 3px; color: #fff; }
+    .sb-user { display: flex; align-items: center; gap: .6rem; padding: .875rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,.07); }
+    .sb-avatar { width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg,var(--green),var(--gold)); display: flex; align-items: center; justify-content: center; font-size: .7rem; font-weight: 700; color: #fff; }
+    .sb-user-name { font-size: .8rem; font-weight: 600; color: #fff; }
+    .sb-user-role { font-size: .7rem; color: rgba(255,255,255,.4); }
+    .sb-nav { flex: 1; padding: .75rem 0; overflow-y: auto; }
+    .sb-section { padding: .6rem 1.25rem .25rem; font-size: .6rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.3); }
+    .sb-link { display: flex; align-items: center; gap: .65rem; padding: .55rem 1.25rem; color: rgba(255,255,255,.55); text-decoration: none; font-size: .8rem; font-weight: 500; border-left: 2px solid transparent; transition: color .2s, background .2s; }
+    .sb-link i { width: 14px; text-align: center; font-size: .8rem; }
+    .sb-link:hover { color: #fff; background: rgba(255,255,255,.05); }
+    .sb-link.active { color: #fff; background: rgba(255,255,255,.07); border-left-color: var(--green); }
+    .sb-badge { margin-left: auto; background: var(--danger); color: #fff; font-size: .6rem; font-weight: 700; padding: 1px 6px; border-radius: 10px; }
+    .sb-bottom { padding: .75rem 0; border-top: 1px solid rgba(255,255,255,.07); }
+    .sb-logout-form { display: contents; }
+    .sb-logout { display: flex; align-items: center; gap: .65rem; width: 100%; padding: .55rem 1.25rem; background: none; border: none; cursor: pointer; color: rgba(255,255,255,.45); font-size: .8rem; font-weight: 500; font-family: inherit; transition: color .2s, background .2s; border-left: 2px solid transparent; }
+    .sb-logout i { width: 14px; text-align: center; font-size: .8rem; }
+    .sb-logout:hover { color: #fff; background: rgba(239,68,68,.12); border-left-color: var(--danger); }
 
-        /* Travel Style Buttons */
-        .travel-style-btns button {
-            width: 48%;
-            margin: 5px 1%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            background-color: #f4f4f4;
-            cursor: pointer;
-        }
-        .travel-style-btns button.selected {
-            border-color: #4fceac;
-            background-color: #e6fff5;
-        }
-    </style>
+    /* TOPBAR */
+    .topbar { position: fixed; top: 0; left: var(--sidebar-w); right: 0; height: var(--topbar-h); background: var(--white); border-bottom: 1px solid var(--g200); display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; z-index: 100; box-shadow: var(--sh); }
+    .topbar-left { display: flex; align-items: center; gap: .75rem; flex: 1; min-width: 0; }
+    .back-link { display: flex; align-items: center; gap: .4rem; color: var(--g500); text-decoration: none; font-size: .8rem; font-weight: 500; padding: .3rem .6rem; border-radius: 6px; transition: all .2s; }
+    .back-link:hover { color: var(--g900); background: var(--g100); }
+    .topbar-divider { color: var(--g400); }
+    .page-title { font-size: .9375rem; font-weight: 700; }
+    .topbar-right { display: flex; gap: .5rem; flex-shrink: 0; }
+
+    .btn { display: inline-flex; align-items: center; gap: .4rem; padding: .45rem 1rem; border-radius: 8px; font-size: .78rem; font-weight: 600; cursor: pointer; border: none; text-decoration: none; font-family: inherit; transition: all .2s; }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: #1a1a1a; }
+    .btn-outline { background: transparent; border: 1.5px solid var(--g200); color: var(--g700); }
+    .btn-outline:hover { border-color: var(--g400); }
+    .btn-sm { padding: .35rem .75rem; font-size: .73rem; }
+
+    /* MAIN */
+    .main { margin-left: var(--sidebar-w); padding-top: var(--topbar-h); min-height: 100vh; }
+    .content { padding: 1.25rem 1.5rem; max-width: 860px; }
+
+    /* MESSAGES */
+    .msg { display: flex; align-items: center; gap: .6rem; padding: .7rem 1rem; border-radius: 8px; font-size: .8rem; font-weight: 500; margin-bottom: .75rem; }
+    .msg.success { background: rgba(16,185,129,.1); color: #065f46; border: 1px solid rgba(16,185,129,.2); }
+    .msg.error   { background: rgba(239,68,68,.1);  color: #991b1b; border: 1px solid rgba(239,68,68,.2); }
+
+    /* FORM CARDS */
+    .form-card { background: var(--white); border-radius: var(--r); border: 1px solid var(--g200); box-shadow: var(--sh); margin-bottom: 1rem; overflow: hidden; }
+    .form-card-header { display: flex; align-items: center; gap: .75rem; padding: .875rem 1.25rem; border-bottom: 1px solid var(--g100); }
+    .fch-icon { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: .8rem; flex-shrink: 0; }
+    .fi-blue   { background: rgba(59,130,246,.1);  color: var(--info); }
+    .fi-green  { background: rgba(45,134,89,.1);   color: var(--green); }
+    .fi-gold   { background: rgba(201,169,97,.1);  color: var(--gold); }
+    .fi-purple { background: rgba(139,92,246,.1);  color: #7c3aed; }
+    .fch-title { font-size: .8375rem; font-weight: 700; }
+    .form-card-body { padding: 1.25rem; }
+
+    /* FORM FIELDS */
+    .field-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .field-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+    .field { display: flex; flex-direction: column; gap: .3rem; }
+    .field label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--g500); }
+    .field input, .field select, .field textarea {
+      padding: .55rem .75rem;
+      border: 1.5px solid var(--g200);
+      border-radius: 8px;
+      font-size: .8375rem;
+      font-family: inherit;
+      color: var(--g900);
+      background: var(--white);
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+      width: 100%;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0,0,0,.06);
+    }
+    .field textarea { resize: vertical; min-height: 80px; }
+    .field-error { border-color: var(--danger) !important; }
+    .field-error-msg { font-size: .72rem; color: var(--danger); font-weight: 500; margin-top: 2px; }
+
+    /* Travel style pills */
+    .travel-pills { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .travel-pill {
+      padding: .45rem 1rem;
+      border-radius: 20px;
+      font-size: .78rem; font-weight: 600;
+      border: 1.5px solid var(--g200);
+      background: var(--white);
+      color: var(--g600);
+      cursor: pointer;
+      transition: all .18s;
+    }
+    .travel-pill:hover { border-color: var(--g400); color: var(--g900); }
+    .travel-pill.selected { background: var(--primary); color: var(--white); border-color: var(--primary); }
+
+    /* Budget tiers */
+    .budget-tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+    .budget-tier {
+      padding: .65rem 1rem;
+      border: 1.5px solid var(--g200);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all .18s;
+      background: var(--white);
+    }
+    .budget-tier:hover { border-color: var(--g400); }
+    .budget-tier.selected { border-color: var(--primary); background: var(--g50); }
+    .budget-tier.selected .bt-range { font-weight: 700; color: var(--g900); }
+    .bt-range { font-size: .78rem; font-weight: 600; color: var(--g700); }
+    .bt-label { font-size: .65rem; color: var(--g400); text-transform: uppercase; letter-spacing: .5px; margin-top: 2px; }
+
+    /* Activities */
+    .activity-categories { display: flex; gap: .35rem; flex-wrap: wrap; margin-bottom: .75rem; }
+    .cat-btn { padding: .3rem .75rem; border-radius: 20px; font-size: .72rem; font-weight: 600; border: 1.5px solid var(--g200); background: var(--white); color: var(--g600); cursor: pointer; font-family: inherit; transition: all .18s; }
+    .cat-btn:hover { border-color: var(--g400); }
+    .cat-btn.active { background: var(--primary); color: var(--white); border-color: var(--primary); }
+
+    .activity-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .4rem; }
+    .act-label {
+      display: flex; align-items: center; gap: .5rem;
+      padding: .5rem .75rem;
+      border: 1.5px solid var(--g200);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: .75rem; font-weight: 500;
+      color: var(--g700);
+      transition: all .18s;
+      background: var(--white);
+    }
+    .act-label:hover { border-color: var(--g400); }
+    .act-label input { width: 13px; height: 13px; accent-color: var(--green); flex-shrink: 0; cursor: pointer; }
+    .act-label.checked { border-color: var(--green); background: #f0fdf4; color: #065f46; font-weight: 600; }
+    .act-label.hidden-act { display: none; }
+
+    /* FORM ACTIONS */
+    .form-actions {
+      background: var(--white);
+      border-radius: var(--r);
+      border: 1px solid var(--g200);
+      box-shadow: var(--sh);
+      padding: 1rem 1.25rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem;
+    }
+    .form-actions-left { display: flex; gap: .5rem; }
+    .form-actions-right { display: flex; gap: .5rem; }
+  </style>
 </head>
 <body>
-    <div class="sidebar">
-        <h2>RWANDA</h2>
-        <ul>
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Bookings</a></li>
-            <li><a href="#">Customers</a></li>
-            <li><a href="#">Activities</a></li>
-            <li><a href="#">Accommodations</a></li>
-            <li><a href="#">Itineraries</a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Analytics</a></li>
-        </ul>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <a href="{% url 'index' %}" class="sb-logo">
+    <div class="sb-logo-icon"><i class="fas fa-leaf"></i></div>
+    <span class="sb-logo-text">RWANDA</span>
+  </a>
+  <div class="sb-user">
+    <div class="sb-avatar">{{ request.user.username|first|upper }}</div>
+    <div>
+      <div class="sb-user-name">{{ request.user.get_full_name|default:request.user.username }}</div>
+      <div class="sb-user-role">Administrator</div>
     </div>
-    <form method="POST" action="{% url 'booking_edit' booking.id %}">
-    {% csrf_token %}
-    <div class="main">
-        <h1>Edit Booking</h1>
-        <div class="card">
-            <h2>Personal Information</h2>
-            <div class="form-group">
-                <label for="first_name">First Name</label>
-                <input type="text" id="first_name" value="{{ booking.first_name }}">
-            </div>
-            <div class="form-group">
-                <label for="last_name">Last Name</label>
-                <input type="text" id="last_name" value="{{ booking.last_name }}">
-            </div>
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" value="{{ booking.email }}">
-            </div>
-            <div class="form-group">
-                <label for="phone_number">Phone Number</label>
-                <input type="text" id="phone_number" value="{{ booking.phone_number }}">
-            </div>
-            <div class="form-group">
-                <label for="country">Country</label>
-                <input type="text" id="country" value="{{ booking.country }}">
-            </div>
-            <div class="form-group">
-                <label for="number_of_travelers">Number of Travelers</label>
-                <select id="number_of_travelers">
-                    <option value="1" {% if booking.number_of_travelers == 1 %}selected{% endif %}>1 Traveler</option>
-                    <option value="2" {% if booking.number_of_travelers == 2 %}selected{% endif %}>2 Travelers</option>
-                    <option value="3" {% if booking.number_of_travelers == 3 %}selected{% endif %}>3 Travelers</option>
-                    <option value="4" {% if booking.number_of_travelers == 4 %}selected{% endif %}>4 Travelers</option>
-                </select>
-            </div>
+  </div>
+  <nav class="sb-nav">
+    <div class="sb-section">Main</div>
+    <a href="{% url 'dashboard' %}" class="sb-link"><i class="fas fa-chart-line"></i><span>Dashboard</span></a>
+    <div class="sb-section">Bookings</div>
+    <a href="{% url 'dashboard' %}?status=pending" class="sb-link active"><i class="fas fa-hourglass-half"></i><span>Pending</span></a>
+    <a href="{% url 'dashboard' %}?status=processed" class="sb-link"><i class="fas fa-clipboard-check"></i><span>Processed</span></a>
+    <a href="{% url 'dashboard' %}?status=confirmed" class="sb-link"><i class="fas fa-check-circle"></i><span>Confirmed</span></a>
+    <a href="{% url 'dashboard' %}?status=cancelled" class="sb-link"><i class="fas fa-times-circle"></i><span>Cancelled</span></a>
+    <div class="sb-section">System</div>
+    <a href="/admin/" class="sb-link"><i class="fas fa-shield-alt"></i><span>Django Admin</span></a>
+  </nav>
+  <div class="sb-bottom">
+    <form method="POST" action="{% url 'admin_logout' %}" class="sb-logout-form">
+      {% csrf_token %}
+      <button type="submit" class="sb-logout"><i class="fas fa-sign-out-alt"></i><span>Sign Out</span></button>
+    </form>
+  </div>
+</aside>
 
-            <h2>Travel Style</h2>
-            <div class="travel-style-btns">
-                <button type="button" data-travel="solo">Solo Travel</button>
-                <button type="button" data-travel="family">Family Travel</button>
-                <button type="button" data-travel="couple">Couple Getaway</button>
-                <button type="button" data-travel="group">Group Adventure</button>
-            </div>
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a href="{% url 'booking_view' booking.pk %}" class="back-link"><i class="fas fa-arrow-left"></i> {{ booking.get_booking_id }}</a>
+    <span class="topbar-divider">/</span>
+    <span class="page-title">Edit Booking</span>
+  </div>
+  <div class="topbar-right">
+    <a href="{% url 'booking_view' booking.pk %}" class="btn btn-outline btn-sm">
+      <i class="fas fa-times"></i> Cancel
+    </a>
+  </div>
+</div>
 
-            <h2>Travel Dates</h2>
-            <div class="form-group">
-                <label for="start_date">Preferred Start Date</label>
-                <input type="date" id="start_date" value="{{ booking.start_date }}">
-            </div>
-            <div class="form-group">
-                <label for="end_date">Preferred End Date</label>
-                <input type="date" id="end_date" value="{{ booking.end_date }}">
-            </div>
-            <div class="form-group">
-                <label for="date_flexibility">Date Flexibility</label>
-                <select id="date_flexibility">
-                    <option value="fixed" {% if booking.date_flexibility == 'fixed' %}selected{% endif %}>Fixed dates - cannot change</option>
-                    <option value="flexible" {% if booking.date_flexibility == 'flexible' %}selected{% endif %}>Flexible</option>
-                </select>
-            </div>
+<!-- MAIN -->
+<main class="main">
+  <div class="content">
 
-            <div class="form-group">
-                <button id="saveBtn">Save Changes</button>
-            </div>
+    {% if messages %}
+      {% for message in messages %}
+      <div class="msg {{ message.tags }}">
+        <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %}"></i>
+        {{ message }}
+      </div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="POST" action="{% url 'booking_edit' booking.pk %}">
+      {% csrf_token %}
+
+      <!-- Personal Information -->
+      <div class="form-card">
+        <div class="form-card-header">
+          <div class="fch-icon fi-blue"><i class="fas fa-user"></i></div>
+          <span class="fch-title">Personal Information</span>
         </div>
-    </div>
-</form>
-    {% comment %} <script>
-        // Pre-select travel style
-        let selectedTravel = "{{ booking.travel_type }}";
-        document.querySelectorAll(".travel-style-btns button").forEach(btn => {
-            if(btn.dataset.travel === selectedTravel) btn.classList.add("selected");
-            btn.addEventListener("click", () => {
-                selectedTravel = btn.dataset.travel;
-                document.querySelectorAll(".travel-style-btns button").forEach(b => b.classList.remove("selected"));
-                btn.classList.add("selected");
-            });
-        });
+        <div class="form-card-body">
+          <div class="field-grid-2" style="margin-bottom:1rem;">
+            <div class="field">
+              <label for="id_first_name">First Name</label>
+              <input type="text" id="id_first_name" name="first_name" value="{{ booking.first_name }}" required>
+            </div>
+            <div class="field">
+              <label for="id_last_name">Last Name</label>
+              <input type="text" id="id_last_name" name="last_name" value="{{ booking.last_name }}" required>
+            </div>
+          </div>
+          <div class="field-grid-2" style="margin-bottom:1rem;">
+            <div class="field">
+              <label for="id_email">Email Address</label>
+              <input type="email" id="id_email" name="email" value="{{ booking.email }}" required>
+            </div>
+            <div class="field">
+              <label for="id_phone">Phone Number</label>
+              <input type="text" id="id_phone" name="phone" value="{{ booking.phone }}" required>
+            </div>
+          </div>
+          <div class="field-grid-2">
+            <div class="field">
+              <label for="id_country">Country</label>
+              <input type="text" id="id_country" name="country" value="{{ booking.country }}" required>
+            </div>
+            <div class="field">
+              <label for="id_travelers">Number of Travellers</label>
+              <select id="id_travelers" name="travelers" required>
+                {% for val, label in form.travelers.field.choices %}
+                  <option value="{{ val }}" {% if booking.travelers == val %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        // Save changes
-        document.getElementById("saveBtn").addEventListener("click", () => {
-            const data = {
-                first_name: document.getElementById("first_name").value,
-                last_name: document.getElementById("last_name").value,
-                email: document.getElementById("email").value,
-                phone_number: document.getElementById("phone_number").value,
-                country: document.getElementById("country").value,
-                number_of_travelers: document.getElementById("number_of_travelers").value,
-                travel_type: selectedTravel,
-                start_date: document.getElementById("start_date").value,
-                end_date: document.getElementById("end_date").value,
-                date_flexibility: document.getElementById("date_flexibility").value
-            };
+      <!-- Travel Style -->
+      <div class="form-card">
+        <div class="form-card-header">
+          <div class="fch-icon fi-green"><i class="fas fa-compass"></i></div>
+          <span class="fch-title">Travel Style</span>
+        </div>
+        <div class="form-card-body">
+          <input type="hidden" name="travel_type" id="travelTypeInput" value="{{ booking.travel_type }}">
+          <div class="travel-pills">
+            <button type="button" class="travel-pill {% if booking.travel_type == 'solo' %}selected{% endif %}" data-val="solo">Solo Travel</button>
+            <button type="button" class="travel-pill {% if booking.travel_type == 'couple' %}selected{% endif %}" data-val="couple">Couple Getaway</button>
+            <button type="button" class="travel-pill {% if booking.travel_type == 'family' %}selected{% endif %}" data-val="family">Family Travel</button>
+            <button type="button" class="travel-pill {% if booking.travel_type == 'group' %}selected{% endif %}" data-val="group">Group Adventure</button>
+          </div>
+        </div>
+      </div>
 
-            fetch("/booking-update/{{ booking.id }}/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRFToken": "{{ csrf_token }}"
-                },
-                body: JSON.stringify(data)
-            })
-            .then(res => res.json())
-            .then(res => alert(res.message))
-            .catch(err => console.error(err));
-        });
-    </script> {% endcomment %}
+      <!-- Travel Dates -->
+      <div class="form-card">
+        <div class="form-card-header">
+          <div class="fch-icon fi-gold"><i class="fas fa-calendar-alt"></i></div>
+          <span class="fch-title">Travel Dates</span>
+        </div>
+        <div class="form-card-body">
+          <div class="field-grid-3">
+            <div class="field">
+              <label for="id_start_date">Start Date</label>
+              <input type="date" id="id_start_date" name="start_date" value="{{ booking.start_date|date:'Y-m-d' }}" required>
+            </div>
+            <div class="field">
+              <label for="id_end_date">End Date</label>
+              <input type="date" id="id_end_date" name="end_date" value="{{ booking.end_date|date:'Y-m-d' }}" required>
+            </div>
+            <div class="field">
+              <label for="id_date_flexibility">Date Flexibility</label>
+              <select id="id_date_flexibility" name="date_flexibility" required>
+                {% for val, label in form.date_flexibility.field.choices %}
+                  <option value="{{ val }}" {% if booking.date_flexibility == val %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <input type="hidden" name="duration" id="id_duration" value="{{ booking.duration }}">
+          <div id="durationDisplay" style="margin-top:.75rem;font-size:.78rem;color:var(--g500);"></div>
+        </div>
+      </div>
+
+      <!-- Budget -->
+      <div class="form-card">
+        <div class="form-card-header">
+          <div class="fch-icon fi-gold"><i class="fas fa-dollar-sign"></i></div>
+          <span class="fch-title">Budget Range (per person)</span>
+        </div>
+        <div class="form-card-body">
+          <input type="hidden" name="budget" id="id_budget" value="{{ booking.budget }}">
+          <div class="budget-tiers">
+            <div class="budget-tier {% if booking.budget < 1000 %}selected{% endif %}" data-val="500">
+              <div class="bt-range">USD 500 – 1,000</div>
+              <div class="bt-label">Entry</div>
+            </div>
+            <div class="budget-tier {% if booking.budget >= 1000 and booking.budget < 3000 %}selected{% endif %}" data-val="1000">
+              <div class="bt-range">USD 1,000 – 3,000</div>
+              <div class="bt-label">Comfort</div>
+            </div>
+            <div class="budget-tier {% if booking.budget >= 3000 and booking.budget < 6000 %}selected{% endif %}" data-val="3000">
+              <div class="bt-range">USD 3,000 – 6,000</div>
+              <div class="bt-label">Premium</div>
+            </div>
+            <div class="budget-tier {% if booking.budget >= 6000 and booking.budget < 10000 %}selected{% endif %}" data-val="6000">
+              <div class="bt-range">USD 6,000 – 10,000</div>
+              <div class="bt-label">Luxury</div>
+            </div>
+            <div class="budget-tier {% if booking.budget >= 10000 %}selected{% endif %}" data-val="10000">
+              <div class="bt-range">USD 10,000+</div>
+              <div class="bt-label">Ultra</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accommodation -->
+      <div class="form-card">
+        <div class="form-card-header">
+          <div class="fch-icon fi-purple"><i class="fas fa-bed"></i></div>
+          <span class="fch-title">Accommodation</span>
+        </div>
+        <div class="form-card-body">
+          <input type="hidden" name="accommodation" id="accommodationInput" value="{{ booking.accommodation }}">
+          <div class="travel-pills">
+            <button type="button" class="travel-pill {% if booking.accommodation == 'luxury' %}selected{% endif %}" data-val="luxury">5-Star Luxury</button>
+            <button type="button" class="travel-pill {% if booking.accommodation == 'boutique' %}selected{% endif %}" data-val="boutique">Boutique Lodges</button>
+            <button type="button" class="travel-pill {% if booking.accommodation == 'mid-range' %}selected{% endif %}" data-val="mid-range">Mid-Range Hotels</button>
+            <button type="button" class="travel-pill {% if booking.accommodation == 'budget' %}selected{% endif %}" data-val="budget">Budget-Friendly</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activities -->
+      <div class="form-card">
+        <div class="form-card-header">
+          <div class="fch-icon fi-green"><i class="fas fa-hiking"></i></div>
+          <span class="fch-title">Activities</span>
+        </div>
+        <div class="form-card-body">
+          <div class="activity-categories" id="catBtns">
+            <button type="button" class="cat-btn active" data-cat="all">All</button>
+            <button type="button" class="cat-btn" data-cat="wildlife">Wildlife</button>
+            <button type="button" class="cat-btn" data-cat="safari">Safari</button>
+            <button type="button" class="cat-btn" data-cat="nature">Nature</button>
+            <button type="button" class="cat-btn" data-cat="lake">Lake Kivu</button>
+            <button type="button" class="cat-btn" data-cat="cultural">Cultural</button>
+            <button type="button" class="cat-btn" data-cat="city">Kigali</button>
+          </div>
+          <div class="activity-grid" id="activityGrid">
+            {% for val, label in form.activities.field.choices %}
+            <label class="act-label" data-cat="{{ val|slice:':' }}">
+              <input type="checkbox" name="activities" value="{{ val }}"
+                {% if val in booking.get_activities_list %}checked{% endif %}
+                onchange="this.closest('.act-label').classList.toggle('checked', this.checked)">
+              {{ label }}
+            </label>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Special Requests -->
+      <div class="form-card">
+        <div class="form-card-header">
+          <div class="fch-icon fi-gold"><i class="fas fa-comment-alt"></i></div>
+          <span class="fch-title">Special Requests</span>
+        </div>
+        <div class="form-card-body">
+          <div class="field">
+            <label for="id_special_requests">Notes / Special Requests (optional)</label>
+            <textarea id="id_special_requests" name="special_requests" rows="3">{{ booking.special_requests }}</textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status -->
+      <div class="form-card">
+        <div class="form-card-header">
+          <div class="fch-icon fi-blue"><i class="fas fa-toggle-on"></i></div>
+          <span class="fch-title">Booking Status</span>
+        </div>
+        <div class="form-card-body">
+          <div class="field" style="max-width:240px;">
+            <label for="id_status">Current Status</label>
+            <select id="id_status" name="status">
+              <option value="pending"   {% if booking.status == 'pending'   %}selected{% endif %}>Pending</option>
+              <option value="processed" {% if booking.status == 'processed' %}selected{% endif %}>Processed</option>
+              <option value="confirmed" {% if booking.status == 'confirmed' %}selected{% endif %}>Confirmed</option>
+              <option value="cancelled" {% if booking.status == 'cancelled' %}selected{% endif %}>Cancelled</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORM ACTIONS -->
+      <div class="form-actions">
+        <div class="form-actions-left">
+          <a href="{% url 'booking_view' booking.pk %}" class="btn btn-outline">
+            <i class="fas fa-times"></i> Cancel
+          </a>
+        </div>
+        <div class="form-actions-right">
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> Save Changes
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</main>
+
+<script>
+  // Travel style pills
+  document.querySelectorAll('.travel-pill').forEach(pill => {
+    const input = document.getElementById(
+      pill.closest('[id]') ? 'travelTypeInput' : 'accommodationInput'
+    );
+    pill.addEventListener('click', () => {
+      pill.closest('.travel-pills').querySelectorAll('.travel-pill').forEach(p => p.classList.remove('selected'));
+      pill.classList.add('selected');
+      // determine which hidden input
+      const parent = pill.closest('.form-card-body');
+      const hidden = parent.querySelector('input[type="hidden"]');
+      if (hidden) hidden.value = pill.dataset.val;
+    });
+  });
+
+  // Budget tiers
+  document.querySelectorAll('.budget-tier').forEach(tier => {
+    tier.addEventListener('click', () => {
+      document.querySelectorAll('.budget-tier').forEach(t => t.classList.remove('selected'));
+      tier.classList.add('selected');
+      document.getElementById('id_budget').value = tier.dataset.val;
+    });
+  });
+
+  // Pre-check activities
+  document.querySelectorAll('.act-label input:checked').forEach(cb => {
+    cb.closest('.act-label').classList.add('checked');
+  });
+
+  // Activity category filter
+  const CATS = {
+    wildlife: ['gorilla-trekking','golden-monkey','chimpanzee'],
+    safari:   ['big-five','boat-safari','bird-watching'],
+    nature:   ['canopy-walk','guided-walks','waterfall-hikes','volcano-hiking','mountain-climbing'],
+    lake:     ['kayaking','congo-nile','sport-fishing','zip-lining','sunset-cruise','swimming-beach','spa-wellness','yoga-meditation','hot-springs','golf'],
+    cultural: ['genocide-memorial','cultural-villages','traditional-dance','cooking-classes','art-workshops','museums-galleries','coffee-tours','tea-plantations','market-tours'],
+    city:     ['kigali-tour','fine-dining','street-food','nightlife-music','photography-tours','shopping'],
+  };
+
+  document.querySelectorAll('#catBtns .cat-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#catBtns .cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.cat;
+      document.querySelectorAll('.act-label').forEach(label => {
+        const val = label.querySelector('input').value;
+        if (cat === 'all' || (CATS[cat] && CATS[cat].includes(val))) {
+          label.classList.remove('hidden-act');
+        } else {
+          label.classList.add('hidden-act');
+        }
+      });
+    });
+  });
+
+  // Date duration calculation
+  function calcDuration() {
+    const s = document.getElementById('id_start_date').value;
+    const e = document.getElementById('id_end_date').value;
+    const disp = document.getElementById('durationDisplay');
+    const dur  = document.getElementById('id_duration');
+    if (!s || !e) { disp.textContent = ''; return; }
+    const days = Math.round((new Date(e) - new Date(s)) / 86400000);
+    if (days < 0) { disp.textContent = '⚠ End date must be after start date'; disp.style.color = '#ef4444'; return; }
+    const nights = days;
+    const total  = days + 1;
+    disp.style.color = '#737373';
+    disp.textContent = `✓ ${total} day${total !== 1 ? 's' : ''} / ${nights} night${nights !== 1 ? 's' : ''}`;
+    dur.value = total;
+  }
+  document.getElementById('id_start_date').addEventListener('change', calcDuration);
+  document.getElementById('id_end_date').addEventListener('change', calcDuration);
+  calcDuration();
+</script>
 </body>
 </html>
